@@ -7,6 +7,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 	state = GameState::NETWORK;
+	networkState = NetworkState::NONE;
 
 	// Network text
 	font.loadFromFile("font/arial.ttf");
@@ -152,9 +153,9 @@ void Network::do_once()
 {
 	std::call_once(ask_flag, [&]() {
 		std::cout << "Do you want to be a server (s) or a client (c)? ";
-		std::cin >> who; 
+		//std::cin >> who; 
 
-		if (who == 's') {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 			networkState = NetworkState::SERVER;
 		}
 		else {
@@ -174,8 +175,21 @@ void Network::update(float dt)
 	std::cin >> protocol;*/
 
 	// Client or server ?
-	do_once();
-
+	//do_once();
+	if (input->isKeyDown(sf::Keyboard::S))
+	{
+		input->setKeyUp(sf::Keyboard::S);
+		networkState = NetworkState::SERVER;
+		//text.setPosition(200, 100);
+		text.setString("Connecting...\n\nYou're a server\n\nPress Enter to Play");
+	}
+	if (input->isKeyDown(sf::Keyboard::C))
+	{
+		input->setKeyUp(sf::Keyboard::C);
+		networkState = NetworkState::CLIENT;
+		//text.setPosition(200, 100);
+		text.setString("Connecting...\n\nYou're a client\n\nPress Enter to Play");
+	}
 	//if (protocol == 't')
 	//{
 	//	// Test the TCP protocol
@@ -189,10 +203,22 @@ void Network::update(float dt)
 	//else
 	//{
 	// Test the unconnected UDP protocol
-	if (getNetworkState() == NetworkState::SERVER)
+	switch (getNetworkState())
+	{
+	case NetworkState::SERVER:
 		runUdpServer(port);
-	else
+		break;
+	case NetworkState::CLIENT:
 		runUdpClient(port);
+		break;
+	case NetworkState::NONE:
+		text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
+		break;
+	}
+	/*if (getNetworkState() == NetworkState::SERVER)
+		
+	else*/
+		
 	//}
 
 	//// Wait until the user presses 'enter' key

@@ -6,7 +6,8 @@ Game::Game(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 	state = GameState::LEVEL;
-	//networkState = getNetworkState();
+	// 
+	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
 	fps = 0;
 	font.loadFromFile("font/arial.ttf");
