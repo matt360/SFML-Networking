@@ -96,100 +96,6 @@ Game::~Game()
 
 }
 
-GameState Game::getState()
-{
-	return state;
-}
-
-void Game::update(float dt)
-{
-	//fps = 1.f / dt;
-	//text.setString(std::to_string(fps));
-	if (!hasStarted)
-	{
-		audioMgr.playMusicbyName("cantina");
-		hasStarted = true;
-	}
-
-	if (input->isKeyDown(sf::Keyboard::Up))
-	{
-		input->setKeyUp(sf::Keyboard::Up);
-		player.jump();
-		audioMgr.playSoundbyName("jump");
-	}
-
-	player.update(dt);
-
-	if (input->isKeyDown(sf::Keyboard::Num1))
-	{
-		input->setKeyUp(sf::Keyboard::Num1);
-		audioMgr.playSoundbyName("up");
-	}
-	
-	if (input->isKeyDown(sf::Keyboard::Num2))
-	{
-		input->setKeyUp(sf::Keyboard::Num2);
-		audioMgr.playSoundbyName("getover");
-	}
-	if (input->isKeyDown(sf::Keyboard::Num3))
-	{
-		input->setKeyUp(sf::Keyboard::Num3);
-		audioMgr.playSoundbyName("glass");
-	}
-	if (input->isKeyDown(sf::Keyboard::BackSpace))
-	{
-		input->setKeyUp(sf::Keyboard::BackSpace);
-		audioMgr.stopAllMusic();
-	}
-	if (input->isKeyDown(sf::Keyboard::Num4))
-	{
-		input->setKeyUp(sf::Keyboard::Num4);
-		audioMgr.playMusicbyName("hyrule");
-	}
-
-	// check collision with world
-	std::vector<Tile>* world = level.getLevel();
-	for (int i = 0; i < (int)world->size(); i++)
-	{
-		if ((*world)[i].isAlive())
-		{
-			// if "alive" check collision
-			// world tile which are not alive don't want collision checks
-			if (checkCollision(&player, &(*world)[i]))
-			{
-				player.collisionRespone(&(*world)[i]);
-			}
-		}
-	}
-
-	
-
-	if (player.getPosition().y > window->getSize().y)
-	{
-		state = GameState::MENU;
-		player.setPosition(0, 0);
-		hasStarted = false;
-		audioMgr.stopAllSounds();
-		audioMgr.stopAllMusic();
-	}
-	else
-	{
-		state = GameState::LEVEL;
-	}
-
-
-
-}
-
-void Game::handleInput(float dt)
-{
-	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
-	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
-	
-
-	
-}
-
 ////////////////////////////////////////////////////////////
 /// Launch a server, wait for a message, send an answer.
 ///
@@ -292,6 +198,94 @@ void Game::runUdpClient(unsigned short port)
 		return;
 	}
 
+}
+
+GameState Game::getState()
+{
+	return state;
+}
+
+void Game::update(float dt)
+{
+	//fps = 1.f / dt;
+	//text.setString(std::to_string(fps));
+	if (!hasStarted)
+	{
+		audioMgr.playMusicbyName("cantina");
+		hasStarted = true;
+	}
+
+	if (input->isKeyDown(sf::Keyboard::Up))
+	{
+		input->setKeyUp(sf::Keyboard::Up);
+		player.jump();
+		audioMgr.playSoundbyName("jump");
+	}
+
+	player.update(dt);
+
+	if (input->isKeyDown(sf::Keyboard::Num1))
+	{
+		input->setKeyUp(sf::Keyboard::Num1);
+		audioMgr.playSoundbyName("up");
+	}
+	
+	if (input->isKeyDown(sf::Keyboard::Num2))
+	{
+		input->setKeyUp(sf::Keyboard::Num2);
+		audioMgr.playSoundbyName("getover");
+	}
+	if (input->isKeyDown(sf::Keyboard::Num3))
+	{
+		input->setKeyUp(sf::Keyboard::Num3);
+		audioMgr.playSoundbyName("glass");
+	}
+	if (input->isKeyDown(sf::Keyboard::BackSpace))
+	{
+		input->setKeyUp(sf::Keyboard::BackSpace);
+		audioMgr.stopAllMusic();
+	}
+	if (input->isKeyDown(sf::Keyboard::Num4))
+	{
+		input->setKeyUp(sf::Keyboard::Num4);
+		audioMgr.playMusicbyName("hyrule");
+	}
+
+	// check collision with world
+	std::vector<Tile>* world = level.getLevel();
+	for (int i = 0; i < (int)world->size(); i++)
+	{
+		if ((*world)[i].isAlive())
+		{
+			// if "alive" check collision
+			// world tile which are not alive don't want collision checks
+			if (checkCollision(&player, &(*world)[i]))
+			{
+				player.collisionRespone(&(*world)[i]);
+			}
+		}
+	}
+
+	if (player.getPosition().y > window->getSize().y)
+	{
+		state = GameState::MENU;
+		player.setPosition(0, 0);
+		hasStarted = false;
+		audioMgr.stopAllSounds();
+		audioMgr.stopAllMusic();
+	}
+	else
+	{
+		state = GameState::LEVEL;
+	}
+	
+	runUdpServer(port);
+}
+
+void Game::handleInput(float dt)
+{
+	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
+	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
 }
 
 void Game::render()

@@ -15,6 +15,11 @@ public:
 	void render();
 	GameState getState();
 
+	// Network
+	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
+	void runUdpServer(unsigned short port);
+	void runUdpClient(unsigned short port);
+
 private:
 	void beginDraw();
 	void endDraw();

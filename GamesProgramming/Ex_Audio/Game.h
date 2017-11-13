@@ -23,6 +23,11 @@ public:
 	GameState getState();
 	//Window* getWindow();
 
+	// Network
+	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
+
+	void runUdpServer(unsigned short port);
+	void runUdpClient(unsigned short port);
 
 private:
 	bool checkCollision(Sprite* s1, Sprite* s2);
@@ -39,10 +44,6 @@ private:
 
 	void beginDraw();
 	void endDraw();
-
-	// Network
-	void runUdpServer(unsigned short port);
-	void runUdpClient(unsigned short port);
 
 	AudioManager audioMgr;
 

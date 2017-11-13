@@ -126,6 +126,7 @@ void main(int argc, char** argv[])
 
 		case (GameState::NETWORK) :
 			network.handleInput(deltaTime);
+			// create socket and 
 			network.update(deltaTime);
 			network.render();
 			state = network.getState();
