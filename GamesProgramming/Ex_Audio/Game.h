@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <iostream>
 #include "Input.h"
 #include <Windows.h>
 #include <string.h>
@@ -39,6 +40,9 @@ private:
 	void beginDraw();
 	void endDraw();
 
+	// Network
+	void runUdpServer(unsigned short port);
+	void runUdpClient(unsigned short port);
 
 	AudioManager audioMgr;
 

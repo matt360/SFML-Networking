@@ -162,9 +162,12 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MusicObject.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Sockets.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TCP.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="UDP.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>

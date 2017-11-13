@@ -1,4 +1,6 @@
 //#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cstdlib>
 #include "Game.h"
 #include "Menu.h"
 #include "States.h"
@@ -112,6 +114,8 @@ void main(int argc, char** argv[])
 		switch (state)
 		{
 		case (GameState::MENU) :
+
+
 			menu.handleInput(deltaTime);
 			menu.update(deltaTime);
 			menu.render();
@@ -119,11 +123,16 @@ void main(int argc, char** argv[])
 			break;
 
 		case(GameState::LEVEL):
+
 			game.handleInput(deltaTime);
+			// do a non blocking receive - put socket into non blocking mode when it's being created
+			// queue of messages to send, put message into the queue when ready to send, non-blocking send
+			//socket(); 
 			game.update(deltaTime);
 			game.render();
 			state = game.getState();
 			break;
+
 		case(GameState::PAUSE) :
 			game.render();
 			break;
