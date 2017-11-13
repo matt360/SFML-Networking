@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "Game.h"
 #include "Menu.h"
+#include "Network.h"
 #include "States.h"
 
 void main(int argc, char** argv[])
@@ -16,6 +17,7 @@ void main(int argc, char** argv[])
 	Input input;
 	Game game(&window, &input);
 	Menu menu(&window, &input);
+	Network network(&window, &input);
 	// Set initial state
 	GameState state = GameState::MENU;	
 	//direction dir = direction::left;
@@ -120,6 +122,13 @@ void main(int argc, char** argv[])
 			menu.update(deltaTime);
 			menu.render();
 			state = menu.getState();
+			break;
+
+		case (GameState::NETWORK) :
+			network.handleInput(deltaTime);
+			network.update(deltaTime);
+			network.render();
+			state = network.getState();
 			break;
 
 		case(GameState::LEVEL):

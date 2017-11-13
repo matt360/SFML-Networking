@@ -236,21 +236,62 @@ void Game::runUdpClient(unsigned short port)
 
 	// Create a socket for communicating with the server
 	sf::UdpSocket socket;
+	socket.setBlocking(false);
 
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
-	if (socket.send(out, sizeof(out), server, port) != sf::Socket::Done)
+
+	switch (socket.send(out, sizeof(out), server, port))
+	{
+		/*case sf::Socket::NotReady :
+		std::cout << "Socket not ready " << server << std::endl;
+		break;*/
+
+
+		/*case sf::Socket::Disconnected :
+
+		break;*/
+
+		/*case sf::Socket::Error :
+
+		break;*/
+
+	case sf::Socket::Done:
+		std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
+		break;
+
+	default:
 		return;
-	std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
+	}
 
 	// Receive an answer from anyone (but most likely from the server)
 	char in[128];
 	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	if (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
+	switch (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
+	{
+		/*case sf::Socket::NotReady :
+		std::cout << "Socket not ready " << server << std::endl;
+		break;*/
+
+
+		/*case sf::Socket::Disconnected :
+
+		break;*/
+
+		/*case sf::Socket::Error :
+
+		break;*/
+
+	case sf::Socket::Done:
+		std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
+		break;
+
+	default:
 		return;
-	std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
+	}
+
 }
 
 void Game::render()

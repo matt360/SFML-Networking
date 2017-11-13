@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Network">
       <UniqueIdentifier>{2520289d-5ec9-487e-ad09-46ac7299fcde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{88996bb1-75f2-4588-b846-28114b6256dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -78,6 +81,9 @@
     <ClCompile Include="TCP.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -121,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

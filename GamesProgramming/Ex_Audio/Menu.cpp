@@ -29,7 +29,7 @@ void Menu::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		state = GameState::LEVEL;
+		state = GameState::NETWORK;
 	}
 	else
 	{
