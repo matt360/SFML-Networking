@@ -6,6 +6,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 	state = GameState::LEVEL;
+	//networkState = getNetworkState();
 
 	fps = 0;
 	font.loadFromFile("font/arial.ttf");
@@ -96,6 +97,16 @@ Game::~Game()
 
 }
 
+GameState Game::getState()
+{
+	return state;
+}
+
+//NetworkState Game::getNetworkState()
+//{
+//	return networkState;
+//}
+
 ////////////////////////////////////////////////////////////
 /// Launch a server, wait for a message, send an answer.
 ///
@@ -134,12 +145,12 @@ void Game::runUdpServer(unsigned short port)
 void Game::runUdpClient(unsigned short port)
 {
 	// Ask for the server address
-	sf::IpAddress server;
-	do
+	sf::IpAddress server("127.1.0");
+	/*do
 	{
-		std::cout << "Type the address or name of the server to connect to: ";
-		std::cin >> server;
-	} while (server == sf::IpAddress::None);
+	std::cout << "Type the address or name of the server to connect to: ";
+	std::cin >> server;
+	} while (server == sf::IpAddress::None);*/
 
 	// Create a socket for communicating with the server
 	sf::UdpSocket socket;
@@ -150,24 +161,24 @@ void Game::runUdpClient(unsigned short port)
 
 	switch (socket.send(out, sizeof(out), server, port))
 	{
-		/*case sf::Socket::NotReady :
+	case sf::Socket::NotReady:
 		std::cout << "Socket not ready " << server << std::endl;
-		break;*/
-
-
-		/*case sf::Socket::Disconnected :
-
-		break;*/
-
-		/*case sf::Socket::Error :
-
-		break;*/
+		break;
 
 	case sf::Socket::Done:
 		std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
 		break;
 
+	case sf::Socket::Disconnected:
+		std::cout << "Disconnected" << std::endl;
+		break;
+
+	case sf::Socket::Error:
+		std::cout << "Socket Error" << std::endl;
+		break;
+
 	default:
+		std::cout << "Default Error" << std::endl;
 		return;
 	}
 
@@ -176,35 +187,42 @@ void Game::runUdpClient(unsigned short port)
 	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	switch (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
+	switch (socket.receive(in, sizeof(in), received, sender, senderPort))
 	{
-		/*case sf::Socket::NotReady :
+	case sf::Socket::NotReady:
 		std::cout << "Socket not ready " << server << std::endl;
-		break;*/
-
-
-		/*case sf::Socket::Disconnected :
-
-		break;*/
-
-		/*case sf::Socket::Error :
-
-		break;*/
+		break;
 
 	case sf::Socket::Done:
 		std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
 		break;
 
+	case sf::Socket::Disconnected:
+		std::cout << "Disconnected" << std::endl;
+		break;
+
+	case sf::Socket::Error:
+		std::cout << "Socket Error" << std::endl;
+		break;
+
 	default:
+		std::cout << "Default Error" << std::endl;
 		return;
 	}
-
 }
 
-GameState Game::getState()
-{
-	return state;
-}
+//void Game::do_once()
+//{
+//	std::call_once(ask_flag, [&]() {
+//		if (getNetworkState() == NetworkState::SERVER) {
+//			who = 's';
+//		}
+//		else {
+//			who = 'c';
+//		}
+//	}
+//	);
+//}
 
 void Game::update(float dt)
 {
@@ -280,7 +298,10 @@ void Game::update(float dt)
 		state = GameState::LEVEL;
 	}
 	
-	runUdpServer(port);
+	if (getNetworkState() == NetworkState::SERVER)
+		runUdpServer(port);
+	else
+		runUdpClient(port);
 }
 
 void Game::handleInput(float dt)

@@ -6,6 +6,7 @@
 #include "Input.h"
 #include <Windows.h>
 #include <string.h>
+#include <mutex>
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
@@ -21,6 +22,7 @@ public:
 	void update(float dt);
 	void render();
 	GameState getState();
+	/*NetworkState getNetworkState();*/
 	//Window* getWindow();
 
 	// Network
@@ -38,6 +40,8 @@ private:
 	Input* input;
 	GameState state;
 
+	std::once_flag ask_flag;
+
 	float fps;
 	sf::Text text;
 	sf::Font font;
@@ -46,7 +50,6 @@ private:
 	void endDraw();
 
 	AudioManager audioMgr;
-
 
 	bool hasStarted;
 

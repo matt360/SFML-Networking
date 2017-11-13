@@ -25,6 +25,11 @@ GameState Network::getState()
 	return state;
 }
 
+//NetworkState Network::getNetworkState()
+//{
+//	return networkState;
+//}
+
 void Network::handleInput(float dt)
 {
 
@@ -147,7 +152,15 @@ void Network::do_once()
 {
 	std::call_once(ask_flag, [&]() {
 		std::cout << "Do you want to be a server (s) or a client (c)? ";
-		std::cin >> who; }
+		std::cin >> who; 
+
+		if (who == 's') {
+			networkState = NetworkState::SERVER;
+		}
+		else {
+			networkState = NetworkState::CLIENT;
+		}
+	}
 	);
 }
 
@@ -176,7 +189,7 @@ void Network::update(float dt)
 	//else
 	//{
 	// Test the unconnected UDP protocol
-	if (who == 's')
+	if (getNetworkState() == NetworkState::SERVER)
 		runUdpServer(port);
 	else
 		runUdpClient(port);

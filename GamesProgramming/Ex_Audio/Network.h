@@ -15,6 +15,7 @@ public:
 	void update(float dt);
 	void render();
 	GameState getState();
+	//NetworkState getNetworkState();
 
 	// Network
 	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
@@ -27,6 +28,7 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	GameState state;
+	//NetworkState networkState;
 
 	sf::Text text;
 	sf::Font font;
