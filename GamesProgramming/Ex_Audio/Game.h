@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include "Input.h"
 #include <Windows.h>
 #include <string.h>
