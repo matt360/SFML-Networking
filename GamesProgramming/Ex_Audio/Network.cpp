@@ -143,19 +143,25 @@ void Network::runUdpClient(unsigned short port)
 	}
 }
 
+void Network::do_once()
+{
+	std::call_once(ask_flag, [&]() {
+		std::cout << "Do you want to be a server (s) or a client (c)? ";
+		std::cin >> who; }
+	);
+}
+
 void Network::update(float dt)
 {
-	runUdpServer(port);
+	//runUdpServer(port);
 
-	//// TCP, UDP or connected UDP ?
-	//char protocol;
-	//std::cout << "Do you want to use TCP (t) or UDP (u)? ";
-	//std::cin >> protocol;
+	// TCP, UDP or connected UDP ?
+	/*char protocol;
+	std::cout << "Do you want to use TCP (t) or UDP (u)? ";
+	std::cin >> protocol;*/
 
-	//// Client or server ?
-	//char who;
-	//std::cout << "Do you want to be a server (s) or a client (c)? ";
-	//std::cin >> who;
+	// Client or server ?
+	do_once();
 
 	//if (protocol == 't')
 	//{
@@ -169,11 +175,11 @@ void Network::update(float dt)
 	//}
 	//else
 	//{
-	//	// Test the unconnected UDP protocol
-	//	if (who == 's')
-	//		runUdpServer(port);
-	//	else
-	//		runUdpClient(port);
+	// Test the unconnected UDP protocol
+	if (who == 's')
+		runUdpServer(port);
+	else
+		runUdpClient(port);
 	//}
 
 	//// Wait until the user presses 'enter' key

@@ -3,6 +3,7 @@
 #include "Input.h"
 #include <string.h>
 #include "States.h"
+#include <mutex>
 
 class Network
 {
@@ -19,7 +20,7 @@ public:
 	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
 	void runUdpServer(unsigned short port);
 	void runUdpClient(unsigned short port);
-
+	
 private:
 	void beginDraw();
 	void endDraw();
@@ -30,6 +31,8 @@ private:
 	sf::Text text;
 	sf::Font font;
 
-
+	std::once_flag ask_flag;
+	char who;
+	void do_once();
 };
 
