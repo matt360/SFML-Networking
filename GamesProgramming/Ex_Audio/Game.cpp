@@ -104,6 +104,7 @@ void Game::runUdpServer(unsigned short port)
 {
 	// Create a socket to receive a message from anyone
 	sf::UdpSocket socket;
+	socket.setBlocking(false);
 
 	// Listen to messages on the specified port
 	if (socket.bind(port) != sf::Socket::Done)

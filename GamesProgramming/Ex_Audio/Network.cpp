@@ -47,7 +47,7 @@ void Network::runUdpServer(unsigned short port)
 {
 	// Create a socket to receive a message from anyone
 	sf::UdpSocket socket;
-	//socket.setBlocking(false);
+	socket.setBlocking(false);
 
 	// Listen to messages on the specified port
 	if (socket.bind(port) != sf::Socket::Done)
@@ -212,41 +212,41 @@ void Network::runUdpClient(unsigned short port)
 
 void Network::update(float dt)
 {
-	//runUdpClient(port);
+	runUdpServer(port);
 
-	// TCP, UDP or connected UDP ?
-	char protocol;
-	std::cout << "Do you want to use TCP (t) or UDP (u)? ";
-	std::cin >> protocol;
+	//// TCP, UDP or connected UDP ?
+	//char protocol;
+	//std::cout << "Do you want to use TCP (t) or UDP (u)? ";
+	//std::cin >> protocol;
 
-	// Client or server ?
-	char who;
-	std::cout << "Do you want to be a server (s) or a client (c)? ";
-	std::cin >> who;
+	//// Client or server ?
+	//char who;
+	//std::cout << "Do you want to be a server (s) or a client (c)? ";
+	//std::cin >> who;
 
-	if (protocol == 't')
-	{
-		// Test the TCP protocol
-		if (who == 's')
-			//runTcpServer(port);
-			return;
-		else
-			//runTcpClient(port);
-			return;
-	}
-	else
-	{
-		// Test the unconnected UDP protocol
-		if (who == 's')
-			runUdpServer(port);
-		else
-			runUdpClient(port);
-	}
+	//if (protocol == 't')
+	//{
+	//	// Test the TCP protocol
+	//	if (who == 's')
+	//		//runTcpServer(port);
+	//		return;
+	//	else
+	//		//runTcpClient(port);
+	//		return;
+	//}
+	//else
+	//{
+	//	// Test the unconnected UDP protocol
+	//	if (who == 's')
+	//		runUdpServer(port);
+	//	else
+	//		runUdpClient(port);
+	//}
 
-	// Wait until the user presses 'enter' key
-	std::cout << "Press enter to exit..." << std::endl;
-	std::cin.ignore(10000, '\n');
-	std::cin.ignore(10000, '\n');
+	//// Wait until the user presses 'enter' key
+	//std::cout << "Press enter to exit..." << std::endl;
+	//std::cin.ignore(10000, '\n');
+	//std::cin.ignore(10000, '\n');
 }
 
 void Network::render()
