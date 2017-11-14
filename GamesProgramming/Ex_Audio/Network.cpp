@@ -103,14 +103,6 @@ void Network::update(float dt)
 		//text.setPosition(200, 100);
 		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 	}
-	if (input->isKeyDown(sf::Keyboard::N))
-	{
-		input->setKeyUp(sf::Keyboard::N);
-		//networkState = NetworkState::NONE;
-		// message - joined the server
-		//text.setPosition(200, 100);
-		text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
-	}
 }
 
 void Network::render()
