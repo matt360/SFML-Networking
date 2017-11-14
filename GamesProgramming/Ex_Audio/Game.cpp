@@ -1,10 +1,13 @@
 #include "Game.h"
 #include "States.h"
 
-Game::Game(sf::RenderWindow* hwnd, Input* in)
+Game::Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, unsigned short *port_number, const std::string* server_address)
 {
 	window = hwnd;
 	input = in;
+	port = port_number;
+	socket = udp_socket;
+	address = server_address;
 	state = GameState::LEVEL;
 	// 
 	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
@@ -107,32 +110,20 @@ GameState Game::getState()
 /// Launch a server, wait for a message, send an answer.
 ///
 ////////////////////////////////////////////////////////////
-void Game::runUdpServer(unsigned short port)
+void Game::runUdpServer()
 {
-	// Create a socket to receive a message from anyone
-	/////////////////////////// do only once
-	sf::UdpSocket socket;
-	socket.setBlocking(false);
-
-	// Listen to messages on the specified port
-	if (socket.bind(port) != sf::Socket::Done)
-		return;
-	std::cout << "Server is listening to port " << port << ", waiting for a message... " << std::endl;
-	//////////////////////////
-
-
 	// Wait for a message
 	char in[128];
 	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	if (socket.receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
+	if (socket->receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
 		return;
 	std::cout << "Message received from client " << sender << ": \"" << in << "\"" << std::endl;
 
 	// Send an answer to the client
 	const char out[] = "Hi, I'm the server";
-	if (socket.send(out, sizeof(out), sender, senderPort) != sf::Socket::Done)
+	if (socket->send(out, sizeof(out), sender, senderPort) != sf::Socket::Done)
 		return;
 	std::cout << "Message sent to the client: \"" << out << "\"" << std::endl;
 }
@@ -141,29 +132,15 @@ void Game::runUdpServer(unsigned short port)
 /// Send a message to the server, wait for the answer
 ///
 ////////////////////////////////////////////////////////////
-void Game::runUdpClient(unsigned short port)
+void Game::runUdpClient()
 {
-	// Ask for the server address
-	/////////////////////////////////////////// do only once
-	sf::IpAddress server("127.1.0");
-	/*do
-	{
-	std::cout << "Type the address or name of the server to connect to: ";
-	std::cin >> server;
-	} while (server == sf::IpAddress::None);*/
-
-	// Create a socket for communicating with the server
-	sf::UdpSocket socket;
-	socket.setBlocking(false);
-	////////////////////////////////////////////
-
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
 
-	switch (socket.send(out, sizeof(out), server, port))
+	switch (socket->send(out, sizeof(out), *address, *port))
 	{
 	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << server << std::endl;
+		std::cout << "Socket not ready " << *address << std::endl;
 		break;
 
 	case sf::Socket::Done:
@@ -188,10 +165,10 @@ void Game::runUdpClient(unsigned short port)
 	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	switch (socket.receive(in, sizeof(in), received, sender, senderPort))
+	switch (socket->receive(in, sizeof(in), received, sender, senderPort))
 	{
 	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << server << std::endl;
+		std::cout << "Socket not ready " << *address << std::endl;
 		break;
 
 	case sf::Socket::Done:
@@ -300,9 +277,9 @@ void Game::update(float dt)
 	}
 	
 	if (getNetworkState() == NetworkState::SERVER)
-		runUdpServer(port);
+		runUdpServer();
 	else
-		runUdpClient(port);
+		runUdpClient();
 }
 
 void Game::handleInput(float dt)

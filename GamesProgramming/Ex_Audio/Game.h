@@ -15,7 +15,7 @@
 
 class Game {
 public:
-	Game(sf::RenderWindow* hwnd, Input* in);
+	Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, unsigned short *port_number, const std::string* server_address);
 	~Game();
 
 	void handleInput(float dt);
@@ -25,10 +25,8 @@ public:
 	//Window* getWindow();
 
 	// Network
-	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
-
-	void runUdpServer(unsigned short port);
-	void runUdpClient(unsigned short port);
+	void runUdpServer();
+	void runUdpClient();
 
 private:
 	bool checkCollision(Sprite* s1, Sprite* s2);
@@ -37,6 +35,9 @@ private:
 	//Window m_window;
 	sf::RenderWindow* window;
 	Input* input;
+	sf::UdpSocket *socket;
+	unsigned short* port;
+	const std::string* address;
 	GameState state;
 
 	std::once_flag ask_flag;
