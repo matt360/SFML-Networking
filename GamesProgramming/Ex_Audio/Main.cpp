@@ -29,8 +29,7 @@ void main(int argc, char** argv[])
 	GameServer game_server(&window, &input, &socket, &ip_address, &port);
 	Menu menu(&window, &input);
 	Network network(&window, &input, &socket, &ip_address, &port);
-	// Set initial state
-	GameState state = GameState::MENU;	
+	
 	//direction dir = direction::left;
 	
 	// For Delta Time
@@ -115,12 +114,14 @@ void main(int argc, char** argv[])
 			else
 			{
 				switch (getNetworkState())
-				case (NetworkState::CLIENT) :
+				{
+				case (NetworkState::CLIENT):
 					state = GameState::GAME_CLIENT;
 					break;
 				case (NetworkState::SERVER):
 					state = GameState::GAME_SERVER;
 					break;
+				}
 			}
 		}
 
@@ -149,30 +150,36 @@ void main(int argc, char** argv[])
 			state = network.getState();
 			break;
 
-		case(GameState::GAME_SERVER):
-
-			game.handleInput(deltaTime);
+		case(GameState::GAME_CLIENT):
+			game_client.handleInput(deltaTime);
 			// do a non blocking receive - put socket into non blocking mode when it's being created
 			// queue of messages to send, put message into the queue when ready to send, non-blocking send
 			//socket(); 
-			game.update(deltaTime);
-			game.render();
-			state = game.getState();
+			game_client.update(deltaTime);
+			game_client.render();
+			state = game_client.getState();
 			break;
 
-		case(GameState::GAME_CLIENT):
-
-			game.handleInput(deltaTime);
+		case(GameState::GAME_SERVER):
+			game_server.handleInput(deltaTime);
 			// do a non blocking receive - put socket into non blocking mode when it's being created
 			// queue of messages to send, put message into the queue when ready to send, non-blocking send
 			//socket(); 
-			game.update(deltaTime);
-			game.render();
-			state = game.getState();
+			game_server.update(deltaTime);
+			game_server.render();
+			state = game_server.getState();
 			break;
 
 		case(GameState::PAUSE) :
-			game.render();
+			switch (getNetworkState())
+			{
+			case (NetworkState::CLIENT):
+				game_client.render();
+				break;
+			case (NetworkState::SERVER):
+				game_server.render();
+				break;
+			}
 			break;
 			
 		case(GameState::CREDITS) :

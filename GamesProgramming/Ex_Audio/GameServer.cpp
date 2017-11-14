@@ -8,7 +8,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_soc
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = GameState::LEVEL;
+	state = GameState::GAME_SERVER;
 	// 
 	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
@@ -276,7 +276,7 @@ void GameServer::update(float dt)
 	}
 	else
 	{
-		state = GameState::LEVEL;
+		state = GameState::GAME_SERVER;
 	}
 
 	runUdpServer();

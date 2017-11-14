@@ -34,7 +34,15 @@ void Network::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		state = GameState::LEVEL;
+		switch (getNetworkState())
+		{
+		case (NetworkState::CLIENT):
+			state = GameState::GAME_CLIENT;
+			break;
+		case (NetworkState::SERVER):
+			state = GameState::GAME_SERVER;
+			break;
+		}
 	}
 	else
 	{
@@ -87,6 +95,7 @@ void Network::update(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::S);
 		networkState = NetworkState::SERVER;
+		state = GameState::GAME_SERVER;
 		// create the socket
 		serverSocket();
 		//text.setPosition(200, 100);
@@ -96,6 +105,7 @@ void Network::update(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::C);
 		networkState = NetworkState::CLIENT;
+		state = GameState::GAME_CLIENT;
 		clientSocket();
 		// message - joined the server
 		//text.setPosition(200, 100);

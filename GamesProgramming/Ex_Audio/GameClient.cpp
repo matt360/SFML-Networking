@@ -8,7 +8,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_soc
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = GameState::LEVEL;
+	state = GameState::GAME_CLIENT;
 	// 
 	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
@@ -270,7 +270,7 @@ void GameClient::update(float dt)
 	}
 	else
 	{
-		state = GameState::LEVEL;
+		state = GameState::GAME_CLIENT;
 	}
 
 	runUdpClient();

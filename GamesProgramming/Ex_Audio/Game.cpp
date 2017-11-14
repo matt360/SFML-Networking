@@ -8,7 +8,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpA
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = GameState::LEVEL;
+	//state = GameState::LEVEL;
 	// 
 	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
