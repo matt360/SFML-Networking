@@ -22,7 +22,6 @@ public:
 	void update(float dt);
 	void render();
 	GameState getState();
-	/*NetworkState getNetworkState();*/
 	//Window* getWindow();
 
 	// Network

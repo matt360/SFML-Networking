@@ -26,11 +26,6 @@ GameState Network::getState()
 	return state;
 }
 
-//NetworkState Network::getNetworkState()
-//{
-//	return networkState;
-//}
-
 void Network::handleInput(float dt)
 {
 
@@ -51,6 +46,7 @@ void Network::handleInput(float dt)
 ////////////////////////////////////////////////////////////
 void Network::runUdpServer(unsigned short port)
 {
+	// //////////////////////////////
 	// Create a socket to receive a message from anyone
 	sf::UdpSocket socket;
 	socket.setBlocking(false);
@@ -59,6 +55,7 @@ void Network::runUdpServer(unsigned short port)
 	if (socket.bind(port) != sf::Socket::Done)
 		return;
 	std::cout << "Server is listening to port " << port << ", waiting for a message... " << std::endl;
+	/////////////////////////////////
 
 	// Wait for a message
 	char in[128];
@@ -76,6 +73,13 @@ void Network::runUdpServer(unsigned short port)
 	std::cout << "Message sent to the client: \"" << out << "\"" << std::endl;
 }
 
+// error handling before connecting
+// error while the game is running
+// states
+// what I want to send
+// anything that happens to the client shouldn't affect the server player
+// anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
+
 ////////////////////////////////////////////////////////////
 /// Send a message to the server, wait for the answer
 ///
@@ -83,6 +87,7 @@ void Network::runUdpServer(unsigned short port)
 void Network::runUdpClient(unsigned short port)
 {
 	// Ask for the server address
+	//////////////////////////////////////////
 	sf::IpAddress server("127.1.0");
 	/*do
 	{
@@ -93,6 +98,7 @@ void Network::runUdpClient(unsigned short port)
 	// Create a socket for communicating with the server
 	sf::UdpSocket socket;
 	socket.setBlocking(false);
+	///////////////////////////////////////////
 
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
@@ -149,21 +155,21 @@ void Network::runUdpClient(unsigned short port)
 	}
 }
 
-void Network::do_once()
-{
-	std::call_once(ask_flag, [&]() {
-		std::cout << "Do you want to be a server (s) or a client (c)? ";
-		//std::cin >> who; 
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			networkState = NetworkState::SERVER;
-		}
-		else {
-			networkState = NetworkState::CLIENT;
-		}
-	}
-	);
-}
+//void Network::do_once()
+//{
+//	std::call_once(ask_flag, [&]() {
+//		std::cout << "Do you want to be a server (s) or a client (c)? ";
+//		//std::cin >> who; 
+//
+//		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+//			networkState = NetworkState::SERVER;
+//		}
+//		else {
+//			networkState = NetworkState::CLIENT;
+//		}
+//	}
+//	);
+//}
 
 void Network::update(float dt)
 {
@@ -180,6 +186,7 @@ void Network::update(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::S);
 		networkState = NetworkState::SERVER;
+		// create the socket
 		//text.setPosition(200, 100);
 		text.setString("Connecting...\n\nYou're a server\n\nPress Enter to Play");
 	}
@@ -187,6 +194,7 @@ void Network::update(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::C);
 		networkState = NetworkState::CLIENT;
+		// message - joined the server
 		//text.setPosition(200, 100);
 		text.setString("Connecting...\n\nYou're a client\n\nPress Enter to Play");
 	}
@@ -203,6 +211,8 @@ void Network::update(float dt)
 	//else
 	//{
 	// Test the unconnected UDP protocol
+
+	// put into game
 	switch (getNetworkState())
 	{
 	case NetworkState::SERVER:
@@ -215,9 +225,6 @@ void Network::update(float dt)
 		text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
 		break;
 	}
-	/*if (getNetworkState() == NetworkState::SERVER)
-		
-	else*/
 		
 	//}
 

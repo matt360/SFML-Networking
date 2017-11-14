@@ -103,11 +103,6 @@ GameState Game::getState()
 	return state;
 }
 
-//NetworkState Game::getNetworkState()
-//{
-//	return networkState;
-//}
-
 ////////////////////////////////////////////////////////////
 /// Launch a server, wait for a message, send an answer.
 ///
@@ -115,6 +110,7 @@ GameState Game::getState()
 void Game::runUdpServer(unsigned short port)
 {
 	// Create a socket to receive a message from anyone
+	/////////////////////////// do only once
 	sf::UdpSocket socket;
 	socket.setBlocking(false);
 
@@ -122,6 +118,8 @@ void Game::runUdpServer(unsigned short port)
 	if (socket.bind(port) != sf::Socket::Done)
 		return;
 	std::cout << "Server is listening to port " << port << ", waiting for a message... " << std::endl;
+	//////////////////////////
+
 
 	// Wait for a message
 	char in[128];
@@ -146,6 +144,7 @@ void Game::runUdpServer(unsigned short port)
 void Game::runUdpClient(unsigned short port)
 {
 	// Ask for the server address
+	/////////////////////////////////////////// do only once
 	sf::IpAddress server("127.1.0");
 	/*do
 	{
@@ -156,6 +155,7 @@ void Game::runUdpClient(unsigned short port)
 	// Create a socket for communicating with the server
 	sf::UdpSocket socket;
 	socket.setBlocking(false);
+	////////////////////////////////////////////
 
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";

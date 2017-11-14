@@ -15,7 +15,6 @@ public:
 	void update(float dt);
 	void render();
 	GameState getState();
-	//NetworkState getNetworkState();
 
 	// Network
 	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
@@ -35,6 +34,6 @@ private:
 
 	std::once_flag ask_flag;
 	char who;
-	void do_once();
+	//void do_once();
 };
 
