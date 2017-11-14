@@ -9,7 +9,7 @@
 class Network
 {
 public:
-	Network(sf::RenderWindow* hwnd, Input* in);
+	Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, unsigned short *port_number, const std::string* server_address);
 	~Network();
 
 	void handleInput(float dt);
@@ -18,19 +18,21 @@ public:
 	GameState getState();
 
 	// Network
-	const unsigned short port = 50001; // Choose an arbitrary port for opening sockets
-	void serverSocket(unsigned short port);
-	void runUdpServer(unsigned short port, sf::UdpSocket socket);
+	void serverSocket();
+	void runUdpServer();
 	
-	const std::string server = "127.1.0";
-	void clientSocket(const std::string& address);
-	void runUdpClient(unsigned short port, sf::UdpSocket socket, const std::string& server);
+	void clientSocket();
+	void runUdpClient();
 	
 private:
 	void beginDraw();
 	void endDraw();
 	sf::RenderWindow* window;
 	Input* input;
+	sf::UdpSocket *socket;
+	unsigned short* port;
+	const std::string* address;
+
 	GameState state;
 	//NetworkState networkState;
 

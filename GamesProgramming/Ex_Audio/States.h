@@ -8,6 +8,4 @@ __declspec(selectany) NetworkState networkState;
 
 inline NetworkState getNetworkState() { return networkState; }
 
-// global socket
-static sf::UdpSocket socket;
 //enum direction : char { left = 'l', right = 'r' };

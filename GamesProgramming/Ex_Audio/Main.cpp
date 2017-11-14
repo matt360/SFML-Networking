@@ -10,7 +10,12 @@
 
 void main(int argc, char** argv[])
 {
-	
+	// NETWORK /////////////////////
+	// global socket
+	static sf::UdpSocket socket;
+	unsigned short port = 50001; // Choose an arbitrary port for opening sockets
+	const std::string server = "127.1.0";
+	////////////////////////////////
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Lab 1");// , sf::Style::None);
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
@@ -19,7 +24,7 @@ void main(int argc, char** argv[])
 	Input input;
 	Game game(&window, &input);
 	Menu menu(&window, &input);
-	Network network(&window, &input);
+	Network network(&window, &input, &socket, &port, &server);
 	// Set initial state
 	GameState state = GameState::MENU;	
 	//direction dir = direction::left;
