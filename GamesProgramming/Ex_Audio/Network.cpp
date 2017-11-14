@@ -66,20 +66,21 @@ void Network::runUdpServer()
 {
 	// Wait for a message
 	// Receive the packet at the other end
-	sf::Packet packet;
+	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	if (socket->receive(packet, sender, senderPort) != sf::Socket::Done)
+	if (socket->receive(packet_receive, sender, senderPort) != sf::Socket::Done)
 		return;
 	// Extract the variables contained in the packet
 	sf::Uint32 x;
 	std::string s;
 	double d;
-	if (packet >> x >> s >> d)
+	if (packet_receive >> x >> s >> d)
 	{
 		// Data extracted successfully...
-		std::cout << "Message received from client " << sender << ": \"" << packet << "\"" << std::endl;
-		/*std::cout << packet << std::endl;*/
+		std::cout << "Message received from client " << sender << "\"" << std::endl;
+		// Data extracted successfully...
+		std::cout << "\nx: " << x << "\ns: " << s << "\nd: " << d << std::endl;
 	}
 
 	/*char in[128];
@@ -95,12 +96,13 @@ void Network::runUdpServer()
 	std::string s = "hello";
 	double d = 5.89;*/
 	// Group the variables to send into a packet
-	//sf::Packet packet;
+	sf::Packet packet;
 	packet << x << s << d;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	if (socket->send(packet, *ip_address, *port) != sf::Socket::Done)
 		return;
-	std::cout << "Message sent to the client: \"" << packet << "\"" << std::endl;
+	std::cout << "Message sent to the client: \"" << std::endl;
+	std::cout << "\nx: " << x << "\ns: " << s << "\nd: " << d << std::endl;
 
 	//// Send an answer to the client
 	//const char out[] = "Hi, I'm the server";
@@ -139,6 +141,10 @@ void Network::clientSocket()
 ////////////////////////////////////////////////////////////
 void Network::runUdpClient()
 {
+	sf::Uint32 x = 24;
+	std::string s = "hello";
+	double d = 5.89;
+
 	// Group the variables to send into a packet
 	sf::Packet packet;
 	packet << x << s << d;
@@ -146,18 +152,18 @@ void Network::runUdpClient()
 	socket->send(packet, *ip_address, *port);
 	
 	// Receive the packet at the other end
-	//sf::Packet packet;
+	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	socket->receive(packet, sender, senderPort);
+	socket->receive(packet_receive, sender, senderPort);
 	// Extract the variables contained in the packet
-	/*sf::Uint32 x;
-	std::string s;
-	double d;*/
-	if (packet >> x >> s >> d)
+	sf::Uint32 x_r;
+	std::string s_r;
+	double d_r;
+	if (packet_receive >> x_r >> s_r >> d_r)
 	{
 		// Data extracted successfully...
-		std::cout << packet << std::endl;
+		std::cout << "\nx: " << x_r << "\ns: " << s_r << "\nd: " << d_r << std::endl;
 	}
 
 	//// Send a message to the server

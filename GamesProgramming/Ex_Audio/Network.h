@@ -25,10 +25,7 @@ public:
 	void runUdpClient();
 	
 private:
-	sf::Uint32 x = 24;
-	std::string s = "hello";
-	double d = 5.89;
-
+	
 	void beginDraw();
 	void endDraw();
 	sf::RenderWindow* window;
