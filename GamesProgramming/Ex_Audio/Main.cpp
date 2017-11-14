@@ -25,7 +25,8 @@ void main(int argc, char** argv[])
 	bool pause = false;
 	Input input;
 	// Don't change the order of this
-	GameServer game(&window, &input, &socket, &ip_address, &port);
+	GameClient game_client(&window, &input, &socket, &ip_address, &port);
+	GameServer game_server(&window, &input, &socket, &ip_address, &port);
 	Menu menu(&window, &input);
 	Network network(&window, &input, &socket, &ip_address, &port);
 	// Set initial state
@@ -113,7 +114,13 @@ void main(int argc, char** argv[])
 			}
 			else
 			{
-				state = GameState::LEVEL;
+				switch (getNetworkState())
+				case (NetworkState::CLIENT) :
+					state = GameState::GAME_CLIENT;
+					break;
+				case (NetworkState::SERVER):
+					state = GameState::GAME_SERVER;
+					break;
 			}
 		}
 
@@ -142,7 +149,18 @@ void main(int argc, char** argv[])
 			state = network.getState();
 			break;
 
-		case(GameState::LEVEL):
+		case(GameState::GAME_SERVER):
+
+			game.handleInput(deltaTime);
+			// do a non blocking receive - put socket into non blocking mode when it's being created
+			// queue of messages to send, put message into the queue when ready to send, non-blocking send
+			//socket(); 
+			game.update(deltaTime);
+			game.render();
+			state = game.getState();
+			break;
+
+		case(GameState::GAME_CLIENT):
 
 			game.handleInput(deltaTime);
 			// do a non blocking receive - put socket into non blocking mode when it's being created
