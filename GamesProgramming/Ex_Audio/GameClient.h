@@ -36,7 +36,7 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 
-	GameState state;
+	//GameState state;
 
 	std::once_flag ask_flag;
 

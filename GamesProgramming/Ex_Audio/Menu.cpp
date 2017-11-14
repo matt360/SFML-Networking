@@ -4,7 +4,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	state = GameState::MENU;
+	//state = GameState::MENU;
 
 	// Menu text
 	font.loadFromFile("font/arial.ttf");
@@ -16,11 +16,6 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in)
 
 Menu::~Menu()
 {
-}
-
-GameState Menu::getState()
-{
-	return state;
 }
 
 void Menu::handleInput(float dt)

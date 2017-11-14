@@ -9,7 +9,6 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, s
 	ip_address = ip;
 	port = port_number;
 	state = GameState::NETWORK;
-	networkState = NetworkState::NONE;
 
 	// Network text
 	font.loadFromFile("font/arial.ttf");
@@ -23,10 +22,10 @@ Network::~Network()
 {
 }
 
-GameState Network::getState()
-{
-	return state;
-}
+//GameState Network::getState()
+//{
+//	return state;
+//}
 
 void Network::handleInput(float dt)
 {
@@ -34,12 +33,12 @@ void Network::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		switch (getNetworkState())
+		switch (state)
 		{
-		case (NetworkState::CLIENT):
+		case (GameState::GAME_CLIENT):
 			state = GameState::GAME_CLIENT;
 			break;
-		case (NetworkState::SERVER):
+		case (GameState::GAME_SERVER):
 			state = GameState::GAME_SERVER;
 			break;
 		}
@@ -94,7 +93,6 @@ void Network::update(float dt)
 	if (input->isKeyDown(sf::Keyboard::S))
 	{
 		input->setKeyUp(sf::Keyboard::S);
-		networkState = NetworkState::SERVER;
 		state = GameState::GAME_SERVER;
 		// create the socket
 		serverSocket();
@@ -104,7 +102,6 @@ void Network::update(float dt)
 	if (input->isKeyDown(sf::Keyboard::C))
 	{
 		input->setKeyUp(sf::Keyboard::C);
-		networkState = NetworkState::CLIENT;
 		state = GameState::GAME_CLIENT;
 		clientSocket();
 		// message - joined the server
@@ -114,7 +111,7 @@ void Network::update(float dt)
 	if (input->isKeyDown(sf::Keyboard::N))
 	{
 		input->setKeyUp(sf::Keyboard::N);
-		networkState = NetworkState::NONE;
+		//networkState = NetworkState::NONE;
 		// message - joined the server
 		//text.setPosition(200, 100);
 		text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");

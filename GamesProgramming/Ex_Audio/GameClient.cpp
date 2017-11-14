@@ -10,7 +10,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_soc
 	port = port_number;
 	state = GameState::GAME_CLIENT;
 	// 
-	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
+	//if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
 	fps = 0;
 	font.loadFromFile("font/arial.ttf");
@@ -101,10 +101,10 @@ GameClient::~GameClient()
 
 }
 
-GameState GameClient::getState()
-{
-	return state;
-}
+//GameState GameClient::getState()
+//{
+//	return state;
+//}
 
 void GameClient::handleInput(float dt)
 {

@@ -10,7 +10,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpA
 	port = port_number;
 	//state = GameState::LEVEL;
 	// 
-	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
+	//if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
 	fps = 0;
 	font.loadFromFile("font/arial.ttf");

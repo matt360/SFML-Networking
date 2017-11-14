@@ -113,12 +113,12 @@ void main(int argc, char** argv[])
 			}
 			else
 			{
-				switch (getNetworkState())
+				switch (state)
 				{
-				case (NetworkState::CLIENT):
+				case (GameState::GAME_CLIENT):
 					state = GameState::GAME_CLIENT;
 					break;
-				case (NetworkState::SERVER):
+				case (GameState::GAME_SERVER):
 					state = GameState::GAME_SERVER;
 					break;
 				}
@@ -139,7 +139,7 @@ void main(int argc, char** argv[])
 			menu.handleInput(deltaTime);
 			menu.update(deltaTime);
 			menu.render();
-			state = menu.getState();
+			state = getState();
 			break;
 
 		case (GameState::NETWORK) :
@@ -147,7 +147,7 @@ void main(int argc, char** argv[])
 			// create socket and 
 			network.update(deltaTime);
 			network.render();
-			state = network.getState();
+			state = getState();
 			break;
 
 		case(GameState::GAME_CLIENT):
@@ -157,7 +157,7 @@ void main(int argc, char** argv[])
 			//socket(); 
 			game_client.update(deltaTime);
 			game_client.render();
-			state = game_client.getState();
+			state = getState();
 			break;
 
 		case(GameState::GAME_SERVER):
@@ -167,16 +167,16 @@ void main(int argc, char** argv[])
 			//socket(); 
 			game_server.update(deltaTime);
 			game_server.render();
-			state = game_server.getState();
+			state = getState();
 			break;
 
 		case(GameState::PAUSE) :
-			switch (getNetworkState())
+			switch (state)
 			{
-			case (NetworkState::CLIENT):
+			case (GameState::GAME_CLIENT):
 				game_client.render();
 				break;
-			case (NetworkState::SERVER):
+			case (GameState::GAME_SERVER):
 				game_server.render();
 				break;
 			}

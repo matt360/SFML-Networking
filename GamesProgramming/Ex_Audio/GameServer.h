@@ -21,7 +21,7 @@ public:
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
-	GameState getState();
+	//GameState getState();
 	//Window* getWindow();
 
 private:
@@ -36,7 +36,7 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 
-	GameState state;
+	//GameState state;
 
 	std::once_flag ask_flag;
 
