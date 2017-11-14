@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstdlib>
 #include "Game.h"
+#include "GameClient.h"
+#include "GameServer.h"
 #include "Menu.h"
 #include "Network.h"
 #include "States.h"
@@ -23,7 +25,8 @@ void main(int argc, char** argv[])
 	bool pause = false;
 	Input input;
 	// Don't change the order of this
-	Game game(&window, &input, &socket, &ip_address, &port);
+	GameClient gameClient;
+	//Game game(&window, &input, &socket, &ip_address, &port);
 	Menu menu(&window, &input);
 	Network network(&window, &input, &socket, &ip_address, &port);
 	// Set initial state

@@ -106,182 +106,6 @@ GameState Game::getState()
 	return state;
 }
 
-////////////////////////////////////////////////////////////
-/// Launch a server, wait for a message, send an answer.
-///
-////////////////////////////////////////////////////////////
-void Game::runUdpServer()
-{
-	// Wait for a message
-	char in[128];
-	std::size_t received;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	if (socket->receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
-		return;
-	std::cout << "Message received from client " << sender << ": \"" << in << "\"" << std::endl;
-
-	// Send an answer to the client
-	const char out[] = "Hi, I'm the server";
-	if (socket->send(out, sizeof(out), sender, senderPort) != sf::Socket::Done)
-		return;
-	std::cout << "Message sent to the client: \"" << out << "\"" << std::endl;
-}
-
-////////////////////////////////////////////////////////////
-/// Send a message to the server, wait for the answer
-///
-////////////////////////////////////////////////////////////
-void Game::runUdpClient()
-{
-	// Send a message to the server
-	const char out[] = "Hi, I'm a client";
-
-	switch (socket->send(out, sizeof(out), *ip_address, *port))
-	{
-	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *ip_address << std::endl;
-		break;
-
-	case sf::Socket::Done:
-		std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
-		break;
-
-	case sf::Socket::Disconnected:
-		std::cout << "Disconnected" << std::endl;
-		break;
-
-	case sf::Socket::Error:
-		std::cout << "Socket Error" << std::endl;
-		break;
-
-	default:
-		std::cout << "Default Error" << std::endl;
-		return;
-	}
-
-	// Receive an answer from anyone (but most likely from the server)
-	char in[128];
-	std::size_t received;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	switch (socket->receive(in, sizeof(in), received, sender, senderPort))
-	{
-	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *ip_address << std::endl;
-		break;
-
-	case sf::Socket::Done:
-		std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
-		break;
-
-	case sf::Socket::Disconnected:
-		std::cout << "Disconnected" << std::endl;
-		break;
-
-	case sf::Socket::Error:
-		std::cout << "Socket Error" << std::endl;
-		break;
-
-	default:
-		std::cout << "Default Error" << std::endl;
-		return;
-	}
-}
-
-//void Game::do_once()
-//{
-//	std::call_once(ask_flag, [&]() {
-//		if (getNetworkState() == NetworkState::SERVER) {
-//			who = 's';
-//		}
-//		else {
-//			who = 'c';
-//		}
-//	}
-//	);
-//}
-
-void Game::update(float dt)
-{
-	//fps = 1.f / dt;
-	//text.setString(std::to_string(fps));
-	if (!hasStarted)
-	{
-		audioMgr.playMusicbyName("cantina");
-		hasStarted = true;
-	}
-
-	if (input->isKeyDown(sf::Keyboard::Up))
-	{
-		input->setKeyUp(sf::Keyboard::Up);
-		player.jump();
-		audioMgr.playSoundbyName("jump");
-	}
-
-	player.update(dt);
-
-	if (input->isKeyDown(sf::Keyboard::Num1))
-	{
-		input->setKeyUp(sf::Keyboard::Num1);
-		audioMgr.playSoundbyName("up");
-	}
-	
-	if (input->isKeyDown(sf::Keyboard::Num2))
-	{
-		input->setKeyUp(sf::Keyboard::Num2);
-		audioMgr.playSoundbyName("getover");
-	}
-	if (input->isKeyDown(sf::Keyboard::Num3))
-	{
-		input->setKeyUp(sf::Keyboard::Num3);
-		audioMgr.playSoundbyName("glass");
-	}
-	if (input->isKeyDown(sf::Keyboard::BackSpace))
-	{
-		input->setKeyUp(sf::Keyboard::BackSpace);
-		audioMgr.stopAllMusic();
-	}
-	if (input->isKeyDown(sf::Keyboard::Num4))
-	{
-		input->setKeyUp(sf::Keyboard::Num4);
-		audioMgr.playMusicbyName("hyrule");
-	}
-
-	// check collision with world
-	std::vector<Tile>* world = level.getLevel();
-	for (int i = 0; i < (int)world->size(); i++)
-	{
-		if ((*world)[i].isAlive())
-		{
-			// if "alive" check collision
-			// world tile which are not alive don't want collision checks
-			if (checkCollision(&player, &(*world)[i]))
-			{
-				player.collisionRespone(&(*world)[i]);
-			}
-		}
-	}
-
-	if (player.getPosition().y > window->getSize().y)
-	{
-		state = GameState::MENU;
-		player.setPosition(0, 0);
-		hasStarted = false;
-		audioMgr.stopAllSounds();
-		audioMgr.stopAllMusic();
-	}
-	else
-	{
-		state = GameState::LEVEL;
-	}
-	
-	if (getNetworkState() == NetworkState::SERVER)
-		runUdpServer();
-	else
-		runUdpClient();
-}
-
 void Game::handleInput(float dt)
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -338,3 +162,104 @@ bool Game::checkSphereBounding(Sprite* s1, Sprite* s2)
 	}
 	return false;
 }
+
+
+
+
+
+//void Game::do_once()
+//{
+//	std::call_once(ask_flag, [&]() {
+//		if (getNetworkState() == NetworkState::SERVER) {
+//			who = 's';
+//		}
+//		else {
+//			who = 'c';
+//		}
+//	}
+//	);
+//}
+
+
+//////////////////////////////////////////////////////////////
+///// Launch a server, wait for a message, send an answer.
+/////
+//////////////////////////////////////////////////////////////
+//void Game::runUdpServer()
+//{
+//	// Wait for a message
+//	char in[128];
+//	std::size_t received;
+//	sf::IpAddress sender;
+//	unsigned short senderPort;
+//	if (socket->receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
+//		return;
+//	std::cout << "Message received from client " << sender << ": \"" << in << "\"" << std::endl;
+//
+//	// Send an answer to the client
+//	const char out[] = "Hi, I'm the server";
+//	if (socket->send(out, sizeof(out), sender, senderPort) != sf::Socket::Done)
+//		return;
+//	std::cout << "Message sent to the client: \"" << out << "\"" << std::endl;
+//}
+
+//////////////////////////////////////////////////////////////
+///// Send a message to the server, wait for the answer
+/////
+//////////////////////////////////////////////////////////////
+//void Game::runUdpClient()
+//{
+//	// Send a message to the server
+//	const char out[] = "Hi, I'm a client";
+//
+//	switch (socket->send(out, sizeof(out), *ip_address, *port))
+//	{
+//	case sf::Socket::NotReady:
+//		std::cout << "Socket not ready " << *ip_address << std::endl;
+//		break;
+//
+//	case sf::Socket::Done:
+//		std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
+//		break;
+//
+//	case sf::Socket::Disconnected:
+//		std::cout << "Disconnected" << std::endl;
+//		break;
+//
+//	case sf::Socket::Error:
+//		std::cout << "Socket Error" << std::endl;
+//		break;
+//
+//	default:
+//		std::cout << "Default Error" << std::endl;
+//		return;
+//	}
+//
+//	// Receive an answer from anyone (but most likely from the server)
+//	char in[128];
+//	std::size_t received;
+//	sf::IpAddress sender;
+//	unsigned short senderPort;
+//	switch (socket->receive(in, sizeof(in), received, sender, senderPort))
+//	{
+//	case sf::Socket::NotReady:
+//		std::cout << "Socket not ready " << *ip_address << std::endl;
+//		break;
+//
+//	case sf::Socket::Done:
+//		std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
+//		break;
+//
+//	case sf::Socket::Disconnected:
+//		std::cout << "Disconnected" << std::endl;
+//		break;
+//
+//	case sf::Socket::Error:
+//		std::cout << "Socket Error" << std::endl;
+//		break;
+//
+//	default:
+//		std::cout << "Default Error" << std::endl;
+//		return;
+//	}
+//}

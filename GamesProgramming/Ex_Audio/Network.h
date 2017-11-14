@@ -19,10 +19,7 @@ public:
 
 	// Network
 	void serverSocket();
-	void runUdpServer();
-	
 	void clientSocket();
-	void runUdpClient();
 	
 private:
 	

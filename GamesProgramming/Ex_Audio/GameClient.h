@@ -13,10 +13,10 @@
 #include "States.h"
 #include "AudioManager.h"
 
-class Game {
+class GameClient {
 public:
-	Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
-	virtual ~Game();
+	GameClient(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
+	~GameClient();
 
 	void handleInput(float dt);
 	void update(float dt);
@@ -24,7 +24,8 @@ public:
 	GameState getState();
 	//Window* getWindow();
 
-protected:
+private:
+	void runUdpClient();
 	bool checkCollision(Sprite* s1, Sprite* s2);
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 	//void moveMushroom();
