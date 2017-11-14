@@ -65,19 +65,48 @@ void Network::serverSocket()
 void Network::runUdpServer()
 {
 	// Wait for a message
-	char in[128];
+	// Receive the packet at the other end
+	sf::Packet packet;
+	sf::IpAddress sender;
+	unsigned short senderPort;
+	if (socket->receive(packet, sender, senderPort) != sf::Socket::Done)
+		return;
+	// Extract the variables contained in the packet
+	sf::Uint32 x;
+	std::string s;
+	double d;
+	if (packet >> x >> s >> d)
+	{
+		// Data extracted successfully...
+		std::cout << "Message received from client " << sender << ": \"" << packet << "\"" << std::endl;
+		/*std::cout << packet << std::endl;*/
+	}
+
+	/*char in[128];
 	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
 	if (socket->receive(in, sizeof(in), received, sender, senderPort) != sf::Socket::Done)
 		return;
-	std::cout << "Message received from client " << sender << ": \"" << in << "\"" << std::endl;
+	std::cout << "Message received from client " << sender << ": \"" << in << "\"" << std::endl;*/
 
 	// Send an answer to the client
-	const char out[] = "Hi, I'm the server";
-	if (socket->send(out, sizeof(out), sender, senderPort) != sf::Socket::Done)
+	/*sf::Uint32 x = 24;
+	std::string s = "hello";
+	double d = 5.89;*/
+	// Group the variables to send into a packet
+	//sf::Packet packet;
+	packet << x << s << d;
+	// Send it over the network (socket is a valid sf::TcpSocket)
+	if (socket->send(packet, *ip_address, *port) != sf::Socket::Done)
 		return;
-	std::cout << "Message sent to the client: \"" << out << "\"" << std::endl;
+	std::cout << "Message sent to the client: \"" << packet << "\"" << std::endl;
+
+	//// Send an answer to the client
+	//const char out[] = "Hi, I'm the server";
+	//if (socket->send(out, sizeof(out), sender, senderPort) != sf::Socket::Done)
+	//	return;
+	//std::cout << "Message sent to the client: \"" << out << "\"" << std::endl;
 }
 
 // error handling before connecting
@@ -110,80 +139,80 @@ void Network::clientSocket()
 ////////////////////////////////////////////////////////////
 void Network::runUdpClient()
 {
-	//sf::Uint32 x = 24;
-	//std::string s = "hello";
-	//double d = 5.89;
-	//// Group the variables to send into a packet
+	// Group the variables to send into a packet
+	sf::Packet packet;
+	packet << x << s << d;
+	// Send it over the network (socket is a valid sf::TcpSocket)
+	socket->send(packet, *ip_address, *port);
+	
+	// Receive the packet at the other end
 	//sf::Packet packet;
-	//packet << x << s << d;
-	//// Send it over the network (socket is a valid sf::TcpSocket)
-	//socket->send(packet, *ip_address, *port);
-	//
-	//	// Receive the packet at the other end
-	//sf::Packet packet;
-	//socket->receive(packet, *ip_address, *port);
-	//// Extract the variables contained in the packet
-	//sf::Uint32 x;
-	//std::string s;
-	//double d;
-	//if (packet >> x >> s >> d)
-	//{
-	//	// Data extracted successfully...
-	//}
-
-	// Send a message to the server
-	const char out[] = "Hi, I'm a client";
-
-	switch (socket->send(out, sizeof(out), *ip_address, *port))
-	{
-	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *ip_address << std::endl;
-		break;
-
-	case sf::Socket::Done:
-		std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
-		break;
-
-	case sf::Socket::Disconnected:
-		std::cout << "Disconnected" << std::endl;
-		break;
-
-	case sf::Socket::Error:
-		std::cout << "Socket Error" << std::endl;
-		break;
-
-	default:
-		std::cout << "Default Error" << std::endl;
-		return;
-	}
-
-	// Receive an answer from anyone (but most likely from the server)
-	char in[128];
-	std::size_t received;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	switch (socket->receive(in, sizeof(in), received, sender, senderPort))
+	socket->receive(packet, sender, senderPort);
+	// Extract the variables contained in the packet
+	/*sf::Uint32 x;
+	std::string s;
+	double d;*/
+	if (packet >> x >> s >> d)
 	{
-	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *ip_address << std::endl;
-		break;
-
-	case sf::Socket::Done:
-		std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
-		break;
-
-	case sf::Socket::Disconnected:
-		std::cout << "Disconnected" << std::endl;
-		break;
-
-	case sf::Socket::Error:
-		std::cout << "Socket Error" << std::endl;
-		break;
-
-	default:
-		std::cout << "Default Error" << std::endl;
-		return;
+		// Data extracted successfully...
+		std::cout << packet << std::endl;
 	}
+
+	//// Send a message to the server
+	//const char out[] = "Hi, I'm a client";
+
+	//switch (socket->send(out, sizeof(out), *ip_address, *port))
+	//{
+	//case sf::Socket::NotReady:
+	//	std::cout << "Socket not ready " << *ip_address << std::endl;
+	//	break;
+
+	//case sf::Socket::Done:
+	//	std::cout << "Message sent to the server: \"" << out << "\"" << std::endl;
+	//	break;
+
+	//case sf::Socket::Disconnected:
+	//	std::cout << "Disconnected" << std::endl;
+	//	break;
+
+	//case sf::Socket::Error:
+	//	std::cout << "Socket Error" << std::endl;
+	//	break;
+
+	//default:
+	//	std::cout << "Default Error" << std::endl;
+	//	return;
+	//}
+
+	//// Receive an answer from anyone (but most likely from the server)
+	//char in[128];
+	//std::size_t received;
+	//sf::IpAddress sender;
+	//unsigned short senderPort;
+	//switch (socket->receive(in, sizeof(in), received, sender, senderPort))
+	//{
+	//case sf::Socket::NotReady:
+	//	std::cout << "Socket not ready " << *ip_address << std::endl;
+	//	break;
+
+	//case sf::Socket::Done:
+	//	std::cout << "Message received from " << sender << ": \"" << in << "\"" << std::endl;
+	//	break;
+
+	//case sf::Socket::Disconnected:
+	//	std::cout << "Disconnected" << std::endl;
+	//	break;
+
+	//case sf::Socket::Error:
+	//	std::cout << "Socket Error" << std::endl;
+	//	break;
+
+	//default:
+	//	std::cout << "Default Error" << std::endl;
+	//	return;
+	//}
 }
 
 //void Network::do_once()
