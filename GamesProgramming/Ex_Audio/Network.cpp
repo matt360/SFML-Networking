@@ -46,7 +46,6 @@ void Network::serverSocket()
 {
 	// //////////////////////////////
 	// Create a socket to receive a message from anyone
-	// sf::UdpSocket socket;
 	socket->setBlocking(false);
 	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
 	// in this case the server will always use the same port
@@ -69,18 +68,18 @@ void Network::runUdpServer()
 	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	if (socket->receive(packet_receive, *ip_address, *port) != sf::Socket::Done)
+	if (socket->receive(packet_receive, sender, senderPort) != sf::Socket::Done)
 		return;
 	// Extract the variables contained in the packet
-	sf::Uint32 x;
-	std::string s;
-	double d;
-	if (packet_receive >> x >> s >> d)
+	sf::Uint32 x_r;
+	std::string s_r;
+	double d_r;
+	if (packet_receive >> x_r >> s_r >> d_r)
 	{
 		// Data extracted successfully...
 		std::cout << "Message received from client " << sender << "\"" << std::endl;
 		// Data extracted successfully...
-		std::cout << "\nx: " << x << "\ns: " << s << "\nd: " << d << std::endl;
+		std::cout << "\nx: " << x_r << "\ns: " << s_r << "\nd: " << d_r << std::endl;
 	}
 
 	/*char in[128];
@@ -96,13 +95,22 @@ void Network::runUdpServer()
 	std::string s = "hello";
 	double d = 5.89;*/
 	// Group the variables to send into a packet
-	//sf::Packet packet;
-	//packet << x << s << d;
+	sf::Packet packet_send;
+	std::string s = "Hi! I'm the server!";
+	packet_send << s;
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	if (socket->send(packet_receive, *ip_address, *port) != sf::Socket::Done)
+	
+	if (socket->send(packet_send, sender, senderPort) != sf::Socket::Done)
 		return;
-	std::cout << "Message sent to the client: \"" << std::endl;
-	std::cout << "\nx: " << x << "\ns: " << s << "\nd: " << d << std::endl;
+	// Extract the variables contained in the packet
+	std::string s_s;
+	if (packet_send >> s_s)
+	{
+		// Data extracted successfully...
+		std::cout << "Message sent to the client: \"" << std::endl;
+		std::cout << "s_s: " << s_s << std::endl;
+	}
+	
 
 	//// Send an answer to the client
 	//const char out[] = "Hi, I'm the server";
@@ -130,7 +138,6 @@ void Network::clientSocket()
 	} while (server == sf::IpAddress::None);*/
 
 	// Create a socket for communicating with the server
-	//sf::UdpSocket socket;
 	socket->setBlocking(false);
 	///////////////////////////////////////////
 }
@@ -141,6 +148,7 @@ void Network::clientSocket()
 ////////////////////////////////////////////////////////////
 void Network::runUdpClient()
 {
+	// message
 	sf::Uint32 x = 24;
 	std::string s = "hello";
 	double d = 5.89;
@@ -155,7 +163,7 @@ void Network::runUdpClient()
 	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	socket->receive(packet_receive, *ip_address, *port);
+	socket->receive(packet_receive, sender, senderPort);
 	// Extract the variables contained in the packet
 	sf::Uint32 x_r;
 	std::string s_r;
