@@ -202,7 +202,7 @@ void GameServer::runUdpServer()
 }
 void GameServer::update(float dt)
 {
-	//fps = 1.f / dt;
+	fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
 	if (!hasStarted)
 	{
@@ -274,6 +274,7 @@ void GameServer::update(float dt)
 		*state = GameState::GAME_SERVER;
 	}
 
+	if ((int)fps % 10 == 0)
 	runUdpServer();
 }
 

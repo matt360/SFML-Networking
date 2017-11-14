@@ -68,9 +68,11 @@ void Network::serverSocket()
 
 void Network::clientSocket()
 {
-	// Ask for the server address
 	//////////////////////////////////////////
 	sf::IpAddress server(*ip_address);
+	socket->setBlocking(false);
+
+	// Ask for the server address
 	/*do
 	{
 	std::cout << "Type the address or name of the server to connect to: ";
@@ -78,7 +80,7 @@ void Network::clientSocket()
 	} while (server == sf::IpAddress::None);*/
 
 	// Create a socket for communicating with the server
-	socket->setBlocking(false);
+
 	///////////////////////////////////////////
 }
 

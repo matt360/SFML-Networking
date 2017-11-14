@@ -271,5 +271,6 @@ void GameClient::update(float dt)
 		*state = GameState::GAME_CLIENT;
 	}
 
+	if ((int)fps % 10 == 0)
 	runUdpClient();
 }
