@@ -18,11 +18,6 @@ Menu::~Menu()
 {
 }
 
-GameState Menu::getState()
-{
-	return *state;
-}
-
 void Menu::handleInput(float dt)
 {
 

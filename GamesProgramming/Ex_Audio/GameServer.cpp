@@ -101,11 +101,6 @@ GameServer::~GameServer()
 
 }
 
-//GameState GameServer::getState()
-//{
-//	return state;
-//}
-
 void GameServer::handleInput(float dt)
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.

@@ -15,7 +15,6 @@ public:
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
-	GameState getState();
 
 	// Network
 	void serverSocket();
@@ -31,7 +30,6 @@ private:
 	unsigned short* port;
 
 	GameState* state;
-	//NetworkState networkState;
 
 	sf::Text text;
 	sf::Font font;

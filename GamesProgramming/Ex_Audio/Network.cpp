@@ -22,11 +22,6 @@ Network::~Network()
 {
 }
 
-GameState Network::getState()
-{
-	return *state;
-}
-
 void Network::handleInput(float dt)
 {
 
