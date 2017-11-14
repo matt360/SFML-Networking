@@ -1,14 +1,13 @@
 #include "Network.h"
 #include <iostream>
 
-Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, unsigned short *port_number, const std::string* server_address)
+Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
 	window = hwnd;
 	input = in;
-	port = port_number;
 	socket = udp_socket;
-	address = server_address;
-	ip_address = *server_address;
+	ip_address = ip;
+	port = port_number;
 	state = GameState::NETWORK;
 	networkState = NetworkState::NONE;
 
@@ -92,7 +91,7 @@ void Network::clientSocket()
 {
 	// Ask for the server address
 	//////////////////////////////////////////
-	sf::IpAddress server(*address);
+	sf::IpAddress server(*ip_address);
 	/*do
 	{
 	std::cout << "Type the address or name of the server to connect to: ";
@@ -111,34 +110,34 @@ void Network::clientSocket()
 ////////////////////////////////////////////////////////////
 void Network::runUdpClient()
 {
-	sf::Uint32 x = 24;
-	std::string s = "hello";
-	double d = 5.89;
-	// Group the variables to send into a packet
-	sf::Packet packet;
-	packet << x << s << d;
-	// Send it over the network (socket is a valid sf::TcpSocket)
-	socket->send(packet, ip_address, *port);
-	
-		// Receive the packet at the other end
-	sf::Packet packet;
-	socket->receive(packet, ip_address, *port);
-	// Extract the variables contained in the packet
-	sf::Uint32 x;
-	std::string s;
-	double d;
-	if (packet >> x >> s >> d)
-	{
-		// Data extracted successfully...
-	}
+	//sf::Uint32 x = 24;
+	//std::string s = "hello";
+	//double d = 5.89;
+	//// Group the variables to send into a packet
+	//sf::Packet packet;
+	//packet << x << s << d;
+	//// Send it over the network (socket is a valid sf::TcpSocket)
+	//socket->send(packet, *ip_address, *port);
+	//
+	//	// Receive the packet at the other end
+	//sf::Packet packet;
+	//socket->receive(packet, *ip_address, *port);
+	//// Extract the variables contained in the packet
+	//sf::Uint32 x;
+	//std::string s;
+	//double d;
+	//if (packet >> x >> s >> d)
+	//{
+	//	// Data extracted successfully...
+	//}
 
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
 
-	switch (socket->send(out, sizeof(out), *address, *port))
+	switch (socket->send(out, sizeof(out), *ip_address, *port))
 	{
 	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *address << std::endl;
+		std::cout << "Socket not ready " << *ip_address << std::endl;
 		break;
 
 	case sf::Socket::Done:
@@ -166,7 +165,7 @@ void Network::runUdpClient()
 	switch (socket->receive(in, sizeof(in), received, sender, senderPort))
 	{
 	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *address << std::endl;
+		std::cout << "Socket not ready " << *ip_address << std::endl;
 		break;
 
 	case sf::Socket::Done:
