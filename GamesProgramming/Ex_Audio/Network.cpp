@@ -8,7 +8,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, s
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	*state = *st;
+	state = st;
 
 	// Network text
 	font.loadFromFile("font/arial.ttf");

@@ -15,7 +15,7 @@
 
 class GameServer {
 public:
-	GameServer(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
+	GameServer(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, GameState* state);
 	~GameServer();
 
 	void handleInput(float dt);
@@ -35,6 +35,7 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	GameState* state;
 
 	//GameState state;
 

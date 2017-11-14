@@ -25,10 +25,10 @@ void main(int argc, char** argv[])
 	bool pause = false;
 	Input input;
 	// Don't change the order of this
-	GameClient game_client(&window, &input, &socket, &ip_address, &port, &state);
-	GameServer game_server(&window, &input, &socket, &ip_address, &port, &state);
 	Menu menu(&window, &input, &state);
 	Network network(&window, &input, &socket, &ip_address, &port, &state);
+	GameClient game_client(&window, &input, &socket, &ip_address, &port, &state);
+	GameServer game_server(&window, &input, &socket, &ip_address, &port, &state);
 	
 	//direction dir = direction::left;
 	
@@ -139,7 +139,7 @@ void main(int argc, char** argv[])
 			menu.handleInput(deltaTime);
 			menu.update(deltaTime);
 			menu.render();
-			state = getState();
+			//state = menu.getState();
 			break;
 
 		case (GameState::NETWORK) :
@@ -147,7 +147,7 @@ void main(int argc, char** argv[])
 			// create socket and 
 			network.update(deltaTime);
 			network.render();
-			state = getState();
+			//state = network.getState();
 			break;
 
 		case(GameState::GAME_CLIENT):
@@ -157,7 +157,7 @@ void main(int argc, char** argv[])
 			//socket(); 
 			game_client.update(deltaTime);
 			game_client.render();
-			state = getState();
+			//state = game_client.getState();
 			break;
 
 		case(GameState::GAME_SERVER):
@@ -167,7 +167,7 @@ void main(int argc, char** argv[])
 			//socket(); 
 			game_server.update(deltaTime);
 			game_server.render();
-			state = getState();
+			//state = game_client.getState();
 			break;
 
 		case(GameState::PAUSE) :

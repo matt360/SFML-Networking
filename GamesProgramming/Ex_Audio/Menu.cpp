@@ -4,7 +4,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameState* st)
 {
 	window = hwnd;
 	input = in;
-	*state = *st;
+	state = st;
 
 	// Menu text
 	font.loadFromFile("font/arial.ttf");

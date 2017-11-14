@@ -1,14 +1,14 @@
 #include "GameServer.h"
 #include "States.h"
 
-GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
+GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, GameState* st)
 {
 	window = hwnd;
 	input = in;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = GameState::GAME_SERVER;
+	state = st;
 	// 
 	//if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
 
@@ -268,7 +268,7 @@ void GameServer::update(float dt)
 
 	if (player.getPosition().y > window->getSize().y)
 	{
-		state = GameState::MENU;
+		*state = GameState::MENU;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -276,7 +276,7 @@ void GameServer::update(float dt)
 	}
 	else
 	{
-		state = GameState::GAME_SERVER;
+		*state = GameState::GAME_SERVER;
 	}
 
 	runUdpServer();
