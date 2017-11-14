@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Network.hpp>
 
 enum class GameState { MENU, NETWORK, LEVEL, PAUSE, CREDITS };
 enum class NetworkState { CLIENT, SERVER, NONE };
@@ -6,4 +7,7 @@ enum class NetworkState { CLIENT, SERVER, NONE };
 __declspec(selectany) NetworkState networkState;
 
 inline NetworkState getNetworkState() { return networkState; }
+
+// global socket
+static sf::UdpSocket socket;
 //enum direction : char { left = 'l', right = 'r' };

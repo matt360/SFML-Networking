@@ -1,5 +1,4 @@
 #include "Network.h"
-#include "SFML/Network.hpp"
 #include <iostream>
 
 Network::Network(sf::RenderWindow* hwnd, Input* in)
@@ -40,15 +39,11 @@ void Network::handleInput(float dt)
 	}
 }
 
-////////////////////////////////////////////////////////////
-/// Launch a server, wait for a message, send an answer.
-///
-////////////////////////////////////////////////////////////
-void Network::runUdpServer(unsigned short port)
+void Network::serverSocket(unsigned short port)
 {
 	// //////////////////////////////
 	// Create a socket to receive a message from anyone
-	sf::UdpSocket socket;
+	// sf::UdpSocket socket;
 	socket.setBlocking(false);
 
 	// Listen to messages on the specified port
@@ -56,7 +51,14 @@ void Network::runUdpServer(unsigned short port)
 		return;
 	std::cout << "Server is listening to port " << port << ", waiting for a message... " << std::endl;
 	/////////////////////////////////
+}
 
+////////////////////////////////////////////////////////////
+/// Launch a server, wait for a message, send an answer.
+///
+////////////////////////////////////////////////////////////
+void Network::runUdpServer(unsigned short port, sf::UdpSocket socket)
+{
 	// Wait for a message
 	char in[128];
 	std::size_t received;
@@ -80,15 +82,11 @@ void Network::runUdpServer(unsigned short port)
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-////////////////////////////////////////////////////////////
-/// Send a message to the server, wait for the answer
-///
-////////////////////////////////////////////////////////////
-void Network::runUdpClient(unsigned short port)
+void Network::clientSocket(const std::string& address)
 {
 	// Ask for the server address
 	//////////////////////////////////////////
-	sf::IpAddress server("127.1.0");
+	sf::IpAddress server(address);
 	/*do
 	{
 	std::cout << "Type the address or name of the server to connect to: ";
@@ -96,10 +94,17 @@ void Network::runUdpClient(unsigned short port)
 	} while (server == sf::IpAddress::None);*/
 
 	// Create a socket for communicating with the server
-	sf::UdpSocket socket;
+	//sf::UdpSocket socket;
 	socket.setBlocking(false);
 	///////////////////////////////////////////
+}
 
+////////////////////////////////////////////////////////////
+/// Send a message to the server, wait for the answer
+///
+////////////////////////////////////////////////////////////
+void Network::runUdpClient(unsigned short port, sf::UdpSocket socket, const std::string& server)
+{
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
 
@@ -187,6 +192,7 @@ void Network::update(float dt)
 		input->setKeyUp(sf::Keyboard::S);
 		networkState = NetworkState::SERVER;
 		// create the socket
+		serverSocket(port);
 		//text.setPosition(200, 100);
 		text.setString("Connecting...\n\nYou're a server\n\nPress Enter to Play");
 	}
@@ -194,6 +200,7 @@ void Network::update(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::C);
 		networkState = NetworkState::CLIENT;
+		clientSocket(address);
 		// message - joined the server
 		//text.setPosition(200, 100);
 		text.setString("Connecting...\n\nYou're a client\n\nPress Enter to Play");
@@ -216,10 +223,10 @@ void Network::update(float dt)
 	switch (getNetworkState())
 	{
 	case NetworkState::SERVER:
-		runUdpServer(port);
+		runUdpServer(port, socket);
 		break;
 	case NetworkState::CLIENT:
-		runUdpClient(port);
+		runUdpClient(port, socket, server);
 		break;
 	case NetworkState::NONE:
 		text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
