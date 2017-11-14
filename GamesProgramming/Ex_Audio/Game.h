@@ -15,7 +15,7 @@
 
 class Game {
 public:
-	Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, unsigned short *port_number, const std::string* server_address);
+	Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
 	~Game();
 
 	void handleInput(float dt);
@@ -36,8 +36,9 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	sf::UdpSocket *socket;
+	sf::IpAddress* ip_address;
 	unsigned short* port;
-	const std::string* address;
+
 	GameState state;
 
 	std::once_flag ask_flag;

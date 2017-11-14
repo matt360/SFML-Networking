@@ -1,13 +1,13 @@
 #include "Game.h"
 #include "States.h"
 
-Game::Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, unsigned short *port_number, const std::string* server_address)
+Game::Game(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
 	window = hwnd;
 	input = in;
-	port = port_number;
 	socket = udp_socket;
-	address = server_address;
+	ip_address = ip;
+	port = port_number;
 	state = GameState::LEVEL;
 	// 
 	if (getNetworkState() == NetworkState::NONE) { networkState = NetworkState::CLIENT; }
@@ -137,10 +137,10 @@ void Game::runUdpClient()
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
 
-	switch (socket->send(out, sizeof(out), *address, *port))
+	switch (socket->send(out, sizeof(out), *ip_address, *port))
 	{
 	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *address << std::endl;
+		std::cout << "Socket not ready " << *ip_address << std::endl;
 		break;
 
 	case sf::Socket::Done:
@@ -168,7 +168,7 @@ void Game::runUdpClient()
 	switch (socket->receive(in, sizeof(in), received, sender, senderPort))
 	{
 	case sf::Socket::NotReady:
-		std::cout << "Socket not ready " << *address << std::endl;
+		std::cout << "Socket not ready " << *ip_address << std::endl;
 		break;
 
 	case sf::Socket::Done:
