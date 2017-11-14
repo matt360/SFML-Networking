@@ -1,14 +1,14 @@
 #include "Network.h"
 #include <iostream>
 
-Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
+Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, GameState* st)
 {
 	window = hwnd;
 	input = in;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = GameState::NETWORK;
+	*state = *st;
 
 	// Network text
 	font.loadFromFile("font/arial.ttf");
@@ -22,10 +22,10 @@ Network::~Network()
 {
 }
 
-//GameState Network::getState()
-//{
-//	return state;
-//}
+GameState Network::getState()
+{
+	return *state;
+}
 
 void Network::handleInput(float dt)
 {
@@ -33,19 +33,19 @@ void Network::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		switch (state)
+		switch (*state)
 		{
 		case (GameState::GAME_CLIENT):
-			state = GameState::GAME_CLIENT;
+			*state = GameState::GAME_CLIENT;
 			break;
 		case (GameState::GAME_SERVER):
-			state = GameState::GAME_SERVER;
+			*state = GameState::GAME_SERVER;
 			break;
 		}
 	}
 	else
 	{
-		state = GameState::NETWORK;
+		*state = GameState::NETWORK;
 	}
 }
 
@@ -93,7 +93,7 @@ void Network::update(float dt)
 	if (input->isKeyDown(sf::Keyboard::S))
 	{
 		input->setKeyUp(sf::Keyboard::S);
-		state = GameState::GAME_SERVER;
+		*state = GameState::GAME_SERVER;
 		// create the socket
 		serverSocket();
 		//text.setPosition(200, 100);
@@ -102,7 +102,7 @@ void Network::update(float dt)
 	if (input->isKeyDown(sf::Keyboard::C))
 	{
 		input->setKeyUp(sf::Keyboard::C);
-		state = GameState::GAME_CLIENT;
+		*state = GameState::GAME_CLIENT;
 		clientSocket();
 		// message - joined the server
 		//text.setPosition(200, 100);

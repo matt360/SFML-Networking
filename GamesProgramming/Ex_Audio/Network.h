@@ -9,13 +9,13 @@
 class Network
 {
 public:
-	Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
+	Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, GameState* state);
 	~Network();
 
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
-	//GameState getState();
+	GameState getState();
 
 	// Network
 	void serverSocket();
@@ -30,7 +30,7 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 
-	GameState state;
+	GameState* state;
 	//NetworkState networkState;
 
 	sf::Text text;

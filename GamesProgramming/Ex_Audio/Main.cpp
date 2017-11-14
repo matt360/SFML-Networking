@@ -8,8 +8,6 @@
 #include "Network.h"
 #include "States.h"
 
-
-
 void main(int argc, char** argv[])
 {
 	// NETWORK /////////////////////
@@ -21,14 +19,16 @@ void main(int argc, char** argv[])
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Lab 1");// , sf::Style::None);
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
+	////////////////////////////////
+	GameState state = GameState::MENU;
 	
 	bool pause = false;
 	Input input;
 	// Don't change the order of this
-	GameClient game_client(&window, &input, &socket, &ip_address, &port);
-	GameServer game_server(&window, &input, &socket, &ip_address, &port);
-	Menu menu(&window, &input);
-	Network network(&window, &input, &socket, &ip_address, &port);
+	GameClient game_client(&window, &input, &socket, &ip_address, &port, &state);
+	GameServer game_server(&window, &input, &socket, &ip_address, &port, &state);
+	Menu menu(&window, &input, &state);
+	Network network(&window, &input, &socket, &ip_address, &port, &state);
 	
 	//direction dir = direction::left;
 	

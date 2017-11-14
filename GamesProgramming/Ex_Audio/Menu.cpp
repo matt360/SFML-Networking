@@ -1,10 +1,10 @@
 #include "Menu.h"
 
-Menu::Menu(sf::RenderWindow* hwnd, Input* in)
+Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameState* st)
 {
 	window = hwnd;
 	input = in;
-	//state = GameState::MENU;
+	*state = *st;
 
 	// Menu text
 	font.loadFromFile("font/arial.ttf");
@@ -18,17 +18,22 @@ Menu::~Menu()
 {
 }
 
+GameState Menu::getState()
+{
+	return *state;
+}
+
 void Menu::handleInput(float dt)
 {
 
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		state = GameState::NETWORK;
+		*state = GameState::NETWORK;
 	}
 	else
 	{
-		state = GameState::MENU;
+		*state = GameState::MENU;
 	}
 }
 

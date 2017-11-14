@@ -7,20 +7,20 @@
 class Menu
 {
 public:
-	Menu(sf::RenderWindow* hwnd, Input* in);
+	Menu(sf::RenderWindow* hwnd, Input* in, GameState* state);
 	~Menu();
 
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
-	//GameState getState();
+	GameState getState();
 
 private:
 	void beginDraw();
 	void endDraw();
 	sf::RenderWindow* window;
 	Input* input;
-	//GameState state;
+	GameState* state;
 	
 	sf::Text text;
 	sf::Font font;
