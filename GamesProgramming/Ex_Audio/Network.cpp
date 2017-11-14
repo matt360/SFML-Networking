@@ -15,7 +15,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, s
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);
-	text.setString("Connecting...\n\nPress Enter to Play");
+	text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
 }
 
 Network::~Network()
