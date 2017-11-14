@@ -25,8 +25,7 @@ void main(int argc, char** argv[])
 	bool pause = false;
 	Input input;
 	// Don't change the order of this
-	GameClient gameClient;
-	//Game game(&window, &input, &socket, &ip_address, &port);
+	GameServer game(&window, &input, &socket, &ip_address, &port);
 	Menu menu(&window, &input);
 	Network network(&window, &input, &socket, &ip_address, &port);
 	// Set initial state

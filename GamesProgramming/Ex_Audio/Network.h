@@ -22,7 +22,6 @@ public:
 	void clientSocket();
 	
 private:
-	
 	void beginDraw();
 	void endDraw();
 	sf::RenderWindow* window;
