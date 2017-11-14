@@ -69,7 +69,7 @@ void Network::runUdpServer()
 	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	if (socket->receive(packet_receive, sender, senderPort) != sf::Socket::Done)
+	if (socket->receive(packet_receive, *ip_address, *port) != sf::Socket::Done)
 		return;
 	// Extract the variables contained in the packet
 	sf::Uint32 x;
@@ -96,10 +96,10 @@ void Network::runUdpServer()
 	std::string s = "hello";
 	double d = 5.89;*/
 	// Group the variables to send into a packet
-	sf::Packet packet;
-	packet << x << s << d;
+	//sf::Packet packet;
+	//packet << x << s << d;
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	if (socket->send(packet, *ip_address, *port) != sf::Socket::Done)
+	if (socket->send(packet_receive, *ip_address, *port) != sf::Socket::Done)
 		return;
 	std::cout << "Message sent to the client: \"" << std::endl;
 	std::cout << "\nx: " << x << "\ns: " << s << "\nd: " << d << std::endl;
@@ -155,7 +155,7 @@ void Network::runUdpClient()
 	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	socket->receive(packet_receive, sender, senderPort);
+	socket->receive(packet_receive, *ip_address, *port);
 	// Extract the variables contained in the packet
 	sf::Uint32 x_r;
 	std::string s_r;
