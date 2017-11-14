@@ -22,9 +22,10 @@ void main(int argc, char** argv[])
 	
 	bool pause = false;
 	Input input;
+	// Don't change the order of this
+	Game game(&window, &input, &socket, &port, &server);
 	Menu menu(&window, &input);
 	Network network(&window, &input, &socket, &port, &server);
-	Game game(&window, &input, &socket, &port, &server);
 	// Set initial state
 	GameState state = GameState::MENU;	
 	//direction dir = direction::left;

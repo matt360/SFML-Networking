@@ -8,6 +8,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, u
 	port = port_number;
 	socket = udp_socket;
 	address = server_address;
+	ip_address = *server_address;
 	state = GameState::NETWORK;
 	networkState = NetworkState::NONE;
 
@@ -48,7 +49,9 @@ void Network::serverSocket()
 	// Create a socket to receive a message from anyone
 	// sf::UdpSocket socket;
 	socket->setBlocking(false);
-
+	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
+	// in this case the server will always use the same port
+	socket->unbind();
 	// Listen to messages on the specified port
 	if (socket->bind(*port) != sf::Socket::Done)
 		return;
@@ -108,6 +111,27 @@ void Network::clientSocket()
 ////////////////////////////////////////////////////////////
 void Network::runUdpClient()
 {
+	sf::Uint32 x = 24;
+	std::string s = "hello";
+	double d = 5.89;
+	// Group the variables to send into a packet
+	sf::Packet packet;
+	packet << x << s << d;
+	// Send it over the network (socket is a valid sf::TcpSocket)
+	socket->send(packet, ip_address, *port);
+	
+		// Receive the packet at the other end
+	sf::Packet packet;
+	socket->receive(packet, ip_address, *port);
+	// Extract the variables contained in the packet
+	sf::Uint32 x;
+	std::string s;
+	double d;
+	if (packet >> x >> s >> d)
+	{
+		// Data extracted successfully...
+	}
+
 	// Send a message to the server
 	const char out[] = "Hi, I'm a client";
 
@@ -197,7 +221,7 @@ void Network::update(float dt)
 		// create the socket
 		serverSocket();
 		//text.setPosition(200, 100);
-		text.setString("Connecting...\n\nYou're a server\n\nPress Enter to Play");
+		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
 	}
 	if (input->isKeyDown(sf::Keyboard::C))
 	{
@@ -206,7 +230,7 @@ void Network::update(float dt)
 		clientSocket();
 		// message - joined the server
 		//text.setPosition(200, 100);
-		text.setString("Connecting...\n\nYou're a client\n\nPress Enter to Play");
+		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 	}
 	//if (protocol == 't')
 	//{

@@ -32,6 +32,7 @@ private:
 	sf::UdpSocket *socket;
 	unsigned short* port;
 	const std::string* address;
+	sf::IpAddress ip_address;
 
 	GameState state;
 	//NetworkState networkState;
