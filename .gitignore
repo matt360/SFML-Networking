@@ -39,6 +39,8 @@ links/Inigo\ Quilez
 *.exe
 *.idb
 *.tlog
+*.iobj
+*.ipdb
 
 x64/
 x86/
