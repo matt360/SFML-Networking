@@ -66,7 +66,7 @@ void Network::handleInput(float dt)
 
 void Network::serverSocket()
 {
-	// //////////////////////////////////////////
+	//////////////////////////////////////////
 	// Create a socket to receive a message from anyone
 	socket->setBlocking(false);
 	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
