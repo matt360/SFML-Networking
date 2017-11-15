@@ -20,8 +20,8 @@ links/Inigo\ Quilez
 
 # Build results
 
-#[Dd]ebugPublic/
-#[Rr]eleases/
+[Dd]ebugPublic/
+[Rr]eleases/
 
 [Dd]ebug/*
 ![Dd]ebug/font/
@@ -35,6 +35,8 @@ links/Inigo\ Quilez
 ![Rr]elease/gfx/
 ![Rr]elease/sfx/
 ![Rr]elease/openal32.dll
+
+*.exe
 
 x64/
 x86/
