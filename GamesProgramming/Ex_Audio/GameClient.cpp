@@ -166,7 +166,7 @@ bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
 /// Send a message to the server, wait for the answer
 ///
 ////////////////////////////////////////////////////////////
-void GameClient::runUdpClient()
+void GameClient::sendPacket()
 {
 	// message
 	sf::Uint32 x = 24;
@@ -177,23 +177,45 @@ void GameClient::runUdpClient()
 	sf::Packet packet;
 	packet << x << s << d;
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	if (socket->send(packet, *ip_address, *port) != sf::Socket::Done)
+	if (socket->send(packet, *ip_address, *port) != sf::Socket::Done) {
+		std::cout << "send failed\n"; // XXX do something better than this in real code ;-)
 		return;
+	}
 
-	// Receive the packet at the other end
-	sf::Packet packet_receive;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	if (socket->receive(packet_receive, sender, senderPort) != sf::Socket::Done)
-		return;
-	// Extract the variables contained in the packet
-	sf::Uint32 x_r;
-	std::string s_r;
-	double d_r;
-	if (packet_receive >> x_r >> s_r >> d_r)
-	{
-		// Data extracted successfully...
-		std::cout << "\nclient: x: " << x_r << "\nclient s: " << s_r << "\nclient d: " << d_r << std::endl;
+}
+
+void GameClient::checkForIncomingPackets()
+{
+	while (true) {
+		// Try to receive the packet from the other end
+		sf::Packet packet_receive;
+		sf::IpAddress sender;
+		unsigned short senderPort;
+		switch (socket->receive(packet_receive, sender, senderPort))
+		{
+		case sf::Socket::Done:
+			// Received a packet.
+			std::cout << "Got one!\n";
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			std::cout << "No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			std::cout << "receive didn't return Done\n";
+			return;
+		}
+
+		// Extract the variables contained in the packet
+		std::string s_r;
+		if (packet_receive >> s_r )
+		{
+			// Data extracted successfully...
+			std::cout << "\nclient: s: " << s_r <<  std::endl;
+		}
 	}
 }
 
@@ -272,5 +294,7 @@ void GameClient::update(float dt)
 	}
 
 	if ((int)fps % 10 == 0)
-	runUdpClient();
+		sendPacket();
+
+	checkForIncomingPackets();
 }

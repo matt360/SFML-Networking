@@ -19,6 +19,8 @@ public:
 	~GameClient();
 
 	void handleInput(float dt);
+	void sendPacket();
+	void checkForIncomingPackets();
 	void update(float dt);
 	void render();
 	GameState getState();

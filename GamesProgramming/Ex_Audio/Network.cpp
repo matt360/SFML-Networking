@@ -82,7 +82,8 @@ void Network::serverSocket()
 void Network::clientSocket()
 {
 	//////////////////////////////////////////
-	sf::IpAddress server(*ip_address);
+	//sf::IpAddress server(*ip_address);
+	socket->unbind();
 	socket->setBlocking(false);
 
 	// Ask for the server address
