@@ -20,9 +20,9 @@ links/Inigo\ Quilez
 
 # Build results
 **/[Dd]ebug/
-!**/GamesProgramming/Ex_Audio/[Dd]ebug
+!**/GamesProgramming/[Dd]ebug
 **/[Rr]elease/
-!**/GamesProgramming/Ex_Audio/[Rr]elease
+!**/GamesProgramming/[Rr]elease
 [Dd]ebugPublic/
 [Rr]eleases/
 x64/
