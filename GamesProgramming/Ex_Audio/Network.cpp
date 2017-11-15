@@ -66,7 +66,7 @@ void Network::handleInput(float dt)
 
 void Network::serverSocket()
 {
-	// //////////////////////////////
+	// //////////////////////////////////////////
 	// Create a socket to receive a message from anyone
 	socket->setBlocking(false);
 	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
@@ -76,13 +76,12 @@ void Network::serverSocket()
 	if (socket->bind(*port) != sf::Socket::Done)
 		return;
 	std::cout << "Server is listening to port " << *port << ", waiting for a message... " << std::endl;
-	/////////////////////////////////
+	//////////////////////////////////////////
 }
 
 void Network::clientSocket()
 {
 	//////////////////////////////////////////
-	//sf::IpAddress server(*ip_address);
 	socket->unbind();
 	socket->setBlocking(false);
 
@@ -92,9 +91,6 @@ void Network::clientSocket()
 	std::cout << "Type the address or name of the server to connect to: ";
 	std::cin >> server;
 	} while (server == sf::IpAddress::None);*/
-
-	// Create a socket for communicating with the server
-
 	///////////////////////////////////////////
 }
 

@@ -6,7 +6,6 @@
 #include "Input.h"
 #include <Windows.h>
 #include <string.h>
-#include <mutex>
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
@@ -24,19 +23,18 @@ public:
 	//Window* getWindow();
 
 private:
-	void runUdpServer();
 	bool checkCollision(Sprite* s1, Sprite* s2);
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 	//void moveMushroom();
 	//Window m_window;
 	sf::RenderWindow* window;
 	Input* input;
+	GameState* state;
+	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
-	GameState* state;
-
-	std::once_flag ask_flag;
+	void runUdpServer();
 
 	float fps;
 	sf::Text text;

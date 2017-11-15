@@ -4,7 +4,6 @@
 #include "Input.h"
 #include <string.h>
 #include "States.h"
-#include <mutex>
 
 class Network
 {
@@ -25,24 +24,18 @@ private:
 	void endDraw();
 	sf::RenderWindow* window;
 	Input* input;
+	GameState* state;
+	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
-	//
+	// input handlers
 	bool readyToPlay;
 	bool server;
 	bool client;
 	NetworkState network_state;
 
-	GameState* state;
-
 	sf::Text text;
 	sf::Font font;
-
-	std::once_flag ask_flag;
-	char who;
-	//void do_once();
-
-	// Network
 };
 

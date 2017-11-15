@@ -181,7 +181,6 @@ void GameClient::sendPacket()
 		std::cout << "send failed\n"; // XXX do something better than this in real code ;-)
 		return;
 	}
-
 }
 
 void GameClient::checkForIncomingPackets()
@@ -210,6 +209,7 @@ void GameClient::checkForIncomingPackets()
 		}
 
 		// Extract the variables contained in the packet
+		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		std::string s_r;
 		if (packet_receive >> s_r )
 		{

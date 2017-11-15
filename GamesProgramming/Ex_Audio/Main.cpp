@@ -13,7 +13,9 @@ void main(int argc, char** argv[])
 	// NETWORK /////////////////////
 	// global socket
 	static sf::UdpSocket socket;
-	unsigned short port = 50001; // Choose an arbitrary port for opening sockets
+	// Choose an arbitrary port for opening sockets
+	unsigned short port = 50001; 
+	// IP adrress to connect to
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Lab 1");// , sf::Style::None);
@@ -181,7 +183,6 @@ void main(int argc, char** argv[])
 		case(GameState::CREDITS) :
 			//...
 			break;
-
 		}	
 	}
 }
