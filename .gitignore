@@ -25,15 +25,15 @@ links/Inigo\ Quilez
 [Rr]eleases/
 
 **/[Dd]ebug/**
-!**/[Dd]ebug/font
-!**/[Dd]ebug/gfx
-!**/[Dd]ebug/sfx
+!**/[Dd]ebug/font/
+!**/[Dd]ebug/gfx/
+!**/[Dd]ebug/sfx/
 !**/[Dd]ebug/openal32.dll
 
 **/[Rr]elease/**
-!**/[Rr]elease/font
-!**/[Rr]elease/gfx
-!**/[Rr]elease/sfx
+!**/[Rr]elease/font/
+!**/[Rr]elease/gfx/
+!**/[Rr]elease/sfx/
 !**/[Rr]elease/openal32.dll
 
 x64/
