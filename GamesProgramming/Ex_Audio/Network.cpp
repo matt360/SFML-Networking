@@ -11,6 +11,8 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, s
 	state = st;
 
 	readyToPlay = false;
+	server = false;
+	client = false;
 	network_state = NetworkState::NONE;
 
 	// Network text
@@ -32,6 +34,22 @@ void Network::handleInput(float dt)
 		input->setKeyUp(sf::Keyboard::Return);
 		readyToPlay = true;
 	}	
+
+	// Client or server ?
+	if (input->isKeyDown(sf::Keyboard::S))
+	{
+		input->setKeyUp(sf::Keyboard::S);
+	
+		server = true;
+		network_state = NetworkState::SERVER;
+	}
+	if (input->isKeyDown(sf::Keyboard::C))
+	{
+		input->setKeyUp(sf::Keyboard::C);
+		
+		client = true;
+		network_state = NetworkState::CLIENT;
+	}
 }
 
 // error handling before connecting
@@ -77,26 +95,22 @@ void Network::clientSocket()
 void Network::update(float dt)
 {
 	// Client or server ?
-	if (input->isKeyDown(sf::Keyboard::S))
+	if (server)
 	{
-		input->setKeyUp(sf::Keyboard::S);
 		// create server socket
 		serverSocket();
 		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
 
-		//*state = GameState::GAME_SERVER;
-		network_state = NetworkState::SERVER;
+		server = false;
 	}
-	if (input->isKeyDown(sf::Keyboard::C))
+	if (client)
 	{
-		input->setKeyUp(sf::Keyboard::C);
 		// create client socket
 		clientSocket();
 		// message - joined the server
 		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 
-		//*state = GameState::GAME_CLIENT;
-		network_state = NetworkState::CLIENT;
+		client = false;
 	}
 
 	if (readyToPlay)

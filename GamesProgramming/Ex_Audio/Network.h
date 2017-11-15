@@ -30,6 +30,8 @@ private:
 	unsigned short* port;
 	//
 	bool readyToPlay;
+	bool server;
+	bool client;
 	NetworkState network_state;
 
 	GameState* state;
