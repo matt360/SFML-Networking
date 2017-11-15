@@ -37,6 +37,8 @@ links/Inigo\ Quilez
 ![Rr]elease/openal32.dll
 
 *.exe
+*.idb
+*.tlog
 
 x64/
 x86/
