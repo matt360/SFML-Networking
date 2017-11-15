@@ -14,7 +14,7 @@
 
 class GameClient {
 public:
-	GameClient(sf::RenderWindow* hwnd, Input* in, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, GameState* state);
+	GameClient(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
 	~GameClient();
 
 	void handleInput(float dt);

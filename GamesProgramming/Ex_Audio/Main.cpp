@@ -28,9 +28,9 @@ void main(int argc, char** argv[])
 	Input input;
 	// Don't change the order of this
 	Menu menu(&window, &input, &state);
-	Network network(&window, &input, &socket, &ip_address, &port, &state);
-	GameClient game_client(&window, &input, &socket, &ip_address, &port, &state);
-	GameServer game_server(&window, &input, &socket, &ip_address, &port, &state);
+	Network network(&window, &input, &state, &socket, &ip_address, &port);
+	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
+	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);
 	
 	//direction dir = direction::left;
 	

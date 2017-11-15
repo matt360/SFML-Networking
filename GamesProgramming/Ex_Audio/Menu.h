@@ -23,7 +23,5 @@ private:
 	
 	sf::Text text;
 	sf::Font font;
-
-	
 };
 
