@@ -20,9 +20,15 @@ links/Inigo\ Quilez
 
 # Build results
 **/[Dd]ebug/
-!**/GamesProgramming/[Dd]ebug
+!**/GamesProgramming/[Dd]ebug/font
+!**/GamesProgramming/[Dd]ebug/gfx
+!**/GamesProgramming/[Dd]ebug/sfx
+!**/GamesProgramming/[Dd]ebug/openal32.dll
 **/[Rr]elease/
-!**/GamesProgramming/[Rr]elease
+!**/GamesProgramming/[Rr]elease/font
+!**/GamesProgramming/[Rr]elease/gfx
+!**/GamesProgramming/[Rr]elease/sfx
+!**/GamesProgramming/[Rr]elease/openal32.dll
 [Dd]ebugPublic/
 [Rr]eleases/
 x64/
