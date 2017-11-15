@@ -17,6 +17,7 @@ void main(int argc, char** argv[])
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking");// , sf::Style::None);
+	// Set framerate to 60FPS
 	window.setFramerateLimit(60);
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
@@ -44,9 +45,6 @@ void main(int argc, char** argv[])
 	//mushroom.setOrigin(size.x / 2, size.y / 2);
 	//mushroom.setPosition(50, 50);
 	//sf::Vector2f increment(0.1f, 0.1f);
-
-	// for testing
-	//window.setFramerateLimit(30);
 
 	while (window.isOpen())
 	{
