@@ -291,7 +291,8 @@ void GameClient::update(float dt)
 		*state = GameState::GAME_CLIENT;
 	}
 
-	if ((int)fps % 100 == 0)
+	// send packets at 10Hz rate (at 10PFS)
+	if ((int)fps % 6 == 0)
 		sendPacket();
 
 	checkForIncomingPackets();

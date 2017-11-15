@@ -276,7 +276,8 @@ void GameServer::update(float dt)
 		*state = GameState::GAME_SERVER;
 	}
 
-	//if ((int)fps % 10 == 0)
+	//if ((int)fps % 6 == 0)
+	// server should probably keep listening and sending all the time
 	runUdpServer();
 }
 
