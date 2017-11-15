@@ -28,6 +28,9 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	//
+	bool readyToPlay;
+	NetworkState network_state;
 
 	GameState* state;
 
