@@ -32,6 +32,7 @@ void Network::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
+		// player ready to play
 		readyToPlay = true;
 	}	
 
@@ -39,15 +40,17 @@ void Network::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::S))
 	{
 		input->setKeyUp(sf::Keyboard::S);
-	
+		// set readiness for being the server
 		server = true;
+		client = false;
 		network_state = NetworkState::SERVER;
 	}
 	if (input->isKeyDown(sf::Keyboard::C))
 	{
 		input->setKeyUp(sf::Keyboard::C);
-		
+		// set readiness for being the client
 		client = true;
+		server = false;
 		network_state = NetworkState::CLIENT;
 	}
 }
@@ -119,14 +122,11 @@ void Network::update(float dt)
 		{
 		case (NetworkState::CLIENT):
 			*state = GameState::GAME_CLIENT;
-			readyToPlay = false;
 			break;
 		case (NetworkState::SERVER):
 			*state = GameState::GAME_SERVER;
-			readyToPlay = false;
 			break;
 		default:
-			*state = GameState::NETWORK;
 			readyToPlay = false;
 			break;
 		}
