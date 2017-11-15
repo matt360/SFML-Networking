@@ -42,6 +42,7 @@ void Network::handleInput(float dt)
 		input->setKeyUp(sf::Keyboard::S);
 		// set readiness for being the server
 		server = true;
+		// setting client to false let's us change the decision and to become the cleint
 		client = false;
 		network_state = NetworkState::SERVER;
 	}
@@ -50,6 +51,7 @@ void Network::handleInput(float dt)
 		input->setKeyUp(sf::Keyboard::C);
 		// set readiness for being the client
 		client = true;
+		// setting server to false let's us change the decision and become the server
 		server = false;
 		network_state = NetworkState::CLIENT;
 	}
