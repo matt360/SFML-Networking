@@ -176,10 +176,12 @@ void GameServer::runUdpServer()
 	double d_r;
 	if (packet_receive >> x_r >> s_r >> d_r)
 	{
+		// The message from the client
+		std::cout << "\n\nSERVER: Message received from the client:";
 		// Data extracted successfully...
-		std::cout << "SERVER: Message received from client " << sender << std::endl;
-		// Data extracted successfully...
-		std::cout << "\nserver x: " << x_r << "\nserver s: " << s_r << "\nserver d: " << d_r << std::endl;
+		std::cout << "\nSERVER: x: " << x_r << "\nSERVER: s: " << s_r << "\nSERVER: d: " << d_r;
+		std::cout << "\nSERVER: client's IP: " << sender;
+		std::cout << "\nSERVER: client's port: " << senderPort;
 	}
 
 	// Group the variables to send into a packet
@@ -195,14 +197,15 @@ void GameServer::runUdpServer()
 	if (packet_send >> s_s)
 	{
 		// Data extracted successfully...
-		std::cout << "SERVER: Message sent to the client: ";
-		std::cout << "server: s_s: " << s_s << std::endl;
+		std::cout << "\nSERVER: Message sent to the client: " << s_s;
 	}
 }
 void GameServer::update(float dt)
 {
 	fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
+	//std::cout << fps << std::endl;
+
 	if (!hasStarted)
 	{
 		audioMgr.playMusicbyName("cantina");
@@ -262,7 +265,7 @@ void GameServer::update(float dt)
 
 	if (player.getPosition().y > window->getSize().y)
 	{
-		*state = GameState::MENU;
+		*state = GameState::NETWORK;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -273,7 +276,7 @@ void GameServer::update(float dt)
 		*state = GameState::GAME_SERVER;
 	}
 
-	if ((int)fps % 10 == 0)
+	//if ((int)fps % 10 == 0)
 	runUdpServer();
 }
 

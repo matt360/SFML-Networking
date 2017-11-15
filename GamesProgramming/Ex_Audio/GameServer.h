@@ -30,11 +30,12 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	GameState* state;
-	// Network
+	// Network //////////////////////
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 	void runUdpServer();
+	/////////////////////////////////
 
 	float fps;
 	sf::Text text;
@@ -58,4 +59,7 @@ private:
 	// sound test
 	sf::SoundBuffer buff;
 	sf::Sound soun;
+
+	// My game variables
+	
 };

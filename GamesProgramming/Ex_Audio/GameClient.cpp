@@ -99,11 +99,6 @@ GameClient::~GameClient()
 
 }
 
-GameState GameClient::getState()
-{
-	return *state;
-}
-
 void GameClient::handleInput(float dt)
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -194,17 +189,17 @@ void GameClient::checkForIncomingPackets()
 		{
 		case sf::Socket::Done:
 			// Received a packet.
-			std::cout << "Got one!\n";
+			std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			std::cout << "No more data to receive now\n";
+			std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			std::cout << "receive didn't return Done\n";
+			std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 		}
 
@@ -214,13 +209,16 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> s_r )
 		{
 			// Data extracted successfully...
-			std::cout << "\nclient: s: " << s_r <<  std::endl;
+			//std::cout << "\nclient: s: " << s_r <<  std::endl;
+			// The message from the server
+			std::cout << "\nCLIENT: Message received from the server: " << s_r << "\n";
 		}
 	}
 }
 
 void GameClient::update(float dt)
 {
+
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
 	if (!hasStarted)
@@ -282,7 +280,7 @@ void GameClient::update(float dt)
 
 	if (player.getPosition().y > window->getSize().y)
 	{
-		*state = GameState::MENU;
+		*state = GameState::NETWORK;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -293,7 +291,7 @@ void GameClient::update(float dt)
 		*state = GameState::GAME_CLIENT;
 	}
 
-	if ((int)fps % 10 == 0)
+	if ((int)fps % 100 == 0)
 		sendPacket();
 
 	checkForIncomingPackets();

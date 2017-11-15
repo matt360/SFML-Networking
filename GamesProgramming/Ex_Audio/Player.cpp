@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include <iostream>
 Player::Player(const sf::Vector2f & size) : Sprite(size)
 {
 	falling = true;
@@ -54,6 +54,8 @@ void Player::setInput(Input* in)
 
 void Player::collisionRespone(Sprite* sp)
 {
+	// TODO dead response with the sprite working
+	// std::cout << "dead" << std::endl;
 	velocity.y = 0;
 	setPosition(getPosition().x, sp->getPosition().y-getSize().y);
 	//falling = false;

@@ -1,7 +1,5 @@
-//#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cstdlib>
-#include "Game.h"
 #include "GameClient.h"
 #include "GameServer.h"
 #include "Menu.h"
@@ -18,7 +16,7 @@ void main(int argc, char** argv[])
 	// IP adrress to connect to
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Lab 1");// , sf::Style::None);
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking");// , sf::Style::None);
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
 	////////////////////////////////
@@ -26,7 +24,6 @@ void main(int argc, char** argv[])
 	
 	bool pause = false;
 	Input input;
-	// Don't change the order of this
 	Menu menu(&window, &input, &state);
 	Network network(&window, &input, &state, &socket, &ip_address, &port);
 	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
@@ -37,7 +34,7 @@ void main(int argc, char** argv[])
 	// For Delta Time
 	sf::Clock clock;
 	float deltaTime;
-
+	
 	//sf::Texture mushroomTexture;
 	//mushroomTexture.loadFromFile("Mushroom.png");
 	////mushroomTexture.loadFromFile("sfml-logo-small.png");
@@ -95,8 +92,6 @@ void main(int argc, char** argv[])
 			}
 		}
 
-
-
 		// if escape is pressed
 		if (input.isKeyDown(sf::Keyboard::Escape))
 		{
@@ -104,7 +99,7 @@ void main(int argc, char** argv[])
 			window.close();
 		}
 
-		if (input.isKeyDown(sf::Keyboard::Pause))
+		/*if (input.isKeyDown(sf::Keyboard::Pause))
 		{
 			input.setKeyUp(sf::Keyboard::Pause);
 			pause = !pause;
@@ -125,12 +120,12 @@ void main(int argc, char** argv[])
 					break;
 				}
 			}
-		}
+		}*/
 
 		// Calculate delta time. How much time has passed 
 		// since it was last calculated (in seconds) and restart the clock.
 		deltaTime = clock.restart().asSeconds();
-
+		
 		// game loop
 		// Update/Render object based on current game state
 		switch (state)
