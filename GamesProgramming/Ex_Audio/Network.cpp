@@ -31,12 +31,7 @@ void Network::handleInput(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::Return);
 		readyToPlay = true;
-	}
-
-	if (input->isKeyDown(sf::Keyboard::Return))
-	{
-		input->setKeyUp(sf::Keyboard::Return);
-		
+	}	
 }
 
 // error handling before connecting
@@ -89,7 +84,8 @@ void Network::update(float dt)
 		serverSocket();
 		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
 
-		*state = GameState::GAME_SERVER;
+		//*state = GameState::GAME_SERVER;
+		network_state = NetworkState::SERVER;
 	}
 	if (input->isKeyDown(sf::Keyboard::C))
 	{
@@ -99,20 +95,27 @@ void Network::update(float dt)
 		// message - joined the server
 		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 
-		*state = GameState::GAME_CLIENT;
+		//*state = GameState::GAME_CLIENT;
+		network_state = NetworkState::CLIENT;
 	}
 
-	switch (*state)
+	if (readyToPlay)
 	{
-	case (GameState::GAME_CLIENT):
-		*state = GameState::GAME_CLIENT;
-		break;
-	case (GameState::GAME_SERVER):
-		*state = GameState::GAME_SERVER;
-		break;
-	default :
-		*state = GameState::NETWORK;
-		break;
+		switch (network_state)
+		{
+		case (NetworkState::CLIENT):
+			*state = GameState::GAME_CLIENT;
+			readyToPlay = false;
+			break;
+		case (NetworkState::SERVER):
+			*state = GameState::GAME_SERVER;
+			readyToPlay = false;
+			break;
+		default:
+			*state = GameState::NETWORK;
+			readyToPlay = false;
+			break;
+		}
 	}
 }
 
