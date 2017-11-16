@@ -64,12 +64,12 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	};*/
 
 	std::vector<int> map = {
-	1, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 
 	4, 6, 0, 0, 1, 3, 0, 0, 0, 0,
 	4, 6, 0, 0, 4, 6, 1, 3, 0, 0,
 	4, 6, 1, 3, 4, 6, 4, 6, 0, 0,
 	4, 6, 4, 6, 4, 6, 4, 6, 1, 3,
-	4, 6, 4, 6, 4, 6, 4, 6, 4, 6
+	4, 6, 4, 6, 4, 6, 4, 6, 4, 6,
 	};
 
 	level.setTileMap(map, mapSize);
@@ -118,10 +118,6 @@ void GameServer::render()
 
 void GameServer::beginDraw()
 {
-	/*sf::Color col;
-	col.r = 0;
-	col.g = 0;
-	col.b = 0;*/
 	window->clear(sf::Color(0, 0, 0));
 }
 

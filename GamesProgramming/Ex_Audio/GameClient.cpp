@@ -118,10 +118,6 @@ void GameClient::render()
 
 void GameClient::beginDraw()
 {
-	/*sf::Color col;
-	col.r = 0;
-	col.g = 0;
-	col.b = 0;*/
 	window->clear(sf::Color(0, 0, 0));
 }
 
