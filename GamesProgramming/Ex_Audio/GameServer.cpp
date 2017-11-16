@@ -12,7 +12,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	// 
 
 	fps = 0;
-	font.loadFromFile("font/arial.ttf");
+	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(18);
 	text.setString("hellow world");

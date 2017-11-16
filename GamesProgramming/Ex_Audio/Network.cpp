@@ -16,7 +16,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket
 	network_state = NetworkState::NONE;
 
 	// Network text
-	font.loadFromFile("font/arial.ttf");
+	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);
