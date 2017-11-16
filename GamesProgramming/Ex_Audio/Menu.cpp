@@ -48,7 +48,7 @@ void Menu::render()
 
 void Menu::beginDraw()
 {
-	window->clear(sf::Color(100, 149, 237));
+	window->clear(sf::Color(0, 0, 0));
 }
 
 void Menu::endDraw()

@@ -143,7 +143,7 @@ void Network::render()
 
 void Network::beginDraw()
 {
-	window->clear(sf::Color(100, 149, 237));
+	window->clear(sf::Color(0, 0, 0));
 }
 
 void Network::endDraw()
