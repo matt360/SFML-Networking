@@ -151,12 +151,6 @@ void Network::endDraw()
 	window->display();
 }
 
-
-
-
-
-
-
 //void Network::do_once()
 //{
 //	std::call_once(ask_flag, [&]() {

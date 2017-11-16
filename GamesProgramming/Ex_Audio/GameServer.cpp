@@ -120,9 +120,9 @@ void GameServer::render()
 void GameServer::beginDraw()
 {
 	sf::Color col;
-	col.r = 100;
-	col.g = 149;
-	col.b = 237;
+	col.r = 0;
+	col.g = 0;
+	col.b = 0;
 	window->clear(col);
 }
 
