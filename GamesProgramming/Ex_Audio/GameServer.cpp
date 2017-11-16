@@ -54,28 +54,27 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	sf::Vector2u mapSize(10, 6);
 
 	// build map
-	std::vector<int> map = {
+	/*std::vector<int> map = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 1, 3, 0, 0, 0, 0, 0,
 		1, 2, 3, 4, 6, 1, 2, 3, 0, 0,
 		4, 5, 6, 0, 0, 4, 5, 6, 0, 0
-	};
-
-	/*std::vector<int> map = {
-	1, 3, 0, 0, 0, 0, 0, 0, 0, 0,
-	4, 6, 1, 3, 0, 0, 0, 0, 0, 0,
-	0, 0, 4, 6, 1, 3, 0, 0, 0, 0,
-	0, 0, 0, 0, 4, 6, 1, 3, 0, 0,
-	0, 0, 0, 0, 0, 0, 4, 6, 1, 3,
-	0, 0, 0, 0, 0, 0, 0, 0, 4, 6
 	};*/
+
+	std::vector<int> map = {
+	1, 3, 0, 0, 0, 0, 0, 0, 0, 0,
+	4, 6, 0, 0, 1, 3, 0, 0, 0, 0,
+	4, 6, 0, 0, 4, 6, 1, 3, 0, 0,
+	4, 6, 1, 3, 4, 6, 4, 6, 0, 0,
+	4, 6, 4, 6, 4, 6, 4, 6, 1, 3,
+	4, 6, 4, 6, 4, 6, 4, 6, 4, 6
+	};
 
 	level.setTileMap(map, mapSize);
 	level.setPosition(sf::Vector2f(0, 408));
 	level.buildLevel();
-
 
 	audioMgr.addMusic("sfx/cantina.wav", "cantina");
 	audioMgr.addMusic("sfx/hyrulefield.wav", "hyrule");
@@ -89,7 +88,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	hasStarted = false;
 	//audioMgr.playSoundbyName("cantina");
 
-	//	int err = buff.loadFromFile("sfx/cantina.ogg");
+	//int err = buff.loadFromFile("sfx/cantina.ogg");
 	//soun.setBuffer(buff);
 	//soun.play();
 	//sf::Music music;
@@ -119,11 +118,11 @@ void GameServer::render()
 
 void GameServer::beginDraw()
 {
-	sf::Color col;
+	/*sf::Color col;
 	col.r = 0;
 	col.g = 0;
-	col.b = 0;
-	window->clear(col);
+	col.b = 0;*/
+	window->clear(sf::Color(0, 0, 0));
 }
 
 void GameServer::endDraw()

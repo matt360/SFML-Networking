@@ -16,13 +16,13 @@ void main(int argc, char** argv[])
 	// IP adrress to connect to
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking");// , sf::Style::None);
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking"); // , sf::Style::None);
 	// Set framerate to 60FPS
 	window.setFramerateLimit(60);
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
 	////////////////////////////////
-	GameState state = GameState::MENU;
+	GameState state = GameState::GAME_SERVER;
 	
 	bool pause = false;
 	Input input;
