@@ -22,7 +22,7 @@ void main(int argc, char** argv[])
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
 	////////////////////////////////
-	GameState state = GameState::GAME_SERVER;
+	GameState state = GameState::MENU;
 	
 	bool pause = false;
 	Input input;
