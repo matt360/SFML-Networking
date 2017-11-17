@@ -1,7 +1,5 @@
 #include "GameServer.h"
 #include "States.h"
-#include <time.h>
-#include <sysinfoapi.h>
 
 GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
@@ -163,7 +161,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
 
-	SYSTEMTIME  system_time;
+	SYSTEMTIME system_time;
 	SYSTEMTIME local_time;
 
 	GetSystemTime(&system_time);
@@ -231,11 +229,12 @@ void GameServer::runUdpServer()
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
-		//displayMessage(player_message_receive, sender, senderPort);
+		displayMessage(player_message_receive, sender, senderPort);
 	}
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
 	sf::Packet packet_send;
+	
 	// Message to send
 	PlayerMessage player_message_send;
 	addMessage(player_message_send);

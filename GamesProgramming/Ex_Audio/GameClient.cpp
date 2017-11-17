@@ -158,7 +158,22 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.id = 0;
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
-	player_message_send.time = 1.0;
+	
+	SYSTEMTIME system_time;
+	SYSTEMTIME local_time;
+
+	GetSystemTime(&system_time);
+	GetLocalTime(&local_time);
+
+	player_message_send.time = system_time.wSecond;
+
+	/*time_t rawtime;
+	struct tm * timeinfo;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	player_message_send.time = timeinfo->tm_sec;*/
 }
 
 void GameClient::displayMessage(const PlayerMessage player_message)
@@ -262,7 +277,7 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			//displayMessage(player_message_receive);
+			displayMessage(player_message_receive);
 			
 			//packet_receive.clear();
 		}
