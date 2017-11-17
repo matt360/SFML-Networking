@@ -41,6 +41,7 @@ private:
 
 	float fps;
 	sf::Text text;
+	sf::Text error_text;
 	sf::Font font;
 
 	void beginDraw();

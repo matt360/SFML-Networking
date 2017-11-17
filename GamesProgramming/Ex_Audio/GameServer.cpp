@@ -14,9 +14,10 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	fps = 0;
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
-	text.setCharacterSize(18);
-	text.setString("hellow world");
-
+	text.setCharacterSize(32);
+	error_text.setFont(font);
+	error_text.setCharacterSize(32);
+	
 	texture.loadFromFile("gfx/MushroomTrans.png");
 
 	player.setSize(sf::Vector2f(32, 32));
@@ -177,11 +178,15 @@ void GameServer::runUdpServer()
 		case sf::Socket::Done:
 			// Received a packet.
 			//std::cout << "CLIENT: Got one!\n";
+			//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
+			//error_text.setString("GOT ONE");
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			//std::cout << "CLIENT: No more data to receive now\n";
+			//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
+			//error_text.setString("NO MORE DATA TO RECEIVE NOW");
 			return;
 
 		default:
@@ -224,6 +229,7 @@ void GameServer::runUdpServer()
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			//std::cout << "CLIENT: No more data to receive now\n";
+
 			return;
 
 		default:
@@ -257,7 +263,7 @@ void GameServer::update(float dt)
 		audioMgr.playMusicbyName("cantina");
 		hasStarted = true;
 	}
-
+	
 	if (input->isKeyDown(sf::Keyboard::Up))
 	{
 		input->setKeyUp(sf::Keyboard::Up);
@@ -325,5 +331,8 @@ void GameServer::update(float dt)
 	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time
 	runUdpServer();
+
+	error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
+	error_text.setString("GOT ONE");
 }
 
