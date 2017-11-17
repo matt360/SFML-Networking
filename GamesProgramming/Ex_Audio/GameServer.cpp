@@ -152,6 +152,15 @@ bool GameServer::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
+void GameServer::addMessage(PlayerMessage& player_message_send)
+{
+	//PlayerMessage player_message_send;
+	player_message_send.id = 0;
+	player_message_send.x = player.getPosition().x;
+	player_message_send.y = player.getPosition().y;
+	player_message_send.time = 1.0;
+}
+
 //////////////////////////////////////////////////////////
 /// Launch a server, wait for a message, send an answer.
 ///
@@ -189,12 +198,12 @@ void GameServer::runUdpServer()
 	sf::Packet packet_send;
 	// Message to send
 	PlayerMessage player_message_send;
-	player_message_send.id = 0;
-	player_message_send.x = player.getPosition().x;
-	player_message_send.y = player.getPosition().y;
-	player_message_send.time = 1.0;
+	//player_message_send.id = 0;
+	//player_message_send.x = player.getPosition().x;
+	//player_message_send.y = player.getPosition().y;
+	//player_message_send.time = 1.0;
 	//std::string s = "Hi! I'm the server!";
-
+	addMessage(player_message_send);
 	// Group the variables to send into a packet
 	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)

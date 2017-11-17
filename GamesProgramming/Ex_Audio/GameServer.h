@@ -36,6 +36,7 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 	void runUdpServer();
+	void addMessage(PlayerMessage& player_message);
 	/////////////////////////////////
 
 	float fps;

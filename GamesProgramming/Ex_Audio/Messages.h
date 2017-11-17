@@ -13,12 +13,12 @@ __declspec(selectany) struct PlayerMessage {
 	float time;
 };
 
-//static sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
-//{
-//	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
-//}
-//
-//static sf::Packet& operator >> (sf::Packet& packet, PlayerMessage& player_message)
-//{
-//	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
-//}
+static sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
+{
+	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
+}
+
+static sf::Packet& operator >> (sf::Packet& packet, PlayerMessage& player_message)
+{
+	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
+}

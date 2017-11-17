@@ -37,6 +37,7 @@ private:
 	unsigned short* port;
 	void sendPacket();
 	void checkForIncomingPackets();
+	void addMessage(PlayerMessage& player_message);
 	/////////////////////////////////
 
 	float fps;
