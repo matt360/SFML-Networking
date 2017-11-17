@@ -176,17 +176,17 @@ void GameServer::runUdpServer()
 	{
 		case sf::Socket::Done:
 			// Received a packet.
-			std::cout << "CLIENT: Got one!\n";
+			//std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			std::cout << "CLIENT: No more data to receive now\n";
+			//std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			std::cout << "CLIENT: receive didn't return Done\n";
+			//std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 	}
 
@@ -196,14 +196,14 @@ void GameServer::runUdpServer()
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
-		std::cout << "\n\nSERVER: Message received from the client:";
-		// Data extracted successfully...
-		std::cout << "\nSERVER: ID: " << player_message_receive.id
-			<< "\nSERVER: Player x: " << player_message_receive.x
-			<< "\nSERVER: Player y: " << player_message_receive.y
-			<< "\nSERVER: Time: " << player_message_receive.time;
-		std::cout << "\nSERVER: client's IP: " << sender;
-		std::cout << "\nSERVER: client's port: " << senderPort;
+		//std::cout << "\n\nSERVER: Message received from the client:";
+		//// Data extracted successfully...
+		//std::cout << "\nSERVER: ID: " << player_message_receive.id
+		//	<< "\nSERVER: Player x: " << player_message_receive.x
+		//	<< "\nSERVER: Player y: " << player_message_receive.y
+		//	<< "\nSERVER: Time: " << player_message_receive.time;
+		//std::cout << "\nSERVER: client's IP: " << sender;
+		//std::cout << "\nSERVER: client's port: " << senderPort;
 	}
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
@@ -218,17 +218,17 @@ void GameServer::runUdpServer()
 	{
 		case sf::Socket::Done:
 			// Received a packet.
-			std::cout << "CLIENT: Got one!\n";
+			//std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			std::cout << "CLIENT: No more data to receive now\n";
+			//std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			std::cout << "CLIENT: receive didn't return Done\n";
+			//std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 	}
 
@@ -239,11 +239,11 @@ void GameServer::runUdpServer()
 	{
 		// Data extracted successfully...
 		// The message sent to the client
-		std::cout << "\n\nSERVER: Message sent to the client:";
+		/*std::cout << "\n\nSERVER: Message sent to the client:";
 		std::cout << "\nSERVER: ID: " << player_message_send_d.id
 			<< "\nSERVER: Player x: " << player_message_send_d.x
 			<< "\nSERVER: Player y: " << player_message_send_d.y
-			<< "\nSERVER: Time: " << player_message_send_d.time;
+			<< "\nSERVER: Time: " << player_message_send_d.time;*/
 	}
 }
 void GameServer::update(float dt)

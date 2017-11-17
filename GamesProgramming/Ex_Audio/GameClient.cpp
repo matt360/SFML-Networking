@@ -180,17 +180,17 @@ void GameClient::sendPacket()
 	{
 		case sf::Socket::Done:
 			// Received a packet.
-			std::cout << "CLIENT: Got one!\n";
+			//std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			std::cout << "CLIENT: No more data to receive now\n";
+			//std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			std::cout << "CLIENT: receive didn't return Done\n";
+			//std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 	}
 
@@ -218,17 +218,17 @@ void GameClient::checkForIncomingPackets()
 		{
 		case sf::Socket::Done:
 			// Received a packet.
-			std::cout << "CLIENT: Got one!\n";
+			//std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			std::cout << "CLIENT: No more data to receive now\n";
+			//std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			std::cout << "CLIENT: receive didn't return Done\n";
+			//std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 		}
 
@@ -239,12 +239,12 @@ void GameClient::checkForIncomingPackets()
 		{
 			// Data extracted successfully...
 			// The message from the server
-			std::cout << "\nCLIENT: Message received from the server:";
-			// Data extracted successfully...
-			std::cout << "\nCLIENT: ID: " << player_message_receive.id
-				<< "\nCLIENT: Player x: " << player_message_receive.x
-				<< "\nCLIENT: Player y: " << player_message_receive.y
-				<< "\nCLIENT: Time: " << player_message_receive.time;
+			//std::cout << "\nCLIENT: Message received from the server:";
+			//// Data extracted successfully...
+			//std::cout << "\nCLIENT: ID: " << player_message_receive.id
+			//	<< "\nCLIENT: Player x: " << player_message_receive.x
+			//	<< "\nCLIENT: Player y: " << player_message_receive.y
+			//	<< "\nCLIENT: Time: " << player_message_receive.time;
 			
 			//packet_receive.clear();
 		}
