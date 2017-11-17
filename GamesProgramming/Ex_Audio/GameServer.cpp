@@ -167,36 +167,53 @@ void GameServer::runUdpServer()
 		return;
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
-	sf::Uint32 x_r;
+	/*sf::Uint32 x_r;
 	std::string s_r;
-	double d_r;
-	PlayerMessage player_message;
+	double d_r;*/
+	PlayerMessage player_message_receive;
 	//if (packet_receive >> x_r >> s_r >> d_r)
-	if (packet_receive >> player_message)
+	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
 		std::cout << "\n\nSERVER: Message received from the client:";
 		// Data extracted successfully...
-		std::cout << "\nSERVER: x: " << x_r << "\nSERVER: s: " << s_r << "\nSERVER: d: " << d_r;
+		std::cout << "\nSERVER: ID: " << player_message_receive.id
+			<< "\nSERVER: Player x: " << player_message_receive.x
+			<< "\nSERVER: Player y: " << player_message_receive.y
+			<< "\nSERVER: Time: " << player_message_receive.time;
 		std::cout << "\nSERVER: client's IP: " << sender;
 		std::cout << "\nSERVER: client's port: " << senderPort;
 	}
 
-	// Group the variables to send into a packet
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
 	sf::Packet packet_send;
-	std::string s = "Hi! I'm the server!";
-	packet_send << s;
+	// Message to send
+	PlayerMessage player_message_send;
+	player_message_send.id = 0;
+	player_message_send.x = player.getPosition().x;
+	player_message_send.y = player.getPosition().y;
+	player_message_send.time = 1.0;
+	//std::string s = "Hi! I'm the server!";
+
+	// Group the variables to send into a packet
+	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 
 	if (socket->send(packet_send, sender, senderPort) != sf::Socket::Done)
 		return;
+
+	// DEBUG purposes
 	// Extract the variables contained in the packet
-	std::string s_s;
-	if (packet_send >> s_s)
+	//std::string s_s;
+	PlayerMessage player_message_send_d;
+
+	if (packet_send >> player_message_send_d)
 	{
 		// Data extracted successfully...
-		std::cout << "\nSERVER: Message sent to the client: " << s_s;
+		std::cout << "\nSERVER: ID: " << player_message_send_d.id
+			<< "\nSERVER: Player x: " << player_message_send_d.x
+			<< "\nSERVER: Player y: " << player_message_send_d.y
+			<< "\nSERVER: Time: " << player_message_send_d.time;
 	}
 }
 void GameServer::update(float dt)
