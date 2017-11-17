@@ -1,5 +1,7 @@
 #include "GameServer.h"
 #include "States.h"
+#include <time.h>
+#include <sysinfoapi.h>
 
 GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
@@ -10,13 +12,14 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	port = port_number;
 	state = st;
 	// 
-
 	fps = 0;
+
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
-	error_text.setFont(font);
-	error_text.setCharacterSize(32);
+	//error_text.setFont(font);
+	//error_text.setCharacterSize(32);
+	//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
 	
 	texture.loadFromFile("gfx/MushroomTrans.png");
 
@@ -159,7 +162,38 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 	player_message_send.id = 0;
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
-	player_message_send.time = 1.0;
+
+	SYSTEMTIME  system_time;
+	SYSTEMTIME local_time;
+
+	GetSystemTime(&system_time);
+	GetLocalTime(&local_time);
+	
+	player_message_send.time = system_time.wSecond;
+}
+
+void GameServer::displayMessage(const PlayerMessage player_message)
+{
+	// The message from the client
+	std::cout << "\n\nSERVER: Message received from the client:";
+	// Data extracted successfully...
+	std::cout << "\nSERVER: ID: " << player_message.id
+		<< "\nSERVER: Player x: " << player_message.x
+		<< "\nSERVER: Player y: " << player_message.y
+		<< "\nSERVER: Time: " << player_message.time;
+}
+
+void GameServer::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
+{
+	// The message from the client
+	std::cout << "\n\nSERVER: Message received from the client:";
+	// Data extracted successfully...
+	std::cout << "\nSERVER: ID: " << player_message.id
+		<< "\nSERVER: Player x: " << player_message.x
+		<< "\nSERVER: Player y: " << player_message.y
+		<< "\nSERVER: Time: " << player_message.time;
+	std::cout << "\nSERVER: client's IP: " << sender;
+	std::cout << "\nSERVER: client's port: " << sender_port;
 }
 
 //////////////////////////////////////////////////////////
@@ -178,15 +212,11 @@ void GameServer::runUdpServer()
 		case sf::Socket::Done:
 			// Received a packet.
 			//std::cout << "CLIENT: Got one!\n";
-			//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
-			//error_text.setString("GOT ONE");
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			//std::cout << "CLIENT: No more data to receive now\n";
-			//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
-			//error_text.setString("NO MORE DATA TO RECEIVE NOW");
 			return;
 
 		default:
@@ -201,14 +231,7 @@ void GameServer::runUdpServer()
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
-		//std::cout << "\n\nSERVER: Message received from the client:";
-		//// Data extracted successfully...
-		//std::cout << "\nSERVER: ID: " << player_message_receive.id
-		//	<< "\nSERVER: Player x: " << player_message_receive.x
-		//	<< "\nSERVER: Player y: " << player_message_receive.y
-		//	<< "\nSERVER: Time: " << player_message_receive.time;
-		//std::cout << "\nSERVER: client's IP: " << sender;
-		//std::cout << "\nSERVER: client's port: " << senderPort;
+		//displayMessage(player_message_receive, sender, senderPort);
 	}
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
@@ -244,19 +267,14 @@ void GameServer::runUdpServer()
 	if (packet_send >> player_message_send_d)
 	{
 		// Data extracted successfully...
-		// The message sent to the client
-		/*std::cout << "\n\nSERVER: Message sent to the client:";
-		std::cout << "\nSERVER: ID: " << player_message_send_d.id
-			<< "\nSERVER: Player x: " << player_message_send_d.x
-			<< "\nSERVER: Player y: " << player_message_send_d.y
-			<< "\nSERVER: Time: " << player_message_send_d.time;*/
+		//displayMessage(player_message_send_d);
 	}
 }
 void GameServer::update(float dt)
 {
 	fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
-	//std::cout << fps << std::endl;
+	//std::cout << "dt:" << dt << std::endl;
 
 	if (!hasStarted)
 	{
@@ -331,8 +349,5 @@ void GameServer::update(float dt)
 	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time
 	runUdpServer();
-
-	error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
-	error_text.setString("GOT ONE");
 }
 

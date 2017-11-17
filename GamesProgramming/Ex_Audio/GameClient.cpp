@@ -161,6 +161,30 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.time = 1.0;
 }
 
+void GameClient::displayMessage(const PlayerMessage player_message)
+{
+	// The message from the client
+	std::cout << "\n\nSERVER: Message received from the client:";
+	// Data extracted successfully...
+	std::cout << "\nSERVER: ID: " << player_message.id
+		<< "\nSERVER: Player x: " << player_message.x
+		<< "\nSERVER: Player y: " << player_message.y
+		<< "\nSERVER: Time: " << player_message.time;
+}
+
+void GameClient::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
+{
+	// The message from the client
+	std::cout << "\n\nSERVER: Message received from the client:";
+	// Data extracted successfully...
+	std::cout << "\nSERVER: ID: " << player_message.id
+		<< "\nSERVER: Player x: " << player_message.x
+		<< "\nSERVER: Player y: " << player_message.y
+		<< "\nSERVER: Time: " << player_message.time;
+	std::cout << "\nSERVER: client's IP: " << sender;
+	std::cout << "\nSERVER: client's port: " << sender_port;
+}
+
 ////////////////////////////////////////////////////////////
 // Send a message to the server...
 //
@@ -238,13 +262,7 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			// The message from the server
-			//std::cout << "\nCLIENT: Message received from the server:";
-			//// Data extracted successfully...
-			//std::cout << "\nCLIENT: ID: " << player_message_receive.id
-			//	<< "\nCLIENT: Player x: " << player_message_receive.x
-			//	<< "\nCLIENT: Player y: " << player_message_receive.y
-			//	<< "\nCLIENT: Time: " << player_message_receive.time;
+			//displayMessage(player_message_receive);
 			
 			//packet_receive.clear();
 		}

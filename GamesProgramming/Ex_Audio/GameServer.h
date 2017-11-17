@@ -37,6 +37,8 @@ private:
 	unsigned short* port;
 	void runUdpServer();
 	void addMessage(PlayerMessage& player_message);
+	void displayMessage(const PlayerMessage player_message);
+	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);
 	/////////////////////////////////
 
 	float fps;
