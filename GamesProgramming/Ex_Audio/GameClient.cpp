@@ -296,14 +296,14 @@ void GameClient::update(float dt)
 		hasStarted = true;
 	}
 
-	if (input->isKeyDown(sf::Keyboard::Up))
+	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
 		input->setKeyUp(sf::Keyboard::Up);
 		player.jump();
 		audioMgr.playSoundbyName("jump");
-	}
+	}*/
 
-	player.update(dt);
+	//player.update(dt);
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
@@ -333,21 +333,21 @@ void GameClient::update(float dt)
 	}
 
 	// check collision with world
-	std::vector<Tile>* world = level.getLevel();
-	for (int i = 0; i < (int)world->size(); i++)
-	{
-		if ((*world)[i].isAlive())
-		{
-			// if "alive" check collision
-			// world tile which are not alive don't want collision checks
-			if (checkCollision(&player, &(*world)[i]))
-			{
-				player.collisionRespone(&(*world)[i]);
-			}
-		}
-	}
+	//std::vector<Tile>* world = level.getLevel();
+	//for (int i = 0; i < (int)world->size(); i++)
+	//{
+	//	if ((*world)[i].isAlive())
+	//	{
+	//		// if "alive" check collision
+	//		// world tile which are not alive don't want collision checks
+	//		if (checkCollision(&player, &(*world)[i]))
+	//		{
+	//			player.collisionRespone(&(*world)[i]);
+	//		}
+	//	}
+	//}
 
-	if (player.getPosition().y > window->getSize().y)
+	/*if (player.getPosition().y > window->getSize().y)
 	{
 		*state = GameState::NETWORK;
 		player.setPosition(0, 0);
@@ -358,7 +358,7 @@ void GameClient::update(float dt)
 	else
 	{
 		*state = GameState::GAME_CLIENT;
-	}
+	}*/
 
 	// send packets at 10Hz rate (at 10PFS)
 	if ((int)fps % 6 == 0)
