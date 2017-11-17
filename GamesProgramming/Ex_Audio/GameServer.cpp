@@ -174,13 +174,10 @@ void GameServer::runUdpServer()
 	unsigned short senderPort;
 	if (socket->receive(packet_receive, sender, senderPort) != sf::Socket::Done)
 		return;
+
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
-	/*sf::Uint32 x_r;
-	std::string s_r;
-	double d_r;*/
 	PlayerMessage player_message_receive;
-	//if (packet_receive >> x_r >> s_r >> d_r)
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
@@ -198,24 +195,16 @@ void GameServer::runUdpServer()
 	sf::Packet packet_send;
 	// Message to send
 	PlayerMessage player_message_send;
-	//player_message_send.id = 0;
-	//player_message_send.x = player.getPosition().x;
-	//player_message_send.y = player.getPosition().y;
-	//player_message_send.time = 1.0;
-	//std::string s = "Hi! I'm the server!";
 	addMessage(player_message_send);
 	// Group the variables to send into a packet
 	packet_send << player_message_send;
-	// Send it over the network (socket is a valid sf::TcpSocket)
-
+	// Send it over the network
 	if (socket->send(packet_send, sender, senderPort) != sf::Socket::Done)
 		return;
 
 	// DEBUG purposes
 	// Extract the variables contained in the packet
-	//std::string s_s;
 	PlayerMessage player_message_send_d;
-
 	if (packet_send >> player_message_send_d)
 	{
 		// Data extracted successfully...

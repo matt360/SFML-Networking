@@ -169,15 +169,7 @@ void GameClient::sendPacket()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	/*sf::Uint32 x = 24;
-	std::string s = "hello";
-	double d = 5.89;*/
-	// Message to send
 	PlayerMessage player_message_send;
-	/*player_message_send.id = 0;
-	player_message_send.x = player.getPosition().x;
-	player_message_send.y = player.getPosition().y;
-	player_message_send.time = 1.0;*/
 
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
@@ -225,16 +217,10 @@ void GameClient::checkForIncomingPackets()
 
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		//std::string s_r;
 		PlayerMessage player_message_receive;
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			//std::cout << "\nclient: s: " << s_r <<  std::endl;
-			// The message from the server
-			//std::cout << "\nCLIENT: Message received from the server: " << s_r << "\n";
-
-
 			// The message from the server
 			std::cout << "\nCLIENT: Message received from the server:";
 			// Data extracted successfully...
@@ -242,9 +228,7 @@ void GameClient::checkForIncomingPackets()
 				<< "\nCLIENT: Player x: " << player_message_receive.x
 				<< "\nCLIENT: Player y: " << player_message_receive.y
 				<< "\nCLIENT: Time: " << player_message_receive.time;
-			//std::cout << "\nSERVER: client's IP: " << sender;
-			//std::cout << "\nSERVER: client's port: " << senderPort;
-
+			
 			//packet_receive.clear();
 		}
 	}
