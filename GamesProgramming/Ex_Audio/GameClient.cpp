@@ -279,7 +279,14 @@ void GameClient::checkForIncomingPackets()
 		{
 			// Data extracted successfully...
 			displayMessage(player_message_receive);
-			
+			// Deal with the messages from the packet
+			// Put position into history of network positions
+			sf::Vector2f net_player_position(player_message_receive.x, player_message_receive.y);
+
+			if (network_positions.size() >= 10) network_positions.pop();
+				network_positions.push(net_player_position);
+			//player.setPosition(new_player_position);
+
 			//packet_receive.clear();
 		}
 	}
@@ -359,6 +366,8 @@ void GameClient::update(float dt)
 	{
 		*state = GameState::GAME_CLIENT;
 	}*/
+
+	// TODO keep track of local positions
 
 	// send packets at 10Hz rate (at 10PFS)
 	if ((int)fps % 6 == 0)

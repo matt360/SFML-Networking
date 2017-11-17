@@ -6,6 +6,7 @@
 #include "Input.h"
 #include <Windows.h>
 #include <string.h>
+#include <queue>
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
@@ -35,6 +36,9 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	std::queue<sf::Vector2f> local_positions;
+	std::queue<sf::Vector2f> network_positions;
+
 	void sendPacket();
 	void checkForIncomingPackets();
 	void addMessage(PlayerMessage& player_message);
