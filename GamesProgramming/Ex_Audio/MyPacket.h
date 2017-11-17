@@ -20,6 +20,7 @@ class MyPacket : public sf::Packet
 public:
 	MyPacket();
 	~MyPacket();
-
+	void addMessage(const PlayerMessage& player_message);
+	//sf::Packet& operator>>(PlayerMessage& player_message);
 };
 

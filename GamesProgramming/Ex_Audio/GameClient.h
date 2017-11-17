@@ -11,7 +11,6 @@
 #include "Map.h"
 #include "States.h"
 #include "AudioManager.h"
-//#include "MyPacket.h"
 #include "Messages.h"
 
 class GameClient {
