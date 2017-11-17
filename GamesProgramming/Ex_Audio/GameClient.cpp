@@ -165,13 +165,15 @@ void GameClient::sendPacket()
 	double d = 5.89;
 
 	// Group the variables to send into a packet
-	sf::Packet packet;
-	packet << x << s << d;
+	sf::Packet packet_send;
+	packet_send << x << s << d;
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	if (socket->send(packet, *ip_address, *port) != sf::Socket::Done) {
-		std::cout << "send failed\n"; // XXX do something better than this in real code ;-)
+	if (socket->send(packet_send, *ip_address, *port) != sf::Socket::Done) {
+		std::cout << "send failed\n"; // TODO do something better than this in real code ;-)
 		return;
 	}
+	// TODO is it needed? Probably not
+	//packet_send.clear();
 }
 
 void GameClient::checkForIncomingPackets()
