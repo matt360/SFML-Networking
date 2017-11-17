@@ -160,6 +160,7 @@ bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
 void GameClient::sendPacket()
 {
 	// message
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
 	sf::Uint32 x = 24;
 	std::string s = "hello";
 	double d = 5.89;
@@ -172,7 +173,10 @@ void GameClient::sendPacket()
 		std::cout << "send failed\n"; // TODO do something better than this in real code ;-)
 		return;
 	}
-	// TODO is it needed? Probably not
+	// don't need to clear the packet since all the local variables 
+	// cease to exist once the function is over but it's good to 
+	// keep in mind that if the packet is static it should get cleared
+	// after each use
 	//packet_send.clear();
 }
 
@@ -180,6 +184,7 @@ void GameClient::checkForIncomingPackets()
 {
 	while (true) {
 		// Try to receive the packet from the other end
+		// SEND (to the server) MUST MATCH packet_send in the GameServer
 		sf::Packet packet_receive;
 		sf::IpAddress sender;
 		unsigned short senderPort;
