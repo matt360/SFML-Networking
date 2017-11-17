@@ -172,7 +172,7 @@ void GameClient::sendPacket()
 	player_message_send.time = 1.0;
 
 	// Group the variables to send into a packet
-	MyPacket packet_send;
+	sf::Packet packet_send;
 	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	if (socket->send(packet_send, *ip_address, *port) != sf::Socket::Done) {
