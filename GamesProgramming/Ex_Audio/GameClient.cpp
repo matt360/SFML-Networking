@@ -1,16 +1,6 @@
 #include "GameClient.h"
 #include "States.h"
 
-sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
-{
-	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
-}
-
-sf::Packet& operator >>(sf::Packet& packet, PlayerMessage& player_message)
-{
-	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
-}
-
 GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
 	window = hwnd;
@@ -182,7 +172,7 @@ void GameClient::sendPacket()
 	player_message_send.time = 1.0;
 
 	// Group the variables to send into a packet
-	sf::Packet packet_send;
+	MyPacket packet_send;
 	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	if (socket->send(packet_send, *ip_address, *port) != sf::Socket::Done) {

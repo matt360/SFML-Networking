@@ -1,16 +1,6 @@
 #include "GameServer.h"
 #include "States.h"
 
-sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
-{
-	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
-}
-
-sf::Packet& operator >>(sf::Packet& packet, PlayerMessage& player_message)
-{
-	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
-}
-
 GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
 	window = hwnd;
