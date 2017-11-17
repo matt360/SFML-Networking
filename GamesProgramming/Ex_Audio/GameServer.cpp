@@ -154,22 +154,6 @@ bool GameServer::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-void GameServer::addMessage(PlayerMessage& player_message_send)
-{
-	//PlayerMessage player_message_send;
-	player_message_send.id = 0;
-	player_message_send.x = player.getPosition().x;
-	player_message_send.y = player.getPosition().y;
-
-	SYSTEMTIME system_time;
-	SYSTEMTIME local_time;
-
-	GetSystemTime(&system_time);
-	GetLocalTime(&local_time);
-	
-	player_message_send.time = system_time.wMilliseconds;
-}
-
 void GameServer::displayMessage(const PlayerMessage player_message)
 {
 	// The message from the client
@@ -192,6 +176,23 @@ void GameServer::displayMessage(const PlayerMessage player_message, const sf::Ip
 		<< "\nSERVER: Time: " << player_message.time;
 	std::cout << "\nSERVER: client's IP: " << sender;
 	std::cout << "\nSERVER: client's port: " << sender_port;
+}
+
+void GameServer::addMessage(PlayerMessage& player_message_send)
+{
+	//PlayerMessage player_message_send;
+	player_message_send.id = 0;
+	player_message_send.x = player.getPosition().x;
+	player_message_send.y = player.getPosition().y;
+
+	//SYSTEMTIME system_time;
+	SYSTEMTIME local_time;
+
+	//GetSystemTime(&system_time);
+	GetLocalTime(&local_time);
+	
+	//player_message_send.time = system_time.wMilliseconds;
+	player_message_send.time = local_time.wMilliseconds;
 }
 
 //////////////////////////////////////////////////////////
