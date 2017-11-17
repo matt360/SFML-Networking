@@ -176,9 +176,22 @@ void GameClient::sendPacket()
 	addMessage(player_message_send);
 	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	if (socket->send(packet_send, *ip_address, *port) != sf::Socket::Done) {
-		std::cout << "send failed\n"; // TODO do something better than this in real code ;-)
-		return;
+	switch (socket->send(packet_send, *ip_address, *port)) 
+	{
+		case sf::Socket::Done:
+			// Received a packet.
+			std::cout << "CLIENT: Got one!\n";
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			std::cout << "CLIENT: No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			std::cout << "CLIENT: receive didn't return Done\n";
+			return;
 	}
 
 

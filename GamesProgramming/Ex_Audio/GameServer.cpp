@@ -172,8 +172,23 @@ void GameServer::runUdpServer()
 	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	if (socket->receive(packet_receive, sender, senderPort) != sf::Socket::Done)
-		return;
+	switch (socket->receive(packet_receive, sender, senderPort))
+	{
+		case sf::Socket::Done:
+			// Received a packet.
+			std::cout << "CLIENT: Got one!\n";
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			std::cout << "CLIENT: No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			std::cout << "CLIENT: receive didn't return Done\n";
+			return;
+	}
 
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
@@ -199,8 +214,23 @@ void GameServer::runUdpServer()
 	// Group the variables to send into a packet
 	packet_send << player_message_send;
 	// Send it over the network
-	if (socket->send(packet_send, sender, senderPort) != sf::Socket::Done)
-		return;
+	switch (socket->send(packet_send, sender, senderPort))
+	{
+		case sf::Socket::Done:
+			// Received a packet.
+			std::cout << "CLIENT: Got one!\n";
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			std::cout << "CLIENT: No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			std::cout << "CLIENT: receive didn't return Done\n";
+			return;
+	}
 
 	// DEBUG purposes
 	// Extract the variables contained in the packet
