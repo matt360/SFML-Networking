@@ -165,7 +165,7 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	GetSystemTime(&system_time);
 	GetLocalTime(&local_time);
 
-	player_message_send.time = system_time.wSecond;
+	player_message_send.time = system_time.wMilliseconds;
 
 	/*time_t rawtime;
 	struct tm * timeinfo;
