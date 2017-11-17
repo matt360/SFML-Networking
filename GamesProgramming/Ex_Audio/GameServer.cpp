@@ -162,8 +162,8 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 }
 
 //////////////////////////////////////////////////////////
-/// Launch a server, wait for a message, send an answer.
-///
+// Wait for a message, send an answer.
+//
 //////////////////////////////////////////////////////////
 void GameServer::runUdpServer()
 {

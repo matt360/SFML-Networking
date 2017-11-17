@@ -162,8 +162,8 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 }
 
 ////////////////////////////////////////////////////////////
-/// Send a message to the server, wait for the answer
-///
+// Send a message to the server...
+//
 ////////////////////////////////////////////////////////////
 void GameClient::sendPacket()
 {
@@ -189,6 +189,10 @@ void GameClient::sendPacket()
 	/// packet_send.clear();
 }
 
+////////////////////////////////////////////////////////////
+// ...wait for the answer
+//
+////////////////////////////////////////////////////////////
 void GameClient::checkForIncomingPackets()
 {
 	while (true) {
