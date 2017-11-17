@@ -1,6 +1,16 @@
 #include "GameClient.h"
 #include "States.h"
 
+sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
+{
+	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
+}
+
+sf::Packet& operator >>(sf::Packet& packet, PlayerMessage& player_message)
+{
+	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
+}
+
 GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
 {
 	window = hwnd;
@@ -161,23 +171,31 @@ void GameClient::sendPacket()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	sf::Uint32 x = 24;
+	/*sf::Uint32 x = 24;
 	std::string s = "hello";
-	double d = 5.89;
+	double d = 5.89;*/
+	// Message to send
+	PlayerMessage player_message_send;
+	player_message_send.id = 0;
+	player_message_send.x = player.getPosition().x;
+	player_message_send.y = player.getPosition().y;
+	player_message_send.time = 1.0;
 
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
-	packet_send << x << s << d;
+	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	if (socket->send(packet_send, *ip_address, *port) != sf::Socket::Done) {
 		std::cout << "send failed\n"; // TODO do something better than this in real code ;-)
 		return;
 	}
-	// don't need to clear the packet since all the local variables 
-	// cease to exist once the function is over but it's good to 
-	// keep in mind that if the packet is static it should get cleared
-	// after each use
-	//packet_send.clear();
+
+
+	/// don't need to clear the packet since all the local variables 
+	/// cease to exist once the function is over but it's good to 
+	/// keep in mind that if the packet is static it should get cleared
+	/// after each use
+	/// packet_send.clear();
 }
 
 void GameClient::checkForIncomingPackets()
@@ -208,13 +226,27 @@ void GameClient::checkForIncomingPackets()
 
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		std::string s_r;
-		if (packet_receive >> s_r )
+		//std::string s_r;
+		PlayerMessage player_message_receive;
+		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
 			//std::cout << "\nclient: s: " << s_r <<  std::endl;
 			// The message from the server
-			std::cout << "\nCLIENT: Message received from the server: " << s_r << "\n";
+			//std::cout << "\nCLIENT: Message received from the server: " << s_r << "\n";
+
+
+			// The message from the server
+			std::cout << "\nCLIENT: Message received from the server:";
+			// Data extracted successfully...
+			std::cout << "\nCLIENT: ID: " << player_message_receive.id
+				<< "\nCLIENT: Player x: " << player_message_receive.x
+				<< "\nCLIENT: Player y: " << player_message_receive.y
+				<< "\nCLIENT: Time: " << player_message_receive.time;
+			//std::cout << "\nSERVER: client's IP: " << sender;
+			//std::cout << "\nSERVER: client's port: " << senderPort;
+
+			//packet_receive.clear();
 		}
 	}
 }

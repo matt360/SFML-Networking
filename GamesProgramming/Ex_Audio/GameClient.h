@@ -13,6 +13,16 @@
 #include "AudioManager.h"
 #include "Messages.h"
 
+//sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
+//{
+//	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
+//}
+//
+//sf::Packet& operator >> (sf::Packet& packet, PlayerMessage& player_message)
+//{
+//	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
+//}
+
 class GameClient {
 public:
 	GameClient(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
