@@ -308,7 +308,74 @@ void Network::establishConnectionWithServer()
 
 void Network::establishConnectionWithClient()
 {
+	// Wait for a message
+	// Receive the packet at the other end
+	sf::Packet packet_receive;
+	sf::IpAddress sender;
+	unsigned short senderPort;
+	switch (socket->receive(packet_receive, sender, senderPort))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		break;
 
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		return;
+	}
+
+	// Extract the variables contained in the packet
+	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
+	if (packet_receive >> receive_time)
+	{
+		// The message from the client
+		if (debug_message) displayMessage(sender, senderPort);
+	}
+
+	// SEND (to the client) MUST MATCH packet_receive in the GameClient
+	sf::Packet packet_send;
+
+	// Message to send
+	//addMessage(player_message_send);
+	// Group the variables to send into a packet
+	packet_send << send_time;
+	// Send it over the network
+	switch (socket->send(packet_send, sender, senderPort))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		return;
+	}
+
+	// DEBUG purposes
+	// Extract the variables contained in the packet
+	if (debug_message)
+	{
+		if (packet_send >> send_time)
+		{
+			// Data extracted successfully...
+			displayMessage();
+		}
+	}
 }
 
 void Network::update()
