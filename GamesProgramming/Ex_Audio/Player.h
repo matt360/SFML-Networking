@@ -17,5 +17,6 @@ public :
 
 protected:
 	Input* input;
+	float speed;
 	//bool falling;
 };

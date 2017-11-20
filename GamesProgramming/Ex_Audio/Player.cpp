@@ -3,6 +3,7 @@
 Player::Player(const sf::Vector2f & size) : Sprite(size)
 {
 	//falling = true;
+	speed = 0.2;
 }
 
 Player::~Player()
@@ -20,19 +21,19 @@ void Player::update()
 
 	if (input->isKeyDown(sf::Keyboard::Right))
 	{
-		velocity.x += 1.0f;
+		velocity.x += speed;
 	}
 	else if (input->isKeyDown(sf::Keyboard::Left))
 	{
-		velocity.x -= 1.0f;
+		velocity.x -= speed;
 	}
 	else if (input->isKeyDown(sf::Keyboard::Up))
 	{
-		velocity.y -= 1.0f;
+		velocity.y -= speed;
 	}
 	else if (input->isKeyDown(sf::Keyboard::Down))
 	{
-		velocity.y += 1.0f;
+		velocity.y += speed;
 	}
 	else
 	{
