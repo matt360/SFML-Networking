@@ -66,15 +66,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Sockets.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="UDP.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="TCP.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Network.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -84,9 +75,6 @@
     <ClCompile Include="GameClient.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\App</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
@@ -95,9 +83,6 @@
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\App</Filter>
-    </ClCompile>
-    <ClCompile Include="MyPacket.cpp">
-      <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,9 +132,6 @@
       <Filter>Header Files\App</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Header Files\App</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
     <ClInclude Include="Messages.h">
