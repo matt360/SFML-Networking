@@ -1,7 +1,7 @@
 #include "Network.h"
 #include <iostream>
 
-Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
+Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short* port_number, sf::Clock* cl, float* cur_t)
 {
 	window = hwnd;
 	input = in;
@@ -9,6 +9,8 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket
 	ip_address = ip;
 	port = port_number;
 	state = st;
+	clock = cl;
+	current_time = cur_t;
 
 	readyToPlay = false;
 	server = false;
@@ -118,12 +120,13 @@ void Network::displayMessage()
 	
 }
 
-void Network::displayMessage(const sf::IpAddress sender, const unsigned short sender_port)
+void Network::displayMessage(float time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the client
 	
 	std::cout << "\nSERVER: client's IP: " << sender;
 	std::cout << "\nSERVER: client's port: " << sender_port;
+	std::cout << "\nSERVER: client' time: " << time;
 }
 
 void Network::addMessage()
@@ -146,13 +149,11 @@ void Network::addMessage()
 // Send a message to the server...
 //
 ////////////////////////////////////////////////////////////
-void Network::sendPacket()
+void Network::sendPacketToServer()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-
-	// TODO send_time;
-
+	float send_time = clock->getElapsedTime().asMilliseconds;
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	//addMessage(player_message_send);
@@ -188,85 +189,8 @@ void Network::sendPacket()
 // ...wait for the answer
 //
 ////////////////////////////////////////////////////////////
-void Network::checkForIncomingPackets()
+void Network::checkForIncomingPacketsFromServer()
 {
-	while (true) {
-		// Try to receive the packet from the other end
-		// SEND (to the server) MUST MATCH packet_send in the GameServer
-		sf::Packet packet_receive;
-		sf::IpAddress sender;
-		unsigned short senderPort;
-		switch (socket->receive(packet_receive, sender, senderPort))
-		{
-		case sf::Socket::Done:
-			// Received a packet.
-			if (debug_mode) std::cout << "CLIENT: Got one!\n";
-			// TODO receive_time;
-
-			break;
-
-		case sf::Socket::NotReady:
-			// No more data to receive (yet).
-			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-			return;
-
-		default:
-			// Something went wrong.
-			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-			return;
-		}
-
-		// Extract the variables contained in the packet
-		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		//PlayerMessage player_message_receive;
-		if (packet_receive >> receive_time)
-		{
-			// Data extracted successfully...
-			if (debug_message) displayMessage();
-			// Deal with the messages from the packet
-			
-		}
-	}
-}
-
-
-void Network::establishConnectionWithServer()
-{
-	// message
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	//PlayerMessage player_message_send;
-
-	// Group the variables to send into a packet
-	sf::Packet packet_send;
-	//addMessage(player_message_send);
-	packet_send << send_time;
-	// Send it over the network (socket is a valid sf::TcpSocket)
-	switch (socket->send(packet_send, *ip_address, *port))
-	{
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
-		break;
-
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-		return;
-
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-		return;
-	}
-
-
-	/// don't need to clear the packet since all the local variables 
-	/// cease to exist once the function is over but it's good to 
-	/// keep in mind that if the packet is static it should get cleared
-	/// after each use
-	/// packet_send.clear();
-
-
 	////////////////////////////////////////////////////////////////////
 	// CHECK FOR INCOMING PACKETS                                     //
 	////////////////////////////////////////////////////////////////////
@@ -306,7 +230,17 @@ void Network::establishConnectionWithServer()
 	}
 }
 
-void Network::establishConnectionWithClient()
+
+void Network::establishConnectionWithServer()
+{
+	// send message to the server...
+	sendPacketToServer();
+
+	// ...wait for the answer
+	checkForIncomingPacketsFromServer();
+}
+
+void Network::receivePacketFromClient()
 {
 	// Wait for a message
 	// Receive the packet at the other end
@@ -339,9 +273,51 @@ void Network::establishConnectionWithClient()
 		if (debug_message) displayMessage(sender, senderPort);
 	}
 
-	// SEND (to the client) MUST MATCH packet_receive in the GameClient
-	sf::Packet packet_send;
+}
 
+void Network::sendPacketToClient()
+{
+}
+
+void Network::establishConnectionWithClient()
+{
+	// Wait for a message
+	// Receive the packet at the other end
+	sf::Packet packet_receive;
+	sf::IpAddress sender;
+	unsigned short senderPort;
+	switch (socket->receive(packet_receive, sender, senderPort))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		return;
+	}
+
+	// Extract the variables contained in the packet
+	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
+	float receive_time;
+	if (packet_receive >> receive_time)
+	{
+		// The message from the client
+		if (debug_message) displayMessage(receive_time, sender, senderPort);
+		receive_time
+	}
+
+	//////////////////////////////////////////////////////////////////////
+	// SEND (to the client) MUST MATCH packet_receive in the GameClient //
+	//////////////////////////////////////////////////////////////////////
+	sf::Packet packet_send;
 	// Message to send
 	//addMessage(player_message_send);
 	// Group the variables to send into a packet

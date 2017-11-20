@@ -8,7 +8,7 @@
 class Network
 {
 public:
-	Network(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
+	Network(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, sf::Clock* clock, float* current_time);
 	~Network();
 
 	void handleInput();
@@ -21,15 +21,19 @@ public:
 
 	void displayMessage();
 
-	void displayMessage(const sf::IpAddress sender, const unsigned short sender_port);
+	void displayMessage(float time, const sf::IpAddress sender, const unsigned short sender_port);
 
 	void addMessage();
 
-	void sendPacket();
-
-	void establishConnectionWithClient();
-	void checkForIncomingPackets();
+	// cient
+	void sendPacketToServer();
+	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();
+
+	// server
+	void receivePacketFromClient();
+	void sendPacketToClient();
+	void establishConnectionWithClient();
 	
 private:
 	void beginDraw();
@@ -37,12 +41,12 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	GameState* state;
+	sf::Clock* clock;
+	float* current_time;
 	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
-	float send_time;
-	float receive_time;
 	// input handlers
 	bool readyToPlay;
 	bool server;

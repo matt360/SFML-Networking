@@ -22,23 +22,27 @@ void main(int argc, char** argv[])
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
 	////////////////////////////////
+
+	// DO NOT RESTART THE CLOCK!
+	sf::Clock clock;
+	//float deltaTime;
+	float current_time;
+
+	// set the initial game state
 	GameState state = GameState::MENU;
 	
 	bool pause = false;
 	Input input;
 	Menu menu(&window, &input, &state);
-	Network network(&window, &input, &state, &socket, &ip_address, &port);
+	Network network(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
 	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
 	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);
 	
 	//direction dir = direction::left;
 	
-	// DO NOT RESTART THE CLOCK!
-	sf::Clock clock;
-	//float deltaTime;
-	float curTime = clock.getElapsedTime().asMilliseconds();
 	
-	float latency = 10.0f;
+	// TODO
+	//float latency = 10.0f;
 	//clock += latency;
 
 	//sf::Texture mushroomTexture;
