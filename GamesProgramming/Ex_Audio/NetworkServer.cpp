@@ -88,9 +88,9 @@ void NetworkServer::displaySendMessage(sf::Int32 time)
 void NetworkServer::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the client
-	std::cout << "\nSERVER: client's IP: " << sender;
-	std::cout << "\nSERVER: client's port: " << sender_port;
-	std::cout << "\nSERVER: client' time: " << time;
+	std::cout << "\nSERVER: IP: " << sender;
+	std::cout << "\nSERVER: port: " << sender_port;
+	std::cout << "\nSERVER: time: " << time;
 }
 
 void NetworkServer::establishConnectionWithClient()

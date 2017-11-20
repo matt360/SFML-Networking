@@ -69,20 +69,28 @@ void NetworkClient::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkClient::displayMessage(sf::Int32 time)
+void NetworkClient::displayReceiveMessage(sf::Int32 time)
 {
-	// The message from the server
-	std::cout << "\n\nCLIENT: Message received from the server:";
+	// Message FROM the server
+	std::cout << "\n\nCLIENT: Message received from the client:";
+	// Data extracted successfully...
+	std::cout << "\nCLIENT: client's time: " << time;
+}
+
+void NetworkClient::displaySendMessage(sf::Int32 time)
+{
+	// Message sent TO the server
+	std::cout << "\n\nCLIENT: Message sent to the client:";
 	// Data extracted successfully...
 	std::cout << "\nCLIENT: server's time: " << time;
 }
 
 void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
-	// The message from the server
-	std::cout << "\nCLIENT: server's IP: " << sender;
-	std::cout << "\nCLIENT: server's port: " << sender_port;
-	std::cout << "\nCLIENT: server's time: " << time;
+	// Message FROM the server
+	std::cout << "\nCLIENT: IP: " << sender;
+	std::cout << "\nCLIENT: port: " << sender_port;
+	std::cout << "\nCLIENT: time: " << time;
 }
 
 ////////////////////////////////////////////////////////////
@@ -93,11 +101,11 @@ void NetworkClient::sendPacketToServer()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	client_send_time = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 send_time = clock->getElapsedTime().asMilliseconds();
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	//addMessage(player_message_send);
-	packet_send << client_send_time;
+	packet_send << send_time;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket->send(packet_send, *ip_address, *port))
 	{
@@ -117,7 +125,17 @@ void NetworkClient::sendPacketToServer()
 		return;
 	}
 
-
+	// DEBUG purposes
+	// Extract the variables contained in the packet
+	if (debug_message)
+	{
+		if (packet_send >> client_send_time)
+		{
+			// Data extracted successfully...
+			//server_send_time = send_time;
+			if (debug_message) displaySendMessage(client_send_time);
+		}
+	}
 	/// don't need to clear the packet since all the local variables 
 	/// cease to exist once the function is over but it's good to 
 	/// keep in mind that if the packet is static it should get cleared
@@ -158,15 +176,15 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			return;
 		}
 
-		sf::Int32 receive_time;
+		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> receive_time)
+		if (packet_receive >> client_receive_time)
 		{
 			// Deal with the messages from the packet
-			client_receive_time = receive_time;
+			//client_receive_time = receive_time;
 			// Data extracted successfully...
-			if (debug_message) displayMessage(client_receive_time);
+			if (debug_message) displayReceiveMessage(client_receive_time);
 		}
 	}
 }

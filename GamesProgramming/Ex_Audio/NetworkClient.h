@@ -31,7 +31,8 @@ public:
 	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();
 
-	void displayMessage(sf::Int32 time);
+	void displayReceiveMessage(sf::Int32 time);
+	void displaySendMessage(sf::Int32 time);
 	void displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
 
 private:
@@ -47,9 +48,6 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
-
-	sf::Int32 server_receive_time;
-	sf::Int32 server_send_time;
 
 	sf::Int32 client_receive_time;
 	sf::Int32 client_send_time;
