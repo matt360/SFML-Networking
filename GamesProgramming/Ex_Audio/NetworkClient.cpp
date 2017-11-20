@@ -24,7 +24,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	readyToPlay = false;
 	server = false;
 	client = false;
-	debug_mode = true;
+	debug_mode = false;
 	debug_message = true;
 
 	// Network text
@@ -129,11 +129,11 @@ void NetworkClient::sendPacketToServer()
 	// Extract the variables contained in the packet
 	if (debug_message)
 	{
-		if (packet_send >> client_send_time)
+		if (packet_send >> server_time)
 		{
 			// Data extracted successfully...
 			//server_send_time = send_time;
-			if (debug_message) displaySendMessage(client_send_time);
+			if (debug_message) displaySendMessage(server_time);
 		}
 	}
 	/// don't need to clear the packet since all the local variables 
@@ -179,12 +179,12 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> client_receive_time)
+		if (packet_receive >> client_time)
 		{
 			// Deal with the messages from the packet
 			//client_receive_time = receive_time;
 			// Data extracted successfully...
-			if (debug_message) displayReceiveMessage(client_receive_time);
+			if (debug_message) displayReceiveMessage(client_time);
 		}
 	}
 }

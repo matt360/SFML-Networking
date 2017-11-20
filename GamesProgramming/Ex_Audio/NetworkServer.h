@@ -47,8 +47,8 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 
-	sf::Int32 server_receive_time;
-	sf::Int32 server_send_time;
+	sf::Int32 client_time;
+	sf::Int32 server_time;
 
 	// input handlers
 	bool readyToPlay;

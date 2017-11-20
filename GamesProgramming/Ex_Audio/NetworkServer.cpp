@@ -24,7 +24,7 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	readyToPlay = false;
 	server = false;
 	client = false;
-	debug_mode = true;
+	debug_mode = false;
 	debug_message = true;
 
 	// Network text
@@ -121,12 +121,12 @@ void NetworkServer::establishConnectionWithClient()
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
 	//float receive_time;
-	if (packet_receive >> server_receive_time)
+	if (packet_receive >> client_time)
 	{
 		// Deal with the messages from the packet
 		//server_receive_time = receive_time;
 		// The message from the client
-		if (debug_message) displayReceiveMessage(server_receive_time);
+		if (debug_message) displayReceiveMessage(client_time);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -162,11 +162,11 @@ void NetworkServer::establishConnectionWithClient()
 	// Extract the variables contained in the packet
 	if (debug_message)
 	{
-		if (packet_send >> server_send_time)
+		if (packet_send >> server_time)
 		{
 			// Data extracted successfully...
 			//server_send_time = send_time;
-			if (debug_message) displaySendMessage(server_send_time);
+			if (debug_message) displaySendMessage(server_time);
 		}
 	}
 }
