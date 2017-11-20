@@ -19,7 +19,16 @@ public:
 	void createServerSocket();
 	void createClientSocket();
 
+	void displayMessage();
+
+	void displayMessage(const sf::IpAddress sender, const unsigned short sender_port);
+
+	void addMessage();
+
+	void sendPacket();
+
 	void establishConnectionWithClient();
+	void checkForIncomingPackets();
 	void establishConnectionWithServer();
 	
 private:
@@ -32,10 +41,14 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	float send_time;
+	float receive_time;
 	// input handlers
 	bool readyToPlay;
 	bool server;
 	bool client;
+	bool debug_mode;
+	bool debug_message;
 	NetworkState network_state;
 
 	sf::Text text;

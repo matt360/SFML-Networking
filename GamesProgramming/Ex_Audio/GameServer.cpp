@@ -124,12 +124,14 @@ void GameServer::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
+
+	// toggle debug mode to display socket messages
 	if (input->isKeyDown(sf::Keyboard::D))
 	{
 		input->setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
 	}
-
+	// toggle debug messages to display messages
 	if (input->isKeyDown(sf::Keyboard::M))
 	{
 		input->setKeyUp(sf::Keyboard::M);
@@ -306,7 +308,7 @@ void GameServer::runUdpServer()
 }
 void GameServer::update()
 {
-	//call_once_set_window();
+	call_once_set_window();
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));

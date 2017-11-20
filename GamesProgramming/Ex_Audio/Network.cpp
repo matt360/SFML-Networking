@@ -13,6 +13,8 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket
 	readyToPlay = false;
 	server = false;
 	client = false;
+	debug_mode = true;
+	debug_message = true;
 	network_state = NetworkState::NONE;
 
 	// Network text
@@ -37,6 +39,7 @@ void Network::handleInput()
 	}	
 
 	// Client or server ?
+	// toggle being the server
 	if (input->isKeyDown(sf::Keyboard::S))
 	{
 		input->setKeyUp(sf::Keyboard::S);
@@ -46,6 +49,7 @@ void Network::handleInput()
 		client = false;
 		network_state = NetworkState::SERVER;
 	}
+	// toggle being the client
 	if (input->isKeyDown(sf::Keyboard::C))
 	{
 		input->setKeyUp(sf::Keyboard::C);
@@ -54,6 +58,18 @@ void Network::handleInput()
 		// setting server to false let's us change the decision and become the server
 		server = false;
 		network_state = NetworkState::CLIENT;
+	}
+	// toggle debug mode to display socket messages
+	if (input->isKeyDown(sf::Keyboard::D))
+	{
+		input->setKeyUp(sf::Keyboard::D);
+		debug_mode = !debug_mode;
+	}
+	// toggle debug messages to display messages
+	if (input->isKeyDown(sf::Keyboard::M))
+	{
+		input->setKeyUp(sf::Keyboard::M);
+		debug_message = !debug_message;
 	}
 }
 
@@ -94,12 +110,205 @@ void Network::createClientSocket()
 	///////////////////////////////////////////
 }
 
+void Network::displayMessage()
+{
+	// The message from the client
+	std::cout << "\n\nSERVER: Message received from the client:";
+	// Data extracted successfully...
+	
+}
+
+void Network::displayMessage(const sf::IpAddress sender, const unsigned short sender_port)
+{
+	// The message from the client
+	
+	std::cout << "\nSERVER: client's IP: " << sender;
+	std::cout << "\nSERVER: client's port: " << sender_port;
+}
+
+void Network::addMessage()
+{
+	////PlayerMessage player_message_send;
+	//player_message_send.id = 0;
+	//player_message_send.x = player.getPosition().x;
+	//player_message_send.y = player.getPosition().y;
+
+	/*time_t rawtime;
+	struct tm * timeinfo;
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	player_message_send.time = timeinfo->tm_sec;*/
+}
+
+////////////////////////////////////////////////////////////
+// Send a message to the server...
+//
+////////////////////////////////////////////////////////////
+void Network::sendPacket()
+{
+	// message
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
+
+	// TODO send_time;
+
+	// Group the variables to send into a packet
+	sf::Packet packet_send;
+	//addMessage(player_message_send);
+	packet_send << send_time;
+	// Send it over the network (socket is a valid sf::TcpSocket)
+	switch (socket->send(packet_send, *ip_address, *port))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		return;
+	}
+
+
+	/// don't need to clear the packet since all the local variables 
+	/// cease to exist once the function is over but it's good to 
+	/// keep in mind that if the packet is static it should get cleared
+	/// after each use
+	/// packet_send.clear();
+}
+
+////////////////////////////////////////////////////////////
+// ...wait for the answer
+//
+////////////////////////////////////////////////////////////
+void Network::checkForIncomingPackets()
+{
+	while (true) {
+		// Try to receive the packet from the other end
+		// SEND (to the server) MUST MATCH packet_send in the GameServer
+		sf::Packet packet_receive;
+		sf::IpAddress sender;
+		unsigned short senderPort;
+		switch (socket->receive(packet_receive, sender, senderPort))
+		{
+		case sf::Socket::Done:
+			// Received a packet.
+			if (debug_mode) std::cout << "CLIENT: Got one!\n";
+			// TODO receive_time;
+
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+			return;
+		}
+
+		// Extract the variables contained in the packet
+		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
+		//PlayerMessage player_message_receive;
+		if (packet_receive >> receive_time)
+		{
+			// Data extracted successfully...
+			if (debug_message) displayMessage();
+			// Deal with the messages from the packet
+			
+		}
+	}
+}
+
+
 void Network::establishConnectionWithServer()
 {
+	// message
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
+	//PlayerMessage player_message_send;
+
+	// Group the variables to send into a packet
+	sf::Packet packet_send;
+	//addMessage(player_message_send);
+	packet_send << send_time;
+	// Send it over the network (socket is a valid sf::TcpSocket)
+	switch (socket->send(packet_send, *ip_address, *port))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		return;
+	}
+
+
+	/// don't need to clear the packet since all the local variables 
+	/// cease to exist once the function is over but it's good to 
+	/// keep in mind that if the packet is static it should get cleared
+	/// after each use
+	/// packet_send.clear();
+
+
+	////////////////////////////////////////////////////////////////////
+	// CHECK FOR INCOMING PACKETS                                     //
+	////////////////////////////////////////////////////////////////////
+	while (true) {
+		// Try to receive the packet from the other end
+		// SEND (to the server) MUST MATCH packet_send in the GameServer
+		sf::Packet packet_receive;
+		sf::IpAddress sender;
+		unsigned short senderPort;
+		switch (socket->receive(packet_receive, sender, senderPort))
+		{
+		case sf::Socket::Done:
+			// Received a packet.
+			if (debug_mode) std::cout << "CLIENT: Got one!\n";
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+			return;
+		}
+
+		// Extract the variables contained in the packet
+		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
+		if (packet_receive >> receive_time)
+		{
+			// Data extracted successfully...
+			if (debug_message) displayMessage();
+			// Deal with the messages from the packet
+			// Put position into history of network positions
+		}
+	}
 }
 
 void Network::establishConnectionWithClient()
 {
+
 }
 
 void Network::update()
@@ -110,7 +319,6 @@ void Network::update()
 		// create server socket
 		createServerSocket();
 		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
-
 
 		server = false;
 	}
