@@ -16,8 +16,11 @@ public:
 	void render();
 
 	// Network
-	void serverSocket();
-	void clientSocket();
+	void createServerSocket();
+	void createClientSocket();
+
+	void establishConnectionWithClient();
+	void establishConnectionWithServer();
 	
 private:
 	void beginDraw();

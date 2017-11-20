@@ -64,7 +64,7 @@ void Network::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void Network::serverSocket()
+void Network::createServerSocket()
 {
 	//////////////////////////////////////////
 	// Create a socket to receive a message from anyone
@@ -79,7 +79,7 @@ void Network::serverSocket()
 	//////////////////////////////////////////
 }
 
-void Network::clientSocket()
+void Network::createClientSocket()
 {
 	//////////////////////////////////////////
 	socket->unbind();
@@ -94,36 +94,58 @@ void Network::clientSocket()
 	///////////////////////////////////////////
 }
 
+void Network::establishConnectionWithServer()
+{
+}
+
+void Network::establishConnectionWithClient()
+{
+}
+
 void Network::update()
 {
 	// Client or server ?
 	if (server)
 	{
 		// create server socket
-		serverSocket();
+		createServerSocket();
 		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
+
 
 		server = false;
 	}
 	if (client)
 	{
 		// create client socket
-		clientSocket();
+		createClientSocket();
 		// message - joined the server
 		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 
 		client = false;
 	}
 
+	switch (network_state)
+	{
+	case (NetworkState::SERVER):
+		establishConnectionWithClient();
+		break;
+	case (NetworkState::CLIENT):
+		establishConnectionWithServer();
+		break;
+	/*default:
+		
+		break;*/
+	}
+
 	if (readyToPlay)
 	{
 		switch (network_state)
 		{
-		case (NetworkState::CLIENT):
-			*state = GameState::GAME_CLIENT;
-			break;
 		case (NetworkState::SERVER):
 			*state = GameState::GAME_SERVER;
+			break;
+		case (NetworkState::CLIENT):
+			*state = GameState::GAME_CLIENT;
 			break;
 		default:
 			readyToPlay = false;

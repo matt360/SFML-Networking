@@ -128,7 +128,6 @@ void main(int argc, char** argv[])
 		// Calculate delta time. How much time has passed 
 		// since it was last calculated (in seconds) and restart the clock.
 		// deltaTime = clock.restart().asSeconds();
-		float deltaTime = 1.0f;
 
 		// game loop
 		// Update/Render object based on current game state
