@@ -32,14 +32,15 @@ void main(int argc, char** argv[])
 
 	// set the initial game state
 	GameState state = GameState::MENU;
+	NetworkState network_state = NetworkState::NONE;
 	
 	bool pause = false;
 	Input input;
 
 	Menu menu(&window, &input, &state);
-	Network network(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
-	NetworkServer network_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
-	NetworkClient network_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
+	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
+	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
+	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
 	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);
 	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
 	

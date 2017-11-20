@@ -1,7 +1,15 @@
 #include "Network.h"
 #include <iostream>
 
-Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short* port_number, sf::Clock* cl, float* cur_t)
+Network::Network(sf::RenderWindow* hwnd,
+	Input* in,
+	GameState* st,
+	NetworkState* net_st,
+	sf::UdpSocket* udp_socket, 
+	sf::IpAddress* ip, 
+	unsigned short* port_number, 
+	sf::Clock* cl, 
+	float* cur_t)
 {
 	window = hwnd;
 	input = in;
@@ -9,6 +17,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket
 	ip_address = ip;
 	port = port_number;
 	state = st;
+	network_state = net_st;
 	clock = cl;
 	current_time = cur_t;
 
@@ -17,14 +26,13 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket
 	client = false;
 	debug_mode = true;
 	debug_message = true;
-	network_state = NetworkState::NONE;
 
 	// Network text
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);
-	text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
+	text.setString("Press 'S' to be the server\n\nPress 'C' to be the client\n\n");
 }
 
 Network::~Network()
@@ -49,7 +57,7 @@ void Network::handleInput()
 		server = true;
 		// setting client to false let's us change the decision and to become the cleint
 		client = false;
-		network_state = NetworkState::SERVER;
+		*network_state = NetworkState::SERVER;
 	}
 	// toggle being the client
 	if (input->isKeyDown(sf::Keyboard::C))
@@ -59,7 +67,7 @@ void Network::handleInput()
 		client = true;
 		// setting server to false let's us change the decision and become the server
 		server = false;
-		network_state = NetworkState::CLIENT;
+		*network_state = NetworkState::CLIENT;
 	}
 	// toggle debug mode to display socket messages
 	if (input->isKeyDown(sf::Keyboard::D))
@@ -93,7 +101,7 @@ void Network::createServerSocket()
 	// Listen to messages on the specified port
 	if (socket->bind(*port) != sf::Socket::Done) return;
 
-	if (debug_mode) std::cout << "Server is listening to port " << *port << ", waiting for a message... " << std::endl;
+	if (debug_mode) std::cout << "Server is listening to port " << *port << ", waiting for a message...\n";
 	//////////////////////////////////////////
 }
 
@@ -119,7 +127,13 @@ void Network::update()
 	{
 		// create server socket
 		createServerSocket();
-		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to connected to establish connection with\n\nThe client");
+		// display text
+		text.setString(
+			"You're the Server\n\n"
+			"Press Enter to establish the connection with\n\n"
+			"The Client\n\n"
+			"Press 'S' to be the server\n\n"
+			"Press 'C' to be the client\n\n");
 
 		server = false;
 	}
@@ -127,9 +141,13 @@ void Network::update()
 	{
 		// create client socket
 		createClientSocket();
-		// message - joined the server
-		text.setString("Connecting...\n\nYou're the client\n\n"
-			"Press Enter to establish connection with\n\nThe server");
+		// display text
+		text.setString(
+			"You're the Client\n\n"
+			"Press Enter to establish the connection with\n\n"
+			"The Server\n\n"
+			"Press 'S' to be the server\n\n"
+			"Press 'C' to be the client\n\n");
 
 		client = false;
 	}
@@ -169,19 +187,3 @@ void Network::endDraw()
 {
 	window->display();
 }
-
-//void Network::do_once()
-//{
-//	std::call_once(ask_flag, [&]() {
-//		std::cout << "Do you want to be a server (s) or a client (c)? ";
-//		//std::cin >> who; 
-//
-//		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-//			networkState = NetworkState::SERVER;
-//		}
-//		else {
-//			networkState = NetworkState::CLIENT;
-//		}
-//	}
-//	);
-//}
