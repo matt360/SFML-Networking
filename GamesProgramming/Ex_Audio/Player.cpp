@@ -10,7 +10,7 @@ Player::~Player()
 
 }
 
-void Player::update(float dt)
+void Player::update()
 {
 	if (falling)
 	{

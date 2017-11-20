@@ -27,7 +27,7 @@ Network::~Network()
 {
 }
 
-void Network::handleInput(float dt)
+void Network::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
@@ -94,7 +94,7 @@ void Network::clientSocket()
 	///////////////////////////////////////////
 }
 
-void Network::update(float dt)
+void Network::update()
 {
 	// Client or server ?
 	if (server)

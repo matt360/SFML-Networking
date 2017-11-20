@@ -120,7 +120,7 @@ void GameServer::call_once_set_window()
 	);
 }
 
-void GameServer::handleInput(float dt)
+void GameServer::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
@@ -304,9 +304,9 @@ void GameServer::runUdpServer()
 		}
 	}
 }
-void GameServer::update(float dt)
+void GameServer::update()
 {
-	call_once_set_window();
+	//call_once_set_window();
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
@@ -325,7 +325,7 @@ void GameServer::update(float dt)
 		audioMgr.playSoundbyName("jump");
 	}
 
-	player.update(dt);
+	player.update();
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
@@ -369,7 +369,7 @@ void GameServer::update(float dt)
 		}
 	}
 
-	if (player.getPosition().y > window->getSize().y)
+	/*if (player.getPosition().y > window->getSize().y)
 	{
 		*state = GameState::NETWORK;
 		player.setPosition(0, 0);
@@ -380,7 +380,7 @@ void GameServer::update(float dt)
 	else
 	{
 		*state = GameState::GAME_SERVER;
-	}
+	}*/
 
 	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time

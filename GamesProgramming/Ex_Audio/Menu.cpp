@@ -18,7 +18,7 @@ Menu::~Menu()
 {
 }
 
-void Menu::handleInput(float dt)
+void Menu::handleInput()
 {
 
 	if (input->isKeyDown(sf::Keyboard::Return))
@@ -32,7 +32,7 @@ void Menu::handleInput(float dt)
 	}
 }
 
-void Menu::update(float dt)
+void Menu::update()
 {
 
 }

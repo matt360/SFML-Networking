@@ -10,8 +10,8 @@ public:
 	Menu(sf::RenderWindow* hwnd, Input* in, GameState* state);
 	~Menu();
 
-	void handleInput(float dt);
-	void update(float dt);
+	void handleInput();
+	void update();
 	void render();
 
 private:

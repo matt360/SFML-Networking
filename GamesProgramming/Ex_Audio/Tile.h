@@ -10,6 +10,6 @@ public:
 	Tile(const sf::Vector2f & size = sf::Vector2f(0, 0));
 	~Tile();
 
-	void update(float dt);	
+	void update();	
 };
 

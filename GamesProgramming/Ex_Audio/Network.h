@@ -11,8 +11,8 @@ public:
 	Network(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
 	~Network();
 
-	void handleInput(float dt);
-	void update(float dt);
+	void handleInput();
+	void update();
 	void render();
 
 	// Network

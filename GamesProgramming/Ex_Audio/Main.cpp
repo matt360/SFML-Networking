@@ -137,33 +137,33 @@ void main(int argc, char** argv[])
 		case (GameState::MENU) :
 
 
-			menu.handleInput(deltaTime);
-			menu.update(deltaTime);
+			menu.handleInput();
+			menu.update();
 			menu.render();
 			break;
 
 		case (GameState::NETWORK) :
-			network.handleInput(deltaTime);
+			network.handleInput();
 			// create socket and 
-			network.update(deltaTime);
+			network.update();
 			network.render();
 			break;
 
 		case(GameState::GAME_CLIENT):
-			game_client.handleInput(deltaTime);
+			game_client.handleInput();
 			// do a non blocking receive - put socket into non blocking mode when it's being created
 			// queue of messages to send, put message into the queue when ready to send, non-blocking send
 			//socket(); 
-			game_client.update(deltaTime);
+			game_client.update();
 			game_client.render();
 			break;
 
 		case(GameState::GAME_SERVER):
-			game_server.handleInput(deltaTime);
+			game_server.handleInput();
 			// do a non blocking receive - put socket into non blocking mode when it's being created
 			// queue of messages to send, put message into the queue when ready to send, non-blocking send
 			//socket(); 
-			game_server.update(deltaTime);
+			game_server.update();
 			game_server.render();
 			break;
 

@@ -8,6 +8,6 @@ Tile::~Tile()
 {
 }
 
-void Tile::update(float dt)
+void Tile::update()
 {
 }

@@ -7,7 +7,7 @@ public:
 	Sprite(const sf::Vector2f & size = sf::Vector2f(0, 0));
 	~Sprite();
 
-	virtual void update(float dt)=0;
+	virtual void update() = 0;
 	void setVelocity(sf::Vector2f vel);
 	void setVelocity(float vx, float vy);
 	sf::Vector2f getVelocity();

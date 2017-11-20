@@ -9,7 +9,7 @@ public :
 	~Player();
 
 	//void update(float dt);
-	void update(float dt);
+	void update();
 
 	void setInput(Input* in);
 	void collisionRespone(Sprite* sp);
