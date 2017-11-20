@@ -114,7 +114,7 @@ void GameClient::call_once_set_window(sf::RenderWindow& window)
 void GameClient::call_once_set_window()
 {
 	std::call_once(set_window_flag, [&]() {
-		window->setPosition(sf::Vector2i(400, 800));
+		window->setPosition(sf::Vector2i(1200, 1000));
 	}
 	);
 }
@@ -329,11 +329,7 @@ void GameClient::update(float dt)
 {
 	//std::thread st1(call_once_set_window, *window);
 	//st1.join();
-	//call_once_set_window();
-	std::call_once(set_window_flag, [&]() {
-		window->setPosition(sf::Vector2i(400, 800));
-	}
-	);
+	call_once_set_window();
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
