@@ -8,7 +8,15 @@
 class NetworkClient
 {
 public:
-	NetworkClient(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number, sf::Clock* clock, float* current_time);
+	NetworkClient(sf::RenderWindow* hwnd,
+		Input* in,
+		GameState* state,
+		NetworkState* network_state,
+		sf::UdpSocket* udp_socket,
+		sf::IpAddress* ip,
+		unsigned short *port_number,
+		sf::Clock* clock,
+		float* current_time);
 	~NetworkClient();
 
 	void handleInput();
@@ -32,6 +40,7 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	GameState* state;
+	NetworkState* network_state;
 	sf::Clock* clock;
 	float* current_time;
 	// Network
@@ -50,7 +59,6 @@ private:
 	bool client;
 	bool debug_mode;
 	bool debug_message;
-	NetworkState network_state;
 
 	sf::Text text;
 	sf::Font font;

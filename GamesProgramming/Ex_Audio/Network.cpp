@@ -154,7 +154,7 @@ void Network::update()
 
 	if (readyToConnect) 
 	{
-		switch (network_state)
+		switch (*network_state)
 		{
 		case (NetworkState::SERVER):
 			*state = GameState::NETWORK_SERVER;

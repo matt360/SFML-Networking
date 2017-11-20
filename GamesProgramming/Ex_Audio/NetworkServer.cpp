@@ -1,14 +1,23 @@
 #include "NetworkServer.h"
 #include <iostream>
 
-NetworkServer::NetworkServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short* port_number, sf::Clock* cl, float* cur_t)
+NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
+	Input* in,
+	GameState* st,
+	NetworkState* net_st,
+	sf::UdpSocket* udp_socket,
+	sf::IpAddress* ip,
+	unsigned short* port_number,
+	sf::Clock* cl,
+	float* cur_t)
 {
 	window = hwnd;
 	input = in;
+	state = st;
+	network_state = net_st;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = st;
 	clock = cl;
 	current_time = cur_t;
 
@@ -17,7 +26,6 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd, Input* in, GameState* st, s
 	client = false;
 	debug_mode = true;
 	debug_message = true;
-	network_state = NetworkState::NONE;
 
 	// Network text
 	font.loadFromFile("font/advanced_pixel-7.ttf");
@@ -181,7 +189,7 @@ void NetworkServer::update()
 
 	if (readyToPlay)
 	{
-		switch (network_state)
+		switch (*network_state)
 		{
 		case (NetworkState::SERVER):
 			*state = GameState::GAME_SERVER;
