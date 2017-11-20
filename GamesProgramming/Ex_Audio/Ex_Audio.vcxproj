@@ -167,6 +167,8 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MusicObject.cpp" />
     <ClCompile Include="Network.cpp" />
+    <ClCompile Include="NetworkClient.cpp" />
+    <ClCompile Include="NetworkServer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -185,6 +187,8 @@
     <ClInclude Include="Messages.h" />
     <ClInclude Include="MusicObject.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="NetworkClient.h" />
+    <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />

@@ -84,6 +84,12 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkClient.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkServer.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -135,6 +141,12 @@
       <Filter>Header Files\App</Filter>
     </ClInclude>
     <ClInclude Include="Messages.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkServer.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkClient.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>
