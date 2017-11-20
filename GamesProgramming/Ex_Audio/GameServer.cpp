@@ -277,11 +277,14 @@ void GameServer::runUdpServer()
 
 	// DEBUG purposes
 	// Extract the variables contained in the packet
-	PlayerMessage player_message_send_d;
-	if (packet_send >> player_message_send_d)
+	if (debug_message)
 	{
-		// Data extracted successfully...
-		if (debug_message) displayMessage(player_message_send_d);
+		PlayerMessage player_message_send_d;
+		if (packet_send >> player_message_send_d)
+		{
+			// Data extracted successfully...
+			displayMessage(player_message_send_d);
+		}
 	}
 }
 void GameServer::update(float dt)
