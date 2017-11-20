@@ -184,7 +184,6 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="MusicObject.h" />
-    <ClInclude Include="MyPacket.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sound.h" />

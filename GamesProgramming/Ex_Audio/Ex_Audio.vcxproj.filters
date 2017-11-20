@@ -137,8 +137,5 @@
     <ClInclude Include="Messages.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="MyPacket.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
