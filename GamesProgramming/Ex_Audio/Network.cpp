@@ -91,9 +91,9 @@ void Network::createServerSocket()
 	// in this case the server will always use the same port
 	socket->unbind();
 	// Listen to messages on the specified port
-	if (socket->bind(*port) != sf::Socket::Done)
-		return;
-	std::cout << "Server is listening to port " << *port << ", waiting for a message... " << std::endl;
+	if (socket->bind(*port) != sf::Socket::Done) return;
+
+	if (debug_mode) std::cout << "Server is listening to port " << *port << ", waiting for a message... " << std::endl;
 	//////////////////////////////////////////
 }
 
@@ -111,7 +111,7 @@ void Network::createClientSocket()
 	} while (server == sf::IpAddress::None);*/
 	///////////////////////////////////////////
 }
-
+//
 void Network::displayServerMessage(sf::Int32 time)
 {
 	// The message from the server
