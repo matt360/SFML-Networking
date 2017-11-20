@@ -119,7 +119,7 @@ void Network::update()
 	{
 		// create server socket
 		createServerSocket();
-		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
+		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to connected to establish connection with\n\nThe client");
 
 		server = false;
 	}
@@ -128,7 +128,8 @@ void Network::update()
 		// create client socket
 		createClientSocket();
 		// message - joined the server
-		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
+		text.setString("Connecting...\n\nYou're the client\n\n"
+			"Press Enter to establish connection with\n\nThe server");
 
 		client = false;
 	}
