@@ -83,7 +83,7 @@ void NetworkServer::displayReceiveMessage(sf::Int32 time)
 void NetworkServer::displaySendMessage(sf::Int32 time)
 {
 	// The message from the client
-	std::cout << "\n\nSERVER: Message sent from the client:";
+	std::cout << "\n\nSERVER: Message sent to the client:";
 	// Data extracted successfully...
 	std::cout << "\nSERVER: server's time: " << time;
 }
@@ -137,10 +137,10 @@ void NetworkServer::establishConnectionWithClient()
 	//////////////////////////////////////////////////////////////////////
 	sf::Packet packet_send;
 	// Message to send
-	sf::Int32 send_time = clock->getElapsedTime().asMilliseconds();
+	server_time = clock->getElapsedTime().asMilliseconds();
 	//addMessage(player_message_send);
 	// Group the variables to send into a packet
-	packet_send << send_time;
+	packet_send << server_time;
 	// Send it over the network
 	switch (socket->send(packet_send, sender, senderPort))
 	{
