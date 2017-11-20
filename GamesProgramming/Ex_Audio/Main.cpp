@@ -41,8 +41,8 @@ void main(int argc, char** argv[])
 	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
 	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
 	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
-	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);
-	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
+	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &current_time);
+	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &current_time);
 	
 	//direction dir = direction::left;
 	

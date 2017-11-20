@@ -180,17 +180,19 @@ void NetworkServer::update()
 
 	establishConnectionWithClient();
 
-	*current_time = server_time - client_time;
-	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
+	//*current_time = server_time - client_time;
+	//std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 
 	if (readyToPlay)
 	{
 		switch (*network_state)
 		{
 		case (NetworkState::SERVER):
+			//*current_time = server_time - client_time;
 			*state = GameState::GAME_SERVER;
 			break;
 		case (NetworkState::CLIENT):
+			//*current_time = server_time - client_time;
 			*state = GameState::GAME_CLIENT;
 			break;
 		default:

@@ -16,7 +16,13 @@
 
 class GameServer {
 public:
-	GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
+	GameServer(sf::RenderWindow* hwnd,
+		Input* in,
+		GameState* state,
+		sf::UdpSocket* udp_socket,
+		sf::IpAddress* ip,
+		unsigned short *port_number,
+		sf::Int32* current_time);
 	~GameServer();
 
 	void handleInput();
@@ -36,6 +42,8 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	sf::Int32* current_time;
+
 	void runUdpServer();
 	void addMessage(PlayerMessage& player_message);
 	void displayMessage(const PlayerMessage player_message);

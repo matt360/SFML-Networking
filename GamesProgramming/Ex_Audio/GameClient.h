@@ -17,7 +17,13 @@
 
 class GameClient {
 public:
-	GameClient(sf::RenderWindow* hwnd, Input* in, GameState* state, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number);
+	GameClient(sf::RenderWindow* hwnd, 
+		Input* in, 
+		GameState* state, 
+		sf::UdpSocket* udp_socket, 
+		sf::IpAddress* ip, 
+		unsigned short *port_number,
+		sf::Int32* current_time);
 	~GameClient();
 
 	void handleInput();
@@ -37,6 +43,7 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	sf::Int32* current_time;
 	std::queue<sf::Vector2f> local_positions;
 	std::queue<sf::Vector2f> network_positions;
 

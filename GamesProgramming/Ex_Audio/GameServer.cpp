@@ -1,14 +1,21 @@
 #include "GameServer.h"
 #include "States.h"
 
-GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
+GameServer::GameServer(sf::RenderWindow* hwnd,
+	Input* in,
+	GameState* st,
+	sf::UdpSocket* udp_socket,
+	sf::IpAddress* ip,
+	unsigned short *port_number,
+	sf::Int32 *cur_time)
 {
 	window = hwnd;
 	input = in;
+	state = st;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = st;
+	current_time = cur_time;
 	// 
 	fps = 0;
 
@@ -387,5 +394,7 @@ void GameServer::update()
 	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time
 	runUdpServer();
+
+	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 }
 

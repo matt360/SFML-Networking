@@ -1,7 +1,13 @@
 #include "GameClient.h"
 #include "States.h"
 
-GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket* udp_socket, sf::IpAddress* ip, unsigned short *port_number)
+GameClient::GameClient(sf::RenderWindow* hwnd, 
+	Input* in, 
+	GameState* st, 
+	sf::UdpSocket* udp_socket, 
+	sf::IpAddress* ip, 
+	unsigned short *port_number,
+	sf::Int32 *cur_time)
 {
 	window = hwnd;
 	input = in;
@@ -9,6 +15,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	ip_address = ip;
 	port = port_number;
 	state = st;
+	current_time = cur_time;
 
 	fps = 0;
 
@@ -409,6 +416,8 @@ void GameClient::update()
 		sendPacket();
 
 	checkForIncomingPackets();
+
+	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 
 	// TODO keep track of local positions
 
