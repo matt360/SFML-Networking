@@ -1,7 +1,7 @@
 #pragma once
 
 /** A position update message. */
-__declspec(selectany) struct PlayerMessage {
+struct PlayerMessage {
 	/** The object number of this Player within the game world. */
 	int id;
 

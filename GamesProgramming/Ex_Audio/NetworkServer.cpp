@@ -96,17 +96,17 @@ void NetworkServer::establishConnectionWithClient()
 	{
 	case sf::Socket::Done:
 		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
 		return;
 
 	default:
 		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
 		return;
 	}
 
@@ -134,18 +134,18 @@ void NetworkServer::establishConnectionWithClient()
 	{
 	case sf::Socket::Done:
 		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
 
 		return;
 
 	default:
 		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
 		return;
 	}
 
@@ -163,26 +163,7 @@ void NetworkServer::establishConnectionWithClient()
 }
 
 void NetworkServer::update()
-{
-	//// Client or server ?
-	//if (server)
-	//{
-	//	// create server socket
-	//	//createServerSocket();
-	//	text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
-
-	//	server = false;
-	//}
-	//if (client)
-	//{
-	//	// create client socket
-	//	//createClientSocket();
-	//	// message - joined the server
-	//	text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
-
-	//	client = false;
-	//}
-	
+{	
 	text.setString("\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play");
 
 	establishConnectionWithClient();
@@ -222,19 +203,3 @@ void NetworkServer::endDraw()
 {
 	window->display();
 }
-
-//void NetworkServer::do_once()
-//{
-//	std::call_once(ask_flag, [&]() {
-//		std::cout << "Do you want to be a server (s) or a client (c)? ";
-//		//std::cin >> who; 
-//
-//		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-//			networkState = NetworkState::SERVER;
-//		}
-//		else {
-//			networkState = NetworkState::CLIENT;
-//		}
-//	}
-//	);
-//}

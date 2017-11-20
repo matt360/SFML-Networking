@@ -27,8 +27,6 @@ public:
 	// NETWORK //
 	/////////////
 	// server
-	//void receivePacketFromClient();
-	//void sendPacketToClient();
 	void establishConnectionWithClient();
 
 	void displayMessage(sf::Int32 time);
