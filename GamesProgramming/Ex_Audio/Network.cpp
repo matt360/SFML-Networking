@@ -112,7 +112,7 @@ void Network::createClientSocket()
 	///////////////////////////////////////////
 }
 
-void Network::displayServerMessage(float time)
+void Network::displayServerMessage(sf::Int32 time)
 {
 	// The message from the server
 	std::cout << "\n\nCLIENT: Message received from the client:";
@@ -120,7 +120,7 @@ void Network::displayServerMessage(float time)
 	std::cout << "\nCLIENT: client's time: " << time;
 }
 
-void Network::displayServerMessage(float time, const sf::IpAddress sender, const unsigned short sender_port)
+void Network::displayServerMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the server
 	std::cout << "\nCLIENT: client's IP: " << sender;
@@ -128,7 +128,7 @@ void Network::displayServerMessage(float time, const sf::IpAddress sender, const
 	std::cout << "\nCLIENT: client' time: " << time;
 }
 
-void Network::displayClientMessage(float time)
+void Network::displayClientMessage(sf::Int32 time)
 {
 	// The message from the client
 	std::cout << "\n\nSERVER: Message received from the client:";
@@ -136,7 +136,7 @@ void Network::displayClientMessage(float time)
 	std::cout << "\nSERVER: client's time: " << time;
 }
 
-void Network::displayClientMessage(float time, const sf::IpAddress sender, const unsigned short sender_port)
+void Network::displayClientMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the client
 	std::cout << "\nSERVER: client's IP: " << sender;

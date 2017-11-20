@@ -24,8 +24,8 @@ public:
 	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();
 
-	void displayClientMessage(float time);
-	void displayClientMessage(float time, const sf::IpAddress sender, const unsigned short sender_port);
+	void displayClientMessage(sf::Int32 time);
+	void displayClientMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
 
 	// server
 	void createServerSocket();
@@ -33,8 +33,8 @@ public:
 	//void sendPacketToClient();
 	void establishConnectionWithClient();
 
-	void displayServerMessage(float time);
-	void displayServerMessage(float time, const sf::IpAddress sender, const unsigned short sender_port);
+	void displayServerMessage(sf::Int32 time);
+	void displayServerMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
 	
 private:
 	void beginDraw();
@@ -48,8 +48,10 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+
 	sf::Int32 server_receive_time;
 	sf::Int32 server_send_time;
+
 	sf::Int32 client_receive_time;
 	sf::Int32 client_send_time;
 	// input handlers
