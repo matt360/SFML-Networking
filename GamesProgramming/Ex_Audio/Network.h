@@ -18,7 +18,7 @@ public:
 	/////////////
 	// NETWORK //
 	/////////////
-	// cient
+	// client
 	void createClientSocket();
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();

@@ -18,23 +18,13 @@ public:
 	/////////////
 	// NETWORK //
 	/////////////
-	// cient
-	void createClientSocket();
-	void sendPacketToServer();
-	void checkForIncomingPacketsFromServer();
-	void establishConnectionWithServer();
-
-	void displayClientMessage(sf::Int32 time);
-	void displayClientMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
-
 	// server
-	void createServerSocket();
 	//void receivePacketFromClient();
 	//void sendPacketToClient();
 	void establishConnectionWithClient();
 
-	void displayServerMessage(sf::Int32 time);
-	void displayServerMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
+	void displayMessage(sf::Int32 time);
+	void displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
 
 private:
 	void beginDraw();

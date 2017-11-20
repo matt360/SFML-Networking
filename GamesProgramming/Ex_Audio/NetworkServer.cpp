@@ -82,53 +82,7 @@ void NetworkServer::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkServer::createServerSocket()
-{
-	//////////////////////////////////////////
-	// Create a socket to receive a message from anyone
-	socket->setBlocking(false);
-	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
-	// in this case the server will always use the same port
-	socket->unbind();
-	// Listen to messages on the specified port
-	if (socket->bind(*port) != sf::Socket::Done)
-		return;
-	std::cout << "Server is listening to port " << *port << ", waiting for a message... " << std::endl;
-	//////////////////////////////////////////
-}
-
-void NetworkServer::createClientSocket()
-{
-	//////////////////////////////////////////
-	socket->unbind();
-	socket->setBlocking(false);
-
-	// Ask for the server address
-	/*do
-	{
-	std::cout << "Type the address or name of the server to connect to: ";
-	std::cin >> server;
-	} while (server == sf::IpAddress::None);*/
-	///////////////////////////////////////////
-}
-
-void NetworkServer::displayServerMessage(sf::Int32 time)
-{
-	// The message from the server
-	std::cout << "\n\nCLIENT: Message received from the client:";
-	// Data extracted successfully...
-	std::cout << "\nCLIENT: client's time: " << time;
-}
-
-void NetworkServer::displayServerMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
-{
-	// The message from the server
-	std::cout << "\nCLIENT: client's IP: " << sender;
-	std::cout << "\nCLIENT: client's port: " << sender_port;
-	std::cout << "\nCLIENT: client' time: " << time;
-}
-
-void NetworkServer::displayClientMessage(sf::Int32 time)
+void NetworkServer::displayMessage(sf::Int32 time)
 {
 	// The message from the client
 	std::cout << "\n\nSERVER: Message received from the client:";
@@ -136,108 +90,12 @@ void NetworkServer::displayClientMessage(sf::Int32 time)
 	std::cout << "\nSERVER: client's time: " << time;
 }
 
-void NetworkServer::displayClientMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
+void NetworkServer::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the client
 	std::cout << "\nSERVER: client's IP: " << sender;
 	std::cout << "\nSERVER: client's port: " << sender_port;
 	std::cout << "\nSERVER: client' time: " << time;
-}
-
-////////////////////////////////////////////////////////////
-// Send a message to the server...
-//
-////////////////////////////////////////////////////////////
-void NetworkServer::sendPacketToServer()
-{
-	// message
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	client_send_time = clock->getElapsedTime().asMilliseconds();
-	// Group the variables to send into a packet
-	sf::Packet packet_send;
-	//addMessage(player_message_send);
-	packet_send << client_send_time;
-	// Send it over the network (socket is a valid sf::TcpSocket)
-	switch (socket->send(packet_send, *ip_address, *port))
-	{
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
-		break;
-
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-		return;
-
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-		return;
-	}
-
-
-	/// don't need to clear the packet since all the local variables 
-	/// cease to exist once the function is over but it's good to 
-	/// keep in mind that if the packet is static it should get cleared
-	/// after each use
-	/// packet_send.clear();
-}
-
-////////////////////////////////////////////////////////////
-// ...wait for the answer
-//
-////////////////////////////////////////////////////////////
-void NetworkServer::checkForIncomingPacketsFromServer()
-{
-	////////////////////////////////////////////////////////////////////
-	// CHECK FOR INCOMING PACKETS                                     //
-	////////////////////////////////////////////////////////////////////
-	while (true) {
-		// Try to receive the packet from the other end
-		// SEND (to the server) MUST MATCH packet_send in the GameServer
-		sf::Packet packet_receive;
-		sf::IpAddress sender;
-		unsigned short senderPort;
-		switch (socket->receive(packet_receive, sender, senderPort))
-		{
-		case sf::Socket::Done:
-			// Received a packet.
-			if (debug_mode) std::cout << "CLIENT: Got one!\n";
-			break;
-
-		case sf::Socket::NotReady:
-			// No more data to receive (yet).
-			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-			return;
-
-		default:
-			// Something went wrong.
-			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-			return;
-		}
-
-		sf::Int32 receive_time;
-		// Extract the variables contained in the packet
-		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> receive_time)
-		{
-			// Data extracted successfully...
-			if (debug_message) displayServerMessage(receive_time);
-			// Deal with the messages from the packet
-			client_receive_time = receive_time;
-		}
-	}
-}
-
-
-void NetworkServer::establishConnectionWithServer()
-{
-	// send message to the server...
-	sendPacketToServer();
-
-	// ...wait for the answer
-	checkForIncomingPacketsFromServer();
 }
 
 void NetworkServer::establishConnectionWithClient()
@@ -271,7 +129,7 @@ void NetworkServer::establishConnectionWithClient()
 	if (packet_receive >> receive_time)
 	{
 		// The message from the client
-		if (debug_message) displayClientMessage(receive_time, sender, senderPort);
+		if (debug_message) displayMessage(receive_time, sender, senderPort);
 		server_receive_time = receive_time;
 	}
 
@@ -311,7 +169,7 @@ void NetworkServer::establishConnectionWithClient()
 		if (packet_send >> send_time)
 		{
 			// Data extracted successfully...
-			if (debug_message) displayClientMessage(send_time);
+			if (debug_message) displayMessage(send_time);
 			server_send_time = send_time;
 		}
 	}
@@ -323,7 +181,7 @@ void NetworkServer::update()
 	if (server)
 	{
 		// create server socket
-		createServerSocket();
+		//createServerSocket();
 		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
 
 		server = false;
@@ -331,7 +189,7 @@ void NetworkServer::update()
 	if (client)
 	{
 		// create client socket
-		createClientSocket();
+		//createClientSocket();
 		// message - joined the server
 		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 
@@ -344,7 +202,7 @@ void NetworkServer::update()
 		establishConnectionWithClient();
 		break;
 	case (NetworkState::CLIENT):
-		establishConnectionWithServer();
+		//establishConnectionWithServer();
 		break;
 		/*default:
 
