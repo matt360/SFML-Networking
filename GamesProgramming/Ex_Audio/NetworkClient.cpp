@@ -28,7 +28,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	server = false;
 	client = false;
 	debug_mode = false;
-	debug_message = true;
+	debug_message = false;
 
 	// Network text
 	font.loadFromFile("font/advanced_pixel-7.ttf");
@@ -209,7 +209,7 @@ void NetworkClient::update()
 	establishConnectionWithServer();
 
 	*current_time = server_time - client_time;
-	//std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
+	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 
 	if (readyToPlay)
 	{
