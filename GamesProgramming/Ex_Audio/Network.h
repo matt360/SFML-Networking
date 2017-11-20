@@ -55,7 +55,7 @@ private:
 	sf::Int32 client_receive_time;
 	sf::Int32 client_send_time;
 	// input handlers
-	bool readyToPlay;
+	bool readyToConnect;
 	bool server;
 	bool client;
 	bool debug_mode;

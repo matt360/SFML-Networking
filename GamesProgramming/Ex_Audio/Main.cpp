@@ -1,9 +1,11 @@
 #include <iostream>
 #include <cstdlib>
-#include "GameClient.h"
 #include "GameServer.h"
+#include "GameClient.h"
 #include "Menu.h"
 #include "Network.h"
+#include "NetworkServer.h"
+#include "NetworkClient.h"
 #include "States.h"
 
 void main(int argc, char** argv[])
@@ -35,8 +37,10 @@ void main(int argc, char** argv[])
 	Input input;
 	Menu menu(&window, &input, &state);
 	Network network(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
-	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
+	NetworkServer network_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
+	NetworkClient network_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
 	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);
+	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
 	
 	//direction dir = direction::left;
 	

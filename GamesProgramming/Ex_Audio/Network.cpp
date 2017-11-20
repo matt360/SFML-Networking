@@ -12,7 +12,7 @@ Network::Network(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::UdpSocket
 	clock = cl;
 	current_time = cur_t;
 
-	readyToPlay = false;
+	readyToConnect = false;
 	server = false;
 	client = false;
 	debug_mode = true;
@@ -37,7 +37,7 @@ void Network::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::Return);
 		// player ready to play
-		readyToPlay = true;
+		readyToConnect = true;
 	}	
 
 	// Client or server ?
@@ -338,31 +338,31 @@ void Network::update()
 		client = false;
 	}
 
-	switch (network_state)
-	{
-	case (NetworkState::SERVER):
-		establishConnectionWithClient();
-		break;
-	case (NetworkState::CLIENT):
-		establishConnectionWithServer();
-		break;
-	/*default:
-		
-		break;*/
-	}
+	//switch (network_state)
+	//{
+	//case (NetworkState::SERVER):
+	//	establishConnectionWithClient();
+	//	break;
+	//case (NetworkState::CLIENT):
+	//	establishConnectionWithServer();
+	//	break;
+	///*default:
+	//	
+	//	break;*/
+	//}
 
-	if (readyToPlay)
+	if (readyToConnect)
 	{
 		switch (network_state)
 		{
 		case (NetworkState::SERVER):
-			*state = GameState::GAME_SERVER;
+			*state = GameState::NETWORK_SERVER;
 			break;
 		case (NetworkState::CLIENT):
-			*state = GameState::GAME_CLIENT;
+			*state = GameState::NETWORK_CLIENT;
 			break;
 		default:
-			readyToPlay = false;
+			readyToConnect = false;
 			break;
 		}
 	}
