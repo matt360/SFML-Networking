@@ -69,12 +69,20 @@ void NetworkServer::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkServer::displayMessage(sf::Int32 time)
+void NetworkServer::displayReceiveMessage(sf::Int32 time)
 {
 	// The message from the client
 	std::cout << "\n\nSERVER: Message received from the client:";
 	// Data extracted successfully...
 	std::cout << "\nSERVER: client's time: " << time;
+}
+
+void NetworkServer::displaySendMessage(sf::Int32 time)
+{
+	// The message from the client
+	std::cout << "\n\nSERVER: Message sent from the client:";
+	// Data extracted successfully...
+	std::cout << "\nSERVER: server's time: " << time;
 }
 
 void NetworkServer::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
@@ -112,12 +120,13 @@ void NetworkServer::establishConnectionWithClient()
 
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
-	float receive_time;
-	if (packet_receive >> receive_time)
+	//float receive_time;
+	if (packet_receive >> server_receive_time)
 	{
+		// Deal with the messages from the packet
+		//server_receive_time = receive_time;
 		// The message from the client
-		if (debug_message) displayMessage(receive_time, sender, senderPort);
-		server_receive_time = receive_time;
+		if (debug_message) displayReceiveMessage(server_receive_time);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -153,11 +162,11 @@ void NetworkServer::establishConnectionWithClient()
 	// Extract the variables contained in the packet
 	if (debug_message)
 	{
-		if (packet_send >> send_time)
+		if (packet_send >> server_send_time)
 		{
 			// Data extracted successfully...
-			if (debug_message) displayMessage(send_time);
-			server_send_time = send_time;
+			//server_send_time = send_time;
+			if (debug_message) displaySendMessage(server_send_time);
 		}
 	}
 }

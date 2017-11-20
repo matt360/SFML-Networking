@@ -163,10 +163,10 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		if (packet_receive >> receive_time)
 		{
-			// Data extracted successfully...
-			if (debug_message) displayMessage(receive_time);
 			// Deal with the messages from the packet
 			client_receive_time = receive_time;
+			// Data extracted successfully...
+			if (debug_message) displayMessage(client_receive_time);
 		}
 	}
 }
