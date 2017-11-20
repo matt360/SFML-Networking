@@ -35,10 +35,11 @@ void main(int argc, char** argv[])
 	
 	bool pause = false;
 	Input input;
+
 	Menu menu(&window, &input, &state);
 	Network network(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
 	NetworkServer network_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
-	NetworkClient network_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
+	NetworkClient network_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
 	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);
 	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port);
 	
@@ -142,8 +143,6 @@ void main(int argc, char** argv[])
 		switch (state)
 		{
 		case (GameState::MENU) :
-
-
 			menu.handleInput();
 			menu.update();
 			menu.render();
@@ -156,13 +155,18 @@ void main(int argc, char** argv[])
 			network.render();
 			break;
 
-		case(GameState::GAME_CLIENT):
-			game_client.handleInput();
-			// do a non blocking receive - put socket into non blocking mode when it's being created
-			// queue of messages to send, put message into the queue when ready to send, non-blocking send
-			//socket(); 
-			game_client.update();
-			game_client.render();
+		case (GameState::NETWORK_SERVER):
+			network_server.handleInput();
+			// create socket and 
+			network_server.update();
+			network_server.render();
+			break;
+
+		case (GameState::NETWORK_CLIENT):
+			network_client.handleInput();
+			// create socket and 
+			network_client.update();
+			network_client.render();
 			break;
 
 		case(GameState::GAME_SERVER):
@@ -172,6 +176,15 @@ void main(int argc, char** argv[])
 			//socket(); 
 			game_server.update();
 			game_server.render();
+			break;
+
+		case(GameState::GAME_CLIENT):
+			game_client.handleInput();
+			// do a non blocking receive - put socket into non blocking mode when it's being created
+			// queue of messages to send, put message into the queue when ready to send, non-blocking send
+			//socket(); 
+			game_client.update();
+			game_client.render();
 			break;
 
 		case(GameState::PAUSE) :

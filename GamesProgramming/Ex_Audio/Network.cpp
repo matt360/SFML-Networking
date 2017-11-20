@@ -133,7 +133,7 @@ void Network::update()
 		client = false;
 	}
 
-	if (readyToConnect)
+	if (readyToConnect) 
 	{
 		switch (network_state)
 		{

@@ -175,40 +175,32 @@ void NetworkClient::establishConnectionWithServer()
 
 void NetworkClient::update()
 {
-	// Client or server ?
-	if (server)
-	{
-		// create server socket
-		//createServerSocket();
-		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
+	//// Client or server ?
+	//if (server)
+	//{
+	//	// create server socket
+	//	//createServerSocket();
+	//	text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
 
-		server = false;
-	}
-	if (client)
-	{
-		// create client socket
-		//createClientSocket();
-		// message - joined the server
-		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
+	//	server = false;
+	//}
+	//if (client)
+	//{
+	//	// create client socket
+	//	//createClientSocket();
+	//	// message - joined the server
+	//	text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 
-		client = false;
-	}
+	//	client = false;
+	//}
 
-	switch (network_state)
-	{
-	case (NetworkState::SERVER):
-		//establishConnectionWithClient();
-		break;
-	case (NetworkState::CLIENT):
-		establishConnectionWithServer();
-		break;
-		/*default:
+	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 
-		break;*/
-	}
+	establishConnectionWithServer();
 
 	if (readyToPlay)
 	{
+		// extra house keeping
 		switch (network_state)
 		{
 		case (NetworkState::SERVER):
