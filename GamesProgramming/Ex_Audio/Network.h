@@ -14,9 +14,7 @@ public:
 		NetworkState* network_state,
 		sf::UdpSocket* udp_socket, 
 		sf::IpAddress* ip, 
-		unsigned short *port_number, 
-		sf::Clock* clock, 
-		float* current_time);
+		unsigned short *port_number);
 	~Network();
 
 	void handleInput();
@@ -39,8 +37,6 @@ private:
 	Input* input;
 	GameState* state;
 	NetworkState* network_state;
-	sf::Clock* clock;
-	float* current_time;
 	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;

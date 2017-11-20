@@ -28,7 +28,7 @@ void main(int argc, char** argv[])
 	// DO NOT RESTART THE CLOCK!
 	sf::Clock clock;
 	//float deltaTime;
-	float current_time;
+	sf::Int32 current_time = 0;
 
 	// set the initial game state
 	GameState state = GameState::MENU;
@@ -38,7 +38,7 @@ void main(int argc, char** argv[])
 	Input input;
 
 	Menu menu(&window, &input, &state);
-	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
+	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
 	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
 	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
 	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port);

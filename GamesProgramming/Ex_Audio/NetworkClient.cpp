@@ -9,7 +9,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	sf::IpAddress* ip,
 	unsigned short* port_number,
 	sf::Clock* cl,
-	float* cur_t)
+	sf::Int32* cur_t)
 {
 	window = hwnd;
 	input = in;
@@ -20,6 +20,9 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	port = port_number;
 	clock = cl;
 	current_time = cur_t;
+
+	client_time = 0;
+	server_time = 0;
 
 	readyToPlay = false;
 	server = false;
@@ -204,6 +207,9 @@ void NetworkClient::update()
 	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 
 	establishConnectionWithServer();
+
+	*current_time = server_time - client_time;
+	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 
 	if (readyToPlay)
 	{

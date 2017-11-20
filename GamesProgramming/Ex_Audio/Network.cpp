@@ -7,9 +7,7 @@ Network::Network(sf::RenderWindow* hwnd,
 	NetworkState* net_st,
 	sf::UdpSocket* udp_socket, 
 	sf::IpAddress* ip, 
-	unsigned short* port_number, 
-	sf::Clock* cl, 
-	float* cur_t)
+	unsigned short* port_number)
 {
 	window = hwnd;
 	input = in;
@@ -18,8 +16,6 @@ Network::Network(sf::RenderWindow* hwnd,
 	port = port_number;
 	state = st;
 	network_state = net_st;
-	clock = cl;
-	current_time = cur_t;
 
 	readyToConnect = false;
 	server = false;
