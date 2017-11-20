@@ -75,17 +75,17 @@ void NetworkClient::handleInput()
 void NetworkClient::displayReceiveMessage(sf::Int32 time)
 {
 	// Message FROM the server
-	std::cout << "\n\nCLIENT: Message received from the client:";
+	std::cout << "\n\nCLIENT: Message received from the server:";
 	// Data extracted successfully...
-	std::cout << "\nCLIENT: client's time: " << time;
+	std::cout << "\nCLIENT: server's time: " << time;
 }
 
 void NetworkClient::displaySendMessage(sf::Int32 time)
 {
 	// Message sent TO the server
-	std::cout << "\n\nCLIENT: Message sent to the client:";
+	std::cout << "\n\nCLIENT: Message sent to the server:";
 	// Data extracted successfully...
-	std::cout << "\nCLIENT: server's time: " << time;
+	std::cout << "\nCLIENT: client's time: " << time;
 }
 
 void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
@@ -104,11 +104,11 @@ void NetworkClient::sendPacketToServer()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	sf::Int32 send_time = clock->getElapsedTime().asMilliseconds();
+	client_time = clock->getElapsedTime().asMilliseconds();
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	//addMessage(player_message_send);
-	packet_send << send_time;
+	packet_send << client_time;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket->send(packet_send, *ip_address, *port))
 	{
@@ -132,11 +132,11 @@ void NetworkClient::sendPacketToServer()
 	// Extract the variables contained in the packet
 	if (debug_message)
 	{
-		if (packet_send >> server_time)
+		if (packet_send >> client_time)
 		{
 			// Data extracted successfully...
 			//server_send_time = send_time;
-			if (debug_message) displaySendMessage(server_time);
+			if (debug_message) displaySendMessage(client_time);
 		}
 	}
 	/// don't need to clear the packet since all the local variables 
@@ -182,12 +182,12 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> client_time)
+		if (packet_receive >> server_time)
 		{
 			// Deal with the messages from the packet
 			//client_receive_time = receive_time;
 			// Data extracted successfully...
-			if (debug_message) displayReceiveMessage(client_time);
+			if (debug_message) displayReceiveMessage(server_time);
 		}
 	}
 }
@@ -209,7 +209,7 @@ void NetworkClient::update()
 	establishConnectionWithServer();
 
 	*current_time = server_time - client_time;
-	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
+	//std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 
 	if (readyToPlay)
 	{
