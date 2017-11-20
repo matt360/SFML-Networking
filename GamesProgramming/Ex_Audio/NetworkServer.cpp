@@ -40,27 +40,6 @@ void NetworkServer::handleInput()
 		readyToPlay = true;
 	}
 
-	// Client or server ?
-	// toggle being the server
-	if (input->isKeyDown(sf::Keyboard::S))
-	{
-		input->setKeyUp(sf::Keyboard::S);
-		// set readiness for being the server
-		server = true;
-		// setting client to false let's us change the decision and to become the cleint
-		client = false;
-		network_state = NetworkState::SERVER;
-	}
-	// toggle being the client
-	if (input->isKeyDown(sf::Keyboard::C))
-	{
-		input->setKeyUp(sf::Keyboard::C);
-		// set readiness for being the client
-		client = true;
-		// setting server to false let's us change the decision and become the server
-		server = false;
-		network_state = NetworkState::CLIENT;
-	}
 	// toggle debug mode to display socket messages
 	if (input->isKeyDown(sf::Keyboard::D))
 	{

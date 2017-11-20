@@ -40,27 +40,6 @@ void NetworkClient::handleInput()
 		readyToPlay = true;
 	}
 
-	// Client or server ?
-	// toggle being the server
-	if (input->isKeyDown(sf::Keyboard::S))
-	{
-		input->setKeyUp(sf::Keyboard::S);
-		// set readiness for being the server
-		server = true;
-		// setting client to false let's us change the decision and to become the cleint
-		client = false;
-		network_state = NetworkState::SERVER;
-	}
-	// toggle being the client
-	if (input->isKeyDown(sf::Keyboard::C))
-	{
-		input->setKeyUp(sf::Keyboard::C);
-		// set readiness for being the client
-		client = true;
-		// setting server to false let's us change the decision and become the server
-		server = false;
-		network_state = NetworkState::CLIENT;
-	}
 	// toggle debug mode to display socket messages
 	if (input->isKeyDown(sf::Keyboard::D))
 	{
@@ -85,17 +64,17 @@ void NetworkClient::handleInput()
 void NetworkClient::displayMessage(sf::Int32 time)
 {
 	// The message from the server
-	std::cout << "\n\nCLIENT: Message received from the client:";
+	std::cout << "\n\nCLIENT: Message received from the server:";
 	// Data extracted successfully...
-	std::cout << "\nCLIENT: client's time: " << time;
+	std::cout << "\nCLIENT: server's time: " << time;
 }
 
 void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the server
-	std::cout << "\nCLIENT: client's IP: " << sender;
-	std::cout << "\nCLIENT: client's port: " << sender_port;
-	std::cout << "\nCLIENT: client' time: " << time;
+	std::cout << "\nCLIENT: server's IP: " << sender;
+	std::cout << "\nCLIENT: server's port: " << sender_port;
+	std::cout << "\nCLIENT: server's time: " << time;
 }
 
 ////////////////////////////////////////////////////////////
