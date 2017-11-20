@@ -103,6 +103,22 @@ GameClient::~GameClient()
 
 }
 
+void GameClient::call_once_set_window(sf::RenderWindow& window)
+{
+	std::call_once(set_window_flag, [&]() {
+		window.setPosition(sf::Vector2i(400, 800));
+	}
+	);
+}
+
+void GameClient::call_once_set_window()
+{
+	std::call_once(set_window_flag, [&]() {
+		window->setPosition(sf::Vector2i(400, 800));
+	}
+	);
+}
+
 void GameClient::handleInput(float dt)
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -311,6 +327,13 @@ void GameClient::checkForIncomingPackets()
 
 void GameClient::update(float dt)
 {
+	//std::thread st1(call_once_set_window, *window);
+	//st1.join();
+	//call_once_set_window();
+	std::call_once(set_window_flag, [&]() {
+		window->setPosition(sf::Vector2i(400, 800));
+	}
+	);
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));

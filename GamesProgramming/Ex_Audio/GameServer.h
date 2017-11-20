@@ -6,6 +6,7 @@
 #include "Input.h"
 #include <Windows.h>
 #include <string.h>
+#include <mutex>
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"

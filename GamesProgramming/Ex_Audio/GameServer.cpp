@@ -289,6 +289,8 @@ void GameServer::runUdpServer()
 }
 void GameServer::update(float dt)
 {
+	window->setPosition(sf::Vector2i(400, 500));
+
 	fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
 	//std::cout << "dt:" << dt << std::endl;
