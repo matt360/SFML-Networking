@@ -215,6 +215,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
 
+	// TODO check time stamping
 	//SYSTEMTIME system_time;
 	SYSTEMTIME local_time;
 
