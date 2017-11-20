@@ -119,7 +119,7 @@ void GameClient::call_once_set_window()
 	);
 }
 
-void GameClient::handleInput(float dt)
+void GameClient::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
@@ -325,7 +325,7 @@ void GameClient::checkForIncomingPackets()
 	}
 }
 
-void GameClient::update(float dt)
+void GameClient::update()
 {
 	//std::thread st1(call_once_set_window, *window);
 	//st1.join();

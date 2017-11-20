@@ -12,19 +12,27 @@ Player::~Player()
 
 void Player::update()
 {
-	if (falling)
-	{
-		//velocity.y += (1600.f)*dt;
-		velocity.y += (1600.f);
-	}
+	//if (falling)
+	//{
+	//	//velocity.y += (1600.f)*dt;
+	//	velocity.y += (1.0f);
+	//}
 
 	if (input->isKeyDown(sf::Keyboard::Right))
 	{
-		velocity.x = 100;
+		velocity.x += 1.0f;
 	}
-	else if (input->isKeyDown(sf::Keyboard::Left))
+	if (input->isKeyDown(sf::Keyboard::Left))
 	{
-		velocity.x = -100;
+		velocity.x -= 1.0f;
+	}
+	if (input->isKeyDown(sf::Keyboard::Up))
+	{
+		velocity.y -= 1.0f;
+	}
+	if (input->isKeyDown(sf::Keyboard::Down))
+	{
+		velocity.y += 1.0f;
 	}
 	else
 	{
@@ -34,7 +42,7 @@ void Player::update()
 	//if (input->isKeyDown(sf::Keyboard::Up))
 	//{
 	//	input->setKeyUp(sf::Keyboard::Up);
-	//	velocity.y = -400.f;
+	//	velocity.y = -.1f;
 	//	falling = true;
 	//}
 

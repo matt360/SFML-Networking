@@ -318,12 +318,12 @@ void GameServer::update()
 		hasStarted = true;
 	}
 	
-	if (input->isKeyDown(sf::Keyboard::Up))
-	{
-		input->setKeyUp(sf::Keyboard::Up);
-		player.jump();
-		audioMgr.playSoundbyName("jump");
-	}
+	//if (input->isKeyDown(sf::Keyboard::Up))
+	//{
+	//	input->setKeyUp(sf::Keyboard::Up);
+	//	//player.jump();
+	//	audioMgr.playSoundbyName("jump");
+	//}
 
 	player.update();
 
