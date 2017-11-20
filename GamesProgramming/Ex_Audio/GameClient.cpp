@@ -11,6 +11,9 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	state = st;
 
 	fps = 0;
+
+	debug_mode = false;
+
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(18);
@@ -103,6 +106,11 @@ void GameClient::handleInput(float dt)
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
+	if (input->isKeyDown(sf::Keyboard::D))
+	{
+		input->setKeyUp(sf::Keyboard::D);
+		debug_mode = !debug_mode;
+	}
 }
 
 void GameClient::render()
@@ -220,17 +228,17 @@ void GameClient::sendPacket()
 	{
 		case sf::Socket::Done:
 			// Received a packet.
-			//std::cout << "CLIENT: Got one!\n";
+			if (debug_mode) std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			//std::cout << "CLIENT: No more data to receive now\n";
+			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			//std::cout << "CLIENT: receive didn't return Done\n";
+			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 	}
 
@@ -258,17 +266,17 @@ void GameClient::checkForIncomingPackets()
 		{
 		case sf::Socket::Done:
 			// Received a packet.
-			//std::cout << "CLIENT: Got one!\n";
+			if (debug_mode) std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			//std::cout << "CLIENT: No more data to receive now\n";
+			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			//std::cout << "CLIENT: receive didn't return Done\n";
+			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 		}
 
@@ -278,16 +286,17 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			displayMessage(player_message_receive);
+			if (debug_mode) displayMessage(player_message_receive);
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 			sf::Vector2f net_player_position(player_message_receive.x, player_message_receive.y);
 
 			if (network_positions.size() >= 10) network_positions.pop();
 				network_positions.push(net_player_position);
-			//player.setPosition(new_player_position);
+			
+			player.setPosition(net_player_position);
 
-			//packet_receive.clear();
+			packet_receive.clear();
 		}
 	}
 }

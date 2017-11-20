@@ -11,7 +11,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameState* st)
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);
-	text.setString("MY FIRST GAME\n\nPress Enter to Play");
+	text.setString("PLACEHOLDER TITLE\n\nPress Enter to Play");
 }
 
 Menu::~Menu()

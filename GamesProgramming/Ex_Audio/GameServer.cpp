@@ -12,6 +12,8 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	// 
 	fps = 0;
 
+	debug_mode = false;
+
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
@@ -105,6 +107,11 @@ void GameServer::handleInput(float dt)
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
+	if (input->isKeyDown(sf::Keyboard::D))
+	{
+		input->setKeyUp(sf::Keyboard::D);
+		debug_mode = !debug_mode;
+	}
 }
 
 void GameServer::render()
@@ -210,17 +217,17 @@ void GameServer::runUdpServer()
 	{
 		case sf::Socket::Done:
 			// Received a packet.
-			//std::cout << "CLIENT: Got one!\n";
+			if (debug_mode) std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			//std::cout << "CLIENT: No more data to receive now\n";
+			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			//std::cout << "CLIENT: receive didn't return Done\n";
+			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 	}
 
@@ -230,7 +237,7 @@ void GameServer::runUdpServer()
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
-		displayMessage(player_message_receive, sender, senderPort);
+		if (debug_mode) displayMessage(player_message_receive, sender, senderPort);
 	}
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
@@ -246,18 +253,18 @@ void GameServer::runUdpServer()
 	{
 		case sf::Socket::Done:
 			// Received a packet.
-			//std::cout << "CLIENT: Got one!\n";
+			if (debug_mode) std::cout << "CLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			//std::cout << "CLIENT: No more data to receive now\n";
+			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
 
 			return;
 
 		default:
 			// Something went wrong.
-			//std::cout << "CLIENT: receive didn't return Done\n";
+			if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
 			return;
 	}
 
@@ -267,7 +274,7 @@ void GameServer::runUdpServer()
 	if (packet_send >> player_message_send_d)
 	{
 		// Data extracted successfully...
-		//displayMessage(player_message_send_d);
+		if (debug_mode) displayMessage(player_message_send_d);
 	}
 }
 void GameServer::update(float dt)
