@@ -303,7 +303,8 @@ void GameClient::checkForIncomingPackets()
 			
 			player.setPosition(net_player_position);
 
-			packet_receive.clear();
+			// TODO is this needed
+			// packet_receive.clear();
 		}
 	}
 }
