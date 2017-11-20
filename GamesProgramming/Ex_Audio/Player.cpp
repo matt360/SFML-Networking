@@ -14,7 +14,8 @@ void Player::update(float dt)
 {
 	if (falling)
 	{
-		velocity.y += (1600.f)*dt;
+		//velocity.y += (1600.f)*dt;
+		velocity.y += (1600.f);
 	}
 
 	if (input->isKeyDown(sf::Keyboard::Right))
@@ -37,7 +38,8 @@ void Player::update(float dt)
 	//	falling = true;
 	//}
 
-	move(velocity*dt);
+	//move(velocity*dt);
+	move(velocity);
 	updateAABB();
 }
 

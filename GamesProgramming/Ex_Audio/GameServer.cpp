@@ -308,7 +308,7 @@ void GameServer::update(float dt)
 {
 	call_once_set_window();
 
-	fps = 1.f / dt;
+	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
 	//std::cout << "dt:" << dt << std::endl;
 

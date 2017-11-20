@@ -33,10 +33,14 @@ void main(int argc, char** argv[])
 	
 	//direction dir = direction::left;
 	
-	// For Delta Time
+	// DO NOT RESTART THE CLOCK!
 	sf::Clock clock;
-	float deltaTime;
+	//float deltaTime;
+	float curTime = clock.getElapsedTime().asMilliseconds();
 	
+	float latency = 10.0f;
+	//clock += latency;
+
 	//sf::Texture mushroomTexture;
 	//mushroomTexture.loadFromFile("Mushroom.png");
 	////mushroomTexture.loadFromFile("sfml-logo-small.png");
@@ -123,8 +127,9 @@ void main(int argc, char** argv[])
 
 		// Calculate delta time. How much time has passed 
 		// since it was last calculated (in seconds) and restart the clock.
-		deltaTime = clock.restart().asSeconds();
-		
+		// deltaTime = clock.restart().asSeconds();
+		float deltaTime = 1.0f;
+
 		// game loop
 		// Update/Render object based on current game state
 		switch (state)

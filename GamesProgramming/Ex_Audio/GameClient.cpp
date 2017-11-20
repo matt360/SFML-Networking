@@ -314,7 +314,7 @@ void GameClient::checkForIncomingPackets()
 			// Put position into history of network positions
 			sf::Vector2f net_player_position(player_message_receive.x, player_message_receive.y);
 
-			if (network_positions.size() >= 10) network_positions.pop();
+			if (network_positions.size() > 3) network_positions.pop();
 				network_positions.push(net_player_position);
 			
 			player.setPosition(net_player_position);
@@ -333,6 +333,8 @@ void GameClient::update(float dt)
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));
+	if (fps > 60) fps = 0;
+
 	if (!hasStarted)
 	{
 		audioMgr.playMusicbyName("cantina");
@@ -403,11 +405,66 @@ void GameClient::update(float dt)
 		*state = GameState::GAME_CLIENT;
 	}*/
 
-	// TODO keep track of local positions
 
 	// send packets at 10Hz rate (at 10PFS)
 	if ((int)fps % 6 == 0)
 		sendPacket();
 
 	checkForIncomingPackets();
+
+	// TODO keep track of local positions
+
+	// TODO lerp
+
+	// TODO add lerp to local positions
+
+	/*const int msize = messages_.size();
+	assert(msize >= 3);
+	const TankMessage& msg0 = messages_[msize - 1];
+	const TankMessage& msg1 = messages_[msize - 2];
+	const TankMessage& msg2 = messages_[msize - 3];*/
+
+	// FIXME: Implement prediction here!
+	// You have:
+	// - the history of position messages received, in "messages_"
+	//   (msg0 is the most recent, msg1 the 2nd most recent, msg2 the 3rd most recent)
+	// - the current time, in "time"
+	// You need to update:
+	// - the predicted position at the current time, in "x_" and "y_"
+
+	//float x_average_velocity, y_average_velocity;
+
+	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	//x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+	//y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+
+	// linear model
+	//x_ = x_average_velocity * (time - msg1.time) + msg1.x;
+	//y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+
+	//// quadratic model
+	//float 
+	//	x_average_velocity_1,
+	//	y_average_velocity_1, 
+	//	x_average_velocity_2, 
+	//	y_average_velocity_2, 
+	//	a_x, 
+	//	a_y;
+
+	//// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	//x_average_velocity_1 = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+	//y_average_velocity_1 = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+
+	//x_average_velocity_2 = (msg1.x - msg2.x) / (msg1.time - msg2.time);
+	//y_average_velocity_2 = (msg1.y - msg2.y) / (msg1.time - msg2.time);
+
+	//a_x = (x_average_velocity_2 - x_average_velocity_1);
+	//a_y = (y_average_velocity_2 - y_average_velocity_1);
+
+	//// s = s0 + v0t + ½at2
+	//x_ = msg2.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
+	//y_ = msg2.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
+
+	// increase fps
+	fps++;
 }
