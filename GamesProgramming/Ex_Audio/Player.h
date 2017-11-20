@@ -17,5 +17,5 @@ public :
 
 protected:
 	Input* input;
-	bool falling;
+	//bool falling;
 };

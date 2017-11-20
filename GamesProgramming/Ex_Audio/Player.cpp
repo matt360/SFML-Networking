@@ -2,7 +2,7 @@
 #include <iostream>
 Player::Player(const sf::Vector2f & size) : Sprite(size)
 {
-	falling = true;
+	//falling = true;
 }
 
 Player::~Player()
@@ -22,21 +22,22 @@ void Player::update()
 	{
 		velocity.x += 1.0f;
 	}
-	if (input->isKeyDown(sf::Keyboard::Left))
+	else if (input->isKeyDown(sf::Keyboard::Left))
 	{
 		velocity.x -= 1.0f;
 	}
-	if (input->isKeyDown(sf::Keyboard::Up))
+	else if (input->isKeyDown(sf::Keyboard::Up))
 	{
 		velocity.y -= 1.0f;
 	}
-	if (input->isKeyDown(sf::Keyboard::Down))
+	else if (input->isKeyDown(sf::Keyboard::Down))
 	{
 		velocity.y += 1.0f;
 	}
 	else
 	{
 		velocity.x = 0;
+		velocity.y = 0;
 	}
 
 	//if (input->isKeyDown(sf::Keyboard::Up))
@@ -53,8 +54,8 @@ void Player::update()
 
 void Player::jump()
 {
-	velocity.y = -400.f;
-	falling = true;
+	//velocity.y = -400.f;
+	//falling = true;
 }
 
 void Player::setInput(Input* in)
