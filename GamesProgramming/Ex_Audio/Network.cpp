@@ -112,37 +112,36 @@ void Network::createClientSocket()
 	///////////////////////////////////////////
 }
 
-void Network::displayMessage()
+void Network::displayServerMessage(float time)
+{
+	// The message from the server
+	std::cout << "\n\nCLIENT: Message received from the client:";
+	// Data extracted successfully...
+	std::cout << "\nCLIENT: client's time: " << time;
+}
+
+void Network::displayServerMessage(float time, const sf::IpAddress sender, const unsigned short sender_port)
+{
+	// The message from the server
+	std::cout << "\nCLIENT: client's IP: " << sender;
+	std::cout << "\nCLIENT: client's port: " << sender_port;
+	std::cout << "\nCLIENT: client' time: " << time;
+}
+
+void Network::displayClientMessage(float time)
 {
 	// The message from the client
 	std::cout << "\n\nSERVER: Message received from the client:";
 	// Data extracted successfully...
-	
+	std::cout << "\nSERVER: client's time: " << time;
 }
 
-void Network::displayMessage(float time, const sf::IpAddress sender, const unsigned short sender_port)
+void Network::displayClientMessage(float time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the client
-	
 	std::cout << "\nSERVER: client's IP: " << sender;
 	std::cout << "\nSERVER: client's port: " << sender_port;
 	std::cout << "\nSERVER: client' time: " << time;
-}
-
-void Network::addMessage()
-{
-	////PlayerMessage player_message_send;
-	//player_message_send.id = 0;
-	//player_message_send.x = player.getPosition().x;
-	//player_message_send.y = player.getPosition().y;
-
-	/*time_t rawtime;
-	struct tm * timeinfo;
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	player_message_send.time = timeinfo->tm_sec;*/
 }
 
 ////////////////////////////////////////////////////////////
@@ -153,11 +152,11 @@ void Network::sendPacketToServer()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	float send_time = clock->getElapsedTime().asMilliseconds;
+	client_send_time = clock->getElapsedTime().asMilliseconds();
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	//addMessage(player_message_send);
-	packet_send << send_time;
+	packet_send << client_send_time;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket->send(packet_send, *ip_address, *port))
 	{
@@ -218,14 +217,15 @@ void Network::checkForIncomingPacketsFromServer()
 			return;
 		}
 
+		sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		if (packet_receive >> receive_time)
 		{
 			// Data extracted successfully...
-			if (debug_message) displayMessage();
+			if (debug_message) displayServerMessage(receive_time);
 			// Deal with the messages from the packet
-			// Put position into history of network positions
+			client_receive_time = receive_time;
 		}
 	}
 }
@@ -238,45 +238,6 @@ void Network::establishConnectionWithServer()
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer();
-}
-
-void Network::receivePacketFromClient()
-{
-	// Wait for a message
-	// Receive the packet at the other end
-	sf::Packet packet_receive;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	switch (socket->receive(packet_receive, sender, senderPort))
-	{
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
-		break;
-
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-		return;
-
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-		return;
-	}
-
-	// Extract the variables contained in the packet
-	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
-	if (packet_receive >> receive_time)
-	{
-		// The message from the client
-		if (debug_message) displayMessage(sender, senderPort);
-	}
-
-}
-
-void Network::sendPacketToClient()
-{
 }
 
 void Network::establishConnectionWithClient()
@@ -310,8 +271,8 @@ void Network::establishConnectionWithClient()
 	if (packet_receive >> receive_time)
 	{
 		// The message from the client
-		if (debug_message) displayMessage(receive_time, sender, senderPort);
-		receive_time
+		if (debug_message) displayClientMessage(receive_time, sender, senderPort);
+		server_receive_time = receive_time;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -319,6 +280,7 @@ void Network::establishConnectionWithClient()
 	//////////////////////////////////////////////////////////////////////
 	sf::Packet packet_send;
 	// Message to send
+	sf::Int32 send_time = clock->getElapsedTime().asMilliseconds();
 	//addMessage(player_message_send);
 	// Group the variables to send into a packet
 	packet_send << send_time;
@@ -349,7 +311,8 @@ void Network::establishConnectionWithClient()
 		if (packet_send >> send_time)
 		{
 			// Data extracted successfully...
-			displayMessage();
+			if (debug_message) displayClientMessage(send_time);
+			server_send_time = send_time;
 		}
 	}
 }

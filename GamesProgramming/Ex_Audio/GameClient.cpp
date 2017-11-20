@@ -187,26 +187,24 @@ bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
 
 void GameClient::displayMessage(const PlayerMessage player_message)
 {
-	// The message from the client
-	std::cout << "\n\nSERVER: Message received from the client:";
+	std::cout << "\n\nCLIENT: Message received from the SERVER:";
 	// Data extracted successfully...
-	std::cout << "\nSERVER: ID: " << player_message.id
-		<< "\nSERVER: Player x: " << player_message.x
-		<< "\nSERVER: Player y: " << player_message.y
-		<< "\nSERVER: Time: " << player_message.time;
+	std::cout << "\nCLIENT: ID: " << player_message.id
+		<< "\nCLIENT: Player x: " << player_message.x
+		<< "\nCLIENT: Player y: " << player_message.y
+		<< "\nCLIENT: Time: " << player_message.time;
 }
 
 void GameClient::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
 {
-	// The message from the client
-	std::cout << "\n\nSERVER: Message received from the client:";
+	std::cout << "\n\nCLIENT: Message received from the SERVER:";
 	// Data extracted successfully...
-	std::cout << "\nSERVER: ID: " << player_message.id
-		<< "\nSERVER: Player x: " << player_message.x
-		<< "\nSERVER: Player y: " << player_message.y
-		<< "\nSERVER: Time: " << player_message.time;
-	std::cout << "\nSERVER: client's IP: " << sender;
-	std::cout << "\nSERVER: client's port: " << sender_port;
+	std::cout << "\nCLIENT: ID: " << player_message.id
+		<< "\nCLIENT: Player x: " << player_message.x
+		<< "\nCLIENT: Player y: " << player_message.y
+		<< "\nCLIENT: Time: " << player_message.time;
+	std::cout << "\nCLIENT: client's IP: " << sender;
+	std::cout << "\nCLIENT: client's port: " << sender_port;
 }
 
 void GameClient::addMessage(PlayerMessage& player_message_send)
@@ -305,6 +303,7 @@ void GameClient::checkForIncomingPackets()
 			return;
 		}
 
+		// MESSAGE FROM THE SERVER
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		PlayerMessage player_message_receive;

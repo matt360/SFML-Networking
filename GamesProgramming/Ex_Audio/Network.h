@@ -15,25 +15,26 @@ public:
 	void update();
 	void render();
 
-	// Network
-	void createServerSocket();
-	void createClientSocket();
-
-	void displayMessage();
-
-	void displayMessage(float time, const sf::IpAddress sender, const unsigned short sender_port);
-
-	void addMessage();
-
+	/////////////
+	// NETWORK //
+	/////////////
 	// cient
+	void createClientSocket();
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();
 
+	void displayClientMessage(float time);
+	void displayClientMessage(float time, const sf::IpAddress sender, const unsigned short sender_port);
+
 	// server
-	void receivePacketFromClient();
-	void sendPacketToClient();
+	void createServerSocket();
+	//void receivePacketFromClient();
+	//void sendPacketToClient();
 	void establishConnectionWithClient();
+
+	void displayServerMessage(float time);
+	void displayServerMessage(float time, const sf::IpAddress sender, const unsigned short sender_port);
 	
 private:
 	void beginDraw();
@@ -47,6 +48,10 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	sf::Int32 server_receive_time;
+	sf::Int32 server_send_time;
+	sf::Int32 client_receive_time;
+	sf::Int32 client_send_time;
 	// input handlers
 	bool readyToPlay;
 	bool server;
