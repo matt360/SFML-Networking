@@ -82,37 +82,7 @@ void NetworkClient::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkClient::createServerSocket()
-{
-	//////////////////////////////////////////
-	// Create a socket to receive a message from anyone
-	socket->setBlocking(false);
-	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
-	// in this case the server will always use the same port
-	socket->unbind();
-	// Listen to messages on the specified port
-	if (socket->bind(*port) != sf::Socket::Done)
-		return;
-	std::cout << "Server is listening to port " << *port << ", waiting for a message... " << std::endl;
-	//////////////////////////////////////////
-}
-
-void NetworkClient::createClientSocket()
-{
-	//////////////////////////////////////////
-	socket->unbind();
-	socket->setBlocking(false);
-
-	// Ask for the server address
-	/*do
-	{
-	std::cout << "Type the address or name of the server to connect to: ";
-	std::cin >> server;
-	} while (server == sf::IpAddress::None);*/
-	///////////////////////////////////////////
-}
-
-void NetworkClient::displayServerMessage(sf::Int32 time)
+void NetworkClient::displayMessage(sf::Int32 time)
 {
 	// The message from the server
 	std::cout << "\n\nCLIENT: Message received from the client:";
@@ -120,28 +90,12 @@ void NetworkClient::displayServerMessage(sf::Int32 time)
 	std::cout << "\nCLIENT: client's time: " << time;
 }
 
-void NetworkClient::displayServerMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
+void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the server
 	std::cout << "\nCLIENT: client's IP: " << sender;
 	std::cout << "\nCLIENT: client's port: " << sender_port;
 	std::cout << "\nCLIENT: client' time: " << time;
-}
-
-void NetworkClient::displayClientMessage(sf::Int32 time)
-{
-	// The message from the client
-	std::cout << "\n\nSERVER: Message received from the client:";
-	// Data extracted successfully...
-	std::cout << "\nSERVER: client's time: " << time;
-}
-
-void NetworkClient::displayClientMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
-{
-	// The message from the client
-	std::cout << "\nSERVER: client's IP: " << sender;
-	std::cout << "\nSERVER: client's port: " << sender_port;
-	std::cout << "\nSERVER: client' time: " << time;
 }
 
 ////////////////////////////////////////////////////////////
@@ -223,7 +177,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		if (packet_receive >> receive_time)
 		{
 			// Data extracted successfully...
-			if (debug_message) displayServerMessage(receive_time);
+			if (debug_message) displayMessage(receive_time);
 			// Deal with the messages from the packet
 			client_receive_time = receive_time;
 		}
@@ -240,90 +194,13 @@ void NetworkClient::establishConnectionWithServer()
 	checkForIncomingPacketsFromServer();
 }
 
-void NetworkClient::establishConnectionWithClient()
-{
-	// Wait for a message
-	// Receive the packet at the other end
-	sf::Packet packet_receive;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	switch (socket->receive(packet_receive, sender, senderPort))
-	{
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
-		break;
-
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-		return;
-
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-		return;
-	}
-
-	// Extract the variables contained in the packet
-	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
-	float receive_time;
-	if (packet_receive >> receive_time)
-	{
-		// The message from the client
-		if (debug_message) displayClientMessage(receive_time, sender, senderPort);
-		server_receive_time = receive_time;
-	}
-
-	//////////////////////////////////////////////////////////////////////
-	// SEND (to the client) MUST MATCH packet_receive in the GameClient //
-	//////////////////////////////////////////////////////////////////////
-	sf::Packet packet_send;
-	// Message to send
-	sf::Int32 send_time = clock->getElapsedTime().asMilliseconds();
-	//addMessage(player_message_send);
-	// Group the variables to send into a packet
-	packet_send << send_time;
-	// Send it over the network
-	switch (socket->send(packet_send, sender, senderPort))
-	{
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
-		break;
-
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-
-		return;
-
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-		return;
-	}
-
-	// DEBUG purposes
-	// Extract the variables contained in the packet
-	if (debug_message)
-	{
-		if (packet_send >> send_time)
-		{
-			// Data extracted successfully...
-			if (debug_message) displayClientMessage(send_time);
-			server_send_time = send_time;
-		}
-	}
-}
-
 void NetworkClient::update()
 {
 	// Client or server ?
 	if (server)
 	{
 		// create server socket
-		createServerSocket();
+		//createServerSocket();
 		text.setString("Connecting...\n\nYou're the server\n\nPress Enter to Play");
 
 		server = false;
@@ -331,7 +208,7 @@ void NetworkClient::update()
 	if (client)
 	{
 		// create client socket
-		createClientSocket();
+		//createClientSocket();
 		// message - joined the server
 		text.setString("Connecting...\n\nYou're the client\n\nPress Enter to Play");
 
@@ -341,7 +218,7 @@ void NetworkClient::update()
 	switch (network_state)
 	{
 	case (NetworkState::SERVER):
-		establishConnectionWithClient();
+		//establishConnectionWithClient();
 		break;
 	case (NetworkState::CLIENT):
 		establishConnectionWithServer();
