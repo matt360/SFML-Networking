@@ -13,6 +13,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	fps = 0;
 
 	debug_mode = false;
+	debug_message = false;
 
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
@@ -111,6 +112,12 @@ void GameServer::handleInput(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
+	}
+
+	if (input->isKeyDown(sf::Keyboard::M))
+	{
+		input->setKeyUp(sf::Keyboard::M);
+		debug_message = !debug_message;
 	}
 }
 
@@ -237,7 +244,7 @@ void GameServer::runUdpServer()
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
-		if (debug_mode) displayMessage(player_message_receive, sender, senderPort);
+		if (debug_message) displayMessage(player_message_receive, sender, senderPort);
 	}
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
@@ -274,7 +281,7 @@ void GameServer::runUdpServer()
 	if (packet_send >> player_message_send_d)
 	{
 		// Data extracted successfully...
-		if (debug_mode) displayMessage(player_message_send_d);
+		if (debug_message) displayMessage(player_message_send_d);
 	}
 }
 void GameServer::update(float dt)

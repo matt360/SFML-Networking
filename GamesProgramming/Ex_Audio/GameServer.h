@@ -41,6 +41,7 @@ private:
 	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);
 
 	bool debug_mode;
+	bool debug_message;
 	/////////////////////////////////
 
 	float fps;

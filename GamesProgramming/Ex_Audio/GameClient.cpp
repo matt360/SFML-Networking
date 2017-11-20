@@ -13,6 +13,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in, GameState* st, sf::Udp
 	fps = 0;
 
 	debug_mode = false;
+	debug_message = false;
 
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
@@ -110,6 +111,12 @@ void GameClient::handleInput(float dt)
 	{
 		input->setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
+	}
+
+	if (input->isKeyDown(sf::Keyboard::M))
+	{
+		input->setKeyUp(sf::Keyboard::M);
+		debug_message = !debug_message;
 	}
 }
 
@@ -286,7 +293,7 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			if (debug_mode) displayMessage(player_message_receive);
+			if (debug_message) displayMessage(player_message_receive);
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 			sf::Vector2f net_player_position(player_message_receive.x, player_message_receive.y);
