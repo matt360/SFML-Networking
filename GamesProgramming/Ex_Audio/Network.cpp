@@ -106,7 +106,7 @@ void Network::createClientSocket()
 	//////////////////////////////////////////
 	socket->unbind();
 	socket->setBlocking(false);
-
+	
 	// Ask for the server address
 	/*do
 	{

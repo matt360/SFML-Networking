@@ -186,7 +186,7 @@ void NetworkServer::update()
 
 	establishConnectionWithClient();
 
-	if (readyToPlay)
+	if (readyToPlay && established_connection)
 	{
 		// extra house keeping
 		if (*network_state == NetworkState::SERVER)

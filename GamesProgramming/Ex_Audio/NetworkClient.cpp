@@ -114,18 +114,20 @@ void NetworkClient::sendPacketToServer()
 	switch (socket->send(packet_send, *ip_address, *port))
 	{
 	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+		// send a packet.
+		// start timing latency
+		start_timing_latency = clock->getElapsedTime().asMicroseconds();
+		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
-		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
 		return;
 
 	default:
 		// Something went wrong.
-		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		if (debug_mode) std::cout << "\nCLIENT: send didn't return Done\n";
 		return;
 	}
 
@@ -166,6 +168,9 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		{
 		case sf::Socket::Done:
 			// Received a packet.
+			end_timing_latency = clock->getElapsedTime().asMicroseconds();
+			latency = (end_timing_latency - start_timing_latency);
+			std::cout << "latency: " << latency << "\n";
 			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
 			break;
 
@@ -193,14 +198,17 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 	}
 }
 
-
 void NetworkClient::establishConnectionWithServer()
 {
+	// start timing
+	//float start_timing_latency = (float)clock->getElapsedTime().asMilliseconds();
 	// send message to the server...
 	sendPacketToServer();
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer();
+	// end timing
+	//float end_timing_latency = (float)clock->getElapsedTime().asMilliseconds();
 }
 
 void NetworkClient::update()
@@ -210,7 +218,7 @@ void NetworkClient::update()
 	if (!established_connection)
 		establishConnectionWithServer();
 
-	if (readyToPlay)
+	if (readyToPlay && established_connection)
 	{
 		// extra house keeping
 		if (*network_state == NetworkState::CLIENT)

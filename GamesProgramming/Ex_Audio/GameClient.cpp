@@ -216,6 +216,11 @@ void GameClient::displayMessage(const PlayerMessage player_message, const sf::Ip
 	std::cout << "\nCLIENT: client's port: " << sender_port;
 }
 
+//sf::Int32 getCurrentTime {
+//
+//	return 
+//}
+
 void GameClient::addMessage(PlayerMessage& player_message_send)
 {
 	//PlayerMessage player_message_send;
@@ -223,7 +228,8 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
 	
-	player_message_send.time = clock->getElapsedTime().asMilliseconds();
+	//player_message_send.time = c_s;
+	player_message_send.time = 1.0f;
 
 	/*time_t rawtime;
 	struct tm * timeinfo;
@@ -252,7 +258,7 @@ void GameClient::sendPacket()
 	switch (socket->send(packet_send, *ip_address, *port)) 
 	{
 		case sf::Socket::Done:
-			// Received a packet.
+			// send a packet.
 			if (debug_mode) std::cout << "CLIENT: Got one!\n";
 			break;
 
@@ -410,7 +416,9 @@ void GameClient::update()
 	if ((int)fps % 6 == 0)
 		sendPacket();
 
+	// start
 	checkForIncomingPackets();
+	// end
 
 	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 

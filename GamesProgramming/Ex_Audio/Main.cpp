@@ -28,21 +28,22 @@ void main(int argc, char** argv[])
 	// DO NOT RESTART THE CLOCK!
 	sf::Clock clock;
 	//float deltaTime;
-	sf::Int32 current_time = 0;
+	sf::Int32 offset = 0;
 
 	// set the initial game state
 	GameState state = GameState::MENU;
 	NetworkState network_state = NetworkState::NONE;
 	
 	bool pause = false;
+	bool debug_mode = false;
 	Input input;
 
 	Menu menu(&window, &input, &state);
 	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
-	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
-	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
-	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
-	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
+	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
+	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
 	
 	//direction dir = direction::left;
 	
@@ -141,11 +142,15 @@ void main(int argc, char** argv[])
 
 		// game loop
 		// Update/Render object based on current game state
+
+		// abstract state class to be inherited by the state classes
+		// put rendering into state classes
+		// put networing into networking classes
 		switch (state)
 		{
 		case (GameState::MENU) :
 			menu.handleInput();
-			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
+			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			menu.update();
 			menu.render();
 			break;
@@ -153,7 +158,7 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK) :
 			network.handleInput();
 			// handle socket
-			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
+			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			network.update();
 			network.render();
 			break;
@@ -161,7 +166,7 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK_SERVER):
 			network_server.handleInput();
 			// establish connection with the client
-			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
+			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			network_server.update();
 			network_server.render();
 			break;
@@ -169,7 +174,7 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK_CLIENT):
 			network_client.handleInput();
 			// establish connection with the server
-			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
+			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			network_client.update();
 			network_client.render();
 			break;
