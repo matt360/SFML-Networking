@@ -134,6 +134,19 @@ sf::Int32 GameClient::getCurrentTime()
 	return sf::Int32(current_time + (*offset));
 }
 
+inline float GameClient::lerp(float start, float end, float time)
+{
+	return start * (1.0f - time) + time * end;
+}
+
+sf::Vector2f GameClient::lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float time)
+{
+	sf::Vector2f temp;
+	temp.x = lerp(start.x, end.x, time);
+	temp.y  = lerp(start.y, end.y, time);
+	return temp;
+}
+
 void GameClient::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -246,6 +259,46 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.time = timeinfo->tm_sec;*/
 }
 
+sf::Vector2f GameClient::predict_local_path()
+{
+	float x_average_velocity, y_average_velocity;
+	PlayerMessage msg0 = network_positions.at(0);
+	PlayerMessage msg1 = network_positions.at(1);
+	float time = getCurrentTime();
+
+	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+
+	//// linear model
+	float x_, y_;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+
+	sf::Vector2f net_player_pos(x_, y_);
+	return net_player_pos;
+}
+
+sf::Vector2f GameClient::predict_network_path()
+{
+	float x_average_velocity, y_average_velocity;
+	PlayerMessage msg0 = network_positions.at(0);
+	PlayerMessage msg1 = network_positions.at(1);
+	float time = getCurrentTime();
+
+	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+
+	//// linear model
+	float x_, y_;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+
+	sf::Vector2f net_player_pos(x_, y_);
+	return net_player_pos;
+}
+
 ////////////////////////////////////////////////////////////
 // Send a message to the server...
 //
@@ -328,7 +381,7 @@ void GameClient::checkForIncomingPackets()
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 
-			if (network_positions.size() > 1) network_positions.pop_back();
+			if (network_positions.size() > num_messages) network_positions.pop_back();
 				network_positions.push_front(player_message_receive);
 			
 			/*if (network_positions.size() == 3)
@@ -431,11 +484,19 @@ void GameClient::update()
 	checkForIncomingPackets();
 
 	// TODO keep track of local positions
+	PlayerMessage local_message;
+	// local message
+	local_message.x = player.getPosition().x;
+	local_message.y = player.getPosition().y;
+	if (local_positions.size() > num_messages) local_positions.pop_back();
+		local_positions.push_front(local_message);
 
 	// TODO lerp
+	
 
 	// TODO add lerp to local positions
 	
+
 	// FIXME: Implement prediction here!
 	// You have:
 	// - the history of position messages received, in "messages_"
@@ -446,45 +507,50 @@ void GameClient::update()
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	if (network_positions.size() == 2)
 	{
-		float x_average_velocity, y_average_velocity;
+		sf::Vector2f net_position = network_prediction();
+
+		//lerp
+
+		// set position
+		player.setPosition(net_player_pos);
+
+		// add lerped to the history of the local posistions
+	}
+	if (network_positions.size() == 3) 
+	{
+		// quadratic model
+		float
+			x_average_velocity_1,
+			y_average_velocity_1,
+			x_average_velocity_2,
+			y_average_velocity_2,
+			a_x,
+			a_y,
+			x_,
+			y_;
+
 		PlayerMessage msg0 = network_positions.at(0);
 		PlayerMessage msg1 = network_positions.at(1);
+		PlayerMessage msg2 = network_positions.at(2);
 		float time = getCurrentTime();
 
 		// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-		x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-		y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+		x_average_velocity_1 = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+		y_average_velocity_1 = (msg0.y - msg1.y) / (msg0.time - msg1.time);
 
-		//// linear model
-		float x_, y_;
-		x_ = x_average_velocity * (time - msg1.time) + msg1.x;
-		y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+		x_average_velocity_2 = (msg1.x - msg2.x) / (msg1.time - msg2.time);
+		y_average_velocity_2 = (msg1.y - msg2.y) / (msg1.time - msg2.time);
+
+		a_x = (x_average_velocity_2 - x_average_velocity_1);
+		a_y = (y_average_velocity_2 - y_average_velocity_1);
+
+		// s = s0 + v0t + ½at2
+		x_ = msg2.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
+		y_ = msg2.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
 
 		sf::Vector2f loc_player_pos(x_, y_);
 		player.setPosition(loc_player_pos);
 	}
-	//// quadratic model
-	//float 
-	//	x_average_velocity_1,
-	//	y_average_velocity_1, 
-	//	x_average_velocity_2, 
-	//	y_average_velocity_2, 
-	//	a_x, 
-	//	a_y;
-
-	//// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	//x_average_velocity_1 = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-	//y_average_velocity_1 = (msg0.y - msg1.y) / (msg0.time - msg1.time);
-
-	//x_average_velocity_2 = (msg1.x - msg2.x) / (msg1.time - msg2.time);
-	//y_average_velocity_2 = (msg1.y - msg2.y) / (msg1.time - msg2.time);
-
-	//a_x = (x_average_velocity_2 - x_average_velocity_1);
-	//a_y = (y_average_velocity_2 - y_average_velocity_1);
-
-	//// s = s0 + v0t + ½at2
-	//x_ = msg2.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
-	//y_ = msg2.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
 
 	// increase fps
 	fps++;

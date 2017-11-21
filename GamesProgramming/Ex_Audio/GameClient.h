@@ -42,13 +42,17 @@ private:
 	Input* input;
 	GameState* state;
 	// Network //////////////////////
-	sf::UdpSocket *socket;
+	sf::UdpSocket *socket; 
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 	sf::Clock* clock;
 	sf::Int32* offset;
-	std::queue<PlayerMessage> local_positions;
+	const int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
+	std::deque<PlayerMessage> local_positions;
 	std::deque<PlayerMessage> network_positions;
+
+	sf::Vector2f predict_local_path();
+	sf::Vector2f predict_network_path();
 
 	void sendPacket();
 	void checkForIncomingPackets();
@@ -62,6 +66,10 @@ private:
 	void call_once_set_window();
 
 	sf::Int32 getCurrentTime();
+
+	float lerp(float start, float end, float time);
+
+	sf::Vector2f lerp(const sf::Vector2f & start, const sf::Vector2f & end, const float time);
 
 	// debug
 	bool debug_mode;
