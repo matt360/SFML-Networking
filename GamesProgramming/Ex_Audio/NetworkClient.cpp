@@ -23,7 +23,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 
 	established_connection = false;
 	client_time = 0;
-	server_time = 0;
+	server_offset = 0;
 
 	readyToPlay = false;
 	server = false;
@@ -97,6 +97,13 @@ void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, c
 	std::cout << "\nCLIENT: time: " << time;
 }
 
+sf::Int32 NetworkClient::getCurrentTime()
+{
+	client_time = clock->getElapsedTime().asMilliseconds();
+	*offset = server_offset;
+	return sf::Int32();
+}
+
 ////////////////////////////////////////////////////////////
 // Send a message to the server...
 //
@@ -105,11 +112,11 @@ void NetworkClient::sendPacketToServer()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
-	client_time = clock->getElapsedTime().asMilliseconds();
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
-	//addMessage(player_message_send);
-	packet_send << client_time;
+	// Message to send
+	float connected = 1.0f;
+	packet_send << connected;
 
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket->send(packet_send, *ip_address, *port))
@@ -134,10 +141,9 @@ void NetworkClient::sendPacketToServer()
 	// Extract the variables contained in the packet
 	if (debug_message)
 	{
-		if (packet_send >> client_time)
+		if (packet_send >> connected)
 		{
 			// Data extracted successfully...
-			//server_send_time = send_time;
 			if (debug_message) displaySendMessage(client_time);
 		}
 	}
@@ -184,12 +190,11 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> *offset >> established_connection)
+		if (packet_receive >> (*offset) >> established_connection)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
-			//client_receive_time = receive_time;
-			if (debug_message) displayReceiveMessage(server_time);
+			if (debug_message) displayReceiveMessage(server_offset);
 		}
 	}
 }
@@ -208,6 +213,9 @@ void NetworkClient::establishConnectionWithServer()
 	// end timing latency
 	end_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
 	latency = (end_timing_latency - start_timing_latency);
+	// calculate server time
+	(*offset) += 0.5 * latency;
+
 	std::cout << "latency: " << latency << "\n";
 }
 

@@ -30,6 +30,7 @@ public:
 	sf::Int32 start_timing_latency;
 	sf::Int32 end_timing_latency;
 	sf::Int32 latency;
+	sf::Int32 getCurrentTime();
 
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();
@@ -55,7 +56,7 @@ private:
 
 	bool established_connection;
 	sf::Int32 client_time;
-	sf::Int32 server_time;
+	sf::Int32 server_offset;
 	// input handlers
 	bool readyToPlay;
 	bool server;

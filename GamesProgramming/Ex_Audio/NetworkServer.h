@@ -49,7 +49,7 @@ private:
 
 	bool established_connection;
 	sf::Int32 client_time;
-	sf::Int32 server_time;
+	sf::Int32 server_offset;
 
 	// input handlers
 	bool readyToPlay;
