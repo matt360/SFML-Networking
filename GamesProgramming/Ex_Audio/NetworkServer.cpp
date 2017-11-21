@@ -189,15 +189,15 @@ void NetworkServer::update()
 	if (readyToPlay && established_connection)
 	{
 		// extra house keeping
-		if (*network_state == NetworkState::SERVER)
-		{
+		/*if (*network_state == NetworkState::SERVER)
+		{*/
 			*state = GameState::GAME_SERVER;
-		}
-		else
-		{
-			// TODO probably want to do something better than this
-			readyToPlay = false;
-		}
+		//}
+		//else
+		//{
+		//	// TODO probably want to do something better than this
+		//	readyToPlay = false;
+		//}
 	}
 }
 

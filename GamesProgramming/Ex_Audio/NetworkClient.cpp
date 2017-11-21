@@ -241,15 +241,15 @@ void NetworkClient::update()
 	if (readyToPlay && established_connection)
 	{
 		// extra house keeping
-		if (*network_state == NetworkState::CLIENT)
-		{
+		/*if (*network_state == NetworkState::CLIENT)
+		{*/
 			// TODO probably want to do something better than this
 			*state = GameState::GAME_CLIENT;
-		}
+		/*}
 		else 
 		{
 			readyToPlay = false;
-		}
+		}*/
 	}
 }
 

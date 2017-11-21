@@ -444,23 +444,25 @@ void GameClient::update()
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
-	float x_average_velocity, y_average_velocity;
-	PlayerMessage msg0 = network_positions.at(0); 
-	PlayerMessage msg1 = network_positions.at(1); 
-	float time = getCurrentTime();
+	if (network_positions.size() == 2)
+	{
+		float x_average_velocity, y_average_velocity;
+		PlayerMessage msg0 = network_positions.at(0);
+		PlayerMessage msg1 = network_positions.at(1);
+		float time = getCurrentTime();
 
-	//// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+		// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+		x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+		y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
 
-	//// linear model
-	float x_, y_;
-	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
-	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+		//// linear model
+		float x_, y_;
+		x_ = x_average_velocity * (time - msg1.time) + msg1.x;
+		y_ = y_average_velocity * (time - msg1.time) + msg1.y;
 
-	sf::Vector2f loc_player_pos(x_, y_);
-	player.setPosition(loc_player_pos);
-
+		sf::Vector2f loc_player_pos(x_, y_);
+		player.setPosition(loc_player_pos);
+	}
 	//// quadratic model
 	//float 
 	//	x_average_velocity_1,
