@@ -279,6 +279,12 @@ void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 	local_positions.push_front(local_message);
 }
 
+void GameClient::keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive)
+{
+	if (network_positions.size() > num_messages) network_positions.pop_back();
+		network_positions.push_front(player_message_receive);
+}
+
 sf::Vector2f GameClient::predict_local_path()
 {
 	float x_average_velocity, y_average_velocity;
@@ -402,17 +408,7 @@ void GameClient::checkForIncomingPackets()
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 
-			if (network_positions.size() > num_messages) network_positions.pop_back();
-				network_positions.push_front(player_message_receive);
-			
-			/*if (network_positions.size() == 3)
-			{
-				for (int i = 0; i < 3; ++i)
-				{
-					vec_network_positions[i] = network_positions.front(); network_positions.pop();
-				}
-			}*/
-			//player.setPosition(net_player_position);
+			keepTrackOfNetworkPositions(player_message_receive);
 		}
 	}
 }
@@ -528,7 +524,7 @@ void GameClient::update()
 		player.setPosition(network_path);
 
 		// add lerped to the history of the local posistions
-		keepTrackOfLocalPositoins(lerp_position);
+		//keepTrackOfLocalPositoins(lerp_position);
 	}
 	if (network_positions.size() == 3) 
 	{

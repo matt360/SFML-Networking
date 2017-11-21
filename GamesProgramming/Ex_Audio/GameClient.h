@@ -51,6 +51,7 @@ private:
 	std::deque<PlayerMessage> local_positions;
 	void keepTrackOfLocalPositoins();
 	void keepTrackOfLocalPositoins(sf::Vector2f& vec);
+	void keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive);
 	std::deque<PlayerMessage> network_positions;
 
 	sf::Vector2f predict_local_path();
