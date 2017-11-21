@@ -111,9 +111,6 @@ void NetworkClient::sendPacketToServer()
 	//addMessage(player_message_send);
 	packet_send << client_time;
 
-	// start timing latency
-	start_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
-
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket->send(packet_send, *ip_address, *port))
 	{
@@ -193,10 +190,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			// Deal with the messages from the packet
 			//client_receive_time = receive_time;
 
-			// end timing latency
-			end_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
-			latency = (end_timing_latency - start_timing_latency);
-			std::cout << "latency: " << latency << "\n";
+			
 			
 			if (debug_message) displayReceiveMessage(server_time);
 		}
@@ -205,15 +199,19 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 
 void NetworkClient::establishConnectionWithServer()
 {
-	// start timing
-	//float start_timing_latency = (float)clock->getElapsedTime().asMilliseconds();
+	// start timing latency
+	start_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
+
 	// send message to the server...
 	sendPacketToServer();
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer();
-	// end timing
-	//float end_timing_latency = (float)clock->getElapsedTime().asMilliseconds();
+
+	// end timing latency
+	end_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
+	latency = (end_timing_latency - start_timing_latency);
+	std::cout << "latency: " << latency << "\n";
 }
 
 void NetworkClient::update()
