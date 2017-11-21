@@ -9,7 +9,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	sf::IpAddress* ip,
 	unsigned short* port_number,
 	sf::Clock* cl,
-	sf::Int32* cur_t)
+	sf::Int32* of)
 {
 	window = hwnd;
 	input = in;
@@ -19,7 +19,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	ip_address = ip;
 	port = port_number;
 	clock = cl;
-	current_time = cur_t;
+	offset = of;
 
 	established_connection = false;
 	client_time = 0;
@@ -184,14 +184,11 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> *current_time >> established_connection)
+		if (packet_receive >> *offset >> established_connection)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
 			//client_receive_time = receive_time;
-
-			
-			
 			if (debug_message) displayReceiveMessage(server_time);
 		}
 	}

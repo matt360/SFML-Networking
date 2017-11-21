@@ -9,7 +9,7 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	sf::IpAddress* ip,
 	unsigned short* port_number,
 	sf::Clock* cl,
-	sf::Int32* cur_t)
+	sf::Int32* of)
 {
 	window = hwnd;
 	input = in;
@@ -19,7 +19,7 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	ip_address = ip;
 	port = port_number;
 	clock = cl;
-	current_time = cur_t;
+	offset = of;
 
 	established_connection = false;
 	client_time = 0;
@@ -131,51 +131,49 @@ void NetworkServer::establishConnectionWithClient()
 		//server_receive_time = receive_time;
 		// The message from the client
 		server_time = clock->getElapsedTime().asMilliseconds();
-		*current_time = server_time - client_time;
+		*offset = server_time - client_time;
 		if (debug_message) displayReceiveMessage(client_time);
 	}
 
 	//////////////////////////////////////////////////////////////////////
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient //
 	//////////////////////////////////////////////////////////////////////
-	if (*current_time != 0)
+	sf::Packet packet_send;
+	// Message to send
+	//server_time = clock->getElapsedTime().asMilliseconds();
+	// Group the variables to send into a packet
+	established_connection = true;
+	
+	packet_send << *offset << established_connection;
+	// Send it over the network
+	switch (socket->send(packet_send, sender, senderPort))
 	{
-		sf::Packet packet_send;
-		// Message to send
-		//server_time = clock->getElapsedTime().asMilliseconds();
-		// Group the variables to send into a packet
-		established_connection = true;
-		packet_send << *current_time << established_connection;
-		// Send it over the network
-		switch (socket->send(packet_send, sender, senderPort))
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		return;
+	}
+
+	// DEBUG purposes
+	// Extract the variables contained in the packet
+	if (debug_message)
+	{
+		if (packet_send >> *offset >> established_connection)
 		{
-		case sf::Socket::Done:
-			// Received a packet.
-			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-			break;
-
-		case sf::Socket::NotReady:
-			// No more data to receive (yet).
-			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
-
-			return;
-
-		default:
-			// Something went wrong.
-			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-			return;
-		}
-
-		// DEBUG purposes
-		// Extract the variables contained in the packet
-		if (debug_message)
-		{
-			if (packet_send >> *current_time >> established_connection)
-			{
-				// Data extracted successfully...
-				//server_send_time = send_time;
-				if (debug_message) displaySendMessage(server_time);
-			}
+			// Data extracted successfully...
+			//server_send_time = send_time;
+			if (debug_message) displaySendMessage(server_time);
 		}
 	}
 }
