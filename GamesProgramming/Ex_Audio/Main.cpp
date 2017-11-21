@@ -153,6 +153,9 @@ void main(int argc, char** argv[])
 			break;
 
 		case (GameState::NETWORK) :
+			delete menu;
+			menu = nullptr;
+
 			if (network == nullptr)
 			{
 				State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
@@ -161,6 +164,9 @@ void main(int argc, char** argv[])
 			break;
 		// establish connection with the client
 		case (GameState::NETWORK_SERVER):
+			delete network;
+			network = nullptr;
+
 			if (network_server == nullptr)
 			{
 				State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
@@ -169,6 +175,9 @@ void main(int argc, char** argv[])
 			break;
 
 		case (GameState::NETWORK_CLIENT):
+			delete network;
+			network = nullptr;
+
 			if (network_client == nullptr)
 			{
 				State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
@@ -177,6 +186,9 @@ void main(int argc, char** argv[])
 			break;
 
 		case(GameState::GAME_SERVER):
+			delete network_server;
+			network_server = nullptr;
+
 			if (game_server == nullptr)
 			{
 				State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
@@ -185,11 +197,13 @@ void main(int argc, char** argv[])
 			break;
 
 		case(GameState::GAME_CLIENT):
+			delete network_client;
+			network_client = nullptr;
+
 			if (game_client == nullptr)
 			{
 				State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 				state = game_client;
-
 			}
 			break;
 
