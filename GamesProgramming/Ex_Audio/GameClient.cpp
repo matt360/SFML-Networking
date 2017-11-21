@@ -273,8 +273,8 @@ void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 {
 	PlayerMessage local_message;
 	// local message
-	local_message.x = player.getPosition().x;
-	local_message.y = player.getPosition().y;
+	local_message.x = vec.x;
+	local_message.y = vec.y;
 	if (local_positions.size() > num_messages) local_positions.pop_back();
 	local_positions.push_front(local_message);
 }
@@ -520,16 +520,15 @@ void GameClient::update()
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	if (network_positions.size() == 2)
 	{
-		sf::Vector2f network_path = predict_network_path();
 		sf::Vector2f local_path = predict_local_path();
-		sf::Vector2f lerp_position;
+		sf::Vector2f network_path = predict_network_path();
 		//lerp
-		sf::Vector2f lerp_position = lerp(local_path, network_path, getCurrentTime());
+		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.5f);
 		// set position
-		player.setPosition(lerp_position);
+		player.setPosition(network_path);
 
 		// add lerped to the history of the local posistions
-
+		keepTrackOfLocalPositoins(lerp_position);
 	}
 	if (network_positions.size() == 3) 
 	{
