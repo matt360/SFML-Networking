@@ -27,9 +27,9 @@ public:
 	// NETWORK //
 	/////////////
 	// client
-	sf::Int64 start_timing_latency;
-	sf::Int64 end_timing_latency;
-	sf::Int64 latency;
+	sf::Int32 start_timing_latency;
+	sf::Int32 end_timing_latency;
+	sf::Int32 latency;
 
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();
