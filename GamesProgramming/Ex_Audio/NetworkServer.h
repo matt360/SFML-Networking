@@ -47,6 +47,7 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 
+	bool established_connection;
 	sf::Int32 client_time;
 	sf::Int32 server_time;
 

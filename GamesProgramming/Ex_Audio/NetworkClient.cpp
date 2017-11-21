@@ -21,6 +21,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	clock = cl;
 	current_time = cur_t;
 
+	established_connection = false;
 	client_time = 0;
 	server_time = 0;
 
@@ -182,7 +183,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> server_time >> *current_time)
+		if (packet_receive >> *current_time >> established_connection)
 		{
 			// Deal with the messages from the packet
 			//client_receive_time = receive_time;
@@ -206,7 +207,8 @@ void NetworkClient::update()
 {
 	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 
-	establishConnectionWithServer();
+	if (!established_connection)
+		establishConnectionWithServer();
 
 	//*current_time = server_time - client_time;
 	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
@@ -214,19 +216,14 @@ void NetworkClient::update()
 	if (readyToPlay)
 	{
 		// extra house keeping
-		switch (*network_state)
+		if (*network_state == NetworkState::CLIENT)
 		{
-		case (NetworkState::SERVER):
-			//*current_time = server_time - client_time;
-			*state = GameState::GAME_SERVER;
-			break;
-		case (NetworkState::CLIENT):
-			//*current_time = server_time - client_time;
+			//establishConnectionWithServer();
 			*state = GameState::GAME_CLIENT;
-			break;
-		default:
+		}
+		else 
+		{
 			readyToPlay = false;
-			break;
 		}
 	}
 }
