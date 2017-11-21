@@ -6,7 +6,8 @@ struct PlayerMessage {
 	int id;
 
 	/** The coordinates of this Player within the game world. */
-	float x, y;
+	//float x, y;
+	sf::Vector2f position;
 
 	/** The time at which this message was sent.
 	    (Not the time at which it was received!) */
@@ -15,10 +16,10 @@ struct PlayerMessage {
 
 static sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
 {
-	return packet << player_message.id << player_message.x << player_message.y << player_message.time;
+	return packet << player_message.id << player_message.position.x << player_message.position.y << player_message.time;
 }
 
 static sf::Packet& operator >> (sf::Packet& packet, PlayerMessage& player_message)
 {
-	return packet >> player_message.id >> player_message.x >> player_message.y >> player_message.time;
+	return packet >> player_message.id >> player_message.position.x >> player_message.position.y >> player_message.time;
 }

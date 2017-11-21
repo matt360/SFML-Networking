@@ -33,7 +33,10 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&texture);
-	player.setPosition(5, 5);
+	sf::Vector2f initial_player_position(5.0f, 5.0f);
+	player.setPosition(initial_player_position);
+	local_positions.push_front(initial_player_position);
+	local_positions.push_back(initial_player_position);
 	player.setInput(input);
 	player.setVelocity(0, 10);
 
@@ -271,12 +274,9 @@ void GameClient::keepTrackOfLocalPositoins()
 
 void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 {
-	PlayerMessage local_message;
 	// local message
-	local_message.x = vec.x;
-	local_message.y = vec.y;
 	if (local_positions.size() > num_messages) local_positions.pop_back();
-	local_positions.push_front(local_message);
+	local_positions.push_front(vec);
 }
 
 void GameClient::keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive)

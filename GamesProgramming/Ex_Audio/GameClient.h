@@ -48,7 +48,7 @@ private:
 	sf::Clock* clock;
 	sf::Int32* offset;
 	const int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
-	std::deque<PlayerMessage> local_positions;
+	std::deque<sf::Vector2f> local_positions;
 	void keepTrackOfLocalPositoins();
 	void keepTrackOfLocalPositoins(sf::Vector2f& vec);
 	void keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive);
