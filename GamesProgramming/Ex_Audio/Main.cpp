@@ -147,6 +147,7 @@ void main(int argc, char** argv[])
 		case (GameState::MENU) :
 			state = menu;
 			break;
+
 		case (GameState::NETWORK) :
 			state = network;
 			break;
@@ -154,6 +155,7 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK_SERVER):
 			state = network_server;
 			break;
+
 		case (GameState::NETWORK_CLIENT):
 			state = network_client;
 			break;
