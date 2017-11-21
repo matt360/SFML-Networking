@@ -182,7 +182,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> server_time)
+		if (packet_receive >> server_time >> *current_time)
 		{
 			// Deal with the messages from the packet
 			//client_receive_time = receive_time;
@@ -208,7 +208,7 @@ void NetworkClient::update()
 
 	establishConnectionWithServer();
 
-	*current_time = server_time - client_time;
+	//*current_time = server_time - client_time;
 	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
 
 	if (readyToPlay)

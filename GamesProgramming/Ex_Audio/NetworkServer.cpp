@@ -138,9 +138,9 @@ void NetworkServer::establishConnectionWithClient()
 	sf::Packet packet_send;
 	// Message to send
 	server_time = clock->getElapsedTime().asMilliseconds();
-	//addMessage(player_message_send);
+	*current_time = server_time - client_time;
 	// Group the variables to send into a packet
-	packet_send << server_time;
+	packet_send << server_time << *current_time;
 	// Send it over the network
 	switch (socket->send(packet_send, sender, senderPort))
 	{
