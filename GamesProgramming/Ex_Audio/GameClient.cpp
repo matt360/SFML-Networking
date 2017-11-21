@@ -128,6 +128,12 @@ void GameClient::call_once_set_window()
 	);
 }
 
+sf::Int32 GameClient::getCurrentTime()
+{
+	sf::Int32 current_time = clock->getElapsedTime().asMilliseconds();
+	return sf::Int32(current_time + (*offset));
+}
+
 void GameClient::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -441,23 +447,23 @@ void GameClient::update()
 	// - the current time, in "time"
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
+	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+	//float x_average_velocity, y_average_velocity;
+	//PlayerMessage msg0 = network_positions.front(); network_positions.pop();
+	//PlayerMessage msg1 = network_positions.front(); network_positions.pop();
+	//float time = (float)(*offset);
 
-	float x_average_velocity, y_average_velocity;
-	PlayerMessage msg0 = network_positions.front(); network_positions.pop();
-	PlayerMessage msg1 = network_positions.front(); network_positions.pop();
-	float time = (float)(*offset);
+	//// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	//x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+	//y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
 
-	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+	//// linear model
+	//float x_, y_;
+	//x_ = x_average_velocity * (time - msg1.time) + msg1.x;
+	//y_ = y_average_velocity * (time - msg1.time) + msg1.y;
 
-	// linear model
-	float x_, y_;
-	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
-	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
-
-	sf::Vector2f loc_player_pos(x_, y_);
-	player.setPosition(loc_player_pos);
+	//sf::Vector2f loc_player_pos(x_, y_);
+	//player.setPosition(loc_player_pos);
 
 	//// quadratic model
 	//float 

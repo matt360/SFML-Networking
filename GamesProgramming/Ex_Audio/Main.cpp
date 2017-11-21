@@ -150,7 +150,6 @@ void main(int argc, char** argv[])
 		{
 		case (GameState::MENU) :
 			menu.handleInput();
-			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			menu.update();
 			menu.render();
 			break;
@@ -158,7 +157,6 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK) :
 			network.handleInput();
 			// handle socket
-			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			network.update();
 			network.render();
 			break;
@@ -166,7 +164,6 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK_SERVER):
 			network_server.handleInput();
 			// establish connection with the client
-			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			network_server.update();
 			network_server.render();
 			break;
@@ -174,7 +171,6 @@ void main(int argc, char** argv[])
 		case (GameState::NETWORK_CLIENT):
 			network_client.handleInput();
 			// establish connection with the server
-			if (debug_mode) std::cout << "\n\noffset: " << offset << "\n\n";
 			network_client.update();
 			network_client.render();
 			break;

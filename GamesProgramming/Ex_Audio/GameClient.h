@@ -60,6 +60,8 @@ private:
 	void call_once_set_window(sf::RenderWindow& window);
 	void call_once_set_window();
 
+	sf::Int32 getCurrentTime();
+
 	// debug
 	bool debug_mode;
 	bool debug_message;

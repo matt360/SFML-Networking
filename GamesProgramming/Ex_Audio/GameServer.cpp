@@ -389,6 +389,7 @@ void GameServer::update()
 	// server should probably keep listening and sending all the time
 	runUdpServer();
 
-	std::cout << "\n\ncurrent time: " << *offset << "\n\n";
+	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();
+	std::cout << "server_time: " << server_time << "\n";
 }
 
