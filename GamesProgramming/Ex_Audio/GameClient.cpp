@@ -35,8 +35,11 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	player.setTexture(&texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
-	local_positions.push_front(initial_player_position);
-	local_positions.push_back(initial_player_position);
+	PlayerMessage initial_player_message;
+	initial_player_message.position.x = initial_player_position.x;
+	initial_player_message.position.y = initial_player_position.y;
+	local_positions.push_front(initial_player_message);
+	local_positions.push_back(initial_player_message);
 	player.setInput(input);
 	player.setVelocity(0, 10);
 
@@ -221,8 +224,8 @@ void GameClient::displayMessage(const PlayerMessage player_message)
 	std::cout << "\n\nCLIENT: Message received from the SERVER:";
 	// Data extracted successfully...
 	std::cout << "\nCLIENT: ID: " << player_message.id
-		<< "\nCLIENT: Player x: " << player_message.x
-		<< "\nCLIENT: Player y: " << player_message.y
+		<< "\nCLIENT: Player x: " << player_message.position.x
+		<< "\nCLIENT: Player y: " << player_message.position.y
 		<< "\nCLIENT: Time: " << player_message.time;
 }
 
@@ -231,8 +234,8 @@ void GameClient::displayMessage(const PlayerMessage player_message, const sf::Ip
 	std::cout << "\n\nCLIENT: Message received from the SERVER:";
 	// Data extracted successfully...
 	std::cout << "\nCLIENT: ID: " << player_message.id
-		<< "\nCLIENT: Player x: " << player_message.x
-		<< "\nCLIENT: Player y: " << player_message.y
+		<< "\nCLIENT: Player x: " << player_message.position.x
+		<< "\nCLIENT: Player y: " << player_message.position.y
 		<< "\nCLIENT: Time: " << player_message.time;
 	std::cout << "\nCLIENT: client's IP: " << sender;
 	std::cout << "\nCLIENT: client's port: " << sender_port;
@@ -247,8 +250,8 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
-	player_message_send.x = player.getPosition().x;
-	player_message_send.y = player.getPosition().y;
+	player_message_send.position.x = player.getPosition().x;
+	player_message_send.position.y = player.getPosition().y;
 	
 	//player_message_send.time = c_s;
 	player_message_send.time = (float)getCurrentTime();
@@ -264,10 +267,11 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 
 void GameClient::keepTrackOfLocalPositoins()
 {
-	PlayerMessage local_message;
 	// local message
-	local_message.x = player.getPosition().x;
-	local_message.y = player.getPosition().y;
+	PlayerMessage local_message;
+	local_message.position.x = player.getPosition().x;
+	local_message.position.y = player.getPosition().y;
+	local_message.time = getCurrentTime();
 	if (local_positions.size() > num_messages) local_positions.pop_back();
 	local_positions.push_front(local_message);
 }
@@ -275,8 +279,13 @@ void GameClient::keepTrackOfLocalPositoins()
 void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 {
 	// local message
+	PlayerMessage local_message;
+	local_message.position.x = vec.x;
+	local_message.position.y = vec.y;
+	local_message.time = getCurrentTime();
+	// 
 	if (local_positions.size() > num_messages) local_positions.pop_back();
-	local_positions.push_front(vec);
+	local_positions.push_front(local_message);
 }
 
 void GameClient::keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive)
@@ -293,13 +302,13 @@ sf::Vector2f GameClient::predict_local_path()
 	float time = getCurrentTime();
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
 
 	//// linear model
 	float x_, y_;
-	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
-	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.position.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.position.y;
 
 	sf::Vector2f local_player_pos(x_, y_);
 
@@ -314,13 +323,13 @@ sf::Vector2f GameClient::predict_network_path()
 	float time = getCurrentTime();
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
 
 	//// linear model
 	float x_, y_;
-	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
-	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.position.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.position.y;
 
 	sf::Vector2f network_player_pos(x_, y_);
 	return network_player_pos;
@@ -545,18 +554,18 @@ void GameClient::update()
 		float time = getCurrentTime();
 
 		// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-		x_average_velocity_1 = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-		y_average_velocity_1 = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+		x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
+		y_average_velocity_1 = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
 
-		x_average_velocity_2 = (msg1.x - msg2.x) / (msg1.time - msg2.time);
-		y_average_velocity_2 = (msg1.y - msg2.y) / (msg1.time - msg2.time);
+		x_average_velocity_2 = (msg1.position.x - msg2.position.x) / (msg1.time - msg2.time);
+		y_average_velocity_2 = (msg1.position.y - msg2.position.y) / (msg1.time - msg2.time);
 
 		a_x = (x_average_velocity_2 - x_average_velocity_1);
 		a_y = (y_average_velocity_2 - y_average_velocity_1);
 
 		// s = s0 + v0t + ½at2
-		x_ = msg2.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
-		y_ = msg2.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
+		x_ = msg2.position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
+		y_ = msg2.position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
 
 		sf::Vector2f loc_player_pos(x_, y_);
 		player.setPosition(loc_player_pos);
