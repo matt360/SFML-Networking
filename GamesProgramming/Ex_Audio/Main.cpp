@@ -41,14 +41,14 @@ void main(int argc, char** argv[])
 	Input input;
 
 	// game_state handler
-	State* state = new StateHandler();
-	State* menu = new Menu(&window, &input, &game_state);
-	State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
-	State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
-	State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
-	
+	State* state = nullptr;
+	State* menu = nullptr;
+	State* network = nullptr;
+	State* network_server = nullptr;
+	State* network_client = nullptr;
+	State* game_server = nullptr;
+	State* game_client = nullptr;
+
 	//direction dir = direction::left;
 
 	//sf::Texture mushroomTexture;
@@ -141,31 +141,56 @@ void main(int argc, char** argv[])
 		// abstract game_state class to be inherited by the game_state classes
 		// put rendering into game_state classes
 		// put networing into networking classes
-
+		
 		switch (game_state)
 		{
 		case (GameState::MENU) :
-			state = menu;
+			if (menu == nullptr)
+			{
+				State* menu = new Menu(&window, &input, &game_state);
+				state = menu;
+			}
 			break;
 
 		case (GameState::NETWORK) :
-			state = network;
+			if (network == nullptr)
+			{
+				State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
+				state = network;
+			}
 			break;
 		// establish connection with the client
 		case (GameState::NETWORK_SERVER):
-			state = network_server;
+			if (network_server == nullptr)
+			{
+				State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+				state = network_server;
+			}
 			break;
 
 		case (GameState::NETWORK_CLIENT):
-			state = network_client;
+			if (network_client == nullptr)
+			{
+				State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+				state = network_client;
+			}
 			break;
 
 		case(GameState::GAME_SERVER):
-			state = game_server;
+			if (game_server == nullptr)
+			{
+				State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+				state = game_server;
+			}
 			break;
 
 		case(GameState::GAME_CLIENT):
-			state = game_client;
+			if (game_client == nullptr)
+			{
+				State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+				state = game_client;
+
+			}
 			break;
 
 		case(GameState::PAUSE) :
