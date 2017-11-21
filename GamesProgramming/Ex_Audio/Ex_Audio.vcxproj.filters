@@ -90,6 +90,9 @@
     <ClCompile Include="NetworkServer.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -147,6 +150,9 @@
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="NetworkClient.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>

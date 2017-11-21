@@ -3,9 +3,10 @@
 #include <SFML/Network.hpp>
 #include "Input.h"
 #include <string.h>
+#include "State.h"
 #include "States.h"
 
-class NetworkServer
+class NetworkServer : public State
 {
 public:
 	NetworkServer(sf::RenderWindow* hwnd,

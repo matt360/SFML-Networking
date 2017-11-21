@@ -6,7 +6,6 @@ struct PlayerMessage {
 	int id;
 
 	/** The coordinates of this Player within the game world. */
-	//float x, y;
 	sf::Vector2f position;
 
 	/** The time at which this message was sent.

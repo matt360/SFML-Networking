@@ -188,7 +188,7 @@ void NetworkServer::update()
 
 	if (readyToPlay && established_connection)
 	{
-		// extra house keeping
+		// TODO extra house keeping
 		/*if (*network_state == NetworkState::SERVER)
 		{*/
 			*state = GameState::GAME_SERVER;

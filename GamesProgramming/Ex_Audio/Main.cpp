@@ -6,6 +6,7 @@
 #include "Network.h"
 #include "NetworkServer.h"
 #include "NetworkClient.h"
+#include "State.h"
 #include "States.h"
 
 void main(int argc, char** argv[])
@@ -38,12 +39,17 @@ void main(int argc, char** argv[])
 	bool debug_mode = false;
 	Input input;
 
-	Menu menu(&window, &input, &state);
-	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
-	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
-	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
+	State* menu = new Menu(&window, &input, &state);
+	//Menu menu(&window, &input, &state);
+	State* network = new Network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
+	//NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	State* network_server = new NetworkServer(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	//NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	State* network_client = new NetworkClient(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	//GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
+	State* game_server = new GameServer(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
+	//GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
+	State* game_client = new GameClient(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
 	
 	//direction dir = direction::left;
 	

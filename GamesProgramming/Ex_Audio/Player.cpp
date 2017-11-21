@@ -3,7 +3,7 @@
 Player::Player(const sf::Vector2f & size) : Sprite(size)
 {
 	//falling = true;
-	speed = 0.2;
+	speed = 0.1;
 }
 
 Player::~Player()

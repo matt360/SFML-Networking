@@ -13,8 +13,9 @@
 #include "States.h"
 #include "AudioManager.h"
 #include "Messages.h"
+#include "State.h"
 
-class GameServer {
+class GameServer : public State {
 public:
 	GameServer(sf::RenderWindow* hwnd,
 		Input* in,

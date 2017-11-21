@@ -12,11 +12,12 @@
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
+#include "State.h"
 #include "States.h"
 #include "AudioManager.h"
 #include "Messages.h"
 
-class GameClient {
+class GameClient : public State {
 public:
 	GameClient(sf::RenderWindow* hwnd, 
 		Input* in, 

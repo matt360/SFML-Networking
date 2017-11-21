@@ -2,9 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "Input.h"
 #include <string.h>
+#include "State.h"
 #include "States.h"
 
-class Menu
+class Menu : public State
 {
 public:
 	Menu(sf::RenderWindow* hwnd, Input* in, GameState* state);
