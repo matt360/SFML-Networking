@@ -173,7 +173,6 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="State.cpp" />
-    <ClCompile Include="StateHandler.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
@@ -195,7 +194,6 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="StateHandler.h" />
     <ClInclude Include="States.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector.h" />

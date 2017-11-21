@@ -8,7 +8,6 @@
 #include "NetworkClient.h"
 #include "State.h"
 #include "States.h"
-#include "StateHandler.h"
 
 void main(int argc, char** argv[])
 {
@@ -41,7 +40,7 @@ void main(int argc, char** argv[])
 	Input input;
 
 	// game_state handler
-	State* state = new StateHandler();
+	State* state = nullptr;
 	State* menu = new Menu(&window, &input, &game_state);
 	State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
 	State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
