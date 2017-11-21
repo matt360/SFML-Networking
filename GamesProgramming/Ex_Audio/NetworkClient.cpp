@@ -210,15 +210,12 @@ void NetworkClient::update()
 	if (!established_connection)
 		establishConnectionWithServer();
 
-	//*current_time = server_time - client_time;
-	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
-
 	if (readyToPlay)
 	{
 		// extra house keeping
 		if (*network_state == NetworkState::CLIENT)
 		{
-			//establishConnectionWithServer();
+			// TODO probably want to do something better than this
 			*state = GameState::GAME_CLIENT;
 		}
 		else 
