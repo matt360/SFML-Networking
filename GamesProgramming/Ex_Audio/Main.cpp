@@ -52,8 +52,6 @@ void main(int argc, char** argv[])
 	State* game_client = new GameClient(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
 	
 	//direction dir = direction::left;
-	
-	
 	// TODO
 	//float latency = 10.0f;
 	//clock += latency;
@@ -152,61 +150,63 @@ void main(int argc, char** argv[])
 		// abstract state class to be inherited by the state classes
 		// put rendering into state classes
 		// put networing into networking classes
+		
+
 		switch (state)
 		{
 		case (GameState::MENU) :
-			menu.handleInput();
-			menu.update();
-			menu.render();
+			menu->handleInput();
+			menu->update();
+			menu->render();
 			break;
 
 		case (GameState::NETWORK) :
-			network.handleInput();
+			network->handleInput();
 			// handle socket
-			network.update();
-			network.render();
+			network->update();
+			network->render();
 			break;
 
 		case (GameState::NETWORK_SERVER):
-			network_server.handleInput();
+			network_server->handleInput();
 			// establish connection with the client
-			network_server.update();
-			network_server.render();
+			network_server->update();
+			network_server->render();
 			break;
 
 		case (GameState::NETWORK_CLIENT):
-			network_client.handleInput();
+			network_client->handleInput();
 			// establish connection with the server
-			network_client.update();
-			network_client.render();
+			network_client->update();
+			network_client->render();
 			break;
 
 		case(GameState::GAME_SERVER):
-			game_server.handleInput();
+			game_server->handleInput();
 			// do a non blocking receive - put socket into non blocking mode when it's being created
 			// queue of messages to send, put message into the queue when ready to send, non-blocking send
 			//socket(); 
-			game_server.update();
-			game_server.render();
+			game_server->update();
+			game_server->render();
 			break;
 
 		case(GameState::GAME_CLIENT):
-			game_client.handleInput();
+			game_client->handleInput();
 			// do a non blocking receive - put socket into non blocking mode when it's being created
 			// queue of messages to send, put message into the queue when ready to send, non-blocking send
 			//socket(); 
-			game_client.update();
-			game_client.render();
+			game_client->update();
+			game_client->render();
 			break;
 
 		case(GameState::PAUSE) :
 			switch (state)
 			{
 			case (GameState::GAME_CLIENT):
-				game_client.render();
+				game_client->render();
 				break;
 			case (GameState::GAME_SERVER):
-				game_server.render();
+				game_server->render();
 				break;
 			}
 			break;
@@ -214,6 +214,7 @@ void main(int argc, char** argv[])
 		case(GameState::CREDITS) :
 			//...
 			break;
-		}	
+		}
+
 	}
 }
