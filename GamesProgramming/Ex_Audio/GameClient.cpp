@@ -507,13 +507,12 @@ void GameClient::update()
 
 
 	// send packets at 10Hz rate (at 10PFS)
-	if ((int)fps % 6 == 0)
+	//if ((int)fps % 6 == 0)
+	// send packets at 30Hz rate (at 30PFS)
+	if ((int)fps % 2 == 0)
 		sendPacket();
 
 	checkForIncomingPackets();
-
-	// TODO add lerp to local positions
-	
 
 	// FIXME: Implement prediction here!
 	// You have:
@@ -529,11 +528,12 @@ void GameClient::update()
 		sf::Vector2f network_path = predict_network_path();
 		//lerp
 		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1f);
+		//sf::Vector2f lerp_position = lerp(local_path, network_path, 1.0f);
 		// set position
 		player.setPosition(lerp_position);
 
 		// add lerped to the history of the local posistions
-		//keepTrackOfLocalPositoins(lerp_position);
+		keepTrackOfLocalPositoins();
 	}
 	if (network_positions.size() == 3) 
 	{

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)https://bp.io/post/1609 -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+	<link rel="stylesheet" href="./A basic tile-based game in SFML _ BP _ I make video games._files/style.css">
+	<title>  A basic tile-based game in SFML | BP | I make video games.</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://bp.io/post/1609">
+				<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="BP » Feed" href="https://bp.io/feed">
+<link rel="alternate" type="application/rss+xml" title="BP » Comments Feed" href="https://bp.io/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="BP » A basic tile-based game in SFML Comments Feed" href="https://bp.io/post/1609/feed">
+		<script type="text/javascript" async="" src="./A basic tile-based game in SFML _ BP _ I make video games._files/ga.js.download"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/bp.io\/wp\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8.3"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b!==c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./A basic tile-based game in SFML _ BP _ I make video games._files/wp-emoji-release.min.js.download" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="sunprettify_style-css" href="./A basic tile-based game in SFML _ BP _ I make video games._files/sunburst.css" type="text/css" media="all">
+<link rel="stylesheet" id="shCore-css" href="./A basic tile-based game in SFML _ BP _ I make video games._files/shCore.css" type="text/css" media="all">
+<link rel="stylesheet" id="shCoreDefault-css" href="./A basic tile-based game in SFML _ BP _ I make video games._files/shCoreDefault.css" type="text/css" media="all">
+<link rel="stylesheet" id="shThemeDefault-css" href="./A basic tile-based game in SFML _ BP _ I make video games._files/shThemeDefault.css" type="text/css" media="all">
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/jquery.js.download"></script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/jquery-migrate.min.js.download"></script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/scripts.js.download"></script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/highlight.pack.js.download"></script>
+<script type="text/javascript" src="https://bp.io/wp/wp-content/plugins/google-analyticator/external-tracking.min.js?ver=6.4.9"></script>
+<link rel="https://api.w.org/" href="https://bp.io/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://bp.io/wp/xmlrpc.php?rsd">
+<link rel="prev" title="Tetraopticon" href="https://bp.io/post/1599">
+<link rel="next" title="An entity system" href="https://bp.io/post/1617">
+<meta name="generator" content="WordPress 4.8.3">
+<link rel="canonical" href="https://bp.io/post/1609">
+<link rel="shortlink" href="https://bp.io/?p=1609">
+<link rel="alternate" type="application/json+oembed" href="https://bp.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fbp.io%2Fpost%2F1609">
+<link rel="alternate" type="text/xml+oembed" href="https://bp.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fbp.io%2Fpost%2F1609&amp;format=xml">
+<!-- Google Analytics Tracking by Google Analyticator 6.4.9: http://www.videousermanuals.com/google-analyticator/ -->
+<script type="text/javascript">
+    var analyticsFileTypes = [''];
+    var analyticsSnippet = 'enabled';
+    var analyticsEventTracking = 'enabled';
+</script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+  
+	_gaq.push(['_setAccount', 'UA-17328291-1']);
+    _gaq.push(['_addDevId', 'i9k95']); // Google Analyticator App ID with Google
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+<style type="text/css"></style></head>
+
+<body class="post-template-default single single-post postid-1609 single-format-standard">
+
+    
+	<div id="wrap" style="width:850px">
+		
+		<div id="container" style="width:560px">
+
+<h1><a href="http://bp.io/">BP.IO </a>/ POST</h1>
+
+<div class="post-1609 post type-post status-publish format-standard hentry category-blog" style="border: 0px; margin: 0px; padding: 0px;">
+	
+	<h2><a href="https://bp.io/post/1609" title="A basic tile-based game in SFML">A basic tile-based game in SFML</a></h2>
+        	<!--
+        <div class="meta">
+
+                                        
+            <span class="authordate">
+                Written by&nbsp;<b>eigenbom</b>&nbsp;on&nbsp;January 7, 2014            </span>
+            <span class="categories">Categories:&nbsp;<a href="https://bp.io/post/category/blog" rel="category tag">blog</a></span>
+            <span class="tags"></span>
+                    </div>
+-->
+        	<div class="entry">
+		<p><b>Whoops, the code below has been mangled by wordpress, sorry!</b> I’ll keep it in the post but here’s <a href="http://pastebin.com/Cf1L0iUA">a link to the source also.</a></p>
+<p>Hey there! Here’s the source for a simple tile-based game in SFML. You move the white player around a small world that contains randomly moving red and green zombies. The code demonstrates basic gamedev and SFML concepts such as collision detection, game state, movement interpolation, and uses a simple data-oriented design.</p>
+<div id="attachment_1610" style="width: 531px" class="wp-caption aligncenter"><a href="./A basic tile-based game in SFML _ BP _ I make video games._files/basic_tile_based_game.png"><img class="size-full wp-image-1610" alt="The player is the white square. Water is blue. Zombies are green and red." src="./A basic tile-based game in SFML _ BP _ I make video games._files/basic_tile_based_game.png" width="521" height="521" srcset="https://bp.io/wp/wp-content/uploads/2014/01/basic_tile_based_game.png 521w, https://bp.io/wp/wp-content/uploads/2014/01/basic_tile_based_game-150x150.png 150w, https://bp.io/wp/wp-content/uploads/2014/01/basic_tile_based_game-300x300.png 300w, https://bp.io/wp/wp-content/uploads/2014/01/basic_tile_based_game-100x100.png 100w" sizes="(max-width: 521px) 100vw, 521px"></a><p class="wp-caption-text">The player is the white square. Water is blue. Zombies are green and red.</p></div>
+<pre class="brush: cpp; auto-links: false;"></pre>
+<p>#include <string><br>
+#include <iostream><br>
+#include <list>
+#include <cstdlib><br>
+#include <ctime><br>
+#include <sfml window.hpp=""><br>
+#include <sfml graphics.hpp=""><br>
+using namespace std;</sfml></sfml></ctime></cstdlib></list></iostream></string></p>
+<p>static const int WINDOW_WIDTH = 512, WINDOW_HEIGHT = 512;<br>
+static const int TILES_WIDE = 8, TILES_HIGH = 8;<br>
+static const int TILE_WIDTH = WINDOW_WIDTH/TILES_WIDE, TILE_HEIGHT = WINDOW_HEIGHT/TILES_HIGH;</p>
+<p>enum Tile {<br>
+	TILE_WATER,<br>
+	TILE_DIRT,</p>
+<p>	TILE_INVALID,<br>
+};</p>
+<p>class Map {<br>
+public:<br>
+	Map(){}<br>
+	Map(string mapString){<br>
+		// Convert map string into tiles<br>
+		if (mapString.length()!=TILES_WIDE*TILES_HIGH){<br>
+			cerr &lt;&lt; "map string is wrong length!";
+			return;
+		}
+
+		for(int i=0;i<tiles_wide;i++){ for(int="" j="0;j&lt;TILES_HIGH;j++){" char="" c="mapString[i" +="" j*tiles_wide];="" tile="" tile;="" switch="" (c){="" case="" '="" ':="" break;="" '~':="" default:="" }="" settile(i,="" j,="" tile);="" tile(int="" i,="" int="" j){="" if="" (isvalidindex(i,j)){="" return="" mtiles[i="" else="" tile_invalid;="" void="" settile(int="" t){="" j*tiles_wide]="t;" protected:="" bool="" isvalidindex(int="" (i="">=0 &amp;&amp; i<tiles_wide &#038;&#038;="" j="">=0 &amp;&amp; j<tiles_high); }="" tile="" mtiles[tiles_wide*tiles_high];="" };="" base="" class="" for="" all="" moveable="" things="" struct="" entity="" {="" actual="" position="" int="" i,="" j;="" these="" are="" used="" interpolation="" bool="" ismoving;="" oldi,="" oldj;="" float="" pi,="" pj;="" player:="" enum="" monstertype="" {red_zombie,="" green_zombie};="" monster:="" type;="" gamestate="" waiting_for_player_input,="" updating_player,="" updating_monsters,="" other="" game="" states="" may="" be="" title_screen="" death_screen="" updating_bombs="" etc..="" state;="" sf::clock="" clock;="" map="" map;="" player="" player;="" list<monster=""> monsters;<br>
+};</tiles_high);></tiles_wide></tiles_wide;i++){></p>
+<p>// Checks to see if theres a monster here<br>
+bool isMonsterHere(Game&amp; game, int i, int j){<br>
+	for(auto monster: game.monsters){<br>
+		if (monster.i==i &amp;&amp; monster.j==j) return true;<br>
+	}<br>
+	return false;<br>
+}</p>
+<p>// Checks to see if theres a player here<br>
+bool isPlayerHere(Game&amp; game, int i, int j){<br>
+	if (game.player.i==i &amp;&amp; game.player.j==j) return true;<br>
+	else return false;<br>
+}</p>
+<p>// Linear interpolation<br>
+float lerp(float a, float b, float t){<br>
+	return a*(1-t) + b*t;<br>
+}</p>
+<p>int main(){<br>
+	srand(time(NULL)); // seed randomiser<br>
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), “Game”);</p>
+<p>	// Setup game<br>
+	Game game;<br>
+	game.state = WAITING_FOR_PLAYER_INPUT;</p>
+<p>	// Setup map<br>
+	string mapString =<br>
+		”        ”<br>
+		” ~~~ ~~ ”<br>
+		”        ”<br>
+		” ~    ~ ”</p>
+<p>		” ~    ~ ”<br>
+		” ~    ~ ”<br>
+		” ~~ ~~~ ”<br>
+		”        “;<br>
+	game.map = Map(mapString);</p>
+<p>	// Setup player<br>
+	game.player.i = 0;<br>
+	game.player.j = 0;<br>
+	game.player.isMoving = false;<br>
+	game.player.oldI = 0;<br>
+	game.player.oldJ = 0;<br>
+	game.player.pi = 0.0f;<br>
+	game.player.pj = 0.0f;	</p>
+<p>	// Create some monsters<br>
+	const int NUM_MONSTERS = 6;<br>
+	for(int i=0;i<num_monsters;i++){ monstertype="" type="GREEN_ZOMBIE;" double="" random="(1.0*rand())/RAND_MAX;" if="" (random=""> 0.8){<br>
+			type = RED_ZOMBIE;<br>
+		}</num_monsters;i++){></p>
+<p>		// Find an empty dirt spot to place the monster<br>
+		int placeI = 0, placeJ = 0;<br>
+		while(true){<br>
+			int ri = rand()%TILES_WIDE;<br>
+			int rj = rand()%TILES_HIGH;</p>
+<p>			// Check for collision with player or other zombies<br>
+			bool canPlaceHere = true;<br>
+			canPlaceHere = !isPlayerHere(game, ri, rj);<br>
+			canPlaceHere = canPlaceHere &amp;&amp; !isMonsterHere(game, ri, rj);<br>
+			canPlaceHere = canPlaceHere &amp;&amp; game.map.tile(ri, rj)==TILE_DIRT;<br>
+			if (canPlaceHere){<br>
+				placeI = ri;<br>
+				placeJ = rj;<br>
+				break;<br>
+			}<br>
+			// else keep trying<br>
+		}</p>
+<p>		Monster monster;<br>
+		monster.type = type;<br>
+		monster.i = placeI;<br>
+		monster.j = placeJ;<br>
+		monster.isMoving = false;<br>
+		monster.oldI = monster.i;<br>
+		monster.oldJ = monster.j;<br>
+		monster.pi = (float) placeI;<br>
+		monster.pj = (float) placeJ;</p>
+<p>		game.monsters.push_back(monster);<br>
+	}</p>
+<p>	// Start loop<br>
+	game.clock.restart();<br>
+    while (window.isOpen())<br>
+    {<br>
+		// Manage Input</p>
+<p>        sf::Event event;<br>
+        while (window.pollEvent(event))<br>
+        {<br>
+            if (event.type == sf::Event::Closed){<br>
+                window.close();<br>
+			}</p>
+<p>			if (game.state==WAITING_FOR_PLAYER_INPUT){<br>
+				if (event.type==sf::Event::KeyPressed){<br>
+					int di = 0, dj = 0; // the direction to move in<br>
+					switch (event.key.code){<br>
+						case sf::Keyboard::Left: di = -1; break;<br>
+						case sf::Keyboard::Right: di = 1; break;<br>
+						case sf::Keyboard::Up: dj = -1; break;<br>
+						case sf::Keyboard::Down: dj = 1; break;<br>
+						default: break;<br>
+					}</p>
+<p>					if (di!=0 || dj!=0){<br>
+						// Player wants to move so try to move him<br>
+						int i = game.player.i + di;<br>
+						int j = game.player.j + dj;</p>
+<p>						// Check targe tile for collision<br>
+						bool collision = false;<br>
+						Tile t = game.map.tile(i,j);<br>
+						switch (t){<br>
+							case TILE_WATER: case TILE_INVALID: collision = true; break;<br>
+							default: break;<br>
+						}<br>
+						collision = collision || isMonsterHere(game, i, j);</p>
+<p>						if (!collision){<br>
+							// Can move there<br>
+							game.player.oldI = game.player.i;<br>
+							game.player.oldJ = game.player.j;<br>
+							game.player.i = i;<br>
+							game.player.j = j;<br>
+							game.player.isMoving = true;<br>
+							game.state = UPDATING_PLAYER;<br>
+							game.clock.restart();<br>
+						}<br>
+					}<br>
+				}<br>
+			}<br>
+        }</p>
+<p>		// Update other game state etc<br>
+		switch (game.state){<br>
+		case WAITING_FOR_PLAYER_INPUT:<br>
+			{<br>
+				// Player gets only a short time to make a move<br>
+				// The logic of movement is handled in the event handled<br>
+				static const float MAX_TIME_TO_MOVE = 2.0f;<br>
+				float t = game.clock.getElapsedTime().asSeconds();<br>
+				if (t &gt;= MAX_TIME_TO_MOVE){<br>
+					game.state = UPDATING_PLAYER;<br>
+					game.clock.restart();<br>
+				}<br>
+				break;<br>
+			}<br>
+		case UPDATING_PLAYER:<br>
+			{<br>
+				static const float MOVE_SPEED = 0.2f; // seconds it takes to move<br>
+				float t = game.clock.getElapsedTime().asSeconds();<br>
+				t = min(MOVE_SPEED, t);</p>
+<p>				if (game.player.isMoving){<br>
+					game.player.pi = lerp(game.player.oldI, game.player.i, t/MOVE_SPEED);<br>
+					game.player.pj = lerp(game.player.oldJ, game.player.j, t/MOVE_SPEED);<br>
+				}</p>
+<p>				if (t &gt;= MOVE_SPEED){<br>
+					game.player.pi = game.player.i;<br>
+					game.player.pj = game.player.j;<br>
+					game.player.oldI = game.player.i;<br>
+					game.player.oldJ = game.player.j;<br>
+					game.player.isMoving = false;<br>
+					game.state = UPDATING_MONSTERS;<br>
+					game.clock.restart();</p>
+<p>					// We now update all monsters<br>
+					for(auto&amp; monster: game.monsters){<br>
+						// Monsters move randomly<br>
+						// and sometimes stay still<br>
+						double random = (1.0*rand())/RAND_MAX;<br>
+						if (random &gt; 0.6){<br>
+							// stay still<br>
+							continue;<br>
+						}</p>
+<p>						// Here’s a list of possible directions (di,dj)<br>
+						static const int DIRS[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};</p>
+<p>						// randomly index into the list<br>
+						int randomDirIndex = rand()%4;</p>
+<p>						// And then try each direction in turn<br>
+						for(int dir=0;dir&lt;4;dir++){
+							int index = (dir + randomDirIndex)%4;
+							int di = DIRS[index][0];
+							int dj = DIRS[index][1];
+							int i = monster.i + di;
+							int j = monster.j + dj;
+						
+							// Check targe tile for collision
+							bool collision = false;
+							Tile t = game.map.tile(i,j);
+							switch (t){
+								case TILE_WATER: case TILE_INVALID: collision = true; break;
+								default: break;
+							}
+							collision = collision || isPlayerHere(game, i, j) || isMonsterHere(game, i, j);
+
+							if (!collision){
+								// Can move there
+								monster.oldI = monster.i;
+								monster.oldJ = monster.j;
+								monster.i = i;
+								monster.j = j;
+								monster.isMoving = true;
+								break;
+							}
+						}						
+					}
+				}
+				break;								  
+			}
+		case UPDATING_MONSTERS:
+			{
+				static const float MOVE_SPEED = 0.4f; // seconds it takes a zombie to move
+				float t = game.clock.getElapsedTime().asSeconds();
+				t = min(MOVE_SPEED, t);
+				for(auto&amp; monster: game.monsters){
+					if (monster.isMoving){
+						monster.pi = lerp(monster.oldI, monster.i, t/MOVE_SPEED);
+						monster.pj = lerp(monster.oldJ, monster.j, t/MOVE_SPEED);
+					}
+				}
+				if (t &gt;= MOVE_SPEED){<br>
+					for(auto&amp; monster: game.monsters){<br>
+						monster.oldI = monster.i;<br>
+						monster.oldJ = monster.j;<br>
+						monster.isMoving = false;<br>
+					}<br>
+					game.state = WAITING_FOR_PLAYER_INPUT;<br>
+					game.clock.restart();<br>
+				}<br>
+				break;<br>
+			}<br>
+		}</p>
+<p>		// Draw<br>
+        window.clear(sf::Color::Black);</p>
+<p>		// Draw map<br>
+		for(int i=0;i<tiles_wide;i++){ for(int="" j="0;j&lt;TILES_HIGH;j++){" sf::rectangleshape="" tilerectangle(sf::vector2f(tile_width,="" tile_height));="" convert="" i,j="" to="" top-left="" screen="" position="" of="" this="" tile="" int="" x="i" *="" tile_width;="" y="j" tile_height;="" tilerectangle.setposition(x,="" y);="" set="" rect="" colour="" based="" on="" type="" sf::color="" colour;="" switch="" (tile){="" case="" tile_dirt:="" break;="" tile_water:="" default:="" }="" tilerectangle.setfillcolor(colour);="" window.draw(tilerectangle);="" draw="" player="" {="" static="" const="" player_size="TILE_WIDTH/2;" playerrectangle(sf::vector2f(player_size,="" player_size));="" tile_width="" +="" (tile_width="" -="" player_size)="" 2;="" tile_height="" (tile_height="" playerrectangle.setposition(x,="" playerrectangle.setfillcolor(sf::color::white);="" window.draw(playerrectangle);="" monsters="" for(auto="" monster:="" game.monsters){="" monster_size="TILE_WIDTH" 10;="" monsterrectangle(sf::vector2f(monster_size,="" monster_size));="" monster_size)="" monsterrectangle.setposition(x,="" choose="" color;="" if="" (monster.type="=RED_ZOMBIE)" color="sf::Color::Red;" else="" monsterrectangle.setfillcolor(color);="" window.draw(monsterrectangle);="" window.display();="" return="" 0;="" [="" cpp]="" <="" p="">
+			</tiles_wide;i++){></p></div>	
+</div>
+
+
+<!--
+<div id='discourse-comments'></div>
+
+<script type="text/javascript">
+  DiscourseEmbed = { discourseUrl: 'http://discuss.moonman.io/',
+                     discourseEmbedUrl: 'https://bp.io/post/1609' };
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+-->
+
+<!-- ?php monospace_navigation(); ? -->
+		</div> <!-- #container -->
+
+		<div id="footer">
+            
+            <div id="credits">
+		<span>A post by <a href="http://twitter.com/eigenbom">@eigenbom</a></span>.
+            </div>
+
+		</div>
+
+        <script type="text/javascript">
+jQuery(document).ready(function(){
+   jQuery('pre code').each(function(i, e) {
+    hljs.highlightBlock(e, '    ')
+   });
+});
+</script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/shCore.js.download"></script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/shBrushCpp.js.download"></script>
+<script type="text/javascript">//<![CDATA[
+SyntaxHighlighter.all();
+//]]></script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/comment-reply.min.js.download"></script>
+<script type="text/javascript" src="./A basic tile-based game in SFML _ BP _ I make video games._files/wp-embed.min.js.download"></script>
+	</div> <!-- #wrap -->
+
+</body><script type="text/javascript">(function (canvas, canvasfont, audioblock, battery, webgl, webrtcdevice, gamepad, webvr, timezone, clientrects, clipboard){
+		function processFunctions(scope) {
+			/* Canvas */
+			/*if (canvas != 'false') {
+				var fakecanvas = scope.document.createElement('canvas');
+				fakecanvas.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_canvas';
+				if (canvas == 'random') {
+					var fakewidth = fakecanvas.width = Math.floor(Math.random() * 999) + 1;
+					var fakeheight = fakecanvas.height = Math.floor(Math.random() * 999) + 1;
+				}
+				var canvas_a = scope.HTMLCanvasElement;
+				var origToDataURL = canvas_a.prototype.toDataURL;
+				var origToBlob = canvas_a.prototype.toBlob;
+				canvas_a.prototype.toDataURL = function() {
+					fakecanvas.title = 'toDataURL';
+					document.documentElement.appendChild(fakecanvas);
+					if (canvas == 'block') return false;
+					else if (canvas == 'blank') {
+						fakecanvas.width = this.width;
+						fakecanvas.height = this.height;
+						return origToDataURL.apply(fakecanvas, arguments);
+					} else if (canvas == 'random') {
+						return origToDataURL.apply(fakecanvas, arguments);
+					}
+				};
+				canvas_a.prototype.toBlob = function() {
+					fakecanvas.title = 'toBlob';
+					document.documentElement.appendChild(fakecanvas);
+					if (canvas == 'block') return false;
+					else if (canvas == 'blank') {
+						fakecanvas.width = this.width;
+						fakecanvas.height = this.height;
+						return origToBlob.apply(fakecanvas, arguments);
+					} else if (canvas == 'random') {
+						return origToBlob.apply(fakecanvas, arguments);
+					}
+				};
+				var canvas_b = scope.CanvasRenderingContext2D;
+				var origGetImageData = canvas_b.prototype.getImageData;
+				canvas_b.prototype.getImageData = function() {
+					fakecanvas.title = 'getImageData';
+					document.documentElement.appendChild(fakecanvas);
+					if (canvas == 'block') return false;
+					else if (canvas == 'blank') {
+						fakecanvas.width = this.width;
+						fakecanvas.height = this.height;
+						return origGetImageData.apply(fakecanvas.getContext('2d'), arguments);
+					} else if (canvas == 'random') {
+						return origGetImageData.apply(fakecanvas.getContext('2d'), [Math.floor(Math.random() * fakewidth) + 1, Math.floor(Math.random() * fakeheight) + 1, Math.floor(Math.random() * fakewidth) + 1, Math.floor(Math.random() * fakeheight) + 1]);
+					}
+				}
+				var origGetLineDash = canvas_b.prototype.getLineDash;
+				canvas_b.prototype.getLineDash = function() {
+					fakecanvas.title = 'getLineDash';
+					document.documentElement.appendChild(fakecanvas);
+					if (canvas == 'block') return false;
+					else if (canvas == 'blank') {
+						fakecanvas.width = this.width;
+						fakecanvas.height = this.height;
+						return origGetLineDash.apply(fakecanvas.getContext('2d'), [0, 0]);
+					} else if (canvas == 'random') {
+						return origGetLineDash.apply(fakecanvas.getContext('2d'), [Math.floor(Math.random() * fakewidth) + 1, Math.floor(Math.random() * fakeheight) + 1]);
+					}
+				}
+				var canvas_c = scope.WebGLRenderingContext;
+				var origReadPixels = canvas_c.prototype.readPixels;
+				canvas_c.prototype.readPixels = function() {
+					fakecanvas.title = 'readPixels';
+					document.documentElement.appendChild(fakecanvas);
+					if (canvas == 'block') return false;
+					else if (canvas == 'blank') {
+						fakecanvas.width = this.width;
+						fakecanvas.height = this.height;
+						return origReadPixels.apply(fakecanvas.getContext('webgl'), arguments);
+					} else if (canvas == 'random') {
+						return origReadPixels.apply(fakecanvas.getContext('webgl'), [Math.floor(Math.random() * fakewidth) + 1, Math.floor(Math.random() * fakeheight) + 1, Math.floor(Math.random() * fakewidth) + 1, Math.floor(Math.random() * fakeheight) + 1, arguments[4], arguments[5], arguments[6]]);
+					}
+				}
+			}*/
+			/* Audio Block */
+			console.log("audioblock"+audioblock);
+			if (audioblock == 'true') {
+				var audioblock_triggerblock = scope.document.createElement('div');
+				audioblock_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_audio';
+				var audioblock_a = scope.AudioBuffer;
+				audioblock_a.prototype.copyFromChannel = function() {
+					audioblock_triggerblock.title = 'copyFromChannel';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				audioblock_a.prototype.getChannelData = function() {
+					audioblock_triggerblock.title = 'getChannelData';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				var audioblock_b = scope.AnalyserNode;
+				audioblock_b.prototype.getFloatFrequencyData = function() {
+					audioblock_triggerblock.title = 'getFloatFrequencyData';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				audioblock_b.prototype.getByteFrequencyData = function() {
+					audioblock_triggerblock.title = 'getByteFrequencyData';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				audioblock_b.prototype.getFloatTimeDomainData = function() {
+					audioblock_triggerblock.title = 'getFloatTimeDomainData';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				audioblock_b.prototype.getByteTimeDomainData = function() {
+					audioblock_triggerblock.title = 'getByteTimeDomainData';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				var audioblock_c = scope;
+				audioblock_c.AudioContext = function() {
+					audioblock_triggerblock.title = 'AudioContext';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+				audioblock_c.webkitAudioContext = function() {
+					audioblock_triggerblock.title = 'webkitAudioContext';
+					document.documentElement.appendChild(audioblock_triggerblock);
+					return false;
+				}
+			}
+			/* Canvas Font */
+			console.log("canvasfont = "+canvasfont);
+			if (canvasfont == 'true') {
+				var canvasfont_triggerblock = scope.document.createElement('div');
+				canvasfont_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_canvasfont';
+				var canvasfont_a = scope.CanvasRenderingContext2D;
+				canvasfont_a.prototype.measureText = function() {
+					canvasfont_triggerblock.title = 'measureText';
+					document.documentElement.appendChild(canvasfont_triggerblock);
+					return false;
+				}
+			}
+			/* Battery */
+			if (battery == 'true') {
+				var battery_triggerblock = scope.document.createElement('div');
+				battery_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_battery';
+				var battery_a = scope.navigator;
+				battery_a.getBattery = function() {
+					battery_triggerblock.title = 'getBattery';
+					document.documentElement.appendChild(battery_triggerblock);
+					return void(0);
+				}
+			}
+			/* WebGL */
+			/*if (webgl == 'true') {
+				var webgl_triggerblock = scope.document.createElement('div');
+				webgl_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_webgl';
+				var webgl_a = scope.WebGLRenderingContext;
+				webgl_a.getSupportedExtensions = function() {
+					webgl_triggerblock.title = 'getSupportedExtensions';
+					document.documentElement.appendChild(webgl_triggerblock);
+					return false;
+				}
+				webgl_a.getParameter = function() {
+					webgl_triggerblock.title = 'getParameter';
+					document.documentElement.appendChild(webgl_triggerblock);
+					return false;
+				}
+				webgl_a.getContextAttributes = function() {
+					webgl_triggerblock.title = 'getContextAttributes';
+					document.documentElement.appendChild(webgl_triggerblock);
+					return false;
+				}
+				webgl_a.getShaderPrecisionFormat = function() {
+					webgl_triggerblock.title = 'getShaderPrecisionFormat';
+					document.documentElement.appendChild(webgl_triggerblock);
+					return false;
+				}
+				webgl_a.getExtension = function() {
+					webgl_triggerblock.title = 'getExtension';
+					document.documentElement.appendChild(webgl_triggerblock);
+					return false;
+				}
+			}
+			/* WebRTC */
+			/*if (webrtcdevice == 'true') {
+				var webrtc_triggerblock = scope.document.createElement('div');
+				webrtc_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_webrtc';
+				var webrtc_a = scope.MediaStreamTrack;
+				webrtc_a.getSources = function() {
+					webrtc_triggerblock.title = 'getSources';
+					document.documentElement.appendChild(webrtc_triggerblock);
+					return false;
+				}
+				webrtc_a.getMediaDevices = function() {
+					webrtc_triggerblock.title = 'getMediaDevices';
+					document.documentElement.appendChild(webrtc_triggerblock);
+					return false;
+				}
+				var webrtc_b = scope.navigator.mediaDevices;
+				webrtc_b.enumerateDevices = function() {
+					webrtc_triggerblock.title = 'enumerateDevices';
+					document.documentElement.appendChild(webrtc_triggerblock);
+					return false;
+				}
+			}
+			/* Gamepad */
+			/*if (gamepad == 'true') {
+				var gamepad_triggerblock = scope.document.createElement('div');
+				gamepad_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_gamepad';
+				var gamepad_a = scope.navigator;
+				gamepad_a.getGamepads = function() {
+					gamepad_triggerblock.title = 'getGamepads';
+					document.documentElement.appendChild(gamepad_triggerblock);
+					return false;
+				}
+			}
+			/* WebVR */
+			/*if (webvr == 'true') {
+				var webvr_triggerblock = scope.document.createElement('div');
+				webvr_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_webvr';
+				var webvr_a = scope.navigator;
+				webvr_a.getVRDisplays = function() {
+					webvr_triggerblock.title = 'getVRDisplays';
+					document.documentElement.appendChild(webvr_triggerblock);
+					return false;
+				}
+			}
+			/* Client Rectangles */
+			/*if (clientrects == 'true') {
+				var clientrects_triggerblock = scope.document.createElement('div');
+				clientrects_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_clientrects';
+				Element.prototype.getClientRects = function() {
+					clientrects_triggerblock.title = 'getClientRects';
+					document.documentElement.appendChild(clientrects_triggerblock);
+					return [{'top': 0, 'bottom': 0, 'left': 0, 'right': 0, 'height': 0, 'width': 0}];
+				}
+			}
+			/* Timezone */
+			/*if (timezone != 'false') {
+				var timezone_triggerblock = scope.document.createElement('div');
+				timezone_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_timezone';
+				var timezone_a = scope.Date;
+				timezone_a.prototype.getTimezoneOffset = function() {
+					timezone_triggerblock.title = 'getTimezoneOffset';
+					document.documentElement.appendChild(timezone_triggerblock);
+					if (timezone == 'random') return ['720','660','600','570','540','480','420','360','300','240','210','180','120','60','0','-60','-120','-180','-210','-240','-270','-300','-330','-345','-360','-390','-420','-480','-510','-525','-540','-570','-600','-630','-660','-720','-765','-780','-840'][Math.floor(Math.random() * 39)];
+					return timezone;
+				}
+			}
+			/* Clipboard */
+			/*if (clipboard == 'true') {
+				var clipboard_triggerblock = scope.document.createElement('div');
+				clipboard_triggerblock.className = 'browsesafe_heedlljjfegnjeijpnkbhpofeejflkea_clipboard';
+				var clipboard_a = document;
+				var origExecCommand = clipboard_a.execCommand;
+				clipboard_a.execCommand = function() {
+					clipboard_triggerblock.title = 'execCommand';
+					document.documentElement.appendChild(clipboard_triggerblock);
+					if (arguments[0] == 'cut' || arguments[0] == 'copy') return false;
+					return origExecCommand.apply(this, arguments);
+				};
+			}*/
+		}
+		processFunctions(window);
+		var iwin = HTMLIFrameElement.prototype.__lookupGetter__('contentWindow'), idoc = HTMLIFrameElement.prototype.__lookupGetter__('contentDocument');
+		Object.defineProperties(HTMLIFrameElement.prototype, {
+			contentWindow: {
+				get: function() {
+					var frame = iwin.apply(this);
+					if (this.src && this.src.indexOf('//') != -1 && location.host != this.src.split('/')[2]) return frame;
+					try { frame.HTMLCanvasElement } catch (err) { /* do nothing*/ }
+					processFunctions(frame);
+					return frame;
+				}
+			},
+			contentDocument: {
+				get: function() {
+					if (this.src && this.src.indexOf('//') != -1 && location.host != this.src.split('/')[2]) return idoc.apply(this);
+					var frame = iwin.apply(this);
+					try { frame.HTMLCanvasElement } catch (err) { /* do nothing*/ }
+					processFunctions(frame);
+					return idoc.apply(this);
+				}
+			}
+		});
+	})('undefined','true','true','true','undefined','undefined','undefined','undefined','undefined','undefined','undefined');</script></html>
