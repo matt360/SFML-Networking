@@ -23,6 +23,7 @@ public:
 		sf::UdpSocket* udp_socket, 
 		sf::IpAddress* ip, 
 		unsigned short *port_number,
+		sf::Clock* clock,
 		sf::Int32* current_time);
 	~GameClient();
 
@@ -43,6 +44,7 @@ private:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	sf::Clock* clock;
 	sf::Int32* current_time;
 	std::queue<sf::Vector2f> local_positions;
 	std::queue<sf::Vector2f> network_positions;

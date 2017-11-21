@@ -41,8 +41,8 @@ void main(int argc, char** argv[])
 	Network network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
 	NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
 	NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &current_time);
-	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &current_time);
-	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &current_time);
+	GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
+	GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &current_time);
 	
 	//direction dir = direction::left;
 	
@@ -145,27 +145,31 @@ void main(int argc, char** argv[])
 		{
 		case (GameState::MENU) :
 			menu.handleInput();
+			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
 			menu.update();
 			menu.render();
 			break;
 
 		case (GameState::NETWORK) :
 			network.handleInput();
-			// create socket and 
+			// handle socket
+			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
 			network.update();
 			network.render();
 			break;
 
 		case (GameState::NETWORK_SERVER):
 			network_server.handleInput();
-			// create socket and 
+			// establish connection with the client
+			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
 			network_server.update();
 			network_server.render();
 			break;
 
 		case (GameState::NETWORK_CLIENT):
 			network_client.handleInput();
-			// create socket and 
+			// establish connection with the server
+			std::cout << "\n\ncurrent time: " << current_time << "\n\n";
 			network_client.update();
 			network_client.render();
 			break;

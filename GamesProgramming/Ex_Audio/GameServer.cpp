@@ -7,6 +7,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
 	unsigned short *port_number,
+	sf::Clock* cl,
 	sf::Int32 *cur_time)
 {
 	window = hwnd;
@@ -15,6 +16,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd,
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
+	clock = cl;
 	current_time = cur_time;
 	// 
 	fps = 0;
@@ -223,16 +225,8 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 	player_message_send.id = 0;
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
-
-	// TODO check time stamping
-	//SYSTEMTIME system_time;
-	SYSTEMTIME local_time;
-
-	//GetSystemTime(&system_time);
-	GetLocalTime(&local_time);
 	
-	//player_message_send.time = system_time.wMilliseconds;
-	player_message_send.time = local_time.wMilliseconds;
+	player_message_send.time = clock->getElapsedTime().asMilliseconds();
 }
 
 //////////////////////////////////////////////////////////

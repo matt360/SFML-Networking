@@ -181,7 +181,7 @@ void NetworkServer::update()
 	establishConnectionWithClient();
 
 	*current_time = server_time - client_time;
-	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
+	/*std::cout << "\n\ncurrent time: " << *current_time << "\n\n";*/
 
 	if (readyToPlay)
 	{

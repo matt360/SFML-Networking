@@ -7,6 +7,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	sf::UdpSocket* udp_socket, 
 	sf::IpAddress* ip, 
 	unsigned short *port_number,
+	sf::Clock* cl,
 	sf::Int32 *cur_time)
 {
 	window = hwnd;
@@ -15,6 +16,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	ip_address = ip;
 	port = port_number;
 	state = st;
+	clock = cl;
 	current_time = cur_time;
 
 	fps = 0;
@@ -221,14 +223,7 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.x = player.getPosition().x;
 	player_message_send.y = player.getPosition().y;
 	
-	//SYSTEMTIME system_time;
-	SYSTEMTIME local_time;
-
-	//GetSystemTime(&system_time);
-	GetLocalTime(&local_time);
-
-	//player_message_send.time = system_time.wMilliseconds;
-	player_message_send.time = local_time.wMilliseconds;
+	player_message_send.time = clock->getElapsedTime().asMilliseconds();
 
 	/*time_t rawtime;
 	struct tm * timeinfo;
