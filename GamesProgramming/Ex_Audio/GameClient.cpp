@@ -235,7 +235,7 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.y = player.getPosition().y;
 	
 	//player_message_send.time = c_s;
-	player_message_send.time = 1.0f;
+	player_message_send.time = (float)getCurrentTime();
 
 	/*time_t rawtime;
 	struct tm * timeinfo;
@@ -328,8 +328,8 @@ void GameClient::checkForIncomingPackets()
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 
-			if (network_positions.size() > 1) network_positions.pop();
-				network_positions.push(player_message_receive);
+			if (network_positions.size() > 1) network_positions.pop_back();
+				network_positions.push_front(player_message_receive);
 			
 			/*if (network_positions.size() == 3)
 			{
@@ -445,8 +445,8 @@ void GameClient::update()
 	// - the predicted position at the current time, in "x_" and "y_"
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	float x_average_velocity, y_average_velocity;
-	PlayerMessage msg0 = network_positions.front(); 
-	PlayerMessage msg1 = network_positions.back(); 
+	PlayerMessage msg0 = network_positions.at(0); 
+	PlayerMessage msg1 = network_positions.at(1); 
 	float time = getCurrentTime();
 
 	//// average velocity = (recieved_position - last_position) / (recieved_time - last_time)

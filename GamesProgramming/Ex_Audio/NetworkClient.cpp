@@ -212,10 +212,9 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 
 void NetworkClient::establishConnectionWithServer()
 {
-	
-
 	// send message to the server...
-	if (send_packet) {
+	if (send_packet) 
+	{
 		// start timing latency
 		start_timing_latency = (sf::Int32)clock->getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";

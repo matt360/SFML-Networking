@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <string.h>
 #include <queue>
+#include <deque>
 #include <mutex>
 #include "Player.h"
 #include "AnimatedSprite.h"
@@ -47,7 +48,7 @@ private:
 	sf::Clock* clock;
 	sf::Int32* offset;
 	std::queue<PlayerMessage> local_positions;
-	std::queue<PlayerMessage> network_positions;
+	std::deque<PlayerMessage> network_positions;
 
 	void sendPacket();
 	void checkForIncomingPackets();
