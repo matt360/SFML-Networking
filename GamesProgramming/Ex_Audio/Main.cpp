@@ -8,6 +8,7 @@
 #include "NetworkClient.h"
 #include "State.h"
 #include "States.h"
+#include "StateHandler.h"
 
 void main(int argc, char** argv[])
 {
@@ -31,30 +32,30 @@ void main(int argc, char** argv[])
 	//float deltaTime;
 	sf::Int32 offset = 0;
 
-	// set the initial game state
-	GameState state = GameState::MENU;
+	// set the initial game game_state
+	GameState game_state = GameState::MENU;
 	NetworkState network_state = NetworkState::NONE;
 	
 	bool pause = false;
 	bool debug_mode = false;
 	Input input;
 
-	State* menu = new Menu(&window, &input, &state);
-	//Menu menu(&window, &input, &state);
-	State* network = new Network(&window, &input, &state, &network_state, &socket, &ip_address, &port);
-	//NetworkServer network_server(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	State* network_server = new NetworkServer(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	//NetworkClient network_client(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	State* network_client = new NetworkClient(&window, &input, &state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	//GameServer game_server(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
-	State* game_server = new GameServer(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
-	//GameClient game_client(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
-	State* game_client = new GameClient(&window, &input, &state, &socket, &ip_address, &port, &clock, &offset);
+	// game_state handler
+	State* state = new StateHandler();
+
+	State* menu = new Menu(&window, &input, &game_state);
+	//Menu menu(&window, &input, &game_state);
+	State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
+	//NetworkServer network_server(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	//NetworkClient network_client(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	//GameServer game_server(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+	State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+	//GameClient game_client(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+	State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	
 	//direction dir = direction::left;
-	// TODO
-	//float latency = 10.0f;
-	//clock += latency;
 
 	//sf::Texture mushroomTexture;
 	//mushroomTexture.loadFromFile("Mushroom.png");
@@ -124,17 +125,17 @@ void main(int argc, char** argv[])
 
 			if (pause)
 			{
-				state = GameState::PAUSE;
+				game_state = GameState::PAUSE;
 			}
 			else
 			{
-				switch (state)
+				switch (game_state)
 				{
 				case (GameState::GAME_CLIENT):
-					state = GameState::GAME_CLIENT;
+					game_state = GameState::GAME_CLIENT;
 					break;
 				case (GameState::GAME_SERVER):
-					state = GameState::GAME_SERVER;
+					game_state = GameState::GAME_SERVER;
 					break;
 				}
 			}
@@ -145,68 +146,44 @@ void main(int argc, char** argv[])
 		// deltaTime = clock.restart().asSeconds();
 
 		// game loop
-		// Update/Render object based on current game state
+		// Update/Render object based on current game game_state
 
-		// abstract state class to be inherited by the state classes
-		// put rendering into state classes
+		// abstract game_state class to be inherited by the game_state classes
+		// put rendering into game_state classes
 		// put networing into networking classes
-		
 
-		switch (state)
+		switch (game_state)
 		{
 		case (GameState::MENU) :
-			menu->handleInput();
-			menu->update();
-			menu->render();
+			state = menu;
 			break;
-
 		case (GameState::NETWORK) :
-			network->handleInput();
-			// handle socket
-			network->update();
-			network->render();
+			state = network;
 			break;
-
+		// establish connection with the client
 		case (GameState::NETWORK_SERVER):
-			network_server->handleInput();
-			// establish connection with the client
-			network_server->update();
-			network_server->render();
+			state = network_server;
 			break;
-
 		case (GameState::NETWORK_CLIENT):
-			network_client->handleInput();
-			// establish connection with the server
-			network_client->update();
-			network_client->render();
+			state = network_client;
 			break;
 
 		case(GameState::GAME_SERVER):
-			game_server->handleInput();
-			// do a non blocking receive - put socket into non blocking mode when it's being created
-			// queue of messages to send, put message into the queue when ready to send, non-blocking send
-			//socket(); 
-			game_server->update();
-			game_server->render();
+			state = game_server;
 			break;
 
 		case(GameState::GAME_CLIENT):
-			game_client->handleInput();
-			// do a non blocking receive - put socket into non blocking mode when it's being created
-			// queue of messages to send, put message into the queue when ready to send, non-blocking send
-			//socket(); 
-			game_client->update();
-			game_client->render();
+			state = game_client;
 			break;
 
 		case(GameState::PAUSE) :
-			switch (state)
+			switch (game_state)
 			{
 			case (GameState::GAME_CLIENT):
-				game_client->render();
+				state = game_client;
 				break;
 			case (GameState::GAME_SERVER):
-				game_server->render();
+				state = game_server;
 				break;
 			}
 			break;
@@ -216,5 +193,9 @@ void main(int argc, char** argv[])
 			break;
 		}
 
+		// Play the game
+		state->handleInput();
+		state->update();
+		state->render();
 	}
 }
