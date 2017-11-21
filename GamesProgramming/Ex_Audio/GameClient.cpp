@@ -528,9 +528,9 @@ void GameClient::update()
 		sf::Vector2f local_path = predict_local_path();
 		sf::Vector2f network_path = predict_network_path();
 		//lerp
-		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.5f);
+		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1f);
 		// set position
-		player.setPosition(network_path);
+		player.setPosition(lerp_position);
 
 		// add lerped to the history of the local posistions
 		//keepTrackOfLocalPositoins(lerp_position);
