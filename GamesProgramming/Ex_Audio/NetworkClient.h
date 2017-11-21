@@ -32,6 +32,8 @@ public:
 	sf::Int32 latency;
 	sf::Int32 getCurrentTime();
 
+	bool send_packet;
+
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();
@@ -49,6 +51,7 @@ private:
 	NetworkState* network_state;
 	sf::Clock* clock;
 	sf::Int32* offset;
+	sf::Int32 server_time;
 	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;

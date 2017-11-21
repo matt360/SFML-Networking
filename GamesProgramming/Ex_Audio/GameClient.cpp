@@ -8,7 +8,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	sf::IpAddress* ip, 
 	unsigned short *port_number,
 	sf::Clock* cl,
-	sf::Int32 *cur_time)
+	sf::Int32 *of)
 {
 	window = hwnd;
 	input = in;
@@ -17,7 +17,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	port = port_number;
 	state = st;
 	clock = cl;
-	current_time = cur_time;
+	offset = of;
 
 	fps = 0;
 
@@ -321,12 +321,18 @@ void GameClient::checkForIncomingPackets()
 			if (debug_message) displayMessage(player_message_receive);
 			// Deal with the messages from the packet
 			// Put position into history of network positions
-			sf::Vector2f net_player_position(player_message_receive.x, player_message_receive.y);
 
 			if (network_positions.size() > 3) network_positions.pop();
-				network_positions.push(net_player_position);
+				network_positions.push(player_message_receive);
 			
-			player.setPosition(net_player_position);
+			/*if (network_positions.size() == 3)
+			{
+				for (int i = 0; i < 3; ++i)
+				{
+					vec_network_positions[i] = network_positions.front(); network_positions.pop();
+				}
+			}*/
+			//player.setPosition(net_player_position);
 		}
 	}
 }
@@ -420,20 +426,14 @@ void GameClient::update()
 	checkForIncomingPackets();
 	// end
 
-	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
+	std::cout << "\n\ncurrent time: " << *offset << "\n\n";
 
 	// TODO keep track of local positions
 
 	// TODO lerp
 
 	// TODO add lerp to local positions
-
-	/*const int msize = messages_.size();
-	assert(msize >= 3);
-	const TankMessage& msg0 = messages_[msize - 1];
-	const TankMessage& msg1 = messages_[msize - 2];
-	const TankMessage& msg2 = messages_[msize - 3];*/
-
+	
 	// FIXME: Implement prediction here!
 	// You have:
 	// - the history of position messages received, in "messages_"
@@ -442,15 +442,22 @@ void GameClient::update()
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
 
-	//float x_average_velocity, y_average_velocity;
+	float x_average_velocity, y_average_velocity;
+	PlayerMessage msg0 = network_positions.front(); network_positions.pop();
+	PlayerMessage msg1 = network_positions.front(); network_positions.pop();
+	float time = (float)(*offset);
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	//x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
-	//y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
+	x_average_velocity = (msg0.x - msg1.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.y - msg1.y) / (msg0.time - msg1.time);
 
 	// linear model
-	//x_ = x_average_velocity * (time - msg1.time) + msg1.x;
-	//y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+	float x_, y_;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
+
+	sf::Vector2f loc_player_pos(x_, y_);
+	player.setPosition(loc_player_pos);
 
 	//// quadratic model
 	//float 

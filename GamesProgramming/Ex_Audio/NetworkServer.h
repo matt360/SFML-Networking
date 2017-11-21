@@ -16,7 +16,7 @@ public:
 		sf::IpAddress* ip,
 		unsigned short *port_number,
 		sf::Clock* clock,
-		sf::Int32* current_time);
+		sf::Int32* offset);
 	~NetworkServer();
 
 	void handleInput();

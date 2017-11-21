@@ -8,7 +8,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd,
 	sf::IpAddress* ip,
 	unsigned short *port_number,
 	sf::Clock* cl,
-	sf::Int32 *cur_time)
+	sf::Int32 *of)
 {
 	window = hwnd;
 	input = in;
@@ -17,7 +17,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd,
 	ip_address = ip;
 	port = port_number;
 	clock = cl;
-	current_time = cur_time;
+	offset = of;
 	// 
 	fps = 0;
 
@@ -389,6 +389,6 @@ void GameServer::update()
 	// server should probably keep listening and sending all the time
 	runUdpServer();
 
-	std::cout << "\n\ncurrent time: " << *current_time << "\n\n";
+	std::cout << "\n\ncurrent time: " << *offset << "\n\n";
 }
 

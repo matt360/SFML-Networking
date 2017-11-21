@@ -23,7 +23,7 @@ public:
 		sf::IpAddress* ip,
 		unsigned short *port_number,
 		sf::Clock* clock,
-		sf::Int32* current_time);
+		sf::Int32* offset);
 	~GameServer();
 
 	void handleInput();
@@ -44,7 +44,7 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 	sf::Clock* clock;
-	sf::Int32* current_time;
+	sf::Int32* offset;
 
 	void runUdpServer();
 	void addMessage(PlayerMessage& player_message);

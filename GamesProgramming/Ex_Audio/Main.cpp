@@ -35,7 +35,7 @@ void main(int argc, char** argv[])
 	NetworkState network_state = NetworkState::NONE;
 	
 	bool pause = false;
-	bool debug_mode = true;
+	bool debug_mode = false;
 	Input input;
 
 	Menu menu(&window, &input, &state);

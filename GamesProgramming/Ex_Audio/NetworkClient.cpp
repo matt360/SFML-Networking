@@ -21,6 +21,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	clock = cl;
 	offset = of;
 
+	send_packet = true;
 	established_connection = false;
 	client_time = 0;
 	server_offset = 0;
@@ -99,9 +100,8 @@ void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, c
 
 sf::Int32 NetworkClient::getCurrentTime()
 {
-	client_time = clock->getElapsedTime().asMilliseconds();
-	*offset = server_offset;
-	return sf::Int32();
+	sf::Int32 current_time = clock->getElapsedTime().asMilliseconds();
+	return sf::Int32(current_time + (*offset));
 }
 
 ////////////////////////////////////////////////////////////
@@ -115,8 +115,8 @@ void NetworkClient::sendPacketToServer()
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	// Message to send
-	float connected = 1.0f;
-	packet_send << connected;
+	float hello = 1.0f;
+	packet_send << hello;
 
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket->send(packet_send, *ip_address, *port))
@@ -139,13 +139,12 @@ void NetworkClient::sendPacketToServer()
 
 	// DEBUG purposes
 	// Extract the variables contained in the packet
-	if (debug_message)
+	if (packet_send >> hello)
 	{
-		if (packet_send >> connected)
-		{
 			// Data extracted successfully...
-			if (debug_message) displaySendMessage(client_time);
-		}
+		if (debug_message) displaySendMessage(hello);
+		send_packet = false;
+		std::cout << "send_packet is false" << "\n";
 	}
 	/// don't need to clear the packet since all the local variables 
 	/// cease to exist once the function is over but it's good to 
@@ -190,33 +189,41 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		//sf::Int32 receive_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> (*offset) >> established_connection)
+		if (packet_receive >> server_time >> established_connection)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
 			if (debug_message) displayReceiveMessage(server_offset);
+
+			// end timing latency
+			end_timing_latency = (sf::Int32)clock->getElapsedTime().asMilliseconds();
+			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
+			latency = (end_timing_latency - start_timing_latency);
+			std::cout << "latency: " << latency << "\n";
+			// calculate server time
+			client_time = clock->getElapsedTime().asMilliseconds();
+			std::cout << "client_time: " << client_time << "\n";
+			// server_time from the message
+			(*offset) = server_time + 0.5 * latency - client_time;
+			std::cout << "offset: " << *offset << "\n";
 		}
 	}
 }
 
 void NetworkClient::establishConnectionWithServer()
 {
-	// start timing latency
-	start_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
+	
 
 	// send message to the server...
-	sendPacketToServer();
+	if (send_packet) {
+		// start timing latency
+		start_timing_latency = (sf::Int32)clock->getElapsedTime().asMilliseconds();
+		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
+		sendPacketToServer();
+	}
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer();
-
-	// end timing latency
-	end_timing_latency = (sf::Int32)clock->getElapsedTime().asMicroseconds();
-	latency = (end_timing_latency - start_timing_latency);
-	// calculate server time
-	(*offset) += 0.5 * latency;
-
-	std::cout << "latency: " << latency << "\n";
 }
 
 void NetworkClient::update()
@@ -224,7 +231,11 @@ void NetworkClient::update()
 	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 
 	if (!established_connection)
+	{
 		establishConnectionWithServer();
+		std::cout << "function call: establishConnectionWithServer()\n";
+		std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+	}
 
 	if (readyToPlay && established_connection)
 	{

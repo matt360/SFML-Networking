@@ -24,7 +24,7 @@ public:
 		sf::IpAddress* ip, 
 		unsigned short *port_number,
 		sf::Clock* clock,
-		sf::Int32* current_time);
+		sf::Int32* offset);
 	~GameClient();
 
 	void handleInput();
@@ -45,9 +45,9 @@ private:
 	sf::IpAddress* ip_address;
 	unsigned short* port;
 	sf::Clock* clock;
-	sf::Int32* current_time;
-	std::queue<sf::Vector2f> local_positions;
-	std::queue<sf::Vector2f> network_positions;
+	sf::Int32* offset;
+	std::queue<PlayerMessage> local_positions;
+	std::queue<PlayerMessage> network_positions;
 
 	void sendPacket();
 	void checkForIncomingPackets();
