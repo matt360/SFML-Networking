@@ -143,7 +143,7 @@ void NetworkServer::establishConnectionWithClient()
 	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();
 	packet_send << server_time << established_connection;
 	std::cout << "server_time: " << server_time << "\n";
-	sf::sleep(sf::milliseconds(1000));
+	//sf::sleep(sf::milliseconds(1000));
 	// Send it over the network
 	switch (socket->send(packet_send, sender, senderPort))
 	{
