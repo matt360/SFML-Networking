@@ -42,17 +42,11 @@ void main(int argc, char** argv[])
 
 	// game_state handler
 	State* state = new StateHandler();
-
 	State* menu = new Menu(&window, &input, &game_state);
-	//Menu menu(&window, &input, &game_state);
 	State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
-	//NetworkServer network_server(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
 	State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	//NetworkClient network_client(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
 	State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	//GameServer game_server(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
-	//GameClient game_client(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	
 	//direction dir = direction::left;
