@@ -49,6 +49,8 @@ private:
 	sf::Int32* offset;
 	const int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
 	std::deque<PlayerMessage> local_positions;
+	void keepTrackOfLocalPositoins();
+	void keepTrackOfLocalPositoins(sf::Vector2f& vec);
 	std::deque<PlayerMessage> network_positions;
 
 	sf::Vector2f predict_local_path();
@@ -102,3 +104,5 @@ private:
 	// My game variables
 	
 };
+
+

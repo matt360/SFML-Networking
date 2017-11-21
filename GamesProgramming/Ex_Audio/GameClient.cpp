@@ -259,11 +259,31 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.time = timeinfo->tm_sec;*/
 }
 
+void GameClient::keepTrackOfLocalPositoins()
+{
+	PlayerMessage local_message;
+	// local message
+	local_message.x = player.getPosition().x;
+	local_message.y = player.getPosition().y;
+	if (local_positions.size() > num_messages) local_positions.pop_back();
+	local_positions.push_front(local_message);
+}
+
+void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
+{
+	PlayerMessage local_message;
+	// local message
+	local_message.x = player.getPosition().x;
+	local_message.y = player.getPosition().y;
+	if (local_positions.size() > num_messages) local_positions.pop_back();
+	local_positions.push_front(local_message);
+}
+
 sf::Vector2f GameClient::predict_local_path()
 {
 	float x_average_velocity, y_average_velocity;
-	PlayerMessage msg0 = network_positions.at(0);
-	PlayerMessage msg1 = network_positions.at(1);
+	PlayerMessage msg0 = local_positions.at(0);
+	PlayerMessage msg1 = local_positions.at(1);
 	float time = getCurrentTime();
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
@@ -275,8 +295,9 @@ sf::Vector2f GameClient::predict_local_path()
 	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
 	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
 
-	sf::Vector2f net_player_pos(x_, y_);
-	return net_player_pos;
+	sf::Vector2f local_player_pos(x_, y_);
+
+	return local_player_pos;
 }
 
 sf::Vector2f GameClient::predict_network_path()
@@ -295,8 +316,8 @@ sf::Vector2f GameClient::predict_network_path()
 	x_ = x_average_velocity * (time - msg1.time) + msg1.x;
 	y_ = y_average_velocity * (time - msg1.time) + msg1.y;
 
-	sf::Vector2f net_player_pos(x_, y_);
-	return net_player_pos;
+	sf::Vector2f network_player_pos(x_, y_);
+	return network_player_pos;
 }
 
 ////////////////////////////////////////////////////////////
@@ -412,6 +433,9 @@ void GameClient::update()
 		hasStarted = true;
 	}
 
+	// TODO keep track of local positions
+	keepTrackOfLocalPositoins();
+
 	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
 		input->setKeyUp(sf::Keyboard::Up);
@@ -483,17 +507,6 @@ void GameClient::update()
 
 	checkForIncomingPackets();
 
-	// TODO keep track of local positions
-	PlayerMessage local_message;
-	// local message
-	local_message.x = player.getPosition().x;
-	local_message.y = player.getPosition().y;
-	if (local_positions.size() > num_messages) local_positions.pop_back();
-		local_positions.push_front(local_message);
-
-	// TODO lerp
-	
-
 	// TODO add lerp to local positions
 	
 
@@ -507,14 +520,16 @@ void GameClient::update()
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	if (network_positions.size() == 2)
 	{
-		sf::Vector2f net_position = network_prediction();
-
+		sf::Vector2f network_path = predict_network_path();
+		sf::Vector2f local_path = predict_local_path();
+		sf::Vector2f lerp_position;
 		//lerp
-
+		sf::Vector2f lerp_position = lerp(local_path, network_path, getCurrentTime());
 		// set position
-		player.setPosition(net_player_pos);
+		player.setPosition(lerp_position);
 
 		// add lerped to the history of the local posistions
+
 	}
 	if (network_positions.size() == 3) 
 	{
