@@ -237,6 +237,8 @@ void NetworkClient::update()
 		std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	}
 
+	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+
 	if (readyToPlay && established_connection)
 	{
 		// extra house keeping
