@@ -249,7 +249,7 @@ void GameClientState::update()
 	// send packets at 10Hz rate (at 10PFS)
 	//if ((int)fps % 6 == 0)
 	// send packets at 30Hz rate (at 30PFS)
-	if ((int)fps % 2 == 0)
+	//if ((int)fps % 2 == 0)
 		sendPacket(player, clock, offset);
 
 	checkForIncomingPackets();
