@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Network.hpp>
+#include <iostream>
 
 class Network
 {
@@ -16,5 +17,9 @@ protected:
 	// IP adrress to connect to
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
+
+	void displayReceiveMessage(sf::Int32 time);
+	void displaySendMessage(sf::Int32 time);
+	//void displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
 };
 

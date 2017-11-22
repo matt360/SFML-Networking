@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "MenuState.h"
-#include "NetworkState.h"
+#include "NetworkClient.h"
 #include "NetworkSelectState.h"
 #include "NetworkServerState.h"
 #include "NetworkClientState.h"

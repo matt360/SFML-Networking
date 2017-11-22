@@ -126,11 +126,11 @@
     <ClCompile Include="NetworkServerState.cpp">
       <Filter>Source Files\State Handlers\Network State Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkState.cpp">
-      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkClient.cpp">
+      <Filter>Source Files\Network\Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,11 +194,11 @@
     <ClInclude Include="NetworkServerState.h">
       <Filter>Header Files\State Handlers\Network State Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkState.h">
-      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
-    </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>Header Files\State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkClient.h">
+      <Filter>Header Files\Network\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
