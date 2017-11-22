@@ -21,11 +21,6 @@ private:
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 	//void moveMushroom();
 	//Window m_window;
-	sf::RenderWindow* window;
-	Input* input;
-	// Network //////////////////////
-	sf::Clock* clock;
-	sf::Int32* offset;
 
 	virtual void addMessage(PlayerMessage& player_message);
 	void runUdpServer();
