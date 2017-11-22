@@ -7,6 +7,7 @@ public:
 	Network() {};
 	~Network() {};
 
+protected:
 	// NETWORK /////////////////////
 	// socket
 	sf::UdpSocket socket;

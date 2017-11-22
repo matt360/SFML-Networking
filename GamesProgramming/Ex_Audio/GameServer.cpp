@@ -2,17 +2,11 @@
 
 GameServer::GameServer(sf::RenderWindow* hwnd,
 	Input* in,
-	sf::UdpSocket* udp_socket,
-	sf::IpAddress* ip,
-	unsigned short *port_number,
 	sf::Clock* cl,
 	sf::Int32 *of)
 {
 	window = hwnd;
 	input = in;
-	socket = udp_socket;
-	ip_address = ip;
-	port = port_number;
 	clock = cl;
 	offset = of;
 	// 
@@ -198,7 +192,7 @@ void GameServer::runUdpServer()
 	sf::Packet packet_receive;
 	sf::IpAddress sender;
 	unsigned short senderPort;
-	switch (socket->receive(packet_receive, sender, senderPort))
+	switch (socket.receive(packet_receive, sender, senderPort))
 	{
 		case sf::Socket::Done:
 			// Received a packet.
@@ -234,7 +228,7 @@ void GameServer::runUdpServer()
 	// Group the variables to send into a packet
 	packet_send << player_message_send;
 	// Send it over the network
-	switch (socket->send(packet_send, sender, senderPort))
+	switch (socket.send(packet_send, sender, senderPort))
 	{
 		case sf::Socket::Done:
 			// Received a packet.

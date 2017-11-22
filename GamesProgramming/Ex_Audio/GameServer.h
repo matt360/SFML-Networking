@@ -1,14 +1,12 @@
 #pragma once
-
+#include "Network.h"
 #include "GameState.h"
 
-class GameServer : public GameState {
+class GameServer : public GameState, public Network
+{
 public:
 	GameServer(sf::RenderWindow* hwnd,
 		Input* in,
-		sf::UdpSocket* udp_socket,
-		sf::IpAddress* ip,
-		unsigned short *port_number,
 		sf::Clock* clock,
 		sf::Int32* offset);
 	~GameServer();
@@ -26,9 +24,6 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	// Network //////////////////////
-	sf::UdpSocket *socket;
-	sf::IpAddress* ip_address;
-	unsigned short* port;
 	sf::Clock* clock;
 	sf::Int32* offset;
 

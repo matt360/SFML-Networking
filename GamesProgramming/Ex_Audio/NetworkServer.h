@@ -1,8 +1,9 @@
 #pragma once
 #include "Input.h"
+#include "Network.h"
 #include "NetworkState.h"
 
-class NetworkServer : public NetworkState
+class NetworkServer : public NetworkState, public Network
 {
 public:
 	NetworkServer(sf::RenderWindow* hwnd,

@@ -1,16 +1,15 @@
 #pragma once
 #include <deque>
+#include "Network.h"
 #include "GameState.h"
 
 // TODO It should be possible to go back from the client game state to client network state (GameClient -> NetworkClient)
 
-class GameClient : public GameState {
+class GameClient : public GameState, public Network 
+{
 public:
 	GameClient(sf::RenderWindow* hwnd, 
 		Input* in, 
-		sf::UdpSocket* udp_socket, 
-		sf::IpAddress* ip, 
-		unsigned short *port_number,
 		sf::Clock* clock,
 		sf::Int32* offset);
 	~GameClient();
@@ -28,9 +27,6 @@ private:
 	sf::RenderWindow* window;
 	Input* input;
 	// Network //////////////////////
-	sf::UdpSocket *socket; 
-	sf::IpAddress* ip_address;
-	unsigned short* port;
 	sf::Clock* clock;
 	sf::Int32* offset;
 	const int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
