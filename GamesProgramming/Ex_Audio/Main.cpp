@@ -32,7 +32,7 @@ void main(int argc, char** argv[])
 
 	// set the initial game game_state
 	GameState game_state = GameState::MENU;
-	NetworkState network_state = NetworkState::NONE;
+	NetworkStateEnum network_state = NetworkStateEnum::NONE;
 	
 	bool pause = false;
 	bool debug_mode = false;

@@ -4,7 +4,7 @@
 NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd,
 	Input* in,
 	GameState* st,
-	NetworkState* net_st,
+	NetworkStateEnum* net_st,
 	sf::UdpSocket* udp_socket, 
 	sf::IpAddress* ip, 
 	unsigned short* port_number)
@@ -53,7 +53,7 @@ void NetworkSelect::handleInput()
 		server = true;
 		// setting client to false let's us change the decision and to become the cleint
 		client = false;
-		*network_state = NetworkState::SERVER;
+		*network_state = NetworkStateEnum::SERVER;
 	}
 	// toggle being the client
 	if (input->isKeyDown(sf::Keyboard::C))
@@ -63,7 +63,7 @@ void NetworkSelect::handleInput()
 		client = true;
 		// setting server to false let's us change the decision and become the server
 		server = false;
-		*network_state = NetworkState::CLIENT;
+		*network_state = NetworkStateEnum::CLIENT;
 	}
 	// toggle debug mode to display socket messages
 	if (input->isKeyDown(sf::Keyboard::D))
@@ -152,10 +152,10 @@ void NetworkSelect::update()
 	{
 		switch (*network_state)
 		{
-		case (NetworkState::SERVER):
+		case (NetworkStateEnum::SERVER):
 			*state = GameState::NETWORK_SERVER;
 			break;
-		case (NetworkState::CLIENT):
+		case (NetworkStateEnum::CLIENT):
 			*state = GameState::NETWORK_CLIENT;
 			break;
 		default:

@@ -4,7 +4,7 @@
 #include "Input.h"
 #include <string.h>
 
-enum class NetworkState { CLIENT, SERVER, NONE };
+enum class NetworkStateEnum { CLIENT, SERVER, NONE };
 enum class GameState { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_CLIENT, GAME_SERVER, PAUSE, CREDITS };
 
 class State
@@ -24,7 +24,7 @@ protected:
 	sf::RenderWindow* window;
 	Input* input;
 	GameState* state;
-	NetworkState* network_state;
+	NetworkStateEnum* network_state;
 	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
