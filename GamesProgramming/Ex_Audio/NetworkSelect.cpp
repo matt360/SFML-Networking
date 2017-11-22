@@ -1,9 +1,8 @@
 #include "NetworkSelect.h"
 
-NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in) : Network()
+NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd) : Network()
 {
 	window = hwnd;
-	input = in;
 
 	ready = false;
 	server = false;
@@ -34,18 +33,18 @@ void NetworkSelect::render()
 
 void NetworkSelect::handleInput()
 {
-	if (input->isKeyDown(sf::Keyboard::Return))
+	if (input.isKeyDown(sf::Keyboard::Return))
 	{
-		input->setKeyUp(sf::Keyboard::Return);
+		input.setKeyUp(sf::Keyboard::Return);
 		// player ready to play
 		ready = true;
 	}	
 
 	// Client or server ?
 	// toggle being the server
-	if (input->isKeyDown(sf::Keyboard::S))
+	if (input.isKeyDown(sf::Keyboard::S))
 	{
-		input->setKeyUp(sf::Keyboard::S);
+		input.setKeyUp(sf::Keyboard::S);
 		// set readiness for being the server
 		server = true;
 		// setting client to false let's us change the decision and to become the cleint
@@ -53,9 +52,9 @@ void NetworkSelect::handleInput()
 		network_state = NetworkStateEnum::SERVER;
 	}
 	// toggle being the client
-	if (input->isKeyDown(sf::Keyboard::C))
+	if (input.isKeyDown(sf::Keyboard::C))
 	{
-		input->setKeyUp(sf::Keyboard::C);
+		input.setKeyUp(sf::Keyboard::C);
 		// set readiness for being the client
 		client = true;
 		// setting server to false let's us change the decision and become the server
@@ -63,15 +62,15 @@ void NetworkSelect::handleInput()
 		network_state = NetworkStateEnum::CLIENT;
 	}
 	// toggle debug mode to display socket messages
-	if (input->isKeyDown(sf::Keyboard::D))
+	if (input.isKeyDown(sf::Keyboard::D))
 	{
-		input->setKeyUp(sf::Keyboard::D);
+		input.setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
 	}
 	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
+	if (input.isKeyDown(sf::Keyboard::M))
 	{
-		input->setKeyUp(sf::Keyboard::M);
+		input.setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
 	}
 }

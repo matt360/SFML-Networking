@@ -20,7 +20,7 @@ public:
 	inline GameStateEnum getGameState() { return game_state; };
 protected:
 	sf::RenderWindow* window;
-	Input* input;
+	Input input;
 	// Network
 	sf::Clock* clock;
 	sf::Int32* offset;

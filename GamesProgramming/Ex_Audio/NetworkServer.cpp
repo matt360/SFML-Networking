@@ -1,12 +1,10 @@
 #include "NetworkServer.h"
 
 NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
-	Input* in,
 	sf::Clock* cl,
 	sf::Int32* of) : Network()
 {
 	window = hwnd;
-	input = in;
 	clock = cl;
 	offset = of;
 
@@ -43,23 +41,23 @@ void NetworkServer::render()
 
 void NetworkServer::handleInput()
 {
-	if (input->isKeyDown(sf::Keyboard::Return))
+	if (input.isKeyDown(sf::Keyboard::Return))
 	{
-		input->setKeyUp(sf::Keyboard::Return);
+		input.setKeyUp(sf::Keyboard::Return);
 		// player ready to play
 		ready = true;
 	}
 
 	// toggle debug mode to display socket messages
-	if (input->isKeyDown(sf::Keyboard::D))
+	if (input.isKeyDown(sf::Keyboard::D))
 	{
-		input->setKeyUp(sf::Keyboard::D);
+		input.setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
 	}
 	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
+	if (input.isKeyDown(sf::Keyboard::M))
 	{
-		input->setKeyUp(sf::Keyboard::M);
+		input.setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
 	}
 }

@@ -24,6 +24,7 @@ void main(int argc, char** argv[])
 	//window.setPosition(sf::Vector2i(250, 250));
 	//window.setSize(sf::Vector2u(400, 400));
 	////////////////////////////////
+	Input input;
 
 	// DO NOT RESTART THE CLOCK!
 	sf::Clock clock;
@@ -32,15 +33,14 @@ void main(int argc, char** argv[])
 
 	bool pause = false;
 	bool debug_mode = false;
-	Input input;
 
 	// initial game state is set in the State class
-	State* state = new Menu(&window, &input);
-	State* network = new NetworkSelect(&window, &input);
-	State* network_server = new NetworkServer(&window, &input, &clock, &offset);
-	State* network_client = new NetworkClient(&window, &input, &clock, &offset);
-	State* game_server = new GameServer(&window, &input, &clock, &offset);
-	State* game_client = new GameClient(&window, &input, &clock, &offset);
+	State* state = new Menu(&window);
+	State* network = new NetworkSelect(&window);
+	State* network_server = new NetworkServer(&window,&clock, &offset);
+	State* network_client = new NetworkClient(&window,&clock, &offset);
+	State* game_server = new GameServer(&window, &clock, &offset);
+	State* game_client = new GameClient(&window, &clock, &offset);
 	
 	//direction dir = direction::left;
 

@@ -9,7 +9,6 @@ class GameClient : public GameState, public Network
 {
 public:
 	GameClient(sf::RenderWindow* hwnd, 
-		Input* in, 
 		sf::Clock* clock,
 		sf::Int32* offset);
 	~GameClient();
@@ -24,11 +23,9 @@ private:
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 	//void moveMushroom();
 	//Window m_window;
-	sf::RenderWindow* window;
-	Input* input;
 	// Network //////////////////////
-	sf::Clock* clock;
-	sf::Int32* offset;
+	/*sf::Clock* clock;
+	sf::Int32* offset;*/
 	const int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
 	std::deque<PlayerMessage> local_positions;
 	void keepTrackOfLocalPositoins();

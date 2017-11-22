@@ -1,12 +1,11 @@
 #pragma once
-#include "Input.h"
 #include "Network.h"
 #include "NetworkState.h"
 
 class NetworkSelect : public NetworkState, public Network
 {
 public:
-	NetworkSelect(sf::RenderWindow* hwnd, Input* in);
+	NetworkSelect(sf::RenderWindow* hwnd);
 	~NetworkSelect();
 
 	virtual void handleInput();

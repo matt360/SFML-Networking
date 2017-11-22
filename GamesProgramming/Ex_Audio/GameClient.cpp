@@ -1,12 +1,10 @@
 #include "GameClient.h"
 
 GameClient::GameClient(sf::RenderWindow* hwnd, 
-	Input* in, 
 	sf::Clock* cl,
 	sf::Int32 *of) : Network()
 {
 	window = hwnd;
-	input = in;
 	clock = cl;
 	offset = of;
 
@@ -32,7 +30,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	initial_player_message.position.y = initial_player_position.y;
 	local_positions.push_front(initial_player_message);
 	local_positions.push_back(initial_player_message);
-	player.setInput(input);
+	player.setInput(&input);
 	player.setVelocity(0, 10);
 
 	//window->setMouseCursorVisible(false);

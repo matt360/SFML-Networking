@@ -1,12 +1,10 @@
 #include "GameServer.h"
 
 GameServer::GameServer(sf::RenderWindow* hwnd,
-	Input* in,
 	sf::Clock* cl,
 	sf::Int32 *of) : Network()
 {
 	window = hwnd;
-	input = in;
 	clock = cl;
 	offset = of;
 	// 
@@ -27,7 +25,7 @@ GameServer::GameServer(sf::RenderWindow* hwnd,
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&texture);
 	player.setPosition(5, 5);
-	player.setInput(input);
+	player.setInput(&input);
 	player.setVelocity(0, 10);
 
 	//window->setMouseCursorVisible(false);
@@ -110,15 +108,15 @@ void GameServer::handleInput()
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
 
 	// toggle debug mode to display socket messages
-	if (input->isKeyDown(sf::Keyboard::D))
+	if (input.isKeyDown(sf::Keyboard::D))
 	{
-		input->setKeyUp(sf::Keyboard::D);
+		input.setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
 	}
 	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
+	if (input.isKeyDown(sf::Keyboard::M))
 	{
-		input->setKeyUp(sf::Keyboard::M);
+		input.setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
 	}
 }
@@ -273,39 +271,39 @@ void GameServer::update()
 		hasStarted = true;
 	}
 	
-	//if (input->isKeyDown(sf::Keyboard::Up))
+	//if (input.isKeyDown(sf::Keyboard::Up))
 	//{
-	//	input->setKeyUp(sf::Keyboard::Up);
+	//	input.setKeyUp(sf::Keyboard::Up);
 	//	//player.jump();
 	//	audioMgr.playSoundbyName("jump");
 	//}
 
 	player.update();
 
-	if (input->isKeyDown(sf::Keyboard::Num1))
+	if (input.isKeyDown(sf::Keyboard::Num1))
 	{
-		input->setKeyUp(sf::Keyboard::Num1);
+		input.setKeyUp(sf::Keyboard::Num1);
 		audioMgr.playSoundbyName("up");
 	}
 
-	if (input->isKeyDown(sf::Keyboard::Num2))
+	if (input.isKeyDown(sf::Keyboard::Num2))
 	{
-		input->setKeyUp(sf::Keyboard::Num2);
+		input.setKeyUp(sf::Keyboard::Num2);
 		audioMgr.playSoundbyName("getover");
 	}
-	if (input->isKeyDown(sf::Keyboard::Num3))
+	if (input.isKeyDown(sf::Keyboard::Num3))
 	{
-		input->setKeyUp(sf::Keyboard::Num3);
+		input.setKeyUp(sf::Keyboard::Num3);
 		audioMgr.playSoundbyName("glass");
 	}
-	if (input->isKeyDown(sf::Keyboard::BackSpace))
+	if (input.isKeyDown(sf::Keyboard::BackSpace))
 	{
-		input->setKeyUp(sf::Keyboard::BackSpace);
+		input.setKeyUp(sf::Keyboard::BackSpace);
 		audioMgr.stopAllMusic();
 	}
-	if (input->isKeyDown(sf::Keyboard::Num4))
+	if (input.isKeyDown(sf::Keyboard::Num4))
 	{
-		input->setKeyUp(sf::Keyboard::Num4);
+		input.setKeyUp(sf::Keyboard::Num4);
 		audioMgr.playMusicbyName("hyrule");
 	}
 

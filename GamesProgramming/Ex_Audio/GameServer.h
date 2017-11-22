@@ -6,7 +6,6 @@ class GameServer : public GameState, public Network
 {
 public:
 	GameServer(sf::RenderWindow* hwnd,
-		Input* in,
 		sf::Clock* clock,
 		sf::Int32* offset);
 	~GameServer();
@@ -21,12 +20,11 @@ private:
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 	//void moveMushroom();
 	//Window m_window;
-	sf::RenderWindow* window;
-	Input* input;
+	/*sf::RenderWindow* window;*/
 	// Network //////////////////////
-	sf::Clock* clock;
+	/*sf::Clock* clock;
 	sf::Int32* offset;
-
+*/
 	virtual void addMessage(PlayerMessage& player_message);
 	void runUdpServer();
 
