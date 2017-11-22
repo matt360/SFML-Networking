@@ -20,7 +20,7 @@ private:
 	//void moveMushroom();
 	//Window m_window;
 	
-	const int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
+	const unsigned int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
 	std::deque<PlayerMessage> local_positions;
 	void keepTrackOfLocalPositoins();
 	void keepTrackOfLocalPositoins(sf::Vector2f& vec);

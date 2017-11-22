@@ -185,7 +185,7 @@ void GameClientState::keepTrackOfLocalPositoins()
 	PlayerMessage local_message;
 	local_message.position.x = player.getPosition().x;
 	local_message.position.y = player.getPosition().y;
-	local_message.time = getCurrentTime();
+	local_message.time = (float)getCurrentTime();
 	if (local_positions.size() > num_messages) local_positions.pop_back();
 	local_positions.push_front(local_message);
 }
@@ -196,7 +196,7 @@ void GameClientState::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 	PlayerMessage local_message;
 	local_message.position.x = vec.x;
 	local_message.position.y = vec.y;
-	local_message.time = getCurrentTime();
+	local_message.time = (float)getCurrentTime();
 	// 
 	if (local_positions.size() > num_messages) local_positions.pop_back();
 	local_positions.push_front(local_message);
@@ -213,7 +213,7 @@ sf::Vector2f GameClientState::predict_local_path()
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = local_positions.at(0);
 	PlayerMessage msg1 = local_positions.at(1);
-	float time = getCurrentTime();
+	float time = (float)getCurrentTime();
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
@@ -234,7 +234,7 @@ sf::Vector2f GameClientState::predict_network_path()
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = network_positions.at(0);
 	PlayerMessage msg1 = network_positions.at(1);
-	float time = getCurrentTime();
+	float time = (float)getCurrentTime();
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
@@ -467,7 +467,7 @@ void GameClientState::update()
 		PlayerMessage msg0 = network_positions.at(0);
 		PlayerMessage msg1 = network_positions.at(1);
 		PlayerMessage msg2 = network_positions.at(2);
-		float time = getCurrentTime();
+		float time = (float)getCurrentTime();
 
 		// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 		x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
