@@ -1,4 +1,4 @@
-#include "NetworkClient.h"
+#include "NetworkClientState.h"
 
 NetworkClientState::NetworkClientState(sf::RenderWindow* hwnd, Input* in) : Network()
 {

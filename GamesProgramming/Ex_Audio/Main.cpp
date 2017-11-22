@@ -4,7 +4,7 @@
 #include "NetworkState.h"
 #include "NetworkSelectState.h"
 #include "NetworkServer.h"
-#include "NetworkClient.h"
+#include "NetworkClientState.h"
 #include "GameClient.h"
 #include "GameServer.h"
 

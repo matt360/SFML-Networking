@@ -169,7 +169,7 @@
     <ClCompile Include="MusicObject.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="NetworkSelectState.cpp" />
-    <ClCompile Include="NetworkClient.cpp" />
+    <ClCompile Include="NetworkClientState.cpp" />
     <ClCompile Include="NetworkServer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -193,7 +193,7 @@
     <ClInclude Include="MusicObject.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="NetworkSelectState.h" />
-    <ClInclude Include="NetworkClient.h" />
+    <ClInclude Include="NetworkClientState.h" />
     <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sound.h" />
