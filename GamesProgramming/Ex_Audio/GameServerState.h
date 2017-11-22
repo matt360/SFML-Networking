@@ -22,6 +22,4 @@ private:
 	// window
 	void beginDraw();
 	void endDraw();
-
-	
 };

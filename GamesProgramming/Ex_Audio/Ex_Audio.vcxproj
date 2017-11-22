@@ -159,6 +159,7 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameClientState.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerState.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="GameClient.h" />
     <ClInclude Include="GameClientState.h" />
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="GameServerState.h" />
