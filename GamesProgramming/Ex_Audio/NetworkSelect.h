@@ -32,16 +32,16 @@ public:
 	void createServerSocket();
 	
 private:
-	void beginDraw();
-	void endDraw();
-	sf::RenderWindow* window;
-	Input* input;
-	GameState* state;
-	NetworkState* network_state;
-	// Network
-	sf::UdpSocket *socket;
-	sf::IpAddress* ip_address;
-	unsigned short* port;
+	//void beginDraw();
+	//void endDraw();
+	//sf::RenderWindow* window;
+	//Input* input;
+	//GameState* state;
+	//NetworkState* network_state;
+	//// Network
+	//sf::UdpSocket *socket;
+	//sf::IpAddress* ip_address;
+	//unsigned short* port;
 
 	// input handlers
 	bool readyToConnect;

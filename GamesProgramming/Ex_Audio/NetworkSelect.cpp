@@ -174,12 +174,12 @@ void NetworkSelect::render()
 	endDraw();
 }
 
-void NetworkSelect::beginDraw()
-{
-	window->clear(sf::Color(0, 0, 0));
-}
-
-void NetworkSelect::endDraw()
-{
-	window->display();
-}
+//void NetworkSelect::beginDraw()
+//{
+//	window->clear(sf::Color(0, 0, 0));
+//}
+//
+//void NetworkSelect::endDraw()
+//{
+//	window->display();
+//}
