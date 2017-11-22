@@ -11,7 +11,7 @@ enum class GameStateEnum { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_C
 class State
 {
 public:
-	State();
+	inline State();
 	virtual ~State();
 
 	virtual void handleInput() = 0;
