@@ -14,7 +14,7 @@
 #include "Messages.h"
 #include "State.h"
 
-class GameServer : public State {
+class GameServer : public NetworkState {
 public:
 	GameServer(sf::RenderWindow* hwnd,
 		Input* in,

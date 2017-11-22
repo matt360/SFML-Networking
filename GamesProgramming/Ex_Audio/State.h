@@ -7,11 +7,11 @@
 enum class NetworkStateEnum { CLIENT, SERVER, NONE };
 enum class GameState { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_CLIENT, GAME_SERVER, PAUSE, CREDITS };
 
-class State
+class NetworkState
 {
 public:
-	State();
-	virtual ~State();
+	NetworkState();
+	virtual ~NetworkState();
 	
 	virtual void handleInput() = 0;
 	virtual void update() = 0;

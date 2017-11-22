@@ -1,19 +1,19 @@
 #include "State.h"
 
-State::State()
+NetworkState::NetworkState()
 {
 }
 
-State::~State()
+NetworkState::~NetworkState()
 {
 }
 
-void State::beginDraw()
+void NetworkState::beginDraw()
 {
 	window->clear(sf::Color(0, 0, 0));
 }
 
-void State::endDraw()
+void NetworkState::endDraw()
 {
 	window->display();
 }

@@ -5,7 +5,7 @@
 #include <string.h>
 #include "State.h"
 
-class NetworkClient : public State
+class NetworkClient : public NetworkState
 {
 public:
 	NetworkClient(sf::RenderWindow* hwnd,

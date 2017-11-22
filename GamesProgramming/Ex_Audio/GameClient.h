@@ -15,7 +15,7 @@
 #include "AudioManager.h"
 #include "Messages.h"
 
-class GameClient : public State {
+class GameClient : public NetworkState {
 public:
 	GameClient(sf::RenderWindow* hwnd, 
 		Input* in, 

@@ -4,7 +4,7 @@
 #include <string.h>
 #include "State.h"
 
-class Menu : public State
+class Menu : public NetworkState
 {
 public:
 	Menu(sf::RenderWindow* hwnd, Input* in, GameState* state);
