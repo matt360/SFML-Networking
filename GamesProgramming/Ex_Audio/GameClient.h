@@ -2,13 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
-#include <iostream>
-#include "Input.h"
 #include <Windows.h>
+#include <iostream>
 #include <string.h>
-#include <queue>
-#include <deque>
 #include <mutex>
+#include <deque>
+#include "Input.h"
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
@@ -28,9 +27,9 @@ public:
 		sf::Int32* offset);
 	~GameClient();
 
-	void handleInput();
-	void update();
-	void render();
+	virtual void handleInput();
+	virtual void update();
+	virtual void render();
 	//Window* getWindow();
 
 private:
@@ -76,8 +75,6 @@ private:
 
 	// debug
 	bool lerp_mode;
-	bool debug_mode;
-	bool debug_message;
 	/////////////////////////////////
 
 	float fps;
@@ -102,9 +99,6 @@ private:
 	// sound test
 	sf::SoundBuffer buff;
 	sf::Sound soun;
-
-	// My game variables
-	
 };
 
 

@@ -19,9 +19,9 @@ public:
 		sf::Int32* offset);
 	~NetworkServer();
 
-	void handleInput();
-	void update();
-	void render();
+	virtual void handleInput();
+	virtual void update();
+	virtual void render();
 
 	/////////////
 	// NETWORK //
@@ -32,34 +32,5 @@ public:
 	void displayReceiveMessage(sf::Int32 time);
 	void displaySendMessage(sf::Int32 time);
 	void displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port);
-
-private:
-	//void beginDraw();
-	//void endDraw();
-	//sf::RenderWindow* window;
-	//Input* input;
-	//GameState* state;
-	//NetworkState* network_state;
-	//sf::Clock* clock;
-	//sf::Int32* offset;
-	//// Network
-	//sf::UdpSocket *socket;
-	//sf::IpAddress* ip_address;
-	//unsigned short* port;
-
-	/*bool established_connection;
-	sf::Int32 client_time;
-	sf::Int32 server_offset;*/
-
-	// input handlers
-	/*bool readyToPlay;
-	bool server;
-	bool client;*/
-
-	/*bool debug_mode;
-	bool debug_message;*/
-
-	/*sf::Text text;
-	sf::Font font;*/
 };
 

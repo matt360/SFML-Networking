@@ -19,9 +19,9 @@ public:
 		sf::Int32* offset);
 	~NetworkClient();
 
-	void handleInput();
-	void update();
-	void render();
+	virtual void handleInput();
+	virtual void update();
+	virtual void render();
 
 	/////////////
 	// NETWORK //

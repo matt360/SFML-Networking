@@ -2,11 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
-#include <iostream>
-#include "Input.h"
 #include <Windows.h>
+#include <iostream>
 #include <string.h>
 #include <mutex>
+#include "Input.h"
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
@@ -26,9 +26,9 @@ public:
 		sf::Int32* offset);
 	~GameServer();
 
-	void handleInput();
-	void update();
-	void render();
+	virtual void handleInput();
+	virtual void update();
+	virtual void render();
 	//Window* getWindow();
 
 private:
@@ -55,10 +55,6 @@ private:
 	std::once_flag set_window_flag;
 	void call_once_set_window(sf::RenderWindow& window);
 	void call_once_set_window();
-
-	// debug
-	bool debug_mode;
-	bool debug_message;
 	/////////////////////////////////
 
 	float fps;
@@ -84,7 +80,4 @@ private:
 	// sound test
 	sf::SoundBuffer buff;
 	sf::Sound soun;
-
-	// My game variables
-	
 };

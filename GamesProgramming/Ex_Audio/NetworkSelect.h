@@ -17,9 +17,9 @@ public:
 		unsigned short *port_number);
 	~NetworkSelect();
 
-	void handleInput();
-	void update();
-	void render();
+	virtual void handleInput();
+	virtual void update();
+	virtual void render();
 
 	/////////////
 	// NETWORK //
