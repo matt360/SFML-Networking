@@ -1,6 +1,6 @@
 #include "NetworkSelect.h"
 
-NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in) : Network()
+NetworkSelectState::NetworkSelectState(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
@@ -11,7 +11,7 @@ NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in) : Network()
 	debug_mode = true;
 	debug_message = true;
 
-	// NetworkSelect text
+	// NetworkSelectState text
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
@@ -19,11 +19,11 @@ NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in) : Network()
 	text.setString("Press 'S' to be the server\n\nPress 'C' to be the client\n\n");
 }
 
-NetworkSelect::~NetworkSelect()
+NetworkSelectState::~NetworkSelectState()
 {
 }
 
-void NetworkSelect::render()
+void NetworkSelectState::render()
 {
 	beginDraw();
 
@@ -32,7 +32,7 @@ void NetworkSelect::render()
 	endDraw();
 }
 
-void NetworkSelect::handleInput()
+void NetworkSelectState::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
@@ -83,7 +83,7 @@ void NetworkSelect::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkSelect::createServerSocket()
+void NetworkSelectState::createServerSocket()
 {
 	//////////////////////////////////////////
 	// Create a socket to receive a message from anyone
@@ -98,7 +98,7 @@ void NetworkSelect::createServerSocket()
 	//////////////////////////////////////////
 }
 
-void NetworkSelect::createClientSocket()
+void NetworkSelectState::createClientSocket()
 {
 	//////////////////////////////////////////
 	socket.unbind();
@@ -113,7 +113,7 @@ void NetworkSelect::createClientSocket()
 	///////////////////////////////////////////
 }
 
-void NetworkSelect::update()
+void NetworkSelectState::update()
 {
 	// Client or server ?
 	if (server)
@@ -162,12 +162,12 @@ void NetworkSelect::update()
 	}
 }
 
-//void NetworkSelect::beginDraw()
+//void NetworkSelectState::beginDraw()
 //{
 //	window->clear(sf::Color(0, 0, 0));
 //}
 //
-//void NetworkSelect::endDraw()
+//void NetworkSelectState::endDraw()
 //{
 //	window->display();
 //}

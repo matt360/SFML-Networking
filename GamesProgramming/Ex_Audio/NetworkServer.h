@@ -3,12 +3,12 @@
 #include "Network.h"
 #include "NetworkState.h"
 
-class NetworkServer : public NetworkState, public Network
+class NetworkServerState : public NetworkState, public Network
 {
 public:
-	NetworkServer(sf::RenderWindow* hwnd, Input* in);
+	NetworkServerState(sf::RenderWindow* hwnd, Input* in);
 
-	~NetworkServer();
+	~NetworkServerState();
 
 	virtual void handleInput();
 	virtual void update();

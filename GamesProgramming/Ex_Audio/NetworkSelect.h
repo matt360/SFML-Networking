@@ -3,11 +3,11 @@
 #include "Network.h"
 #include "NetworkState.h"
 
-class NetworkSelect : public NetworkState, public Network
+class NetworkSelectState : public NetworkState, public Network
 {
 public:
-	NetworkSelect(sf::RenderWindow* hwnd, Input* in);
-	~NetworkSelect();
+	NetworkSelectState(sf::RenderWindow* hwnd, Input* in);
+	~NetworkSelectState();
 
 	virtual void handleInput();
 	virtual void update();

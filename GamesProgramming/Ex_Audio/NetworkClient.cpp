@@ -1,6 +1,6 @@
 #include "NetworkClient.h"
 
-NetworkClient::NetworkClient(sf::RenderWindow* hwnd, Input* in) : Network()
+NetworkClientState::NetworkClientState(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
@@ -22,11 +22,11 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd, Input* in) : Network()
 	text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
 }
 
-NetworkClient::~NetworkClient()
+NetworkClientState::~NetworkClientState()
 {
 }
 
-void NetworkClient::render()
+void NetworkClientState::render()
 {
 	beginDraw();
 
@@ -35,7 +35,7 @@ void NetworkClient::render()
 	endDraw();
 }
 
-void NetworkClient::handleInput()
+void NetworkClientState::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
@@ -65,7 +65,7 @@ void NetworkClient::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-sf::Int32 NetworkClient::getCurrentTime()
+sf::Int32 NetworkClientState::getCurrentTime()
 {
 	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
 	return sf::Int32(current_time + (offset));
@@ -75,7 +75,7 @@ sf::Int32 NetworkClient::getCurrentTime()
 // Send a message to the server...
 //
 ////////////////////////////////////////////////////////////
-void NetworkClient::sendPacketToServer()
+void NetworkClientState::sendPacketToServer()
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
@@ -124,7 +124,7 @@ void NetworkClient::sendPacketToServer()
 // ...wait for the answer
 //
 ////////////////////////////////////////////////////////////
-void NetworkClient::checkForIncomingPacketsFromServer()
+void NetworkClientState::checkForIncomingPacketsFromServer()
 {
 	////////////////////////////////////////////////////////////////////
 	// CHECK FOR INCOMING PACKETS                                     //
@@ -177,7 +177,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 	}
 }
 
-void NetworkClient::establishConnectionWithServer()
+void NetworkClientState::establishConnectionWithServer()
 {
 	// send message to the server...
 	if (send_packet) 
@@ -192,7 +192,7 @@ void NetworkClient::establishConnectionWithServer()
 	checkForIncomingPacketsFromServer();
 }
 
-void NetworkClient::update()
+void NetworkClientState::update()
 {
 	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 

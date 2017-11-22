@@ -3,11 +3,11 @@
 #include "Network.h"
 #include "NetworkState.h"
 
-class NetworkClient : public NetworkState, public Network
+class NetworkClientState : public NetworkState, public Network
 {
 public:
-	NetworkClient(sf::RenderWindow* hwnd, Input* in);
-	~NetworkClient();
+	NetworkClientState(sf::RenderWindow* hwnd, Input* in);
+	~NetworkClientState();
 
 	virtual void handleInput();
 	virtual void update();

@@ -3,7 +3,7 @@
 #include "Network.h"
 #include "GameState.h"
 
-// TODO It should be possible to go back from the client game state to client network state (GameClient -> NetworkClient)
+// TODO It should be possible to go back from the client game state to client network state (GameClient -> NetworkClientState)
 
 class GameClient : public GameState, public Network 
 {

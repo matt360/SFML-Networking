@@ -2,13 +2,13 @@
 #include "SFML/Network.hpp"
 #include <iostream>
 
-NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in)
+NetworkSelectState::NetworkSelectState(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
 	game_state = GameStateEnum::NETWORK;
 
-	// NetworkSelect text
+	// NetworkSelectState text
 	font.loadFromFile("font/arial.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
@@ -16,16 +16,16 @@ NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in)
 	text.setString("Connecting...\n\nPress Enter to Play");
 }
 
-NetworkSelect::~NetworkSelect()
+NetworkSelectState::~NetworkSelectState()
 {
 }
 
-GameStateEnum NetworkSelect::getState()
+GameStateEnum NetworkSelectState::getState()
 {
 	return game_state;
 }
 
-void NetworkSelect::handleInput(float dt)
+void NetworkSelectState::handleInput(float dt)
 {
 
 	if (input->isKeyDown(sf::Keyboard::Return))
@@ -43,7 +43,7 @@ void NetworkSelect::handleInput(float dt)
 /// Launch a server, wait for a message, send an answer.
 ///
 ////////////////////////////////////////////////////////////
-void NetworkSelect::runUdpServer(unsigned short port)
+void NetworkSelectState::runUdpServer(unsigned short port)
 {
 	// Create a socket to receive a message from anyone
 	sf::UdpSocket socket;
@@ -74,7 +74,7 @@ void NetworkSelect::runUdpServer(unsigned short port)
 /// Send a message to the server, wait for the answer
 ///
 ////////////////////////////////////////////////////////////
-void NetworkSelect::runUdpClient(unsigned short port)
+void NetworkSelectState::runUdpClient(unsigned short port)
 {
 	// Ask for the server address
 	sf::IpAddress server("127.1.0");
@@ -143,7 +143,7 @@ void NetworkSelect::runUdpClient(unsigned short port)
 	}
 }
 
-void NetworkSelect::update(float dt)
+void NetworkSelectState::update(float dt)
 {
 	runUdpClient(port);
 
@@ -182,7 +182,7 @@ void NetworkSelect::update(float dt)
 	//std::cin.ignore(10000, '\n');
 }
 
-void NetworkSelect::render()
+void NetworkSelectState::render()
 {
 	beginDraw();
 
@@ -191,12 +191,12 @@ void NetworkSelect::render()
 	endDraw();
 }
 
-void NetworkSelect::beginDraw()
+void NetworkSelectState::beginDraw()
 {
 	window->clear(sf::Color(100, 149, 237));
 }
 
-void NetworkSelect::endDraw()
+void NetworkSelectState::endDraw()
 {
 	window->display();
 }

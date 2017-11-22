@@ -1,6 +1,6 @@
 #include "NetworkServer.h"
 
-NetworkServer::NetworkServer(sf::RenderWindow* hwnd, Input* in) : Network()
+NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
@@ -21,11 +21,11 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd, Input* in) : Network()
 	text.setString("Press 'S' to be a server\n\nPress 'C' to be a client\n\nPress Enter to Play");
 }
 
-NetworkServer::~NetworkServer()
+NetworkServerState::~NetworkServerState()
 {
 }
 
-void NetworkServer::render()
+void NetworkServerState::render()
 {
 	beginDraw();
 
@@ -34,7 +34,7 @@ void NetworkServer::render()
 	endDraw();
 }
 
-void NetworkServer::handleInput()
+void NetworkServerState::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
@@ -64,7 +64,7 @@ void NetworkServer::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkServer::establishConnectionWithClient()
+void NetworkServerState::establishConnectionWithClient()
 {
 	// Wait for a message
 	// Receive the packet at the other end
@@ -143,7 +143,7 @@ void NetworkServer::establishConnectionWithClient()
 	}
 }
 
-void NetworkServer::update()
+void NetworkServerState::update()
 {	
 	text.setString("\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play");
 
