@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "MenuState.h"
 
 Menu::Menu(sf::RenderWindow* hwnd, Input* in)
 {

@@ -66,13 +66,7 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="GameServer.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files\App</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
@@ -100,6 +94,12 @@
       <Filter>Source Files\Network</Filter>
     </ClCompile>
     <ClCompile Include="GameClientState.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerState.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,13 +131,7 @@
     <ClInclude Include="Vector.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="GameServer.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files\App</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
@@ -168,6 +162,12 @@
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="GameClientState.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerState.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>

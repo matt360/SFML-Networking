@@ -1,4 +1,4 @@
-#include "GameServer.h"
+#include "GameServerState.h"
 
 GameServer::GameServer(sf::RenderWindow* hwnd, Input* in) : Network()
 {
