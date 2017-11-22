@@ -17,7 +17,7 @@ public:
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
-	GameState getState();
+	GameStateEnum getState();
 	//Window* getWindow();
 
 
@@ -28,7 +28,7 @@ private:
 	//Window m_window;
 	sf::RenderWindow* window;
 	Input* input;
-	GameState state;
+	GameStateEnum state;
 
 	float fps;
 	sf::Text text;

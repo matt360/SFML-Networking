@@ -10,7 +10,7 @@ class NetworkServer : public NetworkState
 public:
 	NetworkServer(sf::RenderWindow* hwnd,
 		Input* in,
-		GameState* state,
+		GameStateEnum* state,
 		NetworkStateEnum* network_state,
 		sf::UdpSocket* udp_socket,
 		sf::IpAddress* ip,

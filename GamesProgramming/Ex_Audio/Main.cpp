@@ -31,7 +31,7 @@ void main(int argc, char** argv[])
 	sf::Int32 offset = 0;
 
 	// set the initial game game_state
-	GameState game_state = GameState::MENU;
+	GameStateEnum game_state = GameStateEnum::MENU;
 	NetworkStateEnum network_state = NetworkStateEnum::NONE;
 	
 	bool pause = false;
@@ -117,17 +117,17 @@ void main(int argc, char** argv[])
 
 			if (pause)
 			{
-				game_state = GameState::PAUSE;
+				game_state = GameStateEnum::PAUSE;
 			}
 			else
 			{
 				switch (game_state)
 				{
-				case (GameState::GAME_CLIENT):
-					game_state = GameState::GAME_CLIENT;
+				case (GameStateEnum::GAME_CLIENT):
+					game_state = GameStateEnum::GAME_CLIENT;
 					break;
-				case (GameState::GAME_SERVER):
-					game_state = GameState::GAME_SERVER;
+				case (GameStateEnum::GAME_SERVER):
+					game_state = GameStateEnum::GAME_SERVER;
 					break;
 				}
 			}
@@ -142,43 +142,43 @@ void main(int argc, char** argv[])
 
 		switch (game_state)
 		{
-		case (GameState::MENU) :
+		case (GameStateEnum::MENU) :
 			state = menu;
 			break;
 
-		case (GameState::NETWORK) :
+		case (GameStateEnum::NETWORK) :
 			state = network;
 			break;
 		// establish connection with the client
-		case (GameState::NETWORK_SERVER):
+		case (GameStateEnum::NETWORK_SERVER):
 			state = network_server;
 			break;
 
-		case (GameState::NETWORK_CLIENT):
+		case (GameStateEnum::NETWORK_CLIENT):
 			state = network_client;
 			break;
 
-		case(GameState::GAME_SERVER):
+		case(GameStateEnum::GAME_SERVER):
 			state = game_server;
 			break;
 
-		case(GameState::GAME_CLIENT):
+		case(GameStateEnum::GAME_CLIENT):
 			state = game_client;
 			break;
 
-		case(GameState::PAUSE) :
+		case(GameStateEnum::PAUSE) :
 			switch (game_state)
 			{
-			case (GameState::GAME_CLIENT):
+			case (GameStateEnum::GAME_CLIENT):
 				state = game_client;
 				break;
-			case (GameState::GAME_SERVER):
+			case (GameStateEnum::GAME_SERVER):
 				state = game_server;
 				break;
 			}
 			break;
 			
-		case(GameState::CREDITS) :
+		case(GameStateEnum::CREDITS) :
 			//...
 			break;
 		}

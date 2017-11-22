@@ -15,7 +15,7 @@ void main(int argc, char** argv[])
 	Game game(&window, &input);
 	Menu menu(&window, &input);
 	// Set initial state
-	GameState state = GameState::MENU;	
+	GameStateEnum state = GameStateEnum::MENU;	
 	//direction dir = direction::left;
 	
 	// For Delta Time
@@ -95,11 +95,11 @@ void main(int argc, char** argv[])
 
 			if (pause)
 			{
-				state = GameState::PAUSE;
+				state = GameStateEnum::PAUSE;
 			}
 			else
 			{
-				state = GameState::LEVEL;
+				state = GameStateEnum::LEVEL;
 			}
 		}
 
@@ -111,24 +111,24 @@ void main(int argc, char** argv[])
 		// Update/Render object based on current game state
 		switch (state)
 		{
-		case (GameState::MENU) :
+		case (GameStateEnum::MENU) :
 			menu.handleInput(deltaTime);
 			menu.update(deltaTime);
 			menu.render();
 			state = menu.getState();
 			break;
 
-		case(GameState::LEVEL):
+		case(GameStateEnum::LEVEL):
 			game.handleInput(deltaTime);
 			game.update(deltaTime);
 			game.render();
 			state = game.getState();
 			break;
-		case(GameState::PAUSE) :
+		case(GameStateEnum::PAUSE) :
 			game.render();
 			break;
 			
-		case(GameState::CREDITS) :
+		case(GameStateEnum::CREDITS) :
 			//...
 			break;
 

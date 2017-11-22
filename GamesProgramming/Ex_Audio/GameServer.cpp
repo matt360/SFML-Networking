@@ -2,7 +2,7 @@
 
 GameServer::GameServer(sf::RenderWindow* hwnd,
 	Input* in,
-	GameState* st,
+	GameStateEnum* st,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
 	unsigned short *port_number,
@@ -373,7 +373,7 @@ void GameServer::update()
 
 	/*if (player.getPosition().y > window->getSize().y)
 	{
-		*state = GameState::NETWORK;
+		*state = GameStateEnum::NETWORK;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -381,7 +381,7 @@ void GameServer::update()
 	}
 	else
 	{
-		*state = GameState::GAME_SERVER;
+		*state = GameStateEnum::GAME_SERVER;
 	}*/
 
 	//if ((int)fps % 6 == 0)

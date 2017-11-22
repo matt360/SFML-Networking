@@ -5,7 +5,7 @@
 #include <string.h>
 
 enum class NetworkStateEnum { CLIENT, SERVER, NONE };
-enum class GameState { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_CLIENT, GAME_SERVER, PAUSE, CREDITS };
+enum class GameStateEnum { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_CLIENT, GAME_SERVER, PAUSE, CREDITS };
 
 class NetworkState
 {
@@ -23,7 +23,7 @@ protected:
 
 	sf::RenderWindow* window;
 	Input* input;
-	GameState* state;
+	GameStateEnum* state;
 	NetworkStateEnum* network_state;
 	// Network
 	sf::UdpSocket *socket;

@@ -13,14 +13,14 @@ public:
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
-	GameState getState();
+	GameStateEnum getState();
 
 private:
 	void beginDraw();
 	void endDraw();
 	sf::RenderWindow* window;
 	Input* input;
-	GameState state;
+	GameStateEnum state;
 	
 	sf::Text text;
 	sf::Font font;

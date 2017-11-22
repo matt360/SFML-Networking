@@ -5,7 +5,7 @@ Game::Game(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	state = GameState::LEVEL;
+	state = GameStateEnum::LEVEL;
 
 	fps = 0;
 	font.loadFromFile("font/arial.ttf");
@@ -199,7 +199,7 @@ void Game::runUdpClient(unsigned short port)
 	}
 }
 
-GameState Game::getState()
+GameStateEnum Game::getState()
 {
 	return state;
 }
@@ -267,7 +267,7 @@ void Game::update(float dt)
 
 	if (player.getPosition().y > window->getSize().y)
 	{
-		state = GameState::MENU;
+		state = GameStateEnum::MENU;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -275,7 +275,7 @@ void Game::update(float dt)
 	}
 	else
 	{
-		state = GameState::LEVEL;
+		state = GameStateEnum::LEVEL;
 	}
 	
 	runUdpClient(port);

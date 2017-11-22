@@ -2,7 +2,7 @@
 
 GameClient::GameClient(sf::RenderWindow* hwnd, 
 	Input* in, 
-	GameState* st, 
+	GameStateEnum* st, 
 	sf::UdpSocket* udp_socket, 
 	sf::IpAddress* ip, 
 	unsigned short *port_number,
@@ -500,7 +500,7 @@ void GameClient::update()
 
 	/*if (player.getPosition().y > window->getSize().y)
 	{
-		*state = GameState::NETWORK;
+		*state = GameStateEnum::NETWORK;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -508,7 +508,7 @@ void GameClient::update()
 	}
 	else
 	{
-		*state = GameState::GAME_CLIENT;
+		*state = GameStateEnum::GAME_CLIENT;
 	}*/
 
 

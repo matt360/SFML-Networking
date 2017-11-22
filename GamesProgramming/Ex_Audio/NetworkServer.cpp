@@ -3,7 +3,7 @@
 
 NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	Input* in,
-	GameState* st,
+	GameStateEnum* st,
 	NetworkStateEnum* net_st,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
@@ -191,7 +191,7 @@ void NetworkServer::update()
 		// TODO extra house keeping
 		/*if (*network_state == NetworkStateEnum::SERVER)
 		{*/
-			*state = GameState::GAME_SERVER;
+			*state = GameStateEnum::GAME_SERVER;
 		//}
 		//else
 		//{

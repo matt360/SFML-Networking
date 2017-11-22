@@ -3,7 +3,7 @@
 
 NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	Input* in,
-	GameState* st,
+	GameStateEnum* st,
 	NetworkStateEnum* net_st,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
@@ -244,7 +244,7 @@ void NetworkClient::update()
 		/*if (*network_state == NetworkStateEnum::CLIENT)
 		{*/
 			// TODO probably want to do something better than this
-			*state = GameState::GAME_CLIENT;
+			*state = GameStateEnum::GAME_CLIENT;
 		/*}
 		else 
 		{

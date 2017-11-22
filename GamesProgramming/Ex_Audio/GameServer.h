@@ -18,7 +18,7 @@ class GameServer : public NetworkState {
 public:
 	GameServer(sf::RenderWindow* hwnd,
 		Input* in,
-		GameState* state,
+		GameStateEnum* state,
 		sf::UdpSocket* udp_socket,
 		sf::IpAddress* ip,
 		unsigned short *port_number,
@@ -38,7 +38,7 @@ private:
 	//Window m_window;
 	sf::RenderWindow* window;
 	Input* input;
-	GameState* state;
+	GameStateEnum* state;
 	// Network //////////////////////
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;

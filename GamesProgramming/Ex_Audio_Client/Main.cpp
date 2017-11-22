@@ -19,7 +19,7 @@ void main(int argc, char** argv[])
 	Menu menu(&window, &input);
 	NetworkSelect network(&window, &input);
 	// Set initial state
-	GameState state = GameState::MENU;	
+	GameStateEnum state = GameStateEnum::MENU;	
 	//direction dir = direction::left;
 	
 	// For Delta Time
@@ -99,11 +99,11 @@ void main(int argc, char** argv[])
 
 			if (pause)
 			{
-				state = GameState::PAUSE;
+				state = GameStateEnum::PAUSE;
 			}
 			else
 			{
-				state = GameState::LEVEL;
+				state = GameStateEnum::LEVEL;
 			}
 		}
 
@@ -115,7 +115,7 @@ void main(int argc, char** argv[])
 		// Update/Render object based on current game state
 		switch (state)
 		{
-		case (GameState::MENU) :
+		case (GameStateEnum::MENU) :
 
 
 			menu.handleInput(deltaTime);
@@ -124,7 +124,7 @@ void main(int argc, char** argv[])
 			state = menu.getState();
 			break;
 
-		case (GameState::NETWORK) :
+		case (GameStateEnum::NETWORK) :
 			network.handleInput(deltaTime);
 			// create socket and 
 			network.update(deltaTime);
@@ -132,7 +132,7 @@ void main(int argc, char** argv[])
 			state = network.getState();
 			break;
 
-		case(GameState::LEVEL):
+		case(GameStateEnum::LEVEL):
 
 			game.handleInput(deltaTime);
 			// do a non blocking receive - put socket into non blocking mode when it's being created
@@ -143,11 +143,11 @@ void main(int argc, char** argv[])
 			state = game.getState();
 			break;
 
-		case(GameState::PAUSE) :
+		case(GameStateEnum::PAUSE) :
 			game.render();
 			break;
 			
-		case(GameState::CREDITS) :
+		case(GameStateEnum::CREDITS) :
 			//...
 			break;
 

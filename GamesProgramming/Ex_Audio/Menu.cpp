@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameState* st)
+Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameStateEnum* st)
 {
 	window = hwnd;
 	input = in;
@@ -24,11 +24,11 @@ void Menu::handleInput()
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		*state = GameState::NETWORK;
+		*state = GameStateEnum::NETWORK;
 	}
 	else
 	{
-		*state = GameState::MENU;
+		*state = GameStateEnum::MENU;
 	}
 }
 
