@@ -1,8 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
 #include "Input.h"
-#include <string.h>
 #include "NetworkState.h"
 
 class NetworkSelect : public NetworkState
