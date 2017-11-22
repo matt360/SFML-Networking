@@ -217,35 +217,6 @@ void GameClientState::update()
 		audioMgr.playMusicbyName("hyrule");
 	}
 
-	// check collision with world
-	//std::vector<Tile>* world = level.getLevel();
-	//for (int i = 0; i < (int)world->size(); i++)
-	//{
-	//	if ((*world)[i].isAlive())
-	//	{
-	//		// if "alive" check collision
-	//		// world tile which are not alive don't want collision checks
-	//		if (checkCollision(&player, &(*world)[i]))
-	//		{
-	//			player.collisionRespone(&(*world)[i]);
-	//		}
-	//	}
-	//}
-
-	/*if (player.getPosition().y > window->getSize().y)
-	{
-		*game_state = GameStateEnum::NETWORK;
-		player.setPosition(0, 0);
-		hasStarted = false;
-		audioMgr.stopAllSounds();
-		audioMgr.stopAllMusic();
-	}
-	else
-	{
-		*game_state = GameStateEnum::GAME_CLIENT;
-	}*/
-
-
 	// send packets at 10Hz rate (at 10PFS)
 	//if ((int)fps % 6 == 0)
 	// send packets at 30Hz rate (at 30PFS)
