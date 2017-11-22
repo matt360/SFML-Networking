@@ -10,8 +10,7 @@ class GameClient : public GameState, public Network
 public:
 	GameClient(sf::RenderWindow* hwnd, 
 		Input* in, 
-		sf::Clock* clock,
-		sf::Int32* offset);
+		sf::Clock* clock);
 	~GameClient();
 
 	virtual void handleInput();

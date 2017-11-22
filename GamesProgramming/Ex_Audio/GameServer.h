@@ -7,8 +7,7 @@ class GameServer : public GameState, public Network
 public:
 	GameServer(sf::RenderWindow* hwnd,
 		Input* in,
-		sf::Clock* clock,
-		sf::Int32* offset);
+		sf::Clock* clock);
 	~GameServer();
 
 	virtual void handleInput();
@@ -26,10 +25,6 @@ private:
 	void runUdpServer();
 
 	// window
-
 	void beginDraw();
 	void endDraw();
-	/////////////////////////////////
-
-	
 };

@@ -2,13 +2,11 @@
 
 GameClient::GameClient(sf::RenderWindow* hwnd, 
 	Input* in, 
-	sf::Clock* cl,
-	sf::Int32 *of) : Network()
+	sf::Clock* cl) : Network()
 {
 	window = hwnd;
 	input = in;
 	clock = cl;
-	offset = of;
 
 	fps = 0;
 
@@ -134,7 +132,7 @@ void GameClient::endDraw()
 sf::Int32 GameClient::getCurrentTime()
 {
 	sf::Int32 current_time = clock->getElapsedTime().asMilliseconds();
-	return sf::Int32(current_time + (*offset));
+	return sf::Int32(current_time + (offset));
 }
 
 inline float GameClient::lerp(float start, float end, float time)

@@ -2,13 +2,11 @@
 
 GameServer::GameServer(sf::RenderWindow* hwnd,
 	Input* in,
-	sf::Clock* cl,
-	sf::Int32 *of) : Network()
+	sf::Clock* cl) : Network()
 {
 	window = hwnd;
 	input = in;
 	clock = cl;
-	offset = of;
 	// 
 	fps = 0;
 

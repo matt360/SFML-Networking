@@ -8,8 +8,7 @@ class NetworkClient : public NetworkState, public Network
 public:
 	NetworkClient(sf::RenderWindow* hwnd,
 		Input* in,
-		sf::Clock* clock,
-		sf::Int32* offset);
+		sf::Clock* clock);
 	~NetworkClient();
 
 	virtual void handleInput();

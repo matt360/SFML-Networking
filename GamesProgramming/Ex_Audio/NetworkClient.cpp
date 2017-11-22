@@ -2,18 +2,14 @@
 
 NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	Input* in,
-	sf::Clock* cl,
-	sf::Int32* of) : Network()
+	sf::Clock* cl) : Network()
 {
 	window = hwnd;
 	input = in;
 	clock = cl;
-	offset = of;
 
 	send_packet = true;
 	established_connection = false;
-	//client_time = 0;
-	//server_offset = 0;
 
 	ready = false;
 	server = false;
@@ -75,7 +71,7 @@ void NetworkClient::handleInput()
 sf::Int32 NetworkClient::getCurrentTime()
 {
 	sf::Int32 current_time = clock->getElapsedTime().asMilliseconds();
-	return sf::Int32(current_time + (*offset));
+	return sf::Int32(current_time + (offset));
 }
 
 ////////////////////////////////////////////////////////////
@@ -178,8 +174,8 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			sf::Int32 client_time = clock->getElapsedTime().asMilliseconds();
 			std::cout << "client_time: " << client_time << "\n";
 			// server_time from the message
-			(*offset) = server_time + 0.5 * latency - client_time;
-			std::cout << "offset: " << *offset << "\n";
+			(offset) = server_time + 0.5 * latency - client_time;
+			std::cout << "offset: " << offset << "\n";
 		}
 	}
 }

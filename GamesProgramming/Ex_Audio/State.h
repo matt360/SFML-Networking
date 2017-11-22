@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include <iostream>
+#include "Input.h"
 
 enum class NetworkStateEnum { CLIENT, SERVER, NONE };
 
@@ -10,8 +11,8 @@ enum class GameStateEnum { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_C
 class State
 {
 public:
-	State() {}
-	virtual ~State() {}
+	State();
+	virtual ~State();
 
 	virtual void handleInput() = 0;
 	virtual void update() = 0;
@@ -23,8 +24,8 @@ protected:
 	Input* input;
 	// Network
 	sf::Clock* clock;
-	sf::Int32* offset;
-	GameStateEnum game_state = GameStateEnum::MENU;
+	static sf::Int32 offset;
+	GameStateEnum game_state;
 	NetworkStateEnum network_state;
 
 	inline void beginDraw() { window->clear(sf::Color(0, 0, 0)); };

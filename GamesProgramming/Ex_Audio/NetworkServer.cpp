@@ -2,18 +2,14 @@
 
 NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	Input* in,
-	sf::Clock* cl,
-	sf::Int32* of) : Network()
+	sf::Clock* cl) : Network()
 {
 	window = hwnd;
 	input = in;
 	clock = cl;
-	offset = of;
 
 	established_connection = false;
-	/*client_time = 0;
-	server_offset = 0;*/
-
+	
 	ready = false;
 	server = false;
 	client = false;
@@ -112,7 +108,6 @@ void NetworkServer::establishConnectionWithClient()
 	//////////////////////////////////////////////////////////////////////
 	sf::Packet packet_send;
 	// Message to send
-	//server_offset = clock->getElapsedTime().asMilliseconds();
 	// Group the variables to send into a packet
 	//established_connection = true;
 	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();

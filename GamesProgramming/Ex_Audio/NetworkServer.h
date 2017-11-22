@@ -8,8 +8,7 @@ class NetworkServer : public NetworkState, public Network
 public:
 	NetworkServer(sf::RenderWindow* hwnd,
 		Input* in,
-		sf::Clock* clock,
-		sf::Int32* offset);
+		sf::Clock* clock);
 
 	~NetworkServer();
 
