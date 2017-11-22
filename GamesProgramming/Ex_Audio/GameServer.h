@@ -12,9 +12,9 @@
 #include "Map.h"
 #include "AudioManager.h"
 #include "Messages.h"
-#include "NetworkState.h"
+#include "GameState.h"
 
-class GameServer : public NetworkState {
+class GameServer : public GameState {
 public:
 	GameServer(sf::RenderWindow* hwnd,
 		Input* in,

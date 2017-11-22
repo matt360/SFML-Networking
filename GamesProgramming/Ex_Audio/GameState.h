@@ -4,17 +4,25 @@
 #include "Input.h"
 #include "State.h"
 
-class NetworkState : public State
+class GameState : public State
 {
 public:
-	NetworkState();
-	~NetworkState();
+	GameState();
+	~GameState();
 
 protected:
 	void beginDraw();
 	void endDraw();
 
-	
+	sf::RenderWindow* window;
+	Input* input;
+	GameStateEnum* state;
+	// Network
+	sf::UdpSocket *socket;
+	sf::IpAddress* ip_address;
+	unsigned short* port;
+	sf::Clock* clock;
+	sf::Int32* offset;
 
 	bool established_connection;
 	// input handlers
@@ -28,4 +36,3 @@ protected:
 	sf::Text text;
 	sf::Font font;
 };
-

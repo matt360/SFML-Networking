@@ -11,11 +11,11 @@
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
-#include "NetworkState.h"
 #include "AudioManager.h"
 #include "Messages.h"
+#include "GameState.h"
 
-class GameClient : public NetworkState {
+class GameClient : public GameState {
 public:
 	GameClient(sf::RenderWindow* hwnd, 
 		Input* in, 

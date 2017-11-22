@@ -161,6 +161,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="GameClient.h" />
     <ClInclude Include="GameServer.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
@@ -193,7 +195,6 @@
     <ClInclude Include="NetworkClient.h" />
     <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="NetworkState.h" />
