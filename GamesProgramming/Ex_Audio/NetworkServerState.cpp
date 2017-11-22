@@ -1,4 +1,4 @@
-#include "NetworkServer.h"
+#include "NetworkServerState.h"
 
 NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in) : Network()
 {

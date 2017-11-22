@@ -3,7 +3,7 @@
 #include "Menu.h"
 #include "NetworkState.h"
 #include "NetworkSelectState.h"
-#include "NetworkServer.h"
+#include "NetworkServerState.h"
 #include "NetworkClientState.h"
 #include "GameClient.h"
 #include "GameServer.h"

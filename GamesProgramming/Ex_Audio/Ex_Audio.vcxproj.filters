@@ -81,9 +81,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkServer.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
     <ClCompile Include="NetworkState.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -100,6 +97,9 @@
       <Filter>Source Files\Network</Filter>
     </ClCompile>
     <ClCompile Include="NetworkClientState.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkServerState.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,9 +149,6 @@
     <ClInclude Include="Messages.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkServer.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Network.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
@@ -168,6 +165,9 @@
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="NetworkClientState.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkServerState.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>
