@@ -27,5 +27,21 @@ protected:
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;
 	unsigned short* port;
+	sf::Clock* clock;
+	sf::Int32* offset;
+
+	bool established_connection;
+	//sf::Int32 client_time;
+	//sf::Int32 server_time;
+	//sf::Int32 server_offset;
+	// input handlers
+	bool readyToPlay;
+	bool server;
+	bool client;
+	bool debug_mode;
+	bool debug_message;
+
+	sf::Text text;
+	sf::Font font;
 };
 

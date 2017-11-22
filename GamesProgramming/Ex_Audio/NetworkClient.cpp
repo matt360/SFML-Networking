@@ -23,8 +23,8 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 
 	send_packet = true;
 	established_connection = false;
-	client_time = 0;
-	server_offset = 0;
+	//client_time = 0;
+	//server_offset = 0;
 
 	readyToPlay = false;
 	server = false;
@@ -186,14 +186,14 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			return;
 		}
 
-		//sf::Int32 receive_time;
+		sf::Int32 server_time;
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		if (packet_receive >> server_time >> established_connection)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
-			if (debug_message) displayReceiveMessage(server_offset);
+			if (debug_message) displayReceiveMessage(server_time);
 
 			// end timing latency
 			end_timing_latency = (sf::Int32)clock->getElapsedTime().asMilliseconds();
@@ -201,7 +201,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			latency = (end_timing_latency - start_timing_latency);
 			std::cout << "latency: " << latency << "\n";
 			// calculate server time
-			client_time = clock->getElapsedTime().asMilliseconds();
+			sf::Int32 client_time = clock->getElapsedTime().asMilliseconds();
 			std::cout << "client_time: " << client_time << "\n";
 			// server_time from the message
 			(*offset) = server_time + 0.5 * latency - client_time;
@@ -262,12 +262,12 @@ void NetworkClient::render()
 	endDraw();
 }
 
-void NetworkClient::beginDraw()
-{
-	window->clear(sf::Color(0, 0, 0));
-}
-
-void NetworkClient::endDraw()
-{
-	window->display();
-}
+//void NetworkClient::beginDraw()
+//{
+//	window->clear(sf::Color(0, 0, 0));
+//}
+//
+//void NetworkClient::endDraw()
+//{
+//	window->display();
+//}

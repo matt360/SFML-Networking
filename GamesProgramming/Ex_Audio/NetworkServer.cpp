@@ -22,8 +22,8 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	offset = of;
 
 	established_connection = false;
-	client_time = 0;
-	server_offset = 0;
+	/*client_time = 0;
+	server_offset = 0;*/
 
 	readyToPlay = false;
 	server = false;
@@ -210,12 +210,12 @@ void NetworkServer::render()
 	endDraw();
 }
 
-void NetworkServer::beginDraw()
-{
-	window->clear(sf::Color(0, 0, 0));
-}
-
-void NetworkServer::endDraw()
-{
-	window->display();
-}
+//void NetworkServer::beginDraw()
+//{
+//	window->clear(sf::Color(0, 0, 0));
+//}
+//
+//void NetworkServer::endDraw()
+//{
+//	window->display();
+//}

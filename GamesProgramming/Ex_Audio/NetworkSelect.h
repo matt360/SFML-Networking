@@ -32,6 +32,10 @@ public:
 	void createServerSocket();
 	
 private:
+	bool readyToConnect;
+	bool server;
+	bool client;
+
 	//void beginDraw();
 	//void endDraw();
 	//sf::RenderWindow* window;
@@ -44,13 +48,10 @@ private:
 	//unsigned short* port;
 
 	// input handlers
-	bool readyToConnect;
-	bool server;
-	bool client;
-	bool debug_mode;
-	bool debug_message;
+	/*bool debug_mode;
+	bool debug_message;*/
 
-	sf::Text text;
-	sf::Font font;
+	/*sf::Text text;
+	sf::Font font;*/
 };
 
