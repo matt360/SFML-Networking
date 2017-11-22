@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Input.h"
 #include "State.h"
 
