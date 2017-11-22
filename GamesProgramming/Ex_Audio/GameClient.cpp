@@ -209,33 +209,6 @@ bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-//void GameClient::displayMessage(const PlayerMessage player_message)
-//{
-//	std::cout << "\n\nCLIENT: Message received from the SERVER:";
-//	// Data extracted successfully...
-//	std::cout << "\nCLIENT: ID: " << player_message.id
-//		<< "\nCLIENT: Player x: " << player_message.position.x
-//		<< "\nCLIENT: Player y: " << player_message.position.y
-//		<< "\nCLIENT: Time: " << player_message.time;
-//}
-//
-//void GameClient::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
-//{
-//	std::cout << "\n\nCLIENT: Message received from the SERVER:";
-//	// Data extracted successfully...
-//	std::cout << "\nCLIENT: ID: " << player_message.id
-//		<< "\nCLIENT: Player x: " << player_message.position.x
-//		<< "\nCLIENT: Player y: " << player_message.position.y
-//		<< "\nCLIENT: Time: " << player_message.time;
-//	std::cout << "\nCLIENT: client's IP: " << sender;
-//	std::cout << "\nCLIENT: client's port: " << sender_port;
-//}
-
-//sf::Int32 getCurrentTime {
-//
-//	return 
-//}
-
 void GameClient::addMessage(PlayerMessage& player_message_send)
 {
 	//PlayerMessage player_message_send;
@@ -245,14 +218,6 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	
 	//player_message_send.time = c_s;
 	player_message_send.time = (float)getCurrentTime();
-
-	/*time_t rawtime;
-	struct tm * timeinfo;
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	player_message_send.time = timeinfo->tm_sec;*/
 }
 
 void GameClient::keepTrackOfLocalPositoins()
