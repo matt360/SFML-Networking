@@ -34,6 +34,24 @@
     <Filter Include="Source Files\App">
       <UniqueIdentifier>{72892e6e-bb3b-417b-aa9c-62b16dcd5583}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\State Handlers">
+      <UniqueIdentifier>{a809bb1b-0957-4832-acf1-2ccf1a8b247e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State Handlers">
+      <UniqueIdentifier>{22530e1b-0421-45a0-80c8-77c1ea94abff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State Handlers\Game State Handlers">
+      <UniqueIdentifier>{07b28294-c3af-4fbb-8447-3abcbdeeee3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State Handlers\Network State Handlers">
+      <UniqueIdentifier>{c9e4285e-80b7-42f7-a5ac-155f9ec3ce7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State Handlers\Game State Handlers">
+      <UniqueIdentifier>{512c9f1f-a7c4-457a-a4e2-e3180db94ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State Handlers\Network State Handlers">
+      <UniqueIdentifier>{bf85a398-760b-4e1b-b88e-d9770ff044d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp">
@@ -72,35 +90,35 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkState.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Network.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkSelectState.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkClientState.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkServerState.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="GameClientState.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientState.cpp">
+      <Filter>Source Files\State Handlers\Game State Handlers</Filter>
+    </ClCompile>
     <ClCompile Include="GameServerState.cpp">
-      <Filter>Source Files\Network</Filter>
+      <Filter>Source Files\State Handlers\Game State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files\State Handlers\Game State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkClientState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSelectState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkServerState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,32 +161,32 @@
     <ClInclude Include="Network.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkState.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkSelectState.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkClientState.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkServerState.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="GameClientState.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="MenuState.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientState.h">
+      <Filter>Header Files\State Handlers\Game State Handlers</Filter>
+    </ClInclude>
     <ClInclude Include="GameServerState.h">
-      <Filter>Header Files\Network</Filter>
+      <Filter>Header Files\State Handlers\Game State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\State Handlers\Game State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkClientState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelectState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkServerState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

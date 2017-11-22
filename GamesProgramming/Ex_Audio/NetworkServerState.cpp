@@ -25,45 +25,6 @@ NetworkServerState::~NetworkServerState()
 {
 }
 
-void NetworkServerState::render()
-{
-	beginDraw();
-
-	window->draw(text);
-
-	endDraw();
-}
-
-void NetworkServerState::handleInput()
-{
-	if (input->isKeyDown(sf::Keyboard::Return))
-	{
-		input->setKeyUp(sf::Keyboard::Return);
-		// player ready to play
-		ready = true;
-	}
-
-	// toggle debug mode to display socket messages
-	if (input->isKeyDown(sf::Keyboard::D))
-	{
-		input->setKeyUp(sf::Keyboard::D);
-		debug_mode = !debug_mode;
-	}
-	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
-	{
-		input->setKeyUp(sf::Keyboard::M);
-		debug_message = !debug_message;
-	}
-}
-
-// error handling before connecting
-// error while the game is running
-// states
-// what I want to send
-// anything that happens to the client shouldn't affect the server player
-// anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
-
 void NetworkServerState::establishConnectionWithClient()
 {
 	// Wait for a message
@@ -142,6 +103,44 @@ void NetworkServerState::establishConnectionWithClient()
 		}
 	}
 }
+
+void NetworkServerState::render()
+{
+	beginDraw();
+
+	window->draw(text);
+
+	endDraw();
+}
+
+void NetworkServerState::handleInput()
+{
+	if (input->isKeyDown(sf::Keyboard::Return))
+	{
+		input->setKeyUp(sf::Keyboard::Return);
+		// player ready to play
+		ready = true;
+	}
+
+	// toggle debug mode to display socket messages
+	if (input->isKeyDown(sf::Keyboard::D))
+	{
+		input->setKeyUp(sf::Keyboard::D);
+		debug_mode = !debug_mode;
+	}
+	// toggle debug messages to display messages
+	if (input->isKeyDown(sf::Keyboard::M))
+	{
+		input->setKeyUp(sf::Keyboard::M);
+		debug_message = !debug_message;
+	}
+}
+
+// error handling before connecting
+// error while the game is running
+
+// anything that happens to the client shouldn't affect the server player
+// anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
 void NetworkServerState::update()
 {	
