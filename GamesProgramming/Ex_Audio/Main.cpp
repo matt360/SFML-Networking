@@ -37,10 +37,10 @@ void main(int argc, char** argv[])
 	// initial game state is set in the State class
 	State* state = new Menu(&window, &input);
 	State* network = new NetworkSelect(&window, &input);
-	State* network_server = new NetworkServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
-	State* network_client = new NetworkClient(&window, &input, &socket, &ip_address, &port, &clock, &offset);
-	State* game_server = new GameServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
-	State* game_client = new GameClient(&window, &input, &socket, &ip_address, &port, &clock, &offset);
+	State* network_server = new NetworkServer(&window, &input, &clock, &offset);
+	State* network_client = new NetworkClient(&window, &input, &clock, &offset);
+	State* game_server = new GameServer(&window, &input, &clock, &offset);
+	State* game_client = new GameClient(&window, &input, &clock, &offset);
 	
 	//direction dir = direction::left;
 

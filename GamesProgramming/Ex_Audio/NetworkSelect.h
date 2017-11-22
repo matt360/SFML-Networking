@@ -3,7 +3,7 @@
 #include "Network.h"
 #include "NetworkState.h"
 
-class NetworkSelect : public NetworkState, public Network
+class NetworkSelect : public NetworkState
 {
 public:
 	NetworkSelect(sf::RenderWindow* hwnd, Input* in);

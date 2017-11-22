@@ -22,9 +22,6 @@ protected:
 	sf::RenderWindow* window;
 	Input* input;
 	// Network
-	sf::UdpSocket *socket;
-	sf::IpAddress* ip_address;
-	unsigned short* port;
 	sf::Clock* clock;
 	sf::Int32* offset;
 	GameStateEnum game_state = GameStateEnum::MENU;

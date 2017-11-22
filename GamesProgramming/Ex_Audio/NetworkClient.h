@@ -7,9 +7,6 @@ class NetworkClient : public NetworkState
 public:
 	NetworkClient(sf::RenderWindow* hwnd,
 		Input* in,
-		sf::UdpSocket* udp_socket,
-		sf::IpAddress* ip,
-		unsigned short *port_number,
 		sf::Clock* clock,
 		sf::Int32* offset);
 	~NetworkClient();

@@ -1,8 +1,9 @@
 #pragma once
 #include "Input.h"
+#include "Network.h"
 #include "State.h"
 
-class NetworkState : public State
+class NetworkState : public State, public Network
 {
 public:
 	NetworkState();

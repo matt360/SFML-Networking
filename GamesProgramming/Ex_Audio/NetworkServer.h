@@ -7,9 +7,6 @@ class NetworkServer : public NetworkState
 public:
 	NetworkServer(sf::RenderWindow* hwnd,
 		Input* in,
-		sf::UdpSocket* udp_socket,
-		sf::IpAddress* ip,
-		unsigned short *port_number,
 		sf::Clock* clock,
 		sf::Int32* offset);
 	~NetworkServer();

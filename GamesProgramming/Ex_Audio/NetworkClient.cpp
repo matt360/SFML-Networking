@@ -2,17 +2,11 @@
 
 NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	Input* in,
-	sf::UdpSocket* udp_socket,
-	sf::IpAddress* ip,
-	unsigned short* port_number,
 	sf::Clock* cl,
 	sf::Int32* of)
 {
 	window = hwnd;
 	input = in;
-	socket = udp_socket;
-	ip_address = ip;
-	port = port_number;
 	clock = cl;
 	offset = of;
 
@@ -99,7 +93,7 @@ void NetworkClient::sendPacketToServer()
 	packet_send << hello;
 
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	switch (socket->send(packet_send, *ip_address, *port))
+	switch (socket.send(packet_send, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// send a packet.
@@ -148,7 +142,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		sf::Packet packet_receive;
 		sf::IpAddress sender;
 		unsigned short senderPort;
-		switch (socket->receive(packet_receive, sender, senderPort))
+		switch (socket.receive(packet_receive, sender, senderPort))
 		{
 		case sf::Socket::Done:
 			// Received a packet.
