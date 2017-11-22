@@ -10,14 +10,14 @@
 
 void main(int argc, char** argv[])
 {
-	// NETWORK /////////////////////
-	// global socket
-	static sf::UdpSocket socket;
-	// Choose an arbitrary port for opening sockets
-	unsigned short port = 50001; 
-	// IP adrress to connect to
-	sf::IpAddress ip_address = "127.1.0";
-	////////////////////////////////
+	//// NETWORK /////////////////////
+	//// global socket
+	//static sf::UdpSocket socket;
+	//// Choose an arbitrary port for opening sockets
+	//unsigned short port = 50001; 
+	//// IP adrress to connect to
+	//sf::IpAddress ip_address = "127.1.0";
+	//////////////////////////////////
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking"); // , sf::Style::None);
 	// Set framerate to 60FPS
 	window.setFramerateLimit(60);
@@ -30,15 +30,13 @@ void main(int argc, char** argv[])
 	//float deltaTime;
 	sf::Int32 offset = 0;
 
-	
-	
 	bool pause = false;
 	bool debug_mode = false;
 	Input input;
 
 	// initial game state is set in the State class
 	State* state = new Menu(&window, &input);
-	State* network = new NetworkSelect(&window, &input, &socket, &ip_address, &port);
+	State* network = new NetworkSelect(&window, &input);
 	State* network_server = new NetworkServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
 	State* network_client = new NetworkClient(&window, &input, &socket, &ip_address, &port, &clock, &offset);
 	State* game_server = new GameServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
