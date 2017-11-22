@@ -26,8 +26,8 @@ void main(int argc, char** argv[])
 	State* network = new NetworkSelectState(&window, &input);
 	State* network_server = new NetworkServerState(&window, &input);
 	State* network_client = new NetworkClientState(&window, &input);
-	State* game_server = new GameServer(&window, &input);
-	State* game_client = new GameClient(&window, &input);
+	State* game_server = new GameServerState(&window, &input);
+	State* game_client = new GameClientState(&window, &input);
 	
 	//direction dir = direction::left;
 

@@ -1,6 +1,6 @@
 #include "GameClientState.h"
 
-GameClient::GameClient(sf::RenderWindow* hwnd, Input* in) : Network()
+GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
@@ -98,12 +98,12 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in) : Network()
 	//sf::Music music;
 }
 
-GameClient::~GameClient()
+GameClientState::~GameClientState()
 {
 
 }
 
-void GameClient::render()
+void GameClientState::render()
 {
 	beginDraw();
 
@@ -114,28 +114,28 @@ void GameClient::render()
 	endDraw();
 }
 
-void GameClient::beginDraw()
+void GameClientState::beginDraw()
 {
 	window->clear(sf::Color(0, 0, 0));
 }
 
-void GameClient::endDraw()
+void GameClientState::endDraw()
 {
 	window->display();
 }
 
-sf::Int32 GameClient::getCurrentTime()
+sf::Int32 GameClientState::getCurrentTime()
 {
 	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
 	return sf::Int32(current_time + (offset));
 }
 
-inline float GameClient::lerp(float start, float end, float time)
+inline float GameClientState::lerp(float start, float end, float time)
 {
 	return start * (1.0f - time) + time * end;
 }
 
-sf::Vector2f GameClient::lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float time)
+sf::Vector2f GameClientState::lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float time)
 {
 	sf::Vector2f temp;
 	temp.x = lerp(start.x, end.x, time);
@@ -143,7 +143,7 @@ sf::Vector2f GameClient::lerp(const sf::Vector2f& start, const sf::Vector2f& end
 	return temp;
 }
 
-void GameClient::handleInput()
+void GameClientState::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
@@ -169,7 +169,7 @@ void GameClient::handleInput()
 }
 
 // check AABB
-bool GameClient::checkCollision(Sprite* s1, Sprite* s2)
+bool GameClientState::checkCollision(Sprite* s1, Sprite* s2)
 {
 	if (s1->getAABB().left + s1->getAABB().width < s2->getAABB().left)
 		return false;
@@ -184,7 +184,7 @@ bool GameClient::checkCollision(Sprite* s1, Sprite* s2)
 }
 
 // check Sphere bounding collision
-bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
+bool GameClientState::checkSphereBounding(Sprite* s1, Sprite* s2)
 {
 	// half width, height, give us the centre of the shape
 	if (pow(s2->getPosition().x - s1->getPosition().x, 2) + pow(s2->getPosition().y - s1->getPosition().y, 2) < pow((s2->getSize().x / 2) + (s1->getSize().x / 2), 2))
@@ -194,7 +194,7 @@ bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-void GameClient::addMessage(PlayerMessage& player_message_send)
+void GameClientState::addMessage(PlayerMessage& player_message_send)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
@@ -205,7 +205,7 @@ void GameClient::addMessage(PlayerMessage& player_message_send)
 	player_message_send.time = (float)getCurrentTime();
 }
 
-void GameClient::keepTrackOfLocalPositoins()
+void GameClientState::keepTrackOfLocalPositoins()
 {
 	// local message
 	PlayerMessage local_message;
@@ -216,7 +216,7 @@ void GameClient::keepTrackOfLocalPositoins()
 	local_positions.push_front(local_message);
 }
 
-void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
+void GameClientState::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 {
 	// local message
 	PlayerMessage local_message;
@@ -228,13 +228,13 @@ void GameClient::keepTrackOfLocalPositoins(sf::Vector2f& vec)
 	local_positions.push_front(local_message);
 }
 
-void GameClient::keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive)
+void GameClientState::keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive)
 {
 	if (network_positions.size() > num_messages) network_positions.pop_back();
 		network_positions.push_front(player_message_receive);
 }
 
-sf::Vector2f GameClient::predict_local_path()
+sf::Vector2f GameClientState::predict_local_path()
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = local_positions.at(0);
@@ -255,7 +255,7 @@ sf::Vector2f GameClient::predict_local_path()
 	return local_player_pos;
 }
 
-sf::Vector2f GameClient::predict_network_path()
+sf::Vector2f GameClientState::predict_network_path()
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = network_positions.at(0);
@@ -279,10 +279,10 @@ sf::Vector2f GameClient::predict_network_path()
 // Send a message to the server...
 //
 ////////////////////////////////////////////////////////////
-void GameClient::sendPacket()
+void GameClientState::sendPacket()
 {
 	// message
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
 	PlayerMessage player_message_send;
 
 	// Group the variables to send into a packet
@@ -320,11 +320,11 @@ void GameClient::sendPacket()
 // ...wait for the answer
 //
 ////////////////////////////////////////////////////////////
-void GameClient::checkForIncomingPackets()
+void GameClientState::checkForIncomingPackets()
 {
 	while (true) {
 		// Try to receive the packet from the other end
-		// SEND (to the server) MUST MATCH packet_send in the GameServer
+		// SEND (to the server) MUST MATCH packet_send in the GameServerState
 		sf::Packet packet_receive;
 		sf::IpAddress sender;
 		unsigned short senderPort;
@@ -362,7 +362,7 @@ void GameClient::checkForIncomingPackets()
 	}
 }
 
-void GameClient::update()
+void GameClientState::update()
 {
 	//std::thread st1(call_once_set_window, *window);
 	//st1.join();

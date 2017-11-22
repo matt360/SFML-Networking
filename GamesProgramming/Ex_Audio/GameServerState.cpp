@@ -1,6 +1,6 @@
 #include "GameServerState.h"
 
-GameServer::GameServer(sf::RenderWindow* hwnd, Input* in) : Network()
+GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
@@ -92,12 +92,12 @@ GameServer::GameServer(sf::RenderWindow* hwnd, Input* in) : Network()
 	//sf::Music music;
 }
 
-GameServer::~GameServer()
+GameServerState::~GameServerState()
 {
 
 }
 
-void GameServer::handleInput()
+void GameServerState::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
 	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
@@ -116,7 +116,7 @@ void GameServer::handleInput()
 	}
 }
 
-void GameServer::render()
+void GameServerState::render()
 {
 	beginDraw();
 
@@ -128,18 +128,18 @@ void GameServer::render()
 }
 //
 
-void GameServer::beginDraw()
+void GameServerState::beginDraw()
 {
 	window->clear(sf::Color(0, 0, 0));
 }
 
-void GameServer::endDraw()
+void GameServerState::endDraw()
 {
 	window->display();
 }
 
 // check AABB
-bool GameServer::checkCollision(Sprite* s1, Sprite* s2)
+bool GameServerState::checkCollision(Sprite* s1, Sprite* s2)
 {
 	if (s1->getAABB().left + s1->getAABB().width < s2->getAABB().left)
 		return false;
@@ -154,7 +154,7 @@ bool GameServer::checkCollision(Sprite* s1, Sprite* s2)
 }
 
 // check Sphere bounding collision
-bool GameServer::checkSphereBounding(Sprite* s1, Sprite* s2)
+bool GameServerState::checkSphereBounding(Sprite* s1, Sprite* s2)
 {
 	// half width, height, give us the centre of the shape
 	if (pow(s2->getPosition().x - s1->getPosition().x, 2) + pow(s2->getPosition().y - s1->getPosition().y, 2) < pow((s2->getSize().x / 2) + (s1->getSize().x / 2), 2))
@@ -164,7 +164,7 @@ bool GameServer::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-void GameServer::addMessage(PlayerMessage& player_message_send)
+void GameServerState::addMessage(PlayerMessage& player_message_send)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
@@ -178,7 +178,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 // Wait for a message, send an answer.
 //
 //////////////////////////////////////////////////////////
-void GameServer::runUdpServer()
+void GameServerState::runUdpServer()
 {
 	// Wait for a message
 	// Receive the packet at the other end
@@ -204,7 +204,7 @@ void GameServer::runUdpServer()
 	}
 
 	// Extract the variables contained in the packet
-	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
+	// RECEIVE (from the client) MUST MATCH packet_send in the GameClientState
 	PlayerMessage player_message_receive;
 	if (packet_receive >> player_message_receive)
 	{
@@ -212,7 +212,7 @@ void GameServer::runUdpServer()
 		if (debug_mode) displayMessage(player_message_receive, sender, senderPort);
 	}
 
-	// SEND (to the client) MUST MATCH packet_receive in the GameClient
+	// SEND (to the client) MUST MATCH packet_receive in the GameClientState
 	sf::Packet packet_send;
 	
 	// Message to send
@@ -252,7 +252,7 @@ void GameServer::runUdpServer()
 		}
 	}
 }
-void GameServer::update()
+void GameServerState::update()
 {
 	//call_once_set_window(sf::Vector2i(1200, 1000));
 

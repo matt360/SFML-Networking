@@ -78,7 +78,7 @@ sf::Int32 NetworkClientState::getCurrentTime()
 void NetworkClientState::sendPacketToServer()
 {
 	// message
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	// Message to send
@@ -131,7 +131,7 @@ void NetworkClientState::checkForIncomingPacketsFromServer()
 	////////////////////////////////////////////////////////////////////
 	while (true) {
 		// Try to receive the packet from the other end
-		// SEND (to the server) MUST MATCH packet_send in the GameServer
+		// SEND (to the server) MUST MATCH packet_send in the GameServerState
 		sf::Packet packet_receive;
 		sf::IpAddress sender;
 		unsigned short senderPort;

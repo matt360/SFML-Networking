@@ -90,7 +90,7 @@ void NetworkServerState::establishConnectionWithClient()
 	}
 
 	// Extract the variables contained in the packet
-	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient
+	// RECEIVE (from the client) MUST MATCH packet_send in the GameClientState
 	float hello;
 	if (packet_receive >> hello)
 	{
@@ -101,7 +101,7 @@ void NetworkServerState::establishConnectionWithClient()
 	}
 
 	//////////////////////////////////////////////////////////////////////
-	// SEND (to the client) MUST MATCH packet_receive in the GameClient //
+	// SEND (to the client) MUST MATCH packet_receive in the GameClientState //
 	//////////////////////////////////////////////////////////////////////
 	sf::Packet packet_send;
 	// Message to send

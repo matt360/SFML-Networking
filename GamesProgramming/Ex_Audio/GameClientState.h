@@ -3,13 +3,13 @@
 #include "Network.h"
 #include "GameState.h"
 
-// TODO It should be possible to go back from the client game state to client network state (GameClient -> NetworkClientState)
+// TODO It should be possible to go back from the client game state to client network state (GameClientState -> NetworkClientState)
 
-class GameClient : public GameState, public Network 
+class GameClientState : public GameState, public Network 
 {
 public:
-	GameClient(sf::RenderWindow* hwnd, Input* in);
-	~GameClient();
+	GameClientState(sf::RenderWindow* hwnd, Input* in);
+	~GameClientState();
 
 	virtual void handleInput();
 	virtual void update();

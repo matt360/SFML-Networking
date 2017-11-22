@@ -2,11 +2,11 @@
 #include "Network.h"
 #include "GameState.h"
 
-class GameServer : public GameState, public Network
+class GameServerState : public GameState, public Network
 {
 public:
-	GameServer(sf::RenderWindow* hwnd, Input* in);
-	~GameServer();
+	GameServerState(sf::RenderWindow* hwnd, Input* in);
+	~GameServerState();
 
 	virtual void handleInput();
 	virtual void update();
