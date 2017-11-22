@@ -1,12 +1,12 @@
 #include <iostream>
 #include <cstdlib>
-#include "GameServer.h"
-#include "GameClient.h"
 #include "Menu.h"
+#include "NetworkState.h"
 #include "NetworkSelect.h"
 #include "NetworkServer.h"
 #include "NetworkClient.h"
-#include "NetworkState.h"
+#include "GameClient.h"
+#include "GameServer.h"
 
 void main(int argc, char** argv[])
 {
