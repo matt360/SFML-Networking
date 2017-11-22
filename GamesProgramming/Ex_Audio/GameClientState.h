@@ -1,11 +1,11 @@
 #pragma once
 #include <deque>
-#include "Network.h"
+#include "GameClient.h"
 #include "GameState.h"
 
 // TODO It should be possible to go back from the client game state to client network state (GameClientState -> NetworkClientState)
 
-class GameClientState : public GameState, public Network 
+class GameClientState : public GameState, public GameClient 
 {
 public:
 	GameClientState(sf::RenderWindow* hwnd, Input* in);
@@ -40,8 +40,6 @@ private:
 	// window
 	void beginDraw();
 	void endDraw();
-
-	sf::Int32 getCurrentTime();
 
 	float lerp(float start, float end, float time);
 

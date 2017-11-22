@@ -1,6 +1,6 @@
 #include "GameClientState.h"
 
-GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in) : Network()
+GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
