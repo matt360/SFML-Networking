@@ -1,9 +1,9 @@
 #pragma once
 #include "Input.h"
-#include "Network.h"
 #include "State.h"
+#include "NetworkSelect.h"
 
-class NetworkSelectState : public State, public Network
+class NetworkSelectState : public State, public NetworkSelect
 {
 public:
 	NetworkSelectState(sf::RenderWindow* hwnd, Input* in);
@@ -15,14 +15,5 @@ public:
 	// the NetworkClient base class but for the sake of clarity it's being repeted in the derived class
 	// which also makes changes to in
 	virtual void render();
-
-	/////////////
-	// NETWORK //
-	/////////////
-	// client
-	void createClientSocket();
-
-	// server
-	void createServerSocket();	
 };
 
