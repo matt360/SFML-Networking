@@ -264,7 +264,7 @@ void GameServer::runUdpServer()
 	if (packet_receive >> player_message_receive)
 	{
 		// The message from the client
-		if (debug_message) displayMessage(player_message_receive, sender, senderPort);
+		if (debug_mode) displayMessage(player_message_receive, sender, senderPort);
 	}
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClient
@@ -297,7 +297,7 @@ void GameServer::runUdpServer()
 
 	// DEBUG purposes
 	// Extract the variables contained in the packet
-	if (debug_message)
+	if (debug_mode)
 	{
 		PlayerMessage player_message_send_d;
 		if (packet_send >> player_message_send_d)
@@ -390,6 +390,6 @@ void GameServer::update()
 	runUdpServer();
 
 	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();
-	std::cout << "server_time: " << server_time << "\n";
+	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 }
 

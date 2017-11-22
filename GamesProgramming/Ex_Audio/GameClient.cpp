@@ -21,6 +21,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 
 	fps = 0;
 
+	lerp_mode = false;
 	debug_mode = false;
 	debug_message = false;
 
@@ -169,6 +170,12 @@ void GameClient::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
+	}
+	// toggle lerp mode
+	if (input->isKeyDown(sf::Keyboard::L))
+	{
+		input->setKeyUp(sf::Keyboard::L);
+		lerp_mode = !lerp_mode;
 	}
 }
 
@@ -413,7 +420,7 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			if (debug_message) displayMessage(player_message_receive);
+			if (debug_mode) displayMessage(player_message_receive);
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 
@@ -521,7 +528,8 @@ void GameClient::update()
 	// - the current time, in "time"
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
-	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+
 	if (network_positions.size() == 2)
 	{
 		sf::Vector2f local_path = predict_local_path();
@@ -530,7 +538,8 @@ void GameClient::update()
 		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1f);
 		//sf::Vector2f lerp_position = lerp(local_path, network_path, 1.0f);
 		// set position
-		player.setPosition(lerp_position);
+		if (lerp_mode) player.setPosition(lerp_position);
+		else player.setPosition(network_path);
 
 		// add lerped to the history of the local posistions
 		keepTrackOfLocalPositoins();
