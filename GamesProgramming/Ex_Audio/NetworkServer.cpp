@@ -73,30 +73,6 @@ void NetworkServer::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void NetworkServer::displayReceiveMessage(sf::Int32 time)
-{
-	// The message from the client
-	std::cout << "\n\nSERVER: Message received from the client:";
-	// Data extracted successfully...
-	std::cout << "\nSERVER: client's time: " << time;
-}
-
-void NetworkServer::displaySendMessage(sf::Int32 time)
-{
-	// The message from the client
-	std::cout << "\n\nSERVER: Message sent to the client:";
-	// Data extracted successfully...
-	std::cout << "\nSERVER: server's time: " << time;
-}
-
-void NetworkServer::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
-{
-	// The message from the client
-	std::cout << "\nSERVER: IP: " << sender;
-	std::cout << "\nSERVER: port: " << sender_port;
-	std::cout << "\nSERVER: time: " << time;
-}
-
 void NetworkServer::establishConnectionWithClient()
 {
 	// Wait for a message
