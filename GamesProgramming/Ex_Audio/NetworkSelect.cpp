@@ -1,6 +1,6 @@
 #include "NetworkSelect.h"
 
-NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in)
+NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;

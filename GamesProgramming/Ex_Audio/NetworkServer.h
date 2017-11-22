@@ -10,6 +10,7 @@ public:
 		Input* in,
 		sf::Clock* clock,
 		sf::Int32* offset);
+
 	~NetworkServer();
 
 	virtual void handleInput();

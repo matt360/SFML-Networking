@@ -3,7 +3,7 @@
 GameClient::GameClient(sf::RenderWindow* hwnd, 
 	Input* in, 
 	sf::Clock* cl,
-	sf::Int32 *of)
+	sf::Int32 *of) : Network()
 {
 	window = hwnd;
 	input = in;
