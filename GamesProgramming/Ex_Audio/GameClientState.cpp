@@ -179,7 +179,7 @@ void GameClientState::update()
 	}
 
 	// TODO keep track of local positions
-	keepTrackOfLocalPositoins();
+	keepTrackOfLocalPositoins(player, clock, offset);
 
 	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
@@ -250,7 +250,7 @@ void GameClientState::update()
 	//if ((int)fps % 6 == 0)
 	// send packets at 30Hz rate (at 30PFS)
 	if ((int)fps % 2 == 0)
-		sendPacket();
+		sendPacket(player, clock, offset);
 
 	checkForIncomingPackets();
 
@@ -261,12 +261,12 @@ void GameClientState::update()
 	// - the current time, in "time"
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
-	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
 	if (network_positions.size() == 2)
 	{
-		sf::Vector2f local_path = predict_local_path();
-		sf::Vector2f network_path = predict_network_path();
+		sf::Vector2f local_path = predict_local_path(clock, offset);
+		sf::Vector2f network_path = predict_network_path(clock, offset);
 		//lerp
 		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1f);
 		//sf::Vector2f lerp_position = lerp(local_path, network_path, 1.0f);
@@ -275,7 +275,7 @@ void GameClientState::update()
 		else player.setPosition(network_path);
 
 		// add lerped to the history of the local posistions
-		keepTrackOfLocalPositoins();
+		keepTrackOfLocalPositoins(lerp_position, clock, offset);
 	}
 	if (network_positions.size() == 3) 
 	{
@@ -293,7 +293,7 @@ void GameClientState::update()
 		PlayerMessage msg0 = network_positions.at(0);
 		PlayerMessage msg1 = network_positions.at(1);
 		PlayerMessage msg2 = network_positions.at(2);
-		float time = (float)getCurrentTime();
+		float time = (float)getCurrentTime(clock, offset);
 
 		// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 		x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
