@@ -173,7 +173,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="State.cpp" />
+    <ClCompile Include="NetworkState.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
@@ -193,9 +193,11 @@
     <ClInclude Include="NetworkClient.h" />
     <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="NetworkState.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
