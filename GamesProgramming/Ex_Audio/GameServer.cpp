@@ -157,7 +157,7 @@ void GameServer::render()
 
 	endDraw();
 }
-
+//
 void GameServer::beginDraw()
 {
 	window->clear(sf::Color(0, 0, 0));
@@ -194,37 +194,13 @@ bool GameServer::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-void GameServer::displayMessage(const PlayerMessage player_message)
-{
-	// The message from the client
-	std::cout << "\n\nSERVER: Message received from the client:";
-	// Data extracted successfully...
-	std::cout << "\nSERVER: ID: " << player_message.id
-		<< "\nSERVER: Player x: " << player_message.position.x
-		<< "\nSERVER: Player y: " << player_message.position.y
-		<< "\nSERVER: Time: " << player_message.time;
-}
-
-void GameServer::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
-{
-	// The message from the client
-	std::cout << "\n\nSERVER: Message received from the client:";
-	// Data extracted successfully...
-	std::cout << "\nSERVER: ID: " << player_message.id
-		<< "\nSERVER: Player x: " << player_message.position.x
-		<< "\nSERVER: Player y: " << player_message.position.y
-		<< "\nSERVER: Time: " << player_message.time;
-	std::cout << "\nSERVER: client's IP: " << sender;
-	std::cout << "\nSERVER: client's port: " << sender_port;
-}
-
 void GameServer::addMessage(PlayerMessage& player_message_send)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
 	player_message_send.position.x = player.getPosition().x;
 	player_message_send.position.y = player.getPosition().y;
-	
+
 	player_message_send.time = clock->getElapsedTime().asMilliseconds();
 }
 
