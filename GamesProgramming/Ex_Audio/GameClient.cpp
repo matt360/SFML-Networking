@@ -118,6 +118,17 @@ GameClient::~GameClient()
 
 }
 
+void GameClient::render()
+{
+	beginDraw();
+
+	level.render(window);
+	window->draw(player);
+	//window->draw(text);
+
+	endDraw();
+}
+
 void GameClient::call_once_set_window(sf::RenderWindow& window)
 {
 	std::call_once(set_window_flag, [&]() {
@@ -178,27 +189,6 @@ void GameClient::handleInput()
 	}
 }
 
-void GameClient::render()
-{
-	beginDraw();
-
-	level.render(window);
-	window->draw(player);
-	//window->draw(text);
-
-	endDraw();
-}
-
-void GameClient::beginDraw()
-{
-	window->clear(sf::Color(0, 0, 0));
-}
-
-void GameClient::endDraw()
-{
-	window->display();
-}
-
 // check AABB
 bool GameClient::checkCollision(Sprite* s1, Sprite* s2)
 {
@@ -225,27 +215,27 @@ bool GameClient::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-void GameClient::displayMessage(const PlayerMessage player_message)
-{
-	std::cout << "\n\nCLIENT: Message received from the SERVER:";
-	// Data extracted successfully...
-	std::cout << "\nCLIENT: ID: " << player_message.id
-		<< "\nCLIENT: Player x: " << player_message.position.x
-		<< "\nCLIENT: Player y: " << player_message.position.y
-		<< "\nCLIENT: Time: " << player_message.time;
-}
-
-void GameClient::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
-{
-	std::cout << "\n\nCLIENT: Message received from the SERVER:";
-	// Data extracted successfully...
-	std::cout << "\nCLIENT: ID: " << player_message.id
-		<< "\nCLIENT: Player x: " << player_message.position.x
-		<< "\nCLIENT: Player y: " << player_message.position.y
-		<< "\nCLIENT: Time: " << player_message.time;
-	std::cout << "\nCLIENT: client's IP: " << sender;
-	std::cout << "\nCLIENT: client's port: " << sender_port;
-}
+//void GameClient::displayMessage(const PlayerMessage player_message)
+//{
+//	std::cout << "\n\nCLIENT: Message received from the SERVER:";
+//	// Data extracted successfully...
+//	std::cout << "\nCLIENT: ID: " << player_message.id
+//		<< "\nCLIENT: Player x: " << player_message.position.x
+//		<< "\nCLIENT: Player y: " << player_message.position.y
+//		<< "\nCLIENT: Time: " << player_message.time;
+//}
+//
+//void GameClient::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
+//{
+//	std::cout << "\n\nCLIENT: Message received from the SERVER:";
+//	// Data extracted successfully...
+//	std::cout << "\nCLIENT: ID: " << player_message.id
+//		<< "\nCLIENT: Player x: " << player_message.position.x
+//		<< "\nCLIENT: Player y: " << player_message.position.y
+//		<< "\nCLIENT: Time: " << player_message.time;
+//	std::cout << "\nCLIENT: client's IP: " << sender;
+//	std::cout << "\nCLIENT: client's port: " << sender_port;
+//}
 
 //sf::Int32 getCurrentTime {
 //

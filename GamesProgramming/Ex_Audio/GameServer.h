@@ -1,17 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <Windows.h>
-#include <iostream>
-#include <string.h>
-#include <mutex>
-#include "Input.h"
-#include "Player.h"
-#include "AnimatedSprite.h"
-#include "Map.h"
-#include "AudioManager.h"
-#include "Messages.h"
 #include "GameState.h"
 
 class GameServer : public GameState {
@@ -46,10 +34,8 @@ private:
 	sf::Clock* clock;
 	sf::Int32* offset;
 
+	virtual void addMessage(PlayerMessage& player_message);
 	void runUdpServer();
-	void addMessage(PlayerMessage& player_message);
-	void displayMessage(const PlayerMessage player_message);
-	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);
 
 	// window
 	std::once_flag set_window_flag;
@@ -57,27 +43,5 @@ private:
 	void call_once_set_window();
 	/////////////////////////////////
 
-	float fps;
-	sf::Text text;
-	sf::Text error_text;
-	sf::Font font;
-
-	void beginDraw();
-	void endDraw();
-
-	AudioManager audioMgr;
-
-	bool hasStarted;
-
-	// Game Variables
-	Player player;
-	//Enemy enemy;
-	//Cursor cursor;
-	sf::Texture texture;
-
-	Map level;
-
-	// sound test
-	sf::SoundBuffer buff;
-	sf::Sound soun;
+	
 };

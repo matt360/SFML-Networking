@@ -15,6 +15,8 @@
 #include "Messages.h"
 #include "GameState.h"
 
+// TODO It should be possible to go back from the client game state to client network state (GameClient -> NetworkClient)
+
 class GameClient : public GameState {
 public:
 	GameClient(sf::RenderWindow* hwnd, 
@@ -56,11 +58,12 @@ private:
 	sf::Vector2f predict_local_path();
 	sf::Vector2f predict_network_path();
 
+	virtual void addMessage(PlayerMessage& player_message);
 	void sendPacket();
 	void checkForIncomingPackets();
-	void addMessage(PlayerMessage& player_message);
+	/*void addMessage(PlayerMessage& player_message);
 	void displayMessage(const PlayerMessage player_message);
-	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);
+	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);*/
 
 	// window
 	std::once_flag set_window_flag;
@@ -77,28 +80,28 @@ private:
 	bool lerp_mode;
 	/////////////////////////////////
 
-	float fps;
+	/*float fps;
 	sf::Text text;
-	sf::Font font;
+	sf::Font font;*/
 
-	void beginDraw();
-	void endDraw();
+	//void beginDraw();
+	//void endDraw();
 
-	AudioManager audioMgr;
+	//AudioManager audioMgr;
 
-	bool hasStarted;
+	//bool hasStarted;
 
-	// Game Variables
-	Player player;
-	//Enemy enemy;
-	//Cursor cursor;
-	sf::Texture texture;
+	//// Game Variables
+	//Player player;
+	////Enemy enemy;
+	////Cursor cursor;
+	//sf::Texture texture;
 
-	Map level;
+	//Map level;
 
-	// sound test
-	sf::SoundBuffer buff;
-	sf::Sound soun;
+	//// sound test
+	//sf::SoundBuffer buff;
+	//sf::Sound soun;
 };
 
 
