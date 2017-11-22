@@ -14,8 +14,6 @@ public:
 	//Window* getWindow();
 
 private:
-	bool checkCollision(Sprite* s1, Sprite* s2);
-	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 	//void moveMushroom();
 	//Window m_window;
 
