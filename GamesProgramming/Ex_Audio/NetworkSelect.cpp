@@ -35,6 +35,15 @@ NetworkSelect::~NetworkSelect()
 {
 }
 
+void NetworkSelect::render()
+{
+	beginDraw();
+
+	window->draw(text);
+
+	endDraw();
+}
+
 void NetworkSelect::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))

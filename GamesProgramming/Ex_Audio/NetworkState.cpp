@@ -10,14 +10,14 @@ NetworkState::~NetworkState()
 }
 
 
-void NetworkState::render()
-{
-	beginDraw();
-
-	window->draw(text);
-
-	endDraw();
-}
+//void NetworkState::render()
+//{
+//	beginDraw();
+//
+//	window->draw(text);
+//
+//	endDraw();
+//}
 
 void NetworkState::displayReceiveMessage(sf::Int32 time)
 {

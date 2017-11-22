@@ -10,7 +10,7 @@ public:
 	NetworkState();
 	~NetworkState();
 
-	void render();
+	/*void render();*/
 
 protected:
 	void displayReceiveMessage(sf::Int32 time);

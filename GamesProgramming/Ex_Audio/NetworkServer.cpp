@@ -43,6 +43,15 @@ NetworkServer::~NetworkServer()
 {
 }
 
+void NetworkServer::render()
+{
+	beginDraw();
+
+	window->draw(text);
+
+	endDraw();
+}
+
 void NetworkServer::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))

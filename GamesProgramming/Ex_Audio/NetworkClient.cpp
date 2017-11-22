@@ -44,6 +44,15 @@ NetworkClient::~NetworkClient()
 {
 }
 
+void NetworkClient::render()
+{
+	beginDraw();
+
+	window->draw(text);
+
+	endDraw();
+}
+
 void NetworkClient::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))
