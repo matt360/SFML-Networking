@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include "Input.h"
-#include <string.h>
+#include "State.h"
 
 enum class NetworkStateEnum { CLIENT, SERVER, NONE };
 enum class GameStateEnum { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_CLIENT, GAME_SERVER, PAUSE, CREDITS };
