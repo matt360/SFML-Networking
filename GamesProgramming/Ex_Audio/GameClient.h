@@ -1,18 +1,5 @@
 #pragma once
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <Windows.h>
-#include <iostream>
-#include <string.h>
-#include <mutex>
 #include <deque>
-#include "Input.h"
-#include "Player.h"
-#include "AnimatedSprite.h"
-#include "Map.h"
-#include "AudioManager.h"
-#include "Messages.h"
 #include "GameState.h"
 
 // TODO It should be possible to go back from the client game state to client network state (GameClient -> NetworkClient)
