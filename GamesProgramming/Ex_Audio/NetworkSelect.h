@@ -11,7 +11,6 @@ public:
 	NetworkSelect(sf::RenderWindow* hwnd, 
 		Input* in, 
 		GameStateEnum* game_state, 
-		NetworkStateEnum* network_state,
 		sf::UdpSocket* udp_socket, 
 		sf::IpAddress* ip, 
 		unsigned short *port_number);

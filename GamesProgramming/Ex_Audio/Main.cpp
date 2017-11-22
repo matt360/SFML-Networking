@@ -32,7 +32,6 @@ void main(int argc, char** argv[])
 
 	// set the initial game state
 	GameStateEnum game_state = GameStateEnum::MENU;
-	NetworkStateEnum network_state = NetworkStateEnum::NONE;
 	
 	bool pause = false;
 	bool debug_mode = false;
@@ -41,9 +40,9 @@ void main(int argc, char** argv[])
 	// state handler
 	State* state = nullptr;
 	State* menu = new Menu(&window, &input, &game_state);
-	State* network = new NetworkSelect(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
-	State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
-	State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
+	State* network = new NetworkSelect(&window, &input, &game_state, &socket, &ip_address, &port);
+	State* network_server = new NetworkServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+	State* network_client = new NetworkClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
 	

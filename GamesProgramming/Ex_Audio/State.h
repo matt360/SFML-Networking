@@ -24,7 +24,7 @@ protected:
 	sf::Clock* clock;
 	sf::Int32* offset;
 	GameStateEnum* game_state;
-	NetworkStateEnum* network_state;
+	NetworkStateEnum network_state;
 
 	inline void beginDraw() { window->clear(sf::Color(0, 0, 0)); };
 	inline void endDraw() { window->display(); };
