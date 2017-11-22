@@ -1,5 +1,4 @@
 #include "NetworkState.h"
-#include <iostream>
 
 NetworkState::NetworkState()
 {

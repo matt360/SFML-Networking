@@ -1,5 +1,4 @@
 #include "NetworkServer.h"
-#include <iostream>
 
 NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	Input* in,

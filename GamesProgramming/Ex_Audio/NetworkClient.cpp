@@ -1,5 +1,4 @@
 #include "NetworkClient.h"
-#include <iostream>
 
 NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	Input* in,

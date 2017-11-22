@@ -1,5 +1,4 @@
 #include "NetworkSelect.h"
-#include <iostream>
 
 NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd,
 	Input* in,
