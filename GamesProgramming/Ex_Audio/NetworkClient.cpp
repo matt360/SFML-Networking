@@ -216,34 +216,6 @@ void NetworkClient::update()
 
 	if (ready && established_connection)
 	{
-		// extra house keeping
-		/*if (*network_state == NetworkStateEnum::CLIENT)
-		{*/
-			// TODO probably want to do something better than this
-			*game_state = GameStateEnum::GAME_CLIENT;
-		/*}
-		else 
-		{
-			ready = false;
-		}*/
+		*game_state = GameStateEnum::GAME_CLIENT;
 	}
 }
-
-void NetworkClient::render()
-{
-	beginDraw();
-
-	window->draw(text);
-
-	endDraw();
-}
-
-//void NetworkClient::beginDraw()
-//{
-//	window->clear(sf::Color(0, 0, 0));
-//}
-//
-//void NetworkClient::endDraw()
-//{
-//	window->display();
-//}

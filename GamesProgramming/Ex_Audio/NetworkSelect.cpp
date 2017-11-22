@@ -165,15 +165,6 @@ void NetworkSelect::update()
 	}
 }
 
-void NetworkSelect::render()
-{
-	beginDraw();
-
-	window->draw(text);
-
-	endDraw();
-}
-
 //void NetworkSelect::beginDraw()
 //{
 //	window->clear(sf::Color(0, 0, 0));

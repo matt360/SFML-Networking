@@ -164,34 +164,6 @@ void NetworkServer::update()
 
 	if (ready && established_connection)
 	{
-		// TODO extra house keeping
-		/*if (*network_state == NetworkStateEnum::SERVER)
-		{*/
-			*game_state = GameStateEnum::GAME_SERVER;
-		//}
-		//else
-		//{
-		//	// TODO probably want to do something better than this
-		//	readyToPlay = false;
-		//}
+		*game_state = GameStateEnum::GAME_SERVER;
 	}
 }
-
-void NetworkServer::render()
-{
-	beginDraw();
-
-	window->draw(text);
-
-	endDraw();
-}
-
-//void NetworkServer::beginDraw()
-//{
-//	window->clear(sf::Color(0, 0, 0));
-//}
-//
-//void NetworkServer::endDraw()
-//{
-//	window->display();
-//}

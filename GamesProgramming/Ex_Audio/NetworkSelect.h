@@ -19,7 +19,7 @@ public:
 
 	virtual void handleInput();
 	virtual void update();
-	virtual void render();
+	// virtual render function is the same for all Networking states so is defined in the NetworkState base class
 
 	/////////////
 	// NETWORK //
