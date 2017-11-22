@@ -17,11 +17,6 @@ void main(int argc, char** argv[])
 	//window.setSize(sf::Vector2u(400, 400));
 	////////////////////////////////
 
-	// DO NOT RESTART THE CLOCK!
-	//sf::Clock clock;
-	//float deltaTime;
-	//sf::Int32 offset = 0;
-
 	bool pause = false;
 	bool debug_mode = false;
 	Input input;
