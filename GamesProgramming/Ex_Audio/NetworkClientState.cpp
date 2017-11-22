@@ -171,7 +171,7 @@ void NetworkClientState::checkForIncomingPacketsFromServer()
 			sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
 			std::cout << "client_time: " << client_time << "\n";
 			// server_time from the message
-			(offset) = server_time + 0.5 * latency - client_time;
+			offset = ((server_time + (0.5 * latency)) - client_time);
 			std::cout << "offset: " << offset << "\n";
 		}
 	}
