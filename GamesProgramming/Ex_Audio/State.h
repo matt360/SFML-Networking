@@ -3,7 +3,7 @@
 #include <SFML/Network.hpp>
 #include "Input.h"
 #include <string.h>
-#include "States.h"
+#include "EnumStates.h"
 
 class State
 {
@@ -31,16 +31,14 @@ protected:
 	sf::Int32* offset;
 
 	bool established_connection;
-	//sf::Int32 client_time;
-	//sf::Int32 server_time;
-	//sf::Int32 server_offset;
 	// input handlers
-	bool readyToPlay;
+	bool ready;
 	bool server;
 	bool client;
 	bool debug_mode;
 	bool debug_message;
 
+	// display text
 	sf::Text text;
 	sf::Font font;
 };

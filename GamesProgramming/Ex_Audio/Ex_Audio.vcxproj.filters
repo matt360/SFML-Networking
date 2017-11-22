@@ -119,9 +119,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="States.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
@@ -160,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Network.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumStates.h">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

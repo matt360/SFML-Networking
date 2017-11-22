@@ -10,7 +10,7 @@
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
-#include "States.h"
+#include "EnumStates.h"
 #include "AudioManager.h"
 #include "Messages.h"
 #include "State.h"

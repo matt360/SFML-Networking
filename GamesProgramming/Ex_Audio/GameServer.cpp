@@ -1,5 +1,5 @@
 #include "GameServer.h"
-#include "States.h"
+#include "EnumStates.h"
 
 GameServer::GameServer(sf::RenderWindow* hwnd,
 	Input* in,

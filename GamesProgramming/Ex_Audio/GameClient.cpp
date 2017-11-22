@@ -1,5 +1,5 @@
 #include "GameClient.h"
-#include "States.h"
+#include "EnumStates.h"
 
 GameClient::GameClient(sf::RenderWindow* hwnd, 
 	Input* in, 

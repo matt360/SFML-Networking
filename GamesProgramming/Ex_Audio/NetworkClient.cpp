@@ -26,7 +26,7 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	//client_time = 0;
 	//server_offset = 0;
 
-	readyToPlay = false;
+	ready = false;
 	server = false;
 	client = false;
 	debug_mode = false;
@@ -50,7 +50,7 @@ void NetworkClient::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::Return);
 		// player ready to play
-		readyToPlay = true;
+		ready = true;
 	}
 
 	// toggle debug mode to display socket messages
@@ -196,7 +196,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			if (debug_message) displayReceiveMessage(server_time);
 
 			// end timing latency
-			end_timing_latency = (sf::Int32)clock->getElapsedTime().asMilliseconds();
+			end_timing_latency = clock->getElapsedTime().asMilliseconds();
 			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
 			latency = (end_timing_latency - start_timing_latency);
 			std::cout << "latency: " << latency << "\n";
@@ -216,7 +216,7 @@ void NetworkClient::establishConnectionWithServer()
 	if (send_packet) 
 	{
 		// start timing latency
-		start_timing_latency = (sf::Int32)clock->getElapsedTime().asMilliseconds();
+		start_timing_latency = clock->getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
 		sendPacketToServer();
 	}
@@ -238,7 +238,7 @@ void NetworkClient::update()
 
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 
-	if (readyToPlay && established_connection)
+	if (ready && established_connection)
 	{
 		// extra house keeping
 		/*if (*network_state == NetworkState::CLIENT)
@@ -248,7 +248,7 @@ void NetworkClient::update()
 		/*}
 		else 
 		{
-			readyToPlay = false;
+			ready = false;
 		}*/
 	}
 }

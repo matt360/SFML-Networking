@@ -17,7 +17,7 @@ NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd,
 	state = st;
 	network_state = net_st;
 
-	readyToConnect = false;
+	ready = false;
 	server = false;
 	client = false;
 	debug_mode = true;
@@ -41,7 +41,7 @@ void NetworkSelect::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::Return);
 		// player ready to play
-		readyToConnect = true;
+		ready = true;
 	}	
 
 	// Client or server ?
@@ -148,7 +148,7 @@ void NetworkSelect::update()
 		client = false;
 	}
 
-	if (readyToConnect) 
+	if (ready) 
 	{
 		switch (*network_state)
 		{
@@ -159,7 +159,7 @@ void NetworkSelect::update()
 			*state = GameState::NETWORK_CLIENT;
 			break;
 		default:
-			readyToConnect = false;
+			ready = false;
 			break;
 		}
 	}

@@ -4,7 +4,7 @@
 #include "Input.h"
 #include <string.h>
 #include "State.h"
-#include "States.h"
+#include "EnumStates.h"
 
 class NetworkServer : public State
 {
