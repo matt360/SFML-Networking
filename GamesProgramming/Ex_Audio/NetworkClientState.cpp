@@ -109,7 +109,7 @@ void NetworkClientState::sendPacketToServer()
 	if (packet_send >> hello)
 	{
 			// Data extracted successfully...
-		if (debug_message) displaySendMessage(hello);
+		//if (debug_message) displaySendMessage(hello);
 		send_packet = false;
 		std::cout << "send_packet is false" << "\n";
 	}
@@ -160,7 +160,7 @@ void NetworkClientState::checkForIncomingPacketsFromServer()
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
-			if (debug_message) displayReceiveMessage(server_time);
+			//if (debug_message) displayReceiveMessage(server_time);
 
 			// end timing latency
 			end_timing_latency = clock.getElapsedTime().asMilliseconds();

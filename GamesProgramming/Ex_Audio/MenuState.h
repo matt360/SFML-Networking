@@ -2,25 +2,16 @@
 #include <SFML/Graphics.hpp>
 #include "Input.h"
 #include <string.h>
-#include "NetworkState.h"
+#include "State.h"
 
-class Menu : public NetworkState
+class Menu : public State
 {
 public:
 	Menu(sf::RenderWindow* hwnd, Input* in);
 	~Menu();
 
-	void handleInput();
-	void update();
-	void render();
-
-private:
-	void beginDraw();
-	void endDraw();
-	sf::RenderWindow* window;
-	Input* input;
-	
-	sf::Text text;
-	sf::Font font;
+	virtual void handleInput();
+	virtual void update();
+	virtual void render();
 };
 

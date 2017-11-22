@@ -58,7 +58,7 @@ void NetworkServerState::establishConnectionWithClient()
 		// Deal with the messages from the packet
 		// The message from the client
 		established_connection = (int)hello;
-		if (debug_message) displayReceiveMessage(hello);
+		//if (debug_message) displayReceiveMessage(hello);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ void NetworkServerState::establishConnectionWithClient()
 		if (packet_send >> server_time >> established_connection)
 		{
 			// Data extracted successfully...
-			if (debug_message) displaySendMessage(server_time);
+			//if (debug_message) displaySendMessage(server_time);
 		}
 	}
 }
