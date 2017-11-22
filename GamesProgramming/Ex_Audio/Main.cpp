@@ -7,7 +7,6 @@
 #include "NetworkServer.h"
 #include "NetworkClient.h"
 #include "State.h"
-#include "EnumStates.h"
 
 void main(int argc, char** argv[])
 {

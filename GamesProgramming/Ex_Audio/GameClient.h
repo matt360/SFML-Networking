@@ -13,7 +13,6 @@
 #include "AnimatedSprite.h"
 #include "Map.h"
 #include "State.h"
-#include "EnumStates.h"
 #include "AudioManager.h"
 #include "Messages.h"
 

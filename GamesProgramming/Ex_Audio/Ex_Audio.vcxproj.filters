@@ -158,8 +158,5 @@
     <ClInclude Include="Network.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="EnumStates.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

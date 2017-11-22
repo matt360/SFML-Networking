@@ -3,7 +3,6 @@
 #include "Input.h"
 #include <string.h>
 #include "State.h"
-#include "EnumStates.h"
 
 class Menu : public State
 {

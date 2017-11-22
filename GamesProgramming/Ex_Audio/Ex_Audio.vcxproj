@@ -196,7 +196,6 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="EnumStates.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
