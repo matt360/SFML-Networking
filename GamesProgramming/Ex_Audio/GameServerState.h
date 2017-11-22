@@ -1,8 +1,8 @@
 #pragma once
-#include "Network.h"
+#include "GameServer.h"
 #include "GameState.h"
 
-class GameServerState : public GameState, public Network
+class GameServerState : public GameState, public GameServer
 {
 public:
 	GameServerState(sf::RenderWindow* hwnd, Input* in);
@@ -19,13 +19,9 @@ private:
 	//void moveMushroom();
 	//Window m_window;
 
-	virtual void addMessage(PlayerMessage& player_message);
-	void runUdpServer();
-
 	// window
 	void beginDraw();
 	void endDraw();
 
-	bool debug_mode;
-	bool debug_message;
+	
 };
