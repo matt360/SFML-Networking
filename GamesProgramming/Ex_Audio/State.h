@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <iostream>
 #include "Input.h"
 
 enum class NetworkStateEnum { CLIENT, SERVER, NONE };

@@ -1,7 +1,7 @@
 #pragma once
 #include "Input.h"
 #include "Network.h"
-#include "NetworkState.h"
+#include "State.h"
 
 class NetworkSelectState : public State, public Network
 {
