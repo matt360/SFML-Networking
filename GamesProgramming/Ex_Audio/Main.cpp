@@ -18,9 +18,9 @@ void main(int argc, char** argv[])
 	////////////////////////////////
 
 	// DO NOT RESTART THE CLOCK!
-	sf::Clock clock;
+	//sf::Clock clock;
 	//float deltaTime;
-	sf::Int32 offset = 0;
+	//sf::Int32 offset = 0;
 
 	bool pause = false;
 	bool debug_mode = false;
@@ -29,10 +29,10 @@ void main(int argc, char** argv[])
 	// initial game state is set in the State class
 	State* state = new Menu(&window, &input);
 	State* network = new NetworkSelect(&window, &input);
-	State* network_server = new NetworkServer(&window, &input, &clock);
-	State* network_client = new NetworkClient(&window, &input, &clock);
-	State* game_server = new GameServer(&window, &input, &clock);
-	State* game_client = new GameClient(&window, &input, &clock);
+	State* network_server = new NetworkServer(&window, &input);
+	State* network_client = new NetworkClient(&window, &input);
+	State* game_server = new GameServer(&window, &input);
+	State* game_client = new GameClient(&window, &input);
 	
 	//direction dir = direction::left;
 

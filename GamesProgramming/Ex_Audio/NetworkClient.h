@@ -6,9 +6,7 @@
 class NetworkClient : public NetworkState, public Network
 {
 public:
-	NetworkClient(sf::RenderWindow* hwnd,
-		Input* in,
-		sf::Clock* clock);
+	NetworkClient(sf::RenderWindow* hwnd, Input* in);
 	~NetworkClient();
 
 	virtual void handleInput();

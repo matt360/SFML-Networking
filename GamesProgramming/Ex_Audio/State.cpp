@@ -11,3 +11,4 @@ State::~State() {}
 // Without static definition out of the class declaration in
 // *.cpp file a linking error will occur!
 sf::Int32 State::offset = 0;
+sf::Clock State::clock;

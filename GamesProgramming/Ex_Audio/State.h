@@ -11,7 +11,7 @@ enum class GameStateEnum { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_C
 class State
 {
 public:
-	inline State();
+	State();
 	virtual ~State();
 
 	virtual void handleInput() = 0;
@@ -23,7 +23,7 @@ protected:
 	sf::RenderWindow* window;
 	Input* input;
 	// Network
-	sf::Clock* clock;
+	static sf::Clock clock;
 	static sf::Int32 offset;
 	GameStateEnum game_state;
 	NetworkStateEnum network_state;

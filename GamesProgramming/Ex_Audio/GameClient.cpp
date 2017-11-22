@@ -1,12 +1,9 @@
 #include "GameClient.h"
 
-GameClient::GameClient(sf::RenderWindow* hwnd, 
-	Input* in, 
-	sf::Clock* cl) : Network()
+GameClient::GameClient(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
-	clock = cl;
 
 	fps = 0;
 
@@ -131,7 +128,7 @@ void GameClient::endDraw()
 
 sf::Int32 GameClient::getCurrentTime()
 {
-	sf::Int32 current_time = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
 	return sf::Int32(current_time + (offset));
 }
 

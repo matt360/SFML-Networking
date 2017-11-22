@@ -1,12 +1,9 @@
 #include "NetworkServer.h"
 
-NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
-	Input* in,
-	sf::Clock* cl) : Network()
+NetworkServer::NetworkServer(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
-	clock = cl;
 
 	established_connection = false;
 	
@@ -110,7 +107,7 @@ void NetworkServer::establishConnectionWithClient()
 	// Message to send
 	// Group the variables to send into a packet
 	//established_connection = true;
-	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	packet_send << server_time << established_connection;
 	std::cout << "server_time: " << server_time << "\n";
 	//sf::sleep(sf::milliseconds(1000));
@@ -152,7 +149,7 @@ void NetworkServer::update()
 
 	establishConnectionWithClient();
 
-	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	std::cout << "server_time: " << server_time << "\n";
 
 	if (ready && established_connection)

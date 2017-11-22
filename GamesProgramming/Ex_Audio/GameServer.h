@@ -5,9 +5,7 @@
 class GameServer : public GameState, public Network
 {
 public:
-	GameServer(sf::RenderWindow* hwnd,
-		Input* in,
-		sf::Clock* clock);
+	GameServer(sf::RenderWindow* hwnd, Input* in);
 	~GameServer();
 
 	virtual void handleInput();

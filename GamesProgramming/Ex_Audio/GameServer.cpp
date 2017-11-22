@@ -1,12 +1,9 @@
 #include "GameServer.h"
 
-GameServer::GameServer(sf::RenderWindow* hwnd,
-	Input* in,
-	sf::Clock* cl) : Network()
+GameServer::GameServer(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
-	clock = cl;
 	// 
 	fps = 0;
 
@@ -176,7 +173,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send)
 	player_message_send.position.x = player.getPosition().x;
 	player_message_send.position.y = player.getPosition().y;
 
-	player_message_send.time = clock->getElapsedTime().asMilliseconds();
+	player_message_send.time = clock.getElapsedTime().asMilliseconds();
 }
 
 //////////////////////////////////////////////////////////
@@ -339,7 +336,7 @@ void GameServer::update()
 	// server should probably keep listening and sending all the time
 	runUdpServer();
 
-	sf::Int32 server_time = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 }
 

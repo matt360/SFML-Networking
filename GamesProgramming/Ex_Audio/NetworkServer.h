@@ -6,9 +6,7 @@
 class NetworkServer : public NetworkState, public Network
 {
 public:
-	NetworkServer(sf::RenderWindow* hwnd,
-		Input* in,
-		sf::Clock* clock);
+	NetworkServer(sf::RenderWindow* hwnd, Input* in);
 
 	~NetworkServer();
 

@@ -1,12 +1,9 @@
 #include "NetworkClient.h"
 
-NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
-	Input* in,
-	sf::Clock* cl) : Network()
+NetworkClient::NetworkClient(sf::RenderWindow* hwnd, Input* in) : Network()
 {
 	window = hwnd;
 	input = in;
-	clock = cl;
 
 	send_packet = true;
 	established_connection = false;
@@ -70,7 +67,7 @@ void NetworkClient::handleInput()
 
 sf::Int32 NetworkClient::getCurrentTime()
 {
-	sf::Int32 current_time = clock->getElapsedTime().asMilliseconds();
+	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
 	return sf::Int32(current_time + (offset));
 }
 
@@ -166,12 +163,12 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			if (debug_message) displayReceiveMessage(server_time);
 
 			// end timing latency
-			end_timing_latency = clock->getElapsedTime().asMilliseconds();
+			end_timing_latency = clock.getElapsedTime().asMilliseconds();
 			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
 			latency = (end_timing_latency - start_timing_latency);
 			std::cout << "latency: " << latency << "\n";
 			// calculate server time
-			sf::Int32 client_time = clock->getElapsedTime().asMilliseconds();
+			sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
 			std::cout << "client_time: " << client_time << "\n";
 			// server_time from the message
 			(offset) = server_time + 0.5 * latency - client_time;
@@ -186,7 +183,7 @@ void NetworkClient::establishConnectionWithServer()
 	if (send_packet) 
 	{
 		// start timing latency
-		start_timing_latency = clock->getElapsedTime().asMilliseconds();
+		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
 		sendPacketToServer();
 	}
