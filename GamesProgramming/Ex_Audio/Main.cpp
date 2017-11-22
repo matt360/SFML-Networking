@@ -10,14 +10,6 @@
 
 void main(int argc, char** argv[])
 {
-	//// NETWORK /////////////////////
-	//// global socket
-	//static sf::UdpSocket socket;
-	//// Choose an arbitrary port for opening sockets
-	//unsigned short port = 50001; 
-	//// IP adrress to connect to
-	//sf::IpAddress ip_address = "127.1.0";
-	//////////////////////////////////
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking"); // , sf::Style::None);
 	// Set framerate to 60FPS
 	window.setFramerateLimit(60);
