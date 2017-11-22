@@ -1,4 +1,4 @@
-#include "NetworkSelect.h"
+#include "NetworkSelectState.h"
 
 NetworkSelectState::NetworkSelectState(sf::RenderWindow* hwnd, Input* in) : Network()
 {

@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "Menu.h"
 #include "NetworkState.h"
-#include "NetworkSelect.h"
+#include "NetworkSelectState.h"
 #include "NetworkServer.h"
 #include "NetworkClient.h"
 #include "GameClient.h"
