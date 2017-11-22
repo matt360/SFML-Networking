@@ -18,7 +18,7 @@ public:
 	unsigned short* port;
 	sf::Clock* clock;
 	sf::Int32* offset;
-	GameStateEnum* state;
+	GameStateEnum* game_state;
 	NetworkStateEnum* network_state;
 
 	virtual void handleInput() = 0;

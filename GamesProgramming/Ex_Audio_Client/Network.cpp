@@ -6,7 +6,7 @@ NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	state = GameStateEnum::NETWORK;
+	game_state = GameStateEnum::NETWORK;
 
 	// NetworkSelect text
 	font.loadFromFile("font/arial.ttf");
@@ -22,7 +22,7 @@ NetworkSelect::~NetworkSelect()
 
 GameStateEnum NetworkSelect::getState()
 {
-	return state;
+	return game_state;
 }
 
 void NetworkSelect::handleInput(float dt)
@@ -31,11 +31,11 @@ void NetworkSelect::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		state = GameStateEnum::LEVEL;
+		game_state = GameStateEnum::LEVEL;
 	}
 	else
 	{
-		state = GameStateEnum::NETWORK;
+		game_state = GameStateEnum::NETWORK;
 	}
 }
 

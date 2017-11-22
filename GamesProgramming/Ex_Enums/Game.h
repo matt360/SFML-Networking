@@ -28,7 +28,7 @@ private:
 	//Window m_window;
 	sf::RenderWindow* window;
 	Input* input;
-	GameStateEnum state;
+	GameStateEnum game_state;
 
 	float fps;
 	sf::Text text;

@@ -7,7 +7,7 @@
 class Menu : public NetworkState
 {
 public:
-	Menu(sf::RenderWindow* hwnd, Input* in, GameStateEnum* state);
+	Menu(sf::RenderWindow* hwnd, Input* in, GameStateEnum* game_state);
 	~Menu();
 
 	void handleInput();
@@ -19,7 +19,7 @@ private:
 	void endDraw();
 	sf::RenderWindow* window;
 	Input* input;
-	GameStateEnum* state;
+	GameStateEnum* game_state;
 	
 	sf::Text text;
 	sf::Font font;

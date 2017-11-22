@@ -18,8 +18,8 @@ void main(int argc, char** argv[])
 	Game game(&window, &input);
 	Menu menu(&window, &input);
 	NetworkSelect network(&window, &input);
-	// Set initial state
-	GameStateEnum state = GameStateEnum::MENU;	
+	// Set initial game_state
+	GameStateEnum game_state = GameStateEnum::MENU;	
 	//direction dir = direction::left;
 	
 	// For Delta Time
@@ -99,11 +99,11 @@ void main(int argc, char** argv[])
 
 			if (pause)
 			{
-				state = GameStateEnum::PAUSE;
+				game_state = GameStateEnum::PAUSE;
 			}
 			else
 			{
-				state = GameStateEnum::LEVEL;
+				game_state = GameStateEnum::LEVEL;
 			}
 		}
 
@@ -113,7 +113,7 @@ void main(int argc, char** argv[])
 
 		// game loop
 		// Update/Render object based on current game state
-		switch (state)
+		switch (game_state)
 		{
 		case (GameStateEnum::MENU) :
 
@@ -121,7 +121,7 @@ void main(int argc, char** argv[])
 			menu.handleInput(deltaTime);
 			menu.update(deltaTime);
 			menu.render();
-			state = menu.getState();
+			game_state = menu.getState();
 			break;
 
 		case (GameStateEnum::NETWORK) :
@@ -129,7 +129,7 @@ void main(int argc, char** argv[])
 			// create socket and 
 			network.update(deltaTime);
 			network.render();
-			state = network.getState();
+			game_state = network.getState();
 			break;
 
 		case(GameStateEnum::LEVEL):
@@ -140,7 +140,7 @@ void main(int argc, char** argv[])
 			//socket(); 
 			game.update(deltaTime);
 			game.render();
-			state = game.getState();
+			game_state = game.getState();
 			break;
 
 		case(GameStateEnum::PAUSE) :

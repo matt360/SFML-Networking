@@ -16,7 +16,7 @@ protected:
 
 	sf::RenderWindow* window;
 	Input* input;
-	GameStateEnum* state;
+	GameStateEnum* game_state;
 	// Network
 	sf::UdpSocket *socket;
 	sf::IpAddress* ip_address;

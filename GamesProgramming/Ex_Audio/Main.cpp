@@ -30,7 +30,7 @@ void main(int argc, char** argv[])
 	//float deltaTime;
 	sf::Int32 offset = 0;
 
-	// set the initial game game_state
+	// set the initial game state
 	GameStateEnum game_state = GameStateEnum::MENU;
 	NetworkStateEnum network_state = NetworkStateEnum::NONE;
 	
@@ -38,7 +38,7 @@ void main(int argc, char** argv[])
 	bool debug_mode = false;
 	Input input;
 
-	// game_state handler
+	// state handler
 	State* state = nullptr;
 	State* menu = new Menu(&window, &input, &game_state);
 	State* network = new NetworkSelect(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
@@ -117,27 +117,27 @@ void main(int argc, char** argv[])
 
 			if (pause)
 			{
-				game_state = GameStateEnum::PAUSE;
+				state = GameStateEnum::PAUSE;
 			}
 			else
 			{
-				switch (game_state)
+				switch (state)
 				{
 				case (GameStateEnum::GAME_CLIENT):
-					game_state = GameStateEnum::GAME_CLIENT;
+					state = GameStateEnum::GAME_CLIENT;
 					break;
 				case (GameStateEnum::GAME_SERVER):
-					game_state = GameStateEnum::GAME_SERVER;
+					state = GameStateEnum::GAME_SERVER;
 					break;
 				}
 			}
 		}*/
 
 		// game loop
-		// Update/Render object based on current game game_state
+		// Update/Render object based on current game state
 
-		// abstract game_state class to be inherited by the game_state classes
-		// put rendering into game_state classes
+		// abstract state class to be inherited by the state classes
+		// put rendering into state classes
 		// put networing into networking classes
 
 		switch (game_state)

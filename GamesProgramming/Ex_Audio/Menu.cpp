@@ -4,7 +4,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in, GameStateEnum* st)
 {
 	window = hwnd;
 	input = in;
-	state = st;
+	game_state = st;
 
 	// Menu text
 	font.loadFromFile("font/advanced_pixel-7.ttf");
@@ -24,11 +24,11 @@ void Menu::handleInput()
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		*state = GameStateEnum::NETWORK;
+		*game_state = GameStateEnum::NETWORK;
 	}
 	else
 	{
-		*state = GameStateEnum::MENU;
+		*game_state = GameStateEnum::MENU;
 	}
 }
 

@@ -4,7 +4,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
-	state = GameStateEnum::MENU;
+	game_state = GameStateEnum::MENU;
 
 	// Menu text
 	font.loadFromFile("font/arial.ttf");
@@ -20,7 +20,7 @@ Menu::~Menu()
 
 GameStateEnum Menu::getState()
 {
-	return state;
+	return game_state;
 }
 
 void Menu::handleInput(float dt)
@@ -29,11 +29,11 @@ void Menu::handleInput(float dt)
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		state = GameStateEnum::NETWORK;
+		game_state = GameStateEnum::NETWORK;
 	}
 	else
 	{
-		state = GameStateEnum::MENU;
+		game_state = GameStateEnum::MENU;
 	}
 }
 

@@ -14,7 +14,7 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	state = st;
+	game_state = st;
 	clock = cl;
 	offset = of;
 
@@ -500,7 +500,7 @@ void GameClient::update()
 
 	/*if (player.getPosition().y > window->getSize().y)
 	{
-		*state = GameStateEnum::NETWORK;
+		*game_state = GameStateEnum::NETWORK;
 		player.setPosition(0, 0);
 		hasStarted = false;
 		audioMgr.stopAllSounds();
@@ -508,7 +508,7 @@ void GameClient::update()
 	}
 	else
 	{
-		*state = GameStateEnum::GAME_CLIENT;
+		*game_state = GameStateEnum::GAME_CLIENT;
 	}*/
 
 
