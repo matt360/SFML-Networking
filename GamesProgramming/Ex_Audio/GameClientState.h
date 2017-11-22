@@ -18,11 +18,6 @@ public:
 private:
 	//void moveMushroom();
 	//Window m_window;
-	
-
-	/*void addMessage(PlayerMessage& player_message);
-	void displayMessage(const PlayerMessage player_message);
-	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);*/
 
 	// window
 	void beginDraw();
@@ -33,28 +28,6 @@ private:
 
 	// debug
 	bool lerp_mode;
-	/////////////////////////////////
-
-	/*float fps;
-	sf::Text text;
-	sf::Font font;*/
-
-
-	//AudioManager audioMgr;
-
-	//bool hasStarted;
-
-	//// Game Variables
-	//Player player;
-	////Enemy enemy;
-	////Cursor cursor;
-	//sf::Texture texture;
-
-	//Map level;
-
-	//// sound test
-	//sf::SoundBuffer buff;
-	//sf::Sound soun;
 };
 
 
