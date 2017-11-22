@@ -52,6 +52,18 @@
     <Filter Include="Header Files\State Handlers\Network State Handlers">
       <UniqueIdentifier>{bf85a398-760b-4e1b-b88e-d9770ff044d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Network\Server">
+      <UniqueIdentifier>{0c974f86-a5f6-447e-96f8-3b14af0aab34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Client">
+      <UniqueIdentifier>{8075c62d-d43c-47bc-b421-44df275d8340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Server">
+      <UniqueIdentifier>{b3be28e0-157d-4ba6-b760-4121689b3138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Client">
+      <UniqueIdentifier>{42c880b4-1cf9-4fde-b19e-2d2201d5f1e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp">
