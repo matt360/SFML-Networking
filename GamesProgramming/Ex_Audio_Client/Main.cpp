@@ -17,7 +17,7 @@ void main(int argc, char** argv[])
 	Input input;
 	Game game(&window, &input);
 	Menu menu(&window, &input);
-	Network network(&window, &input);
+	NetworkSelect network(&window, &input);
 	// Set initial state
 	GameState state = GameState::MENU;	
 	//direction dir = direction::left;

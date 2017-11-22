@@ -2,13 +2,13 @@
 #include "SFML/Network.hpp"
 #include <iostream>
 
-Network::Network(sf::RenderWindow* hwnd, Input* in)
+NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
 	state = GameState::NETWORK;
 
-	// Network text
+	// NetworkSelect text
 	font.loadFromFile("font/arial.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
@@ -16,16 +16,16 @@ Network::Network(sf::RenderWindow* hwnd, Input* in)
 	text.setString("Connecting...\n\nPress Enter to Play");
 }
 
-Network::~Network()
+NetworkSelect::~NetworkSelect()
 {
 }
 
-GameState Network::getState()
+GameState NetworkSelect::getState()
 {
 	return state;
 }
 
-void Network::handleInput(float dt)
+void NetworkSelect::handleInput(float dt)
 {
 
 	if (input->isKeyDown(sf::Keyboard::Return))
@@ -43,7 +43,7 @@ void Network::handleInput(float dt)
 /// Launch a server, wait for a message, send an answer.
 ///
 ////////////////////////////////////////////////////////////
-void Network::runUdpServer(unsigned short port)
+void NetworkSelect::runUdpServer(unsigned short port)
 {
 	// Create a socket to receive a message from anyone
 	sf::UdpSocket socket;
@@ -74,7 +74,7 @@ void Network::runUdpServer(unsigned short port)
 /// Send a message to the server, wait for the answer
 ///
 ////////////////////////////////////////////////////////////
-void Network::runUdpClient(unsigned short port)
+void NetworkSelect::runUdpClient(unsigned short port)
 {
 	// Ask for the server address
 	sf::IpAddress server("127.1.0");
@@ -143,7 +143,7 @@ void Network::runUdpClient(unsigned short port)
 	}
 }
 
-void Network::update(float dt)
+void NetworkSelect::update(float dt)
 {
 	runUdpClient(port);
 
@@ -182,7 +182,7 @@ void Network::update(float dt)
 	//std::cin.ignore(10000, '\n');
 }
 
-void Network::render()
+void NetworkSelect::render()
 {
 	beginDraw();
 
@@ -191,12 +191,12 @@ void Network::render()
 	endDraw();
 }
 
-void Network::beginDraw()
+void NetworkSelect::beginDraw()
 {
 	window->clear(sf::Color(100, 149, 237));
 }
 
-void Network::endDraw()
+void NetworkSelect::endDraw()
 {
 	window->display();
 }

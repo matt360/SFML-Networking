@@ -4,11 +4,11 @@
 #include <string.h>
 #include "States.h"
 
-class Network
+class NetworkSelect
 {
 public:
-	Network(sf::RenderWindow* hwnd, Input* in);
-	~Network();
+	NetworkSelect(sf::RenderWindow* hwnd, Input* in);
+	~NetworkSelect();
 
 	void handleInput(float dt);
 	void update(float dt);

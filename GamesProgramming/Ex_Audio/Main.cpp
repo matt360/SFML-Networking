@@ -3,7 +3,7 @@
 #include "GameServer.h"
 #include "GameClient.h"
 #include "Menu.h"
-#include "Network.h"
+#include "NetworkSelect.h"
 #include "NetworkServer.h"
 #include "NetworkClient.h"
 #include "State.h"
@@ -42,7 +42,7 @@ void main(int argc, char** argv[])
 	// game_state handler
 	State* state = nullptr;
 	State* menu = new Menu(&window, &input, &game_state);
-	State* network = new Network(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
+	State* network = new NetworkSelect(&window, &input, &game_state, &network_state, &socket, &ip_address, &port);
 	State* network_server = new NetworkServer(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
 	State* network_client = new NetworkClient(&window, &input, &game_state, &network_state, &socket, &ip_address, &port, &clock, &offset);
 	State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);

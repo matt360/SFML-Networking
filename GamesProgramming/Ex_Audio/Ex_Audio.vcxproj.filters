@@ -66,9 +66,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Network.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
     <ClCompile Include="GameServer.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -91,6 +88,9 @@
       <Filter>Source Files\Network</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSelect.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,9 +125,6 @@
     <ClInclude Include="Vector.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="Network.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="GameServer.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
@@ -153,6 +150,9 @@
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelect.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>

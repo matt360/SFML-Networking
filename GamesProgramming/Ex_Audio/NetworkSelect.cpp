@@ -1,7 +1,7 @@
-#include "Network.h"
+#include "NetworkSelect.h"
 #include <iostream>
 
-Network::Network(sf::RenderWindow* hwnd,
+NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd,
 	Input* in,
 	GameState* st,
 	NetworkState* net_st,
@@ -23,7 +23,7 @@ Network::Network(sf::RenderWindow* hwnd,
 	debug_mode = true;
 	debug_message = true;
 
-	// Network text
+	// NetworkSelect text
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
@@ -31,11 +31,11 @@ Network::Network(sf::RenderWindow* hwnd,
 	text.setString("Press 'S' to be the server\n\nPress 'C' to be the client\n\n");
 }
 
-Network::~Network()
+NetworkSelect::~NetworkSelect()
 {
 }
 
-void Network::handleInput()
+void NetworkSelect::handleInput()
 {
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
@@ -86,7 +86,7 @@ void Network::handleInput()
 // anything that happens to the client shouldn't affect the server player
 // anything that happens to the server the client must handle accordingly - if the server is dead - try to reconnect for a ceratin time - take to the network state
 
-void Network::createServerSocket()
+void NetworkSelect::createServerSocket()
 {
 	//////////////////////////////////////////
 	// Create a socket to receive a message from anyone
@@ -101,7 +101,7 @@ void Network::createServerSocket()
 	//////////////////////////////////////////
 }
 
-void Network::createClientSocket()
+void NetworkSelect::createClientSocket()
 {
 	//////////////////////////////////////////
 	socket->unbind();
@@ -116,7 +116,7 @@ void Network::createClientSocket()
 	///////////////////////////////////////////
 }
 
-void Network::update()
+void NetworkSelect::update()
 {
 	// Client or server ?
 	if (server)
@@ -165,7 +165,7 @@ void Network::update()
 	}
 }
 
-void Network::render()
+void NetworkSelect::render()
 {
 	beginDraw();
 
@@ -174,12 +174,12 @@ void Network::render()
 	endDraw();
 }
 
-void Network::beginDraw()
+void NetworkSelect::beginDraw()
 {
 	window->clear(sf::Color(0, 0, 0));
 }
 
-void Network::endDraw()
+void NetworkSelect::endDraw()
 {
 	window->display();
 }

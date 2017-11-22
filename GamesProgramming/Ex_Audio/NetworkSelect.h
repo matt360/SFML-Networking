@@ -6,17 +6,17 @@
 #include "State.h"
 #include "States.h"
 
-class Network : public State
+class NetworkSelect : public State
 {
 public:
-	Network(sf::RenderWindow* hwnd, 
+	NetworkSelect(sf::RenderWindow* hwnd, 
 		Input* in, 
 		GameState* state, 
 		NetworkState* network_state,
 		sf::UdpSocket* udp_socket, 
 		sf::IpAddress* ip, 
 		unsigned short *port_number);
-	~Network();
+	~NetworkSelect();
 
 	void handleInput();
 	void update();

@@ -166,7 +166,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MusicObject.cpp" />
-    <ClCompile Include="Network.cpp" />
+    <ClCompile Include="NetworkSelect.cpp" />
     <ClCompile Include="NetworkClient.cpp" />
     <ClCompile Include="NetworkServer.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -187,7 +187,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="MusicObject.h" />
-    <ClInclude Include="Network.h" />
+    <ClInclude Include="NetworkSelect.h" />
     <ClInclude Include="NetworkClient.h" />
     <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="Player.h" />
