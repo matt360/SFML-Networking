@@ -112,22 +112,6 @@ GameServer::~GameServer()
 
 }
 
-void GameServer::call_once_set_window(sf::RenderWindow& window)
-{
-	std::call_once(set_window_flag, [&]() {
-		window.setPosition(sf::Vector2i(900, 800));
-	}
-	);
-}
-
-void GameServer::call_once_set_window()
-{
-	std::call_once(set_window_flag, [&]() {
-		window->setPosition(sf::Vector2i(1200, 200));
-	}
-	);
-}
-
 void GameServer::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -158,6 +142,7 @@ void GameServer::render()
 	endDraw();
 }
 //
+
 void GameServer::beginDraw()
 {
 	window->clear(sf::Color(0, 0, 0));
@@ -284,7 +269,7 @@ void GameServer::runUdpServer()
 }
 void GameServer::update()
 {
-	call_once_set_window();
+	//call_once_set_window(sf::Vector2i(1200, 1000));
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));

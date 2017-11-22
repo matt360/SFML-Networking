@@ -129,20 +129,14 @@ void GameClient::render()
 	endDraw();
 }
 
-void GameClient::call_once_set_window(sf::RenderWindow& window)
+void GameClient::beginDraw()
 {
-	std::call_once(set_window_flag, [&]() {
-		window.setPosition(sf::Vector2i(400, 800));
-	}
-	);
+	window->clear(sf::Color(0, 0, 0));
 }
 
-void GameClient::call_once_set_window()
+void GameClient::endDraw()
 {
-	std::call_once(set_window_flag, [&]() {
-		window->setPosition(sf::Vector2i(1200, 1000));
-	}
-	);
+	window->display();
 }
 
 sf::Int32 GameClient::getCurrentTime()
@@ -422,7 +416,7 @@ void GameClient::update()
 {
 	//std::thread st1(call_once_set_window, *window);
 	//st1.join();
-	call_once_set_window();
+	//call_once_set_window(sf::Vector2i(1200, 1000));
 
 	//fps = 1.f / dt;
 	//text.setString(std::to_string(fps));

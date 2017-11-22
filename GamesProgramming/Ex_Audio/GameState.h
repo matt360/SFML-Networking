@@ -42,6 +42,10 @@ protected:
 	sf::SoundBuffer buff;
 	sf::Sound soun;
 
+	std::once_flag set_window_flag;
+	//void call_once_set_window(sf::RenderWindow& window);
+	void call_once_set_window(sf::Vector2i vec);
+
 	virtual void addMessage(PlayerMessage& player_message) = 0;
 	void displayMessage(const PlayerMessage player_message);
 	void displayMessage(const PlayerMessage player_message, const sf::IpAddress ip_address, const unsigned short port);

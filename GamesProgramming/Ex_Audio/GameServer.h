@@ -38,9 +38,9 @@ private:
 	void runUdpServer();
 
 	// window
-	std::once_flag set_window_flag;
-	void call_once_set_window(sf::RenderWindow& window);
-	void call_once_set_window();
+
+	void beginDraw();
+	void endDraw();
 	/////////////////////////////////
 
 	
