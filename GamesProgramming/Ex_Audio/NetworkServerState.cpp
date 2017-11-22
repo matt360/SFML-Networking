@@ -52,12 +52,12 @@ void NetworkServerState::establishConnectionWithClient()
 
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClientState
-	float hello;
+	bool hello;
 	if (packet_receive >> hello)
 	{
 		// Deal with the messages from the packet
 		// The message from the client
-		established_connection = (int)hello;
+		established_connection = hello;
 		//if (debug_message) displayReceiveMessage(hello);
 	}
 

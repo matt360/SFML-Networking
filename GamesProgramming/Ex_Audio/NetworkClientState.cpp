@@ -82,7 +82,7 @@ void NetworkClientState::sendPacketToServer()
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	// Message to send
-	float hello = 1.0f;
+	bool hello = true;
 	packet_send << hello;
 
 	// Send it over the network (socket is a valid sf::TcpSocket)
