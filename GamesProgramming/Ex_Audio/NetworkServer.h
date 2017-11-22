@@ -12,9 +12,9 @@ public:
 	// NETWORK //
 	/////////////
 	// server
-	bool established_connection;
 	void establishConnectionWithClient();
 
+	bool established_connection;
 	bool debug_mode;
 	bool debug_message;
 };
