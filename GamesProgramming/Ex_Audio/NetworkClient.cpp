@@ -3,7 +3,6 @@
 
 NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 	Input* in,
-	GameStateEnum* st,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
 	unsigned short* port_number,
@@ -12,7 +11,6 @@ NetworkClient::NetworkClient(sf::RenderWindow* hwnd,
 {
 	window = hwnd;
 	input = in;
-	game_state = st;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
@@ -223,6 +221,6 @@ void NetworkClient::update()
 
 	if (ready && established_connection)
 	{
-		*game_state = GameStateEnum::GAME_CLIENT;
+		game_state = GameStateEnum::GAME_CLIENT;
 	}
 }

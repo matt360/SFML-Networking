@@ -10,7 +10,6 @@ class NetworkSelect : public NetworkState
 public:
 	NetworkSelect(sf::RenderWindow* hwnd, 
 		Input* in, 
-		GameStateEnum* game_state, 
 		sf::UdpSocket* udp_socket, 
 		sf::IpAddress* ip, 
 		unsigned short *port_number);

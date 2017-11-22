@@ -30,21 +30,20 @@ void main(int argc, char** argv[])
 	//float deltaTime;
 	sf::Int32 offset = 0;
 
-	// set the initial game state
-	GameStateEnum game_state = GameStateEnum::MENU;
+	
 	
 	bool pause = false;
 	bool debug_mode = false;
 	Input input;
 
-	// state handler
+	// initial game state is set in the State class
 	State* state = nullptr;
-	State* menu = new Menu(&window, &input, &game_state);
-	State* network = new NetworkSelect(&window, &input, &game_state, &socket, &ip_address, &port);
-	State* network_server = new NetworkServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
-	State* network_client = new NetworkClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
-	State* game_server = new GameServer(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
-	State* game_client = new GameClient(&window, &input, &game_state, &socket, &ip_address, &port, &clock, &offset);
+	State* menu = new Menu(&window, &input);
+	State* network = new NetworkSelect(&window, &input, &socket, &ip_address, &port);
+	State* network_server = new NetworkServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
+	State* network_client = new NetworkClient(&window, &input, &socket, &ip_address, &port, &clock, &offset);
+	State* game_server = new GameServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
+	State* game_client = new GameClient(&window, &input, &socket, &ip_address, &port, &clock, &offset);
 	
 	//direction dir = direction::left;
 

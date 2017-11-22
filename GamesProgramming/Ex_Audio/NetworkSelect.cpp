@@ -3,7 +3,6 @@
 
 NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd,
 	Input* in,
-	GameStateEnum* st,
 	sf::UdpSocket* udp_socket, 
 	sf::IpAddress* ip, 
 	unsigned short* port_number)
@@ -13,7 +12,6 @@ NetworkSelect::NetworkSelect(sf::RenderWindow* hwnd,
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	game_state = st;
 
 	ready = false;
 	server = false;
@@ -160,10 +158,10 @@ void NetworkSelect::update()
 		switch (network_state)
 		{
 		case (NetworkStateEnum::SERVER):
-			*game_state = GameStateEnum::NETWORK_SERVER;
+			game_state = GameStateEnum::NETWORK_SERVER;
 			break;
 		case (NetworkStateEnum::CLIENT):
-			*game_state = GameStateEnum::NETWORK_CLIENT;
+			game_state = GameStateEnum::NETWORK_CLIENT;
 			break;
 		default:
 			ready = false;

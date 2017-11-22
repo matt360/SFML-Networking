@@ -2,7 +2,6 @@
 
 GameServer::GameServer(sf::RenderWindow* hwnd,
 	Input* in,
-	GameStateEnum* st,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
 	unsigned short *port_number,
@@ -11,7 +10,6 @@ GameServer::GameServer(sf::RenderWindow* hwnd,
 {
 	window = hwnd;
 	input = in;
-	game_state = st;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;

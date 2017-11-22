@@ -3,7 +3,6 @@
 
 NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 	Input* in,
-	GameStateEnum* st,
 	sf::UdpSocket* udp_socket,
 	sf::IpAddress* ip,
 	unsigned short* port_number,
@@ -12,7 +11,6 @@ NetworkServer::NetworkServer(sf::RenderWindow* hwnd,
 {
 	window = hwnd;
 	input = in;
-	game_state = st;
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
@@ -171,6 +169,6 @@ void NetworkServer::update()
 
 	if (ready && established_connection)
 	{
-		*game_state = GameStateEnum::GAME_SERVER;
+		game_state = GameStateEnum::GAME_SERVER;
 	}
 }

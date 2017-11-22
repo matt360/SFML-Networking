@@ -2,7 +2,6 @@
 
 GameClient::GameClient(sf::RenderWindow* hwnd, 
 	Input* in, 
-	GameStateEnum* st, 
 	sf::UdpSocket* udp_socket, 
 	sf::IpAddress* ip, 
 	unsigned short *port_number,
@@ -14,7 +13,6 @@ GameClient::GameClient(sf::RenderWindow* hwnd,
 	socket = udp_socket;
 	ip_address = ip;
 	port = port_number;
-	game_state = st;
 	clock = cl;
 	offset = of;
 

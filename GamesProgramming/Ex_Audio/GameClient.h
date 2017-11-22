@@ -8,7 +8,6 @@ class GameClient : public GameState {
 public:
 	GameClient(sf::RenderWindow* hwnd, 
 		Input* in, 
-		GameStateEnum* game_state, 
 		sf::UdpSocket* udp_socket, 
 		sf::IpAddress* ip, 
 		unsigned short *port_number,
@@ -28,7 +27,6 @@ private:
 	//Window m_window;
 	sf::RenderWindow* window;
 	Input* input;
-	GameStateEnum* game_state;
 	// Network //////////////////////
 	sf::UdpSocket *socket; 
 	sf::IpAddress* ip_address;

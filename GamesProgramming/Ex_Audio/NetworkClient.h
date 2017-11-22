@@ -10,7 +10,6 @@ class NetworkClient : public NetworkState
 public:
 	NetworkClient(sf::RenderWindow* hwnd,
 		Input* in,
-		GameStateEnum* game_state,
 		sf::UdpSocket* udp_socket,
 		sf::IpAddress* ip,
 		unsigned short *port_number,
