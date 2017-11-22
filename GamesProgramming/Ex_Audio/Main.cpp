@@ -6,7 +6,7 @@
 #include "NetworkSelect.h"
 #include "NetworkServer.h"
 #include "NetworkClient.h"
-#include "State.h"
+#include "NetworkState.h"
 
 void main(int argc, char** argv[])
 {

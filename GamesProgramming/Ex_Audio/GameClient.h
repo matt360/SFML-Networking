@@ -11,7 +11,7 @@
 #include "Player.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
-#include "State.h"
+#include "NetworkState.h"
 #include "AudioManager.h"
 #include "Messages.h"
 

@@ -3,7 +3,7 @@
 #include <SFML/Network.hpp>
 #include "Input.h"
 #include <string.h>
-#include "State.h"
+#include "NetworkState.h"
 
 class NetworkClient : public NetworkState
 {

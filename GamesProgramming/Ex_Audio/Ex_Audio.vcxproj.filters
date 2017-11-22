@@ -149,13 +149,13 @@
     <ClInclude Include="NetworkClient.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="NetworkSelect.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="Network.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkState.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>

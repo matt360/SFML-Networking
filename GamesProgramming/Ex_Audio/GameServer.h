@@ -12,7 +12,7 @@
 #include "Map.h"
 #include "AudioManager.h"
 #include "Messages.h"
-#include "State.h"
+#include "NetworkState.h"
 
 class GameServer : public NetworkState {
 public:

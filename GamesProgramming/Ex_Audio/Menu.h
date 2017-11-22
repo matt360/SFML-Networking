@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Input.h"
 #include <string.h>
-#include "State.h"
+#include "NetworkState.h"
 
 class Menu : public NetworkState
 {
