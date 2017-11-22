@@ -3,7 +3,9 @@
 #include <SFML/Network.hpp>
 #include "Input.h"
 #include <string.h>
-#include "EnumStates.h"
+
+enum class NetworkState { CLIENT, SERVER, NONE };
+enum class GameState { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_CLIENT, GAME_SERVER, PAUSE, CREDITS };
 
 class State
 {
