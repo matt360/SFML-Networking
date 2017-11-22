@@ -11,6 +11,7 @@ enum class GameStateEnum { MENU, NETWORK, NETWORK_CLIENT, NETWORK_SERVER, GAME_C
 class State
 {
 public:
+	// Do NOT inline this constructor! Will couse linking errors
 	State();
 	virtual ~State();
 

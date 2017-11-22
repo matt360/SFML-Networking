@@ -5,8 +5,6 @@ GameClient::GameClient(sf::RenderWindow* hwnd, Input* in) : Network()
 	window = hwnd;
 	input = in;
 
-	fps = 0;
-
 	lerp_mode = false;
 	debug_mode = false;
 	debug_message = false;

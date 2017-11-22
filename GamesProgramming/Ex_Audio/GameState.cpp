@@ -2,7 +2,7 @@
 
 GameState::GameState()
 {
-
+	fps = 0;
 }
 
 GameState::~GameState()
