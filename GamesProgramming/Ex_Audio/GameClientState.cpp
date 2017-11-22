@@ -1,4 +1,4 @@
-#include "GameClient.h"
+#include "GameClientState.h"
 
 GameClient::GameClient(sf::RenderWindow* hwnd, Input* in) : Network()
 {

@@ -69,9 +69,6 @@
     <ClCompile Include="GameServer.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
-    <ClCompile Include="GameClient.cpp">
-      <Filter>Source Files\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
@@ -100,6 +97,9 @@
       <Filter>Source Files\Network</Filter>
     </ClCompile>
     <ClCompile Include="NetworkServerState.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientState.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,9 +134,6 @@
     <ClInclude Include="GameServer.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="GameClient.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
@@ -168,6 +165,9 @@
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="NetworkServerState.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientState.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>

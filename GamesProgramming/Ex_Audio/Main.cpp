@@ -5,7 +5,7 @@
 #include "NetworkSelectState.h"
 #include "NetworkServerState.h"
 #include "NetworkClientState.h"
-#include "GameClient.h"
+#include "GameClientState.h"
 #include "GameServer.h"
 
 void main(int argc, char** argv[])
