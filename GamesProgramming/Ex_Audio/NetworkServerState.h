@@ -1,9 +1,9 @@
 #pragma once
 #include "Input.h"
-#include "Network.h"
 #include "State.h"
+#include "NetworkServer.h"
 
-class NetworkServerState : public State, public Network
+class NetworkServerState : public NetworkServer
 {
 public:
 	NetworkServerState(sf::RenderWindow* hwnd, Input* in);
@@ -15,11 +15,5 @@ public:
 	// virtual render function is the same for all Networking states and could be inherited from 
 	// the NetworkClient base class but for the sake of clarity it's being repeted in the derived class
 	virtual void render();
-
-	/////////////
-	// NETWORK //
-	/////////////
-	// server
-	void establishConnectionWithClient();
 };
 

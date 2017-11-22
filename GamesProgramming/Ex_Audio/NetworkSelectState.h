@@ -3,7 +3,7 @@
 #include "State.h"
 #include "NetworkSelect.h"
 
-class NetworkSelectState : public State, public NetworkSelect
+class NetworkSelectState : public NetworkSelect, public State
 {
 public:
 	NetworkSelectState(sf::RenderWindow* hwnd, Input* in);
@@ -15,5 +15,8 @@ public:
 	// the NetworkClient base class but for the sake of clarity it's being repeted in the derived class
 	// which also makes changes to in
 	virtual void render();
+
+	bool debug_mode;
+	bool debug_message;
 };
 

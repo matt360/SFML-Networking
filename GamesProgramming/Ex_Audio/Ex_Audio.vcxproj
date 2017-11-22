@@ -171,6 +171,7 @@
     <ClCompile Include="NetworkSelect.cpp" />
     <ClCompile Include="NetworkSelectState.cpp" />
     <ClCompile Include="NetworkClientState.cpp" />
+    <ClCompile Include="NetworkServer.cpp" />
     <ClCompile Include="NetworkServerState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="NetworkSelect.h" />
     <ClInclude Include="NetworkSelectState.h" />
     <ClInclude Include="NetworkClientState.h" />
+    <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="NetworkServerState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sound.h" />

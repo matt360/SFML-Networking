@@ -29,5 +29,9 @@ public:
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();
+
+	bool established_connection;
+	bool debug_mode;
+	bool debug_message;
 };
 

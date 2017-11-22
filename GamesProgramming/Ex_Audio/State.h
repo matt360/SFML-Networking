@@ -32,13 +32,10 @@ protected:
 	inline void beginDraw() { window->clear(sf::Color(0, 0, 0)); };
 	inline void endDraw() { window->display(); };
 
-	bool established_connection;
 	// input handlers
 	bool ready;
 	bool server;
 	bool client;
-	bool debug_mode;
-	bool debug_message;
 
 	// display text
 	sf::Text text;

@@ -49,6 +49,8 @@ private:
 
 	// debug
 	bool lerp_mode;
+	bool debug_mode;
+	bool debug_message;
 	/////////////////////////////////
 
 	/*float fps;
