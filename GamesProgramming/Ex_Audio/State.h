@@ -10,6 +10,11 @@ public:
 	State() {}
 	virtual ~State() {}
 
+	virtual void handleInput() = 0;
+	virtual void update() = 0;
+	virtual void render() = 0;
+
+protected:
 	sf::RenderWindow* window;
 	Input* input;
 	// Network
@@ -21,8 +26,19 @@ public:
 	GameStateEnum* game_state;
 	NetworkStateEnum* network_state;
 
-	virtual void handleInput() = 0;
-	virtual void update() = 0;
-	virtual void render() = 0;
+	inline void beginDraw() { window->clear(sf::Color(0, 0, 0)); };
+	inline void endDraw() { window->display(); };
+
+	bool established_connection;
+	// input handlers
+	bool ready;
+	bool server;
+	bool client;
+	bool debug_mode;
+	bool debug_message;
+
+	// display text
+	sf::Text text;
+	sf::Font font;
 };
 
