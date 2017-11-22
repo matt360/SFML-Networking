@@ -124,13 +124,3 @@ void NetworkSelectState::update()
 		}
 	}
 }
-
-//void NetworkSelectState::beginDraw()
-//{
-//	window->clear(sf::Color(0, 0, 0));
-//}
-//
-//void NetworkSelectState::endDraw()
-//{
-//	window->display();
-//}
