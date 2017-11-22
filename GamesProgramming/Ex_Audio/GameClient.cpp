@@ -50,7 +50,7 @@ void GameClient::keepTrackOfNetworkPositions(const PlayerMessage& player_message
 	network_positions.push_front(player_message_receive);
 }
 
-sf::Vector2f GameClient::predict_local_path(const sf::Clock& clock, const sf::Int32& offset))
+sf::Vector2f GameClient::predict_local_path(const sf::Clock& clock, const sf::Int32& offset)
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = local_positions.at(0);
@@ -71,12 +71,12 @@ sf::Vector2f GameClient::predict_local_path(const sf::Clock& clock, const sf::In
 	return local_player_pos;
 }
 
-sf::Vector2f GameClient::predict_network_path()
+sf::Vector2f GameClient::predict_network_path(const sf::Clock& clock, const sf::Int32& offset)
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = network_positions.at(0);
 	PlayerMessage msg1 = network_positions.at(1);
-	float time = (float)getCurrentTime();
+	float time = (float)getCurrentTime(clock, offset);
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
@@ -95,7 +95,7 @@ sf::Vector2f GameClient::predict_network_path()
 // Send a message to the server...
 //
 ////////////////////////////////////////////////////////////
-void GameClient::sendPacket()
+void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
@@ -103,7 +103,7 @@ void GameClient::sendPacket()
 
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
-	addMessage(player_message_send);
+	addMessage(player_message_send, player, clock, offset);
 	packet_send << player_message_send;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket.send(packet_send, ip_address, port))
@@ -169,7 +169,7 @@ void GameClient::checkForIncomingPackets()
 		if (packet_receive >> player_message_receive)
 		{
 			// Data extracted successfully...
-			if (debug_mode) displayMessage(player_message_receive);
+			//if (debug_mode) displayMessage(player_message_receive);
 			// Deal with the messages from the packet
 			// Put position into history of network positions
 

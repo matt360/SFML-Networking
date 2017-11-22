@@ -20,10 +20,10 @@ public:
 	void keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive);
 	std::deque<PlayerMessage> network_positions;
 
-	sf::Vector2f predict_local_path(const sf::Clock& clock, const sf::Int32& offset));
-	sf::Vector2f predict_network_path();
+	sf::Vector2f predict_local_path(const sf::Clock& clock, const sf::Int32& offset);
+	sf::Vector2f predict_network_path(const sf::Clock& clock, const sf::Int32& offset);
 
-	void sendPacket();
+	void sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 	void checkForIncomingPackets();
 
 	bool debug_mode;
