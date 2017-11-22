@@ -4,8 +4,8 @@
 class Network
 {
 public:
-	Network(unsigned short pt = 50001, sf::IpAddress ip_adr = "127.1.0") : port(pt), ip_address(ip_adr) {}
-	virtual ~Network() {}
+	Network(unsigned short pt = 50001, sf::IpAddress ip_adr = "127.1.0");
+	~Network();
 
 protected:
 	// NETWORK /////////////////////
@@ -17,6 +17,4 @@ protected:
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
 };
-
-sf::UdpSocket Network::socket;
 
