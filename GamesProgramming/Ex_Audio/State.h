@@ -14,6 +14,7 @@ public:
 	virtual void update() = 0;
 	virtual void render() = 0;
 
+	inline GameStateEnum getGameState() { return game_state; };
 protected:
 	sf::RenderWindow* window;
 	Input* input;
@@ -23,7 +24,7 @@ protected:
 	unsigned short* port;
 	sf::Clock* clock;
 	sf::Int32* offset;
-	GameStateEnum game_state;
+	GameStateEnum game_state = GameStateEnum::MENU;
 	NetworkStateEnum network_state;
 
 	inline void beginDraw() { window->clear(sf::Color(0, 0, 0)); };

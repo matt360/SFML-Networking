@@ -37,8 +37,7 @@ void main(int argc, char** argv[])
 	Input input;
 
 	// initial game state is set in the State class
-	State* state = nullptr;
-	State* menu = new Menu(&window, &input);
+	State* state = new Menu(&window, &input);
 	State* network = new NetworkSelect(&window, &input, &socket, &ip_address, &port);
 	State* network_server = new NetworkServer(&window, &input, &socket, &ip_address, &port, &clock, &offset);
 	State* network_client = new NetworkClient(&window, &input, &socket, &ip_address, &port, &clock, &offset);
@@ -138,10 +137,11 @@ void main(int argc, char** argv[])
 		// put rendering into state classes
 		// put networing into networking classes
 
-		switch (game_state)
+		switch (state->getGameState())
 		{
 		case (GameStateEnum::MENU) :
-			state = menu;
+			// the State class has an instance of the GameStateEnum and initializes it
+			// to the MENU state so there is no state assignment
 			break;
 
 		case (GameStateEnum::NETWORK) :
@@ -165,7 +165,7 @@ void main(int argc, char** argv[])
 			break;
 
 		case(GameStateEnum::PAUSE) :
-			switch (game_state)
+			switch (state->getGameState())
 			{
 			case (GameStateEnum::GAME_CLIENT):
 				state = game_client;
