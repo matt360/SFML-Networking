@@ -109,7 +109,7 @@ void GameClientState::render()
 
 	level.render(window);
 	window->draw(player);
-	//window->draw(text);
+	window->draw(text);
 
 	endDraw();
 }
@@ -242,8 +242,16 @@ void GameClientState::update()
 		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1f);
 		//sf::Vector2f lerp_position = lerp(local_path, network_path, 1.0f);
 		// set position
-		if (lerp_mode) player.setPosition(lerp_position);
-		else player.setPosition(network_path);
+		lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
+
+		/*if (lerp_mode)
+		{
+			player.setPosition(lerp_position);
+		}
+		else 
+		{
+		player.setPosition(network_path);
+		}*/
 
 		// add lerped to the history of the local posistions
 		keepTrackOfLocalPositoins(lerp_position, clock, offset);
