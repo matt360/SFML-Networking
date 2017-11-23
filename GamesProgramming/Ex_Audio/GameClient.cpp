@@ -234,10 +234,10 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
 	PlayerMessage player_message_send;
-
-	// Group the variables to send into a packet
-	sf::Packet packet_send;
 	addMessage(player_message_send, player, clock, offset);
+
+	sf::Packet packet_send;
+	// Group the variables to send into a packet
 	packet_send << player_message_send << linear_prediction << quadratic_prediction;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket.send(packet_send, ip_address, port))
