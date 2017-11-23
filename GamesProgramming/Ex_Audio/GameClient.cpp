@@ -103,7 +103,21 @@ sf::Vector2f GameClient::predictLinearNetworkPath(const sf::Clock& clock, const 
 	return network_player_pos;
 }
 
-void GameClient::keepTrackOfQuadraticLocalPositoins(const Player & player, const sf::Clock & clock, const sf::Int32 & offset)
+void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode)
+{
+	sf::Vector2f local_path = predictLinearLocalPath(clock, offset);
+	sf::Vector2f network_path = predictLinearNetworkPath(clock, offset);
+	//lerp path works better with 100ms lag
+	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
+
+	// set position
+	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
+
+	// add lerped to the history of the local posistions
+	keepTrackOfLinearLocalPositoins(lerp_position, clock, offset);
+}
+
+void GameClient::keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	// local message
 	PlayerMessage local_message;
@@ -115,7 +129,7 @@ void GameClient::keepTrackOfQuadraticLocalPositoins(const Player & player, const
 	quadratic_local_positions.push_front(local_message);
 }
 
-void GameClient::keepTrackOfQuadraticLocalPositoins(sf::Vector2f & vec, const sf::Clock & clock, const sf::Int32 & offset)
+void GameClient::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset)
 {
 	// local message
 	PlayerMessage local_message;
@@ -127,24 +141,10 @@ void GameClient::keepTrackOfQuadraticLocalPositoins(sf::Vector2f & vec, const sf
 	quadratic_local_positions.push_front(local_message);
 }
 
-void GameClient::keepTrackOfQuadraticNetworkPositions(const PlayerMessage & player_message_receive)
+void GameClient::keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive)
 {
 	if (quadratic_network_positions.size() > num_messages) quadratic_network_positions.pop_back();
 		quadratic_network_positions.push_front(player_message_receive);
-}
-
-void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode)
-{
-	sf::Vector2f local_path = predictLinearLocalPath(clock, offset);
-	sf::Vector2f network_path = predictLinearNetworkPath(clock, offset);
-	//lerp path works better with 100ms lag
-	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
-		
-	// set position
-	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
-	
-	// add lerped to the history of the local posistions
-	keepTrackOfLinearLocalPositoins(lerp_position, clock, offset);
 }
 
 sf::Vector2f GameClient::predictQuadraticLocalPath(const sf::Clock& clock, const sf::Int32& offset)
@@ -222,7 +222,7 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
 
 	// add lerped to the history of the local posistions
-	keepTrackOfLinearLocalPositoins(lerp_position, clock, offset);
+	keepTrackOfQuadraticLocalPositoins(lerp_position, clock, offset);
 }
 
 ////////////////////////////////////////////////////////////
