@@ -302,17 +302,18 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 		}
 
 		// MESSAGE FROM THE SERVER
-		// Extract the variables contained in the packet
-		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		receivePacket(packet_receive);
 	}
 }
 
 void GameClient::receivePacket(sf::Packet& packet_receive)
 {
+	// Extract the variables contained in the packet
+	// Packets must match to what the server is sending (e.g.: server is sending a string, and an int, client must be expecting a string and an int, ect.)
 	PlayerMessage player_message_receive;
 	bool lin_pred;
 	bool quad_pred;
+	// Extract packet into local variables
 	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred)
 	{
 		// Data extracted successfully...

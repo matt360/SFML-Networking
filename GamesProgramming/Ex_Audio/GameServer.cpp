@@ -83,7 +83,7 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 		return;
 	}
 
-	// DEBUG purposes
+	// DEBUG purposes - display sent message
 	// Extract the variables contained in the packet
 	//if (debug_mode)
 	//{
