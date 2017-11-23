@@ -23,9 +23,6 @@ private:
 	void beginDraw();
 	void endDraw();
 
-	// toggle lerp mode - input handler
-	bool lerp_mode;
-
 	// toggle debug - input handler
 	bool debug_mode;
 	bool debug_message;

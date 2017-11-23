@@ -226,10 +226,10 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 }
 
 
-sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction)
+sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	sf::Packet packet_to_send;
-	packet_to_send << player_message_send << linear_prediction << quadratic_prediction;
+	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
 	return packet_to_send;
 }
 
@@ -242,7 +242,7 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 	addMessage(player_message_send, player, clock, offset);
 
 	// Group the variables to send into a packet
-	sf::Packet send_packet = groupIntoPacket(player_message_send, linear_prediction, quadratic_prediction);
+	sf::Packet send_packet = groupIntoPacket(player_message_send);
 
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket.send(send_packet, ip_address, port))
@@ -310,14 +310,16 @@ void GameClient::receivePacket(sf::Packet& packet_receive)
 	PlayerMessage player_message_receive;
 	bool lin_pred;
 	bool quad_pred;
+	bool lerp_mod;
 	// Extract packet into local variables
-	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred)
+	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred >> lerp_mod)
 	{
 		// Data extracted successfully...
 		//if (debug_mode) displayMessage(player_message_receive);
 		// Deal with the messages from the packet
 		linear_prediction = lin_pred;
 		quadratic_prediction = quad_pred;
+		lerp_mode = lerp_mod;
 
 		// Put position into history of network positions
 		keepTrackOfLinearNetworkPositions(player_message_receive);

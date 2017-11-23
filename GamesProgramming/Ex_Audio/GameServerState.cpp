@@ -115,6 +115,15 @@ void GameServerState::handleInput()
 		debug_message = !debug_message;
 	}
 
+	// toggle lerp mode
+	if (input->isKeyDown(sf::Keyboard::L))
+	{
+		input->setKeyUp(sf::Keyboard::L);
+		lerp_mode = !lerp_mode;
+		// display lerp_mode state
+		lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
+	}
+
 	if (input->isKeyDown(sf::Keyboard::P))
 	{
 		input->setKeyUp(sf::Keyboard::P);

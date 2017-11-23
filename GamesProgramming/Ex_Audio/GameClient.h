@@ -13,10 +13,11 @@ public:
 	GameClient();
 	~GameClient();
 
+	bool lerp_mode;
 	bool linear_prediction;
 	bool quadratic_prediction;
 
-	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction);
+	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
 	void receivePacket(sf::Packet& packet_receive);
 
 	// toggle lerp mode - input handler

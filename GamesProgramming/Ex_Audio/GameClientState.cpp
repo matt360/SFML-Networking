@@ -146,15 +146,6 @@ void GameClientState::handleInput()
 		input->setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
 	}
-	// toggle lerp mode
-	if (input->isKeyDown(sf::Keyboard::L))
-	{
-		input->setKeyUp(sf::Keyboard::L);
-		lerp_mode = !lerp_mode;
-		// display lerp_mode state
-		lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
-
-	}
 
 	/*if (input->isKeyDown(sf::Keyboard::P))
 	{
@@ -242,6 +233,7 @@ void GameClientState::update()
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 	std::cout << "linear prediction: " << linear_prediction << "\n";
 	std::cout << "quadratic prediction: " << quadratic_prediction << "\n";
+	lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
 
 	if (linear_prediction && linear_network_positions.size() == lin_num_msg && linear_local_positions.size() == lin_num_msg)
 		linearInterpolation(player, clock, offset, lerp_mode);

@@ -18,10 +18,10 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 	player_message_send.time = clock.getElapsedTime().asMilliseconds();
 }
 
-sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction)
+sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	sf::Packet packet_to_send;
-	packet_to_send << player_message_send << linear_prediction << quadratic_prediction;
+	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
 	return packet_to_send;
 }
 
@@ -61,7 +61,7 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 	addMessage(player_message_send, player, clock);
 
 	// Group the variables to send into a packet
-	sf::Packet packet_send = groupIntoPacket(player_message_send, linear_prediction, quadratic_prediction);
+	sf::Packet packet_send = groupIntoPacket(player_message_send);
 
 	// Send it over the network
 	switch (socket.send(packet_send, sender, senderPort))
