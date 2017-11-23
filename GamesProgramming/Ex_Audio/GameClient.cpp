@@ -271,10 +271,7 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 	/// packet_send.clear();
 }
 
-////////////////////////////////////////////////////////////
 // ...wait for the answer
-//
-////////////////////////////////////////////////////////////
 void GameClient::checkForIncomingPackets(const bool& debug_mode)
 {
 	while (true) {
