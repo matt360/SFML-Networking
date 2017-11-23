@@ -10,7 +10,7 @@ NetworkServer::~NetworkServer()
 {
 }
 
-void NetworkServer::establishConnectionWithClient()
+void NetworkServer::establishConnectionWithClient(const bool& debug_mode, const bool& debug_message)
 {
 	// Wait for a message
 	// Receive the packet at the other end

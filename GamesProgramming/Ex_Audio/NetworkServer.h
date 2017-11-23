@@ -12,10 +12,7 @@ public:
 	// NETWORK //
 	/////////////
 	// server
-	void establishConnectionWithClient();
-
 	bool established_connection;
-	bool debug_mode;
-	bool debug_message;
+	void establishConnectionWithClient(const bool& debug_mode, const bool& debug_message);
 };
 
