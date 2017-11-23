@@ -18,7 +18,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 // Wait for a message, send an answer.
 //
 //////////////////////////////////////////////////////////
-void GameServer::runUdpServer(const Player& player, const sf::Clock& clock)
+void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
 {
 	// Wait for a message
 	// Receive the packet at the other end

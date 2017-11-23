@@ -218,7 +218,7 @@ void GameServerState::update()
 
 	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time
-	runUdpServer(player, clock);
+	runUdpServer(player, clock, debug_mode);
 
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";

@@ -20,4 +20,7 @@ private:
 	// window
 	void beginDraw();
 	void endDraw();
+
+	bool debug_mode;
+	bool debug_message;
 };
