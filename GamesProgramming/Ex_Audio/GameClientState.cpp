@@ -226,16 +226,7 @@ void GameClientState::update()
 
 	if (network_positions.size() == 2)
 	{
-		sf::Vector2f local_path = predict_local_path(clock, offset);
-		sf::Vector2f network_path = predict_network_path(clock, offset);
-		//lerp path works better with 100ms lag
-		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
-
-		// set position
-		lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
-
-		// add lerped to the history of the local posistions
-		keepTrackOfLocalPositoins(lerp_position, clock, offset);
+		linearInterpolation(player, clock, offset);
 	}
 	if (network_positions.size() == 3)
 	{
