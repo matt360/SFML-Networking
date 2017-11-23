@@ -10,7 +10,7 @@ NetworkServer::~NetworkServer()
 {
 }
 
-void NetworkServer::establishConnectionWithClient(const bool& debug_mode, const bool& debug_message)
+void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 {
 	// Wait for a message
 	// Receive the packet at the other end
@@ -55,7 +55,6 @@ void NetworkServer::establishConnectionWithClient(const bool& debug_mode, const 
 	//established_connection = true;
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	packet_send << server_time << established_connection;
-	std::cout << "server_time: " << server_time << "\n";
 	//sf::sleep(sf::milliseconds(1000));
 	// Send it over the network
 	switch (socket.send(packet_send, sender, senderPort))
@@ -77,14 +76,14 @@ void NetworkServer::establishConnectionWithClient(const bool& debug_mode, const 
 		return;
 	}
 
-	// DEBUG purposes
+	// DEBUG purposes - since we are sending server time it's not needed
 	// Extract the variables contained in the packet
-	if (debug_message)
-	{
-		if (packet_send >> server_time >> established_connection)
-		{
-			// Data extracted successfully...
-			//if (debug_message) displaySendMessage(server_time);
-		}
-	}
+	//if (debug_message)
+	//{
+	//	if (packet_send >> server_time >> established_connection)
+	//	{
+	//		// Data extracted successfully...
+	//		if (debug_message) displaySendMessage(server_time);
+	//	}
+	//}
 }

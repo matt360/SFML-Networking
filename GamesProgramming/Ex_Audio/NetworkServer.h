@@ -13,6 +13,6 @@ public:
 	/////////////
 	// server
 	bool established_connection;
-	void establishConnectionWithClient(const bool& debug_mode, const bool& debug_message);
+	void establishConnectionWithClient(const bool& debug_mode);
 };
 

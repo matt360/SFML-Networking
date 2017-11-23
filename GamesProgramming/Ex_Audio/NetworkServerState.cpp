@@ -67,10 +67,10 @@ void NetworkServerState::update()
 {	
 	text.setString("\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play");
 
-	establishConnectionWithClient(debug_mode, debug_message);
+	establishConnectionWithClient(debug_mode);
 
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
-	std::cout << "server_time: " << server_time << "\n";
+	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 
 	if (ready && established_connection)
 	{
