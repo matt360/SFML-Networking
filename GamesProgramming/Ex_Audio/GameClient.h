@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include <deque>
+#include <vector>
 #include "State.h"
 #include "Network.h"
 #include "Messages.h"

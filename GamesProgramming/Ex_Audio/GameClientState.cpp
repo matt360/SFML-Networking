@@ -9,8 +9,8 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	debug_mode = false;
 	debug_message = false;
 
-	// 1 - for linear interpolation, 2 - for quadratic interpolation
-	num_messages = 1;
+	// 2 - for linear interpolation, 3 - for quadratic interpolation
+	num_messages = 2;
 
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
@@ -177,7 +177,9 @@ void GameClientState::update()
 	}
 
 	// TODO keep track of local positions
+	
 	keepTrackOfLinearLocalPositoins(player, clock, offset);
+	keepTrackOfQuadraticLocalPositoins(player, clock, offset);
 
 	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
@@ -232,7 +234,7 @@ void GameClientState::update()
 	// - the predicted position at the current time, in "x_" and "y_"
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
-	switch (linear_network_positions.size())
+	/*switch (linear_network_positions.size())
 	{
 		case 2:
 			linearInterpolation(player, clock, offset, lerp_mode);
@@ -241,7 +243,9 @@ void GameClientState::update()
 		case 3:
 			quadraticInterpolation(player, clock, offset, lerp_mode);
 		break;
-	}
+	}*/
+	if (linear_network_positions.size() == 2 && linear_local_positions.size() == 2) linearInterpolation(player, clock, offset, lerp_mode);
+	//if (quadratic_network_positions.size() == 3 && quadratic_local_positions.size() == 3) quadraticInterpolation(player, clock, offset, lerp_mode);
 
 	// increase fps
 	fps++;

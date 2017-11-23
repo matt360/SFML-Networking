@@ -42,7 +42,7 @@ void GameClient::keepTrackOfLinearLocalPositoins(const Player& player, const sf:
 	local_message.position.y = player.getPosition().y;
 	local_message.time = (float)getCurrentTime(clock, offset);
 
-	if (linear_local_positions.size() > num_messages) linear_local_positions.pop();
+	if (linear_local_positions.size() >= num_messages) linear_local_positions.pop();
 		linear_local_positions.push(local_message);
 }
 
@@ -54,13 +54,13 @@ void GameClient::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Cl
 	local_message.position.y = vec.y;
 	local_message.time = (float)getCurrentTime(clock, offset);
 	// 
-	if (linear_local_positions.size() > num_messages) linear_local_positions.pop();
+	if (linear_local_positions.size() >= num_messages) linear_local_positions.pop();
 		linear_local_positions.push(local_message);
 }
 
 void GameClient::keepTrackOfLinearNetworkPositions(const PlayerMessage& player_message_receive)
 {
-	if (linear_network_positions.size() > num_messages) linear_network_positions.pop();
+	if (linear_network_positions.size() >= num_messages) linear_network_positions.pop();
 		linear_network_positions.push(player_message_receive);
 }
 
@@ -125,7 +125,7 @@ void GameClient::keepTrackOfQuadraticLocalPositoins(const Player& player, const 
 	local_message.position.y = player.getPosition().y;
 	local_message.time = (float)getCurrentTime(clock, offset);
 	//
-	if (quadratic_local_positions.size() > num_messages) quadratic_local_positions.pop_back();
+	if (quadratic_local_positions.size() >= num_messages) quadratic_local_positions.pop_back();
 	quadratic_local_positions.push_front(local_message);
 }
 
@@ -137,13 +137,13 @@ void GameClient::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf:
 	local_message.position.y = vec.y;
 	local_message.time = (float)getCurrentTime(clock, offset);
 	// 
-	if (quadratic_local_positions.size() > num_messages) quadratic_local_positions.pop_back();
+	if (quadratic_local_positions.size() >= num_messages) quadratic_local_positions.pop_back();
 	quadratic_local_positions.push_front(local_message);
 }
 
 void GameClient::keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive)
 {
-	if (quadratic_network_positions.size() > num_messages) quadratic_network_positions.pop_back();
+	if (quadratic_network_positions.size() >= num_messages) quadratic_network_positions.pop_back();
 		quadratic_network_positions.push_front(player_message_receive);
 }
 
