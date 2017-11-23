@@ -26,8 +26,8 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	PlayerMessage initial_player_message;
 	initial_player_message.position.x = initial_player_position.x;
 	initial_player_message.position.y = initial_player_position.y;
-	local_positions.push_front(initial_player_message);
-	local_positions.push_back(initial_player_message);
+	linear_local_positions.push_front(initial_player_message);
+	linear_local_positions.push_back(initial_player_message);
 	player.setInput(input);
 	player.setVelocity(0, 10);
 
@@ -172,7 +172,7 @@ void GameClientState::update()
 	}
 
 	// TODO keep track of local positions
-	keepTrackOfLocalPositoins(player, clock, offset);
+	keepTrackOfLinearLocalPositoins(player, clock, offset);
 
 	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
@@ -227,7 +227,7 @@ void GameClientState::update()
 	// - the predicted position at the current time, in "x_" and "y_"
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
-	switch (network_positions.size())
+	switch (linear_network_positions.size())
 	{
 		case 2:
 			linearInterpolation(player, clock, offset, lerp_mode);

@@ -1,4 +1,5 @@
 #pragma once
+#include <queue>
 #include <deque>
 #include "State.h"
 #include "Network.h"
@@ -18,11 +19,11 @@ public:
 	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
 	void addMessage(PlayerMessage& player_message, const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 	unsigned int num_messages;
-	std::deque<PlayerMessage> local_positions;
-	void keepTrackOfLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	void keepTrackOfLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
-	void keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive);
-	std::deque<PlayerMessage> network_positions;
+	std::queue<PlayerMessage> linear_local_positions;
+	void keepTrackOfLinearLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
+	void keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
+	void keepTrackOfLinearNetworkPositions(const PlayerMessage& player_message_receive);
+	std::queue<PlayerMessage> linear_network_positions;
 
 	sf::Vector2f predictLinearLocalPath(const sf::Clock& clock, const sf::Int32& offset);
 	sf::Vector2f predictLinearNetworkPath(const sf::Clock& clock, const sf::Int32& offset);
