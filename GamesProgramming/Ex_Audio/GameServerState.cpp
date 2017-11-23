@@ -114,6 +114,16 @@ void GameServerState::handleInput()
 		input->setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
 	}
+
+	if (input->isKeyDown(sf::Keyboard::P))
+	{
+		input->setKeyUp(sf::Keyboard::P);
+		linear_prediction = !linear_prediction;
+		quadratic_prediction = !quadratic_prediction;
+
+		std::cout << "linear_prediction: " << linear_prediction << "\n";
+		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
+	}
 }
 
 void GameServerState::render()

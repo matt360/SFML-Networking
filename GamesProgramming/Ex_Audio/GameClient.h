@@ -13,6 +13,9 @@ public:
 	GameClient();
 	~GameClient();
 
+	bool linear_prediction;
+	bool quadratic_prediction;
+
 	// toggle lerp mode - input handler
 	float lerp(float start, float end, float time);
 	sf::Vector2f lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float& time);

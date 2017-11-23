@@ -238,7 +238,7 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 	// Group the variables to send into a packet
 	sf::Packet packet_send;
 	addMessage(player_message_send, player, clock, offset);
-	packet_send << player_message_send;
+	packet_send << player_message_send << linear_prediction << quadratic_prediction;
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket.send(packet_send, ip_address, port))
 	{
@@ -300,13 +300,17 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		PlayerMessage player_message_receive;
-		if (packet_receive >> player_message_receive)
+		bool lin_pred;
+		bool quad_pred;
+		if (packet_receive >> player_message_receive >> lin_pred >> quad_pred)
 		{
 			// Data extracted successfully...
 			//if (debug_mode) displayMessage(player_message_receive);
 			// Deal with the messages from the packet
-			// Put position into history of network positions
+			linear_prediction = lin_pred;
+			quadratic_prediction = quad_pred;
 
+			// Put position into history of network positions
 			keepTrackOfLinearNetworkPositions(player_message_receive);
 			keepTrackOfQuadraticNetworkPositions(player_message_receive);
 		}

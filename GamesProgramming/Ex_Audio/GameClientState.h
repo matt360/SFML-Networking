@@ -25,8 +25,6 @@ private:
 
 	// toggle lerp mode - input handler
 	bool lerp_mode;
-	bool linear_prediction;
-	bool quadratic_prediction;
 
 	// toggle debug - input handler
 	bool debug_mode;

@@ -9,10 +9,6 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	debug_mode = false;
 	debug_message = false;
 
-	// start wit linear prediction
-	linear_prediction = true;
-	quadratic_prediction = false;
-
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(18);
@@ -160,7 +156,7 @@ void GameClientState::handleInput()
 
 	}
 
-	if (input->isKeyDown(sf::Keyboard::P))
+	/*if (input->isKeyDown(sf::Keyboard::P))
 	{
 		input->setKeyUp(sf::Keyboard::P);
 		linear_prediction = !linear_prediction;
@@ -168,7 +164,7 @@ void GameClientState::handleInput()
 
 		std::cout << "linear_prediction: " << linear_prediction << "\n";
 		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
-	}
+	}*/
 }
 
 void GameClientState::update()
@@ -244,6 +240,8 @@ void GameClientState::update()
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
+	std::cout << "linear prediction: " << linear_prediction << "\n";
+	std::cout << "quadratic prediction: " << quadratic_prediction << "\n";
 
 	if (linear_prediction && linear_network_positions.size() == lin_num_msg && linear_local_positions.size() == lin_num_msg)
 		linearInterpolation(player, clock, offset, lerp_mode);

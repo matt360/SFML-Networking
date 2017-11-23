@@ -1,6 +1,10 @@
 #include "GameServer.h"
 
-GameServer::GameServer() {}
+GameServer::GameServer() 
+{
+	linear_prediction = true;
+	quadratic_prediction = false;
+}
 
 GameServer::~GameServer() {}
 
@@ -54,12 +58,11 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClientState
 	sf::Packet packet_send;
-
 	// Message to send
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock);
 	// Group the variables to send into a packet
-	packet_send << player_message_send;
+	packet_send << player_message_send << linear_prediction << quadratic_prediction;
 	// Send it over the network
 	switch (socket.send(packet_send, sender, senderPort))
 	{
@@ -82,15 +85,15 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 
 	// DEBUG purposes
 	// Extract the variables contained in the packet
-	if (debug_mode)
-	{
-		PlayerMessage player_message_send_d;
-		if (packet_send >> player_message_send_d)
-		{
-			// Data extracted successfully...
-			//displayMessage(player_message_send_d);
-		}
-	}
+	//if (debug_mode)
+	//{
+	//	PlayerMessage player_message_send_d;
+	//	if (packet_send >> player_message_send_d)
+	//	{
+	//		// Data extracted successfully...
+	//		//displayMessage(player_message_send_d);
+	//	}
+	//}
 }
 
 
