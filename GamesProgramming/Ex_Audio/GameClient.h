@@ -25,8 +25,8 @@ public:
 	void keepTrackOfNetworkPositions(const PlayerMessage& player_message_receive);
 	std::deque<PlayerMessage> network_positions;
 
-	sf::Vector2f predict_local_path(const sf::Clock& clock, const sf::Int32& offset);
-	sf::Vector2f predict_network_path(const sf::Clock& clock, const sf::Int32& offset);
+	sf::Vector2f predict_linear_local_path(const sf::Clock& clock, const sf::Int32& offset);
+	sf::Vector2f predict_linear_network_path(const sf::Clock& clock, const sf::Int32& offset);
 
 	void linearInterpolation(Player& player, const sf::Clock & clock, const sf::Int32 & offset);
 	void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset);
