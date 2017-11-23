@@ -63,7 +63,7 @@ void GameClient::keepTrackOfNetworkPositions(const PlayerMessage& player_message
 	network_positions.push_front(player_message_receive);
 }
 
-sf::Vector2f GameClient::predict_linear_local_path(const sf::Clock& clock, const sf::Int32& offset)
+sf::Vector2f GameClient::predictLinearLocalPath(const sf::Clock& clock, const sf::Int32& offset)
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = local_positions.at(0);
@@ -84,7 +84,7 @@ sf::Vector2f GameClient::predict_linear_local_path(const sf::Clock& clock, const
 	return local_player_pos;
 }
 
-sf::Vector2f GameClient::predict_linear_network_path(const sf::Clock& clock, const sf::Int32& offset)
+sf::Vector2f GameClient::predictLinearNetworkPath(const sf::Clock& clock, const sf::Int32& offset)
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = network_positions.at(0);
@@ -106,8 +106,8 @@ sf::Vector2f GameClient::predict_linear_network_path(const sf::Clock& clock, con
 
 void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
-	sf::Vector2f local_path = predict_linear_local_path(clock, offset);
-	sf::Vector2f network_path = predict_linear_network_path(clock, offset);
+	sf::Vector2f local_path = predictLinearLocalPath(clock, offset);
+	sf::Vector2f network_path = predictLinearNetworkPath(clock, offset);
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 		
@@ -116,6 +116,47 @@ void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, con
 	
 	// add lerped to the history of the local posistions
 	keepTrackOfLocalPositoins(lerp_position, clock, offset);
+}
+
+sf::Vector2f GameClient::predictQuadraticLocalPath(const sf::Clock& clock, const sf::Int32& offset)
+{
+	float x_average_velocity, y_average_velocity;
+	PlayerMessage msg0 = local_positions.at(0);
+	PlayerMessage msg1 = local_positions.at(1);
+	float time = (float)getCurrentTime(clock, offset);
+
+	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
+
+	//// linear model
+	float x_, y_;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.position.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.position.y;
+
+	sf::Vector2f local_player_pos(x_, y_);
+
+	return local_player_pos;
+}
+
+sf::Vector2f GameClient::predictQuadraticNetworkPath(const sf::Clock& clock, const sf::Int32& offset)
+{
+	float x_average_velocity, y_average_velocity;
+	PlayerMessage msg0 = network_positions.at(0);
+	PlayerMessage msg1 = network_positions.at(1);
+	float time = (float)getCurrentTime(clock, offset);
+
+	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
+	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
+	y_average_velocity = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
+
+	//// linear model
+	float x_, y_;
+	x_ = x_average_velocity * (time - msg1.time) + msg1.position.x;
+	y_ = y_average_velocity * (time - msg1.time) + msg1.position.y;
+
+	sf::Vector2f network_player_pos(x_, y_);
+	return network_player_pos;
 }
 
 void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
