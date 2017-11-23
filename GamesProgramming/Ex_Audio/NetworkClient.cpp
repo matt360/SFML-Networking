@@ -18,7 +18,7 @@ sf::Int32 NetworkClient::getCurrentTime()
 // Send a message to the server...
 //
 ////////////////////////////////////////////////////////////
-void NetworkClient::sendPacketToServer()
+void NetworkClient::sendPacketToServer(const bool& debug_mode)
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
@@ -67,7 +67,7 @@ void NetworkClient::sendPacketToServer()
 // ...wait for the answer
 //
 ////////////////////////////////////////////////////////////
-void NetworkClient::checkForIncomingPacketsFromServer()
+void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 {
 	////////////////////////////////////////////////////////////////////
 	// CHECK FOR INCOMING PACKETS                                     //
@@ -120,7 +120,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 	}
 }
 
-void NetworkClient::establishConnectionWithServer()
+void NetworkClient::establishConnectionWithServer(const bool& debug_mode)
 {
 	// send message to the server...
 	if (send_packet)
@@ -128,9 +128,9 @@ void NetworkClient::establishConnectionWithServer()
 		// start timing latency
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
-		sendPacketToServer();
+		sendPacketToServer(debug_mode);
 	}
 
 	// ...wait for the answer
-	checkForIncomingPacketsFromServer();
+	checkForIncomingPacketsFromServer(debug_mode);
 }

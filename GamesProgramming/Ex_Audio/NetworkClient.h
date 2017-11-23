@@ -20,13 +20,11 @@ protected:
 	sf::Int32 getCurrentTime();
 
 	bool send_packet;
+	void sendPacketToServer(const bool& debug_mode);
 
-	void sendPacketToServer();
-	void checkForIncomingPacketsFromServer();
-	void establishConnectionWithServer();
+	void checkForIncomingPacketsFromServer(const bool& debug_mode);
 
 	bool established_connection;
-	bool debug_mode;
-	bool debug_message;
+	void establishConnectionWithServer(const bool& debug_mode);
 };
 

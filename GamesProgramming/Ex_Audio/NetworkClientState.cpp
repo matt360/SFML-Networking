@@ -71,7 +71,7 @@ void NetworkClientState::update()
 
 	if (!established_connection)
 	{
-		establishConnectionWithServer();
+		establishConnectionWithServer(debug_mode);
 		std::cout << "function call: establishConnectionWithServer()\n";
 		std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	}
