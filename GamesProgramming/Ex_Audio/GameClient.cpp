@@ -4,6 +4,19 @@ GameClient::GameClient() {}
 
 GameClient::~GameClient() {}
 
+inline float GameClient::lerp(float start, float end, float time)
+{
+	return start * (1.0f - time) + time * end;
+}
+
+sf::Vector2f GameClient::lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float& time)
+{
+	sf::Vector2f temp;
+	temp.x = lerp(start.x, end.x, time);
+	temp.y = lerp(start.y, end.y, time);
+	return temp;
+}
+
 sf::Int32 GameClient::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
 {
 	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
@@ -91,6 +104,27 @@ sf::Vector2f GameClient::predict_network_path(const sf::Clock& clock, const sf::
 	return network_player_pos;
 }
 
+void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
+{
+	if (network_positions.size() == 2)
+	{
+		sf::Vector2f local_path = predict_local_path(clock, offset);
+		sf::Vector2f network_path = predict_network_path(clock, offset);
+		//lerp path works better with 100ms lag
+		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
+		
+		// set position
+		lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
+	
+		// add lerped to the history of the local posistions
+		keepTrackOfLocalPositoins(lerp_position, clock, offset);
+	}
+}
+
+void GameClient::QuadraticInterpolation(const sf::Clock& clock, const sf::Int32& offset)
+{
+
+}
 ////////////////////////////////////////////////////////////
 // Send a message to the server...
 //
