@@ -118,7 +118,7 @@ void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, con
 	keepTrackOfLocalPositoins(lerp_position, clock, offset);
 }
 
-void GameClient::QuadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	// quadratic model
 	float

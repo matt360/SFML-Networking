@@ -224,44 +224,15 @@ void GameClientState::update()
 	// - the predicted position at the current time, in "x_" and "y_"
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
-	if (network_positions.size() == 2)
+	switch (network_positions.size())
 	{
-		linearInterpolation(player, clock, offset);
-	}
-	if (network_positions.size() == 3)
-	{
-		// quadratic model
-		float
-			x_average_velocity_1,
-			y_average_velocity_1,
-			x_average_velocity_2,
-			y_average_velocity_2,
-			a_x,
-			a_y,
-			x_,
-			y_;
+		case 2:
+			linearInterpolation(player, clock, offset);
+		break;
 
-		PlayerMessage msg0 = network_positions.at(0);
-		PlayerMessage msg1 = network_positions.at(1);
-		PlayerMessage msg2 = network_positions.at(2);
-		float time = (float)getCurrentTime(clock, offset);
-
-		// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-		x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
-		y_average_velocity_1 = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
-
-		x_average_velocity_2 = (msg1.position.x - msg2.position.x) / (msg1.time - msg2.time);
-		y_average_velocity_2 = (msg1.position.y - msg2.position.y) / (msg1.time - msg2.time);
-
-		a_x = (x_average_velocity_2 - x_average_velocity_1);
-		a_y = (y_average_velocity_2 - y_average_velocity_1);
-
-		// s = s0 + v0t + ½at2
-		x_ = msg2.position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
-		y_ = msg2.position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
-
-		sf::Vector2f loc_player_pos(x_, y_);
-		player.setPosition(loc_player_pos);
+		case 3:
+			quadraticInterpolation(player, clock, offset);
+		break;
 	}
 
 	// increase fps
