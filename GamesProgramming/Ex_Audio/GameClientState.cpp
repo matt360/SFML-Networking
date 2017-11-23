@@ -214,9 +214,9 @@ void GameClientState::update()
 	//if ((int)fps % 6 == 0)
 	// send packets at 30Hz rate (at 30PFS)
 	//if ((int)fps % 2 == 0)
-		sendPacket(player, clock, offset);
+		sendPacket(player, clock, offset, debug_mode);
 
-	checkForIncomingPackets();
+	checkForIncomingPackets(debug_mode);
 
 	// FIXME: Implement prediction here!
 	// You have:

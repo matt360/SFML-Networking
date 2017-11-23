@@ -33,10 +33,6 @@ public:
 	void linearInterpolation(Player& player, const sf::Clock & clock, const sf::Int32 & offset, const bool& lerp_mode);
 	void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
 
-	void sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	void checkForIncomingPackets();
-
-	// toggle debug
-	bool debug_mode;
-	bool debug_message;
+	void sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode);
+	void checkForIncomingPackets(const bool& debug_mode);
 };

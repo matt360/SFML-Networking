@@ -198,7 +198,7 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 // Send a message to the server...
 //
 ////////////////////////////////////////////////////////////
-void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
 {
 	// message
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
@@ -239,7 +239,7 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 // ...wait for the answer
 //
 ////////////////////////////////////////////////////////////
-void GameClient::checkForIncomingPackets()
+void GameClient::checkForIncomingPackets(const bool& debug_mode)
 {
 	while (true) {
 		// Try to receive the packet from the other end
