@@ -225,10 +225,15 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 	keepTrackOfQuadraticLocalPositoins(lerp_position, clock, offset);
 }
 
-////////////////////////////////////////////////////////////
+
+sf::Packet GameClient::groupPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction)
+{
+	sf::Packet packet_to_send;
+	packet_to_send << player_message_send << linear_prediction << quadratic_prediction;
+	return packet_to_send;
+}
+
 // Send a message to the server...
-//
-////////////////////////////////////////////////////////////
 void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
 {
 	// message
@@ -236,11 +241,11 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock, offset);
 
-	sf::Packet packet_send;
 	// Group the variables to send into a packet
-	packet_send << player_message_send << linear_prediction << quadratic_prediction;
+	sf::Packet send_packet = groupPacket(player_message_send, linear_prediction, quadratic_prediction);
+
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	switch (socket.send(packet_send, ip_address, port))
+	switch (socket.send(send_packet, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// send a packet.
