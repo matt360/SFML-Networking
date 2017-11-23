@@ -18,10 +18,14 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 	player_message_send.time = clock.getElapsedTime().asMilliseconds();
 }
 
-//////////////////////////////////////////////////////////
+sf::Packet GameServer::groupPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction)
+{
+	sf::Packet packet_to_send;
+	packet_to_send << player_message_send << linear_prediction << quadratic_prediction;
+	return packet_to_send;
+}
+
 // Wait for a message, send an answer.
-//
-//////////////////////////////////////////////////////////
 void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
 {
 	// Wait for a message
@@ -49,20 +53,16 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 
 	// Extract the variables contained in the packet
 	// RECEIVE (from the client) MUST MATCH packet_send in the GameClientState
-	PlayerMessage player_message_receive;
-	if (packet_receive >> player_message_receive)
-	{
-		// The message from the client
-		//if (debug_mode) displayMessage(player_message_receive, sender, senderPort);
-	}
+	receivePacket(packet_receive);
 
 	// SEND (to the client) MUST MATCH packet_receive in the GameClientState
-	sf::Packet packet_send;
 	// Message to send
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock);
+
 	// Group the variables to send into a packet
-	packet_send << player_message_send << linear_prediction << quadratic_prediction;
+	sf::Packet packet_send = groupPacket(player_message_send, linear_prediction, quadratic_prediction);
+
 	// Send it over the network
 	switch (socket.send(packet_send, sender, senderPort))
 	{
@@ -94,6 +94,19 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 	//		//displayMessage(player_message_send_d);
 	//	}
 	//}
+}
+
+void GameServer::receivePacket(sf::Packet& packet_receive)
+{
+	PlayerMessage player_message_receive;
+	
+	if (packet_receive >> player_message_receive)
+	{
+		// Data extracted successfully...
+		// The message from the client
+		//if (debug_mode) displayMessage(player_message_receive);
+		// Deal with the messages from the packet
+	}
 }
 
 

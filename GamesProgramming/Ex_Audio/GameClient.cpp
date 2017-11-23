@@ -304,7 +304,6 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 		// MESSAGE FROM THE SERVER
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		
 		receivePacket(packet_receive);
 	}
 }
