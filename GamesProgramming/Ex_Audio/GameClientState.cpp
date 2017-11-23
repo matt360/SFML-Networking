@@ -5,7 +5,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 
-	lerp_mode = false;
+	lerp_mode = true;
 	debug_mode = false;
 	debug_message = false;
 
@@ -129,7 +129,7 @@ inline float GameClientState::lerp(float start, float end, float time)
 	return start * (1.0f - time) + time * end;
 }
 
-sf::Vector2f GameClientState::lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float time)
+sf::Vector2f GameClientState::lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float& time)
 {
 	sf::Vector2f temp;
 	temp.x = lerp(start.x, end.x, time);
@@ -159,6 +159,9 @@ void GameClientState::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::L);
 		lerp_mode = !lerp_mode;
+		// display lerp_mode state
+		lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
+
 	}
 }
 
@@ -238,20 +241,11 @@ void GameClientState::update()
 	{
 		sf::Vector2f local_path = predict_local_path(clock, offset);
 		sf::Vector2f network_path = predict_network_path(clock, offset);
-		//lerp
-		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1f);
-		//sf::Vector2f lerp_position = lerp(local_path, network_path, 1.0f);
+		//lerp path works better with 100ms lag
+		sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
+
 		// set position
 		lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
-
-		/*if (lerp_mode)
-		{
-			player.setPosition(lerp_position);
-		}
-		else 
-		{
-		player.setPosition(network_path);
-		}*/
 
 		// add lerped to the history of the local posistions
 		keepTrackOfLocalPositoins(lerp_position, clock, offset);
