@@ -19,7 +19,8 @@ public:
 
 	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
 	void addMessage(PlayerMessage& player_message, const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	unsigned int num_messages;
+	const unsigned int lin_num_msg = 2;
+	const unsigned int quad_num_msg = 3;
 
 	std::queue<PlayerMessage> linear_local_positions;
 	void keepTrackOfLinearLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);

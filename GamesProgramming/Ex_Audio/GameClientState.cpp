@@ -9,14 +9,9 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	debug_mode = false;
 	debug_message = false;
 
-	// 2 - for linear interpolation, 3 - for quadratic interpolation
-	num_messages = 2;
-
-	if (num_messages == 2) linear_prediction = true;
-	else linear_prediction = false;
-
-	if (num_messages == 3) quadratic_prediction = true;
-	else quadratic_prediction = false;
+	// start wit linear prediction
+	linear_prediction = true;
+	quadratic_prediction = false;
 
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
@@ -171,8 +166,8 @@ void GameClientState::handleInput()
 		linear_prediction = !linear_prediction;
 		quadratic_prediction = !quadratic_prediction;
 
-		if (linear_prediction) num_messages = 2;
-		if (quadratic_prediction) num_messages = 3;
+		std::cout << "linear_prediction: " << linear_prediction << "\n";
+		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
 	}
 }
 
@@ -193,9 +188,9 @@ void GameClientState::update()
 	}
 
 	// keep track of local positions
-	if (linear_prediction) keepTrackOfLinearLocalPositoins(player, clock, offset);
+	keepTrackOfLinearLocalPositoins(player, clock, offset);
 
-	if (quadratic_prediction) keepTrackOfQuadraticLocalPositoins(player, clock, offset);
+	keepTrackOfQuadraticLocalPositoins(player, clock, offset);
 
 	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
@@ -250,10 +245,10 @@ void GameClientState::update()
 	// - the predicted position at the current time, in "x_" and "y_"
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
-	if (linear_prediction && linear_network_positions.size() == 2 && linear_local_positions.size() == 2) 
+	if (linear_prediction && linear_network_positions.size() == lin_num_msg && linear_local_positions.size() == lin_num_msg)
 		linearInterpolation(player, clock, offset, lerp_mode);
 
-	if (quadratic_prediction && quadratic_network_positions.size() == 3 && quadratic_local_positions.size() == 3) 
+	if (quadratic_prediction && quadratic_network_positions.size() == quad_num_msg && quadratic_local_positions.size() == quad_num_msg) 
 		quadraticInterpolation(player, clock, offset, lerp_mode);
 
 	// increase fps
