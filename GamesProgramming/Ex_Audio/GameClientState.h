@@ -22,6 +22,9 @@ private:
 	// window
 	void beginDraw();
 	void endDraw();
+
+	// toggle lerp mode - input handler
+	bool lerp_mode;
 };
 
 

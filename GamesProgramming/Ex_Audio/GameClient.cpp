@@ -102,7 +102,7 @@ sf::Vector2f GameClient::predictLinearNetworkPath(const sf::Clock& clock, const 
 	return network_player_pos;
 }
 
-void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode)
 {
 	sf::Vector2f local_path = predictLinearLocalPath(clock, offset);
 	sf::Vector2f network_path = predictLinearNetworkPath(clock, offset);
@@ -180,7 +180,7 @@ sf::Vector2f GameClient::predictQuadraticNetworkPath(const sf::Clock& clock, con
 	return network_player_pos;
 }
 
-void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode)
 {
 	sf::Vector2f local_path = predictQuadraticLocalPath(clock, offset);
 	sf::Vector2f network_path = predictQuadraticNetworkPath(clock, offset);

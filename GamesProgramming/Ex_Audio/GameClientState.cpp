@@ -9,6 +9,9 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	debug_mode = false;
 	debug_message = false;
 
+	// 1 - for linear interpolation, 2 - for quadratic interpolation
+	num_messages = 1;
+
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(18);
@@ -227,11 +230,11 @@ void GameClientState::update()
 	switch (network_positions.size())
 	{
 		case 2:
-			linearInterpolation(player, clock, offset);
+			linearInterpolation(player, clock, offset, lerp_mode);
 		break;
 
 		case 3:
-			quadraticInterpolation(player, clock, offset);
+			quadraticInterpolation(player, clock, offset, lerp_mode);
 		break;
 	}
 
