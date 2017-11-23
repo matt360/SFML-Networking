@@ -18,7 +18,7 @@ public:
 
 	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
 	void addMessage(PlayerMessage& player_message, const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	unsigned int num_messages = 1; // 1 - for linear interpolation, 2 - for quadratic interpolation
+	unsigned int num_messages = 2; // 1 - for linear interpolation, 2 - for quadratic interpolation
 	std::deque<PlayerMessage> local_positions;
 	void keepTrackOfLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 	void keepTrackOfLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
