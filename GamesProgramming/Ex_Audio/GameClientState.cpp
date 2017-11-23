@@ -26,8 +26,13 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	PlayerMessage initial_player_message;
 	initial_player_message.position.x = initial_player_position.x;
 	initial_player_message.position.y = initial_player_position.y;
-	linear_local_positions.push_front(initial_player_message);
-	linear_local_positions.push_back(initial_player_message);
+	linear_local_positions.push(initial_player_message);
+	linear_local_positions.push(initial_player_message);
+
+	quadratic_local_positions.push_front(initial_player_message);
+	quadratic_local_positions.push_front(initial_player_message);
+	quadratic_local_positions.push_front(initial_player_message);
+
 	player.setInput(input);
 	player.setVelocity(0, 10);
 

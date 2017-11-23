@@ -41,8 +41,9 @@ void GameClient::keepTrackOfLinearLocalPositoins(const Player& player, const sf:
 	local_message.position.x = player.getPosition().x;
 	local_message.position.y = player.getPosition().y;
 	local_message.time = (float)getCurrentTime(clock, offset);
+
 	if (linear_local_positions.size() > num_messages) linear_local_positions.pop();
-	linear_local_positions.push(local_message);
+		linear_local_positions.push(local_message);
 }
 
 void GameClient::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset)
@@ -54,13 +55,13 @@ void GameClient::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Cl
 	local_message.time = (float)getCurrentTime(clock, offset);
 	// 
 	if (linear_local_positions.size() > num_messages) linear_local_positions.pop();
-	linear_local_positions.push(local_message);
+		linear_local_positions.push(local_message);
 }
 
 void GameClient::keepTrackOfLinearNetworkPositions(const PlayerMessage& player_message_receive)
 {
 	if (linear_network_positions.size() > num_messages) linear_network_positions.pop();
-	linear_network_positions.push(player_message_receive);
+		linear_network_positions.push(player_message_receive);
 }
 
 sf::Vector2f GameClient::predictLinearLocalPath(const sf::Clock& clock, const sf::Int32& offset)
@@ -102,6 +103,36 @@ sf::Vector2f GameClient::predictLinearNetworkPath(const sf::Clock& clock, const 
 	return network_player_pos;
 }
 
+void GameClient::keepTrackOfQuadraticLocalPositoins(const Player & player, const sf::Clock & clock, const sf::Int32 & offset)
+{
+	// local message
+	PlayerMessage local_message;
+	local_message.position.x = player.getPosition().x;
+	local_message.position.y = player.getPosition().y;
+	local_message.time = (float)getCurrentTime(clock, offset);
+	//
+	if (quadratic_local_positions.size() > num_messages) quadratic_local_positions.pop_back();
+	quadratic_local_positions.push_front(local_message);
+}
+
+void GameClient::keepTrackOfQuadraticLocalPositoins(sf::Vector2f & vec, const sf::Clock & clock, const sf::Int32 & offset)
+{
+	// local message
+	PlayerMessage local_message;
+	local_message.position.x = vec.x;
+	local_message.position.y = vec.y;
+	local_message.time = (float)getCurrentTime(clock, offset);
+	// 
+	if (quadratic_local_positions.size() > num_messages) quadratic_local_positions.pop_back();
+	quadratic_local_positions.push_front(local_message);
+}
+
+void GameClient::keepTrackOfQuadraticNetworkPositions(const PlayerMessage & player_message_receive)
+{
+	if (quadratic_network_positions.size() > num_messages) quadratic_network_positions.pop_back();
+		quadratic_network_positions.push_front(player_message_receive);
+}
+
 void GameClient::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode)
 {
 	sf::Vector2f local_path = predictLinearLocalPath(clock, offset);
@@ -125,9 +156,9 @@ sf::Vector2f GameClient::predictQuadraticLocalPath(const sf::Clock& clock, const
 		  x_, y_;
 		
 
-	PlayerMessage msg0 = linear_network_positions.at(0);
-	PlayerMessage msg1 = linear_network_positions.at(1);
-	PlayerMessage msg2 = linear_network_positions.at(2);
+	PlayerMessage msg0 = quadratic_network_positions.at(0);
+	PlayerMessage msg1 = quadratic_network_positions.at(1);
+	PlayerMessage msg2 = quadratic_network_positions.at(2);
 	float time = (float)getCurrentTime(clock, offset);
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
@@ -157,9 +188,9 @@ sf::Vector2f GameClient::predictQuadraticNetworkPath(const sf::Clock& clock, con
 		  x_, y_;
 
 
-	PlayerMessage msg0 = linear_network_positions.at(0);
-	PlayerMessage msg1 = linear_network_positions.at(1);
-	PlayerMessage msg2 = linear_network_positions.at(2);
+	PlayerMessage msg0 = quadratic_network_positions.at(0);
+	PlayerMessage msg1 = quadratic_network_positions.at(1);
+	PlayerMessage msg2 = quadratic_network_positions.at(2);
 	float time = (float)getCurrentTime(clock, offset);
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
