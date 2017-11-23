@@ -304,26 +304,16 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 		// MESSAGE FROM THE SERVER
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		PlayerMessage player_message_receive;
-		bool lin_pred;
-		bool quad_pred;
-		if (packet_receive >> player_message_receive >> lin_pred >> quad_pred)
-		{
-			// Data extracted successfully...
-			//if (debug_mode) displayMessage(player_message_receive);
-			// Deal with the messages from the packet
-			linear_prediction = lin_pred;
-			quadratic_prediction = quad_pred;
-
-			// Put position into history of network positions
-			keepTrackOfLinearNetworkPositions(player_message_receive);
-			keepTrackOfQuadraticNetworkPositions(player_message_receive);
-		}
+		
+		receivePacket(packet_receive);
 	}
 }
 
-void GameClient::receivePacket(sf::Packet& packet_receive, PlayerMessage& player_message_receive, bool& lin_pred, bool& quad_pred)
+void GameClient::receivePacket(sf::Packet& packet_receive)
 {
+	PlayerMessage player_message_receive;
+	bool lin_pred;
+	bool quad_pred;
 	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred)
 	{
 		// Data extracted successfully...
