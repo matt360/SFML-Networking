@@ -29,7 +29,7 @@ public:
 	sf::Vector2f predict_network_path(const sf::Clock& clock, const sf::Int32& offset);
 
 	void linearInterpolation(Player& player, const sf::Clock & clock, const sf::Int32 & offset);
-	void QuadraticInterpolation(const sf::Clock & clock, const sf::Int32 & offset);
+	void QuadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset);
 
 	void sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 	void checkForIncomingPackets();
