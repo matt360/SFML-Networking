@@ -16,7 +16,7 @@ public:
 	bool linear_prediction;
 	bool quadratic_prediction;
 
-	sf::Packet groupPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction);
+	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send, const bool& linear_prediction, const bool& quadratic_prediction);
 	void receivePacket(sf::Packet& packet_receive);
 
 	// toggle lerp mode - input handler
