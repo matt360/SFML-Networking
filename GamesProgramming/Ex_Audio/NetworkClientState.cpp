@@ -5,7 +5,7 @@ NetworkClientState::NetworkClientState(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 
-	send_packet = true;
+	//send_packet = true;
 	//established_connection = false;
 
 	ready = false;
@@ -69,11 +69,13 @@ void NetworkClientState::update()
 {
 	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 
+	if (debug_message) std::cout << "Established connection:" << established_connection << "\n";
+
 	if (!established_connection)
 	{
 		establishConnectionWithServer(debug_mode);
-		std::cout << "function call: establishConnectionWithServer()\n";
-		std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+		if (debug_mode) std::cout << "function call: establishConnectionWithServer()\n";
+		if (debug_mode) std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	}
 
 	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";

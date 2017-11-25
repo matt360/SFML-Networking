@@ -28,17 +28,22 @@ void NetworkClient::sendPacketToServer(const bool& debug_mode)
 	bool hello = true;
 	packet_send << hello;
 
-	// Send it over the network (socket is a valid sf::TcpSocket)
+	// Send it over the network
 	switch (socket.send(packet_send, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// send a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
+		/*send_packet = false;
+		std::cout << "send_packet is false" << "\n";*/
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
+		send_packet = true;
+		std::cout << "send_packet is true" << "\n";
+		//if (debug_mode) 
 		return;
 
 	default:

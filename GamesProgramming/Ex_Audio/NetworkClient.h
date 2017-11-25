@@ -19,7 +19,7 @@ protected:
 	sf::Int32 latency;
 	sf::Int32 getCurrentTime();
 
-	bool send_packet;
+	bool send_packet = true;
 	void sendPacketToServer(const bool& debug_mode);
 
 	void checkForIncomingPacketsFromServer(const bool& debug_mode);
