@@ -5,6 +5,7 @@ class NetworkClientState : public NetworkClient
 {
 public:
 	NetworkClientState(sf::RenderWindow* hwnd, Input* in);
+
 	~NetworkClientState();
 
 	virtual void handleInput();

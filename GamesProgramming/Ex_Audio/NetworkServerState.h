@@ -1,6 +1,4 @@
 #pragma once
-#include "Input.h"
-#include "State.h"
 #include "NetworkServer.h"
 
 class NetworkServerState : public NetworkServer
