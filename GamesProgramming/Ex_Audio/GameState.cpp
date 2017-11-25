@@ -10,17 +10,6 @@ GameState::~GameState()
 
 }
 
-//void GameState::render()
-//{
-//	beginDraw();
-//
-//	level.render(window);
-//	window->draw(player);
-//	//window->draw(text);
-//
-//	endDraw();
-//}
-
 // check AABB
 bool GameState::checkCollision(Sprite* s1, Sprite* s2)
 {
