@@ -1,12 +1,8 @@
 #include "NetworkClient.h"
 
-NetworkClient::NetworkClient()
-{
-}
+NetworkClient::NetworkClient() {}
 
-NetworkClient::~NetworkClient()
-{
-}
+NetworkClient::~NetworkClient() {}
 
 sf::Int32 NetworkClient::getCurrentTime()
 {

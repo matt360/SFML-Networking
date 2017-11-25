@@ -1,14 +1,9 @@
 #include "NetworkServer.h"
 
-NetworkServer::NetworkServer()
-{
-	bool established_connection = false;
-}
+NetworkServer::NetworkServer() {}
 
 
-NetworkServer::~NetworkServer()
-{
-}
+NetworkServer::~NetworkServer() {}
 
 // MATCH 1 (variables must match witch MATCH 1 in the NetworkClient)
 sf::Packet NetworkServer::groupIntoPacket()

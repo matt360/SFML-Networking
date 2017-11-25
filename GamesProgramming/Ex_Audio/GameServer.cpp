@@ -2,6 +2,7 @@
 
 GameServer::GameServer() 
 {
+	lerp_mode = true;
 	linear_prediction = true;
 	quadratic_prediction = false;
 }

@@ -26,5 +26,4 @@ protected:
 
 	// receive and send messages to the client (in that order)
 	void runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode);
-
 };
