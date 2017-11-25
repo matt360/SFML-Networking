@@ -1,6 +1,6 @@
 #include "Network.h"
 
-Network::Network(unsigned short pt, sf::IpAddress ip_adr) : port(pt), ip_address(ip_adr) {}
+Network::Network(unsigned short pt, sf::IpAddress ip_adr, bool es_con) : port(pt), ip_address(ip_adr), established_connection(es_con) {}
 
 Network::~Network() {}
 
