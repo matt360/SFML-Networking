@@ -27,7 +27,6 @@ protected:
 
 	void checkForIncomingPacketsFromServer(const bool& debug_mode);
 
-	//bool established_connection;
 	void establishConnectionWithServer(const bool& debug_mode);
 };
 
