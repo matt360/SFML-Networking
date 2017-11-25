@@ -225,19 +225,46 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 	keepTrackOfQuadraticLocalPositoins(lerp_position, clock, offset);
 }
 
-
+// MATCH 2 (variables must match witch MATCH 2 in the GameServer)
 sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
 {
+	// message
 	sf::Packet packet_to_send;
 	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
 	return packet_to_send;
 }
 
+// MATCH 1 (variables must match witch MATCH 1 in the GameServer)
+void GameClient::receivePacket(sf::Packet& packet_receive)
+{
+	// Extract the variables contained in the packet
+	// Packets must match to what the server is sending (e.g.: server is sending a string, and an int, client must be expecting a string and an int, ect.)
+	PlayerMessage player_message_receive;
+	bool lin_pred;
+	bool quad_pred;
+	bool lerp_mod;
+	// Extract packet into local variables
+	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred >> lerp_mod)
+	{
+		// Data extracted successfully...
+		//if (debug_mode) displayMessage(player_message_receive);
+		// Deal with the messages from the packet
+		linear_prediction = lin_pred;
+		quadratic_prediction = quad_pred;
+		lerp_mode = lerp_mod;
+
+		// Put position into history of network positions
+		keepTrackOfLinearNetworkPositions(player_message_receive);
+		keepTrackOfQuadraticNetworkPositions(player_message_receive);
+	}
+}
+
 // Send a message to the server...
 void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
 {
-	// message
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
+	///////////////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState //
+	///////////////////////////////////////////////////////////////////////////////////////
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock, offset);
 
@@ -274,9 +301,9 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 // ...wait for the answer
 void GameClient::checkForIncomingPackets(const bool& debug_mode)
 {
-	while (true) {
+	while (true) 
+	{
 		// Try to receive the packet from the other end
-		// SEND (to the server) MUST MATCH packet_send in the GameServerState
 		sf::Packet packet_receive;
 		sf::IpAddress sender;
 		unsigned short senderPort;
@@ -298,31 +325,9 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 			return;
 		}
 
-		// MESSAGE FROM THE SERVER
+		////////////////////////////////////////////////////////////////////////
+		// SEND (to the server) MUST MATCH packet_send in the GameServerState //
+		////////////////////////////////////////////////////////////////////////
 		receivePacket(packet_receive);
-	}
-}
-
-void GameClient::receivePacket(sf::Packet& packet_receive)
-{
-	// Extract the variables contained in the packet
-	// Packets must match to what the server is sending (e.g.: server is sending a string, and an int, client must be expecting a string and an int, ect.)
-	PlayerMessage player_message_receive;
-	bool lin_pred;
-	bool quad_pred;
-	bool lerp_mod;
-	// Extract packet into local variables
-	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred >> lerp_mod)
-	{
-		// Data extracted successfully...
-		//if (debug_mode) displayMessage(player_message_receive);
-		// Deal with the messages from the packet
-		linear_prediction = lin_pred;
-		quadratic_prediction = quad_pred;
-		lerp_mode = lerp_mod;
-
-		// Put position into history of network positions
-		keepTrackOfLinearNetworkPositions(player_message_receive);
-		keepTrackOfQuadraticNetworkPositions(player_message_receive);
 	}
 }

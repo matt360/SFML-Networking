@@ -18,6 +18,22 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 	player_message_send.time = clock.getElapsedTime().asMilliseconds();
 }
 
+// MATCH 2 (variables must match witch MATCH 2 in the GameClient)
+void GameServer::receivePacket(sf::Packet& packet_receive)
+{
+	// Extract the variables contained in the packet
+	PlayerMessage player_message_receive;
+
+	if (packet_receive >> player_message_receive)
+	{
+		// Data extracted successfully...
+		// Deal with the messages from the packet
+
+		//if (debug_mode) displayMessage(player_message_receive);
+	}
+}
+
+// MATCH 1 (variables must match witch MATCH 2 in the GameClient)
 sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	sf::Packet packet_to_send;
@@ -51,11 +67,14 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 		return;
 	}
 
-	// Extract the variables contained in the packet
-	// RECEIVE (from the client) MUST MATCH packet_send in the GameClientState
+	/////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (from the client) MUST MATCH packet_send in the GameClientState //
+	/////////////////////////////////////////////////////////////////////////////
 	receivePacket(packet_receive);
 
-	// SEND (to the client) MUST MATCH packet_receive in the GameClientState
+	///////////////////////////////////////////////////////////////////////////
+	// SEND (to the client) MUST MATCH packet_receive in the GameClientState //
+	///////////////////////////////////////////////////////////////////////////
 	// Message to send
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock);
@@ -95,19 +114,5 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 	//	}
 	//}
 }
-
-void GameServer::receivePacket(sf::Packet& packet_receive)
-{
-	PlayerMessage player_message_receive;
-	
-	if (packet_receive >> player_message_receive)
-	{
-		// Data extracted successfully...
-		// The message from the client
-		//if (debug_mode) displayMessage(player_message_receive);
-		// Deal with the messages from the packet
-	}
-}
-
 
 

@@ -13,22 +13,27 @@ public:
 	GameClient();
 	~GameClient();
 
+	// toggle lerp mode - input handler
 	bool lerp_mode;
+	// toggle linear prediction - input handler
 	bool linear_prediction;
+	// toggle quadratic prediction - input handler
 	bool quadratic_prediction;
 
-	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
-	void receivePacket(sf::Packet& packet_receive);
-
-	// toggle lerp mode - input handler
+	// lerp functions
 	float lerp(float start, float end, float time);
 	sf::Vector2f lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float& time);
 
+	// get current time and take into account the offset from the server
 	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
+	// compose a message to be send with PlayerMessage structure
 	void addMessage(PlayerMessage& player_message, const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	const unsigned int linear_message_number = 2;
-	const unsigned int quadratic_message_number = 3;
 
+	/////////////////////////////////
+	// LINEAR PREDICTION FUNCTIONS //
+	/////////////////////////////////
+	// number of messages to keep track of
+	const unsigned int linear_message_number = 2;
 	std::queue<PlayerMessage> linear_local_positions;
 	void keepTrackOfLinearLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 	void keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
@@ -37,6 +42,11 @@ public:
 	sf::Vector2f predictLinearLocalPath(const sf::Clock& clock, const sf::Int32& offset);
 	sf::Vector2f predictLinearNetworkPath(const sf::Clock& clock, const sf::Int32& offset);
 
+	////////////////////////////////////
+	// QUADRATIC PREDICTION FUNCTIONS //
+	// /////////////////////////////////
+	// number of messages to keep track of
+	const unsigned int quadratic_message_number = 3;
 	std::deque<PlayerMessage> quadratic_local_positions;
 	void keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
@@ -47,6 +57,13 @@ public:
 	void linearInterpolation(Player& player, const sf::Clock & clock, const sf::Int32 & offset, const bool& lerp_mode);
 	void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
 
+	// MATCH 2 - create a packet to be send
+	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
+	// MATCH 1 - receive a message from a packet
+	void receivePacket(sf::Packet& packet_receive);
+
+	// send packet
 	void sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode);
 	void checkForIncomingPackets(const bool& debug_mode);
+
 };

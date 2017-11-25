@@ -14,18 +14,6 @@ sf::Int32 NetworkClient::getCurrentTime()
 	return sf::Int32(current_time + (offset));
 }
 
-// MATCH 2 (variables must match witch MATCH 2 in the NetworkServer)
-sf::Packet NetworkClient::groupIntoPacket()
-{
-	// Group the variables to send into a packet
-	sf::Packet packet_to_send;
-	// Message to send
-	bool hello = true;
-	packet_to_send << hello;
-
-	return packet_to_send;
-}
-
 // MATCH 1 (variables must match witch MATCH 1 in the NetworkServer)
 void NetworkClient::receivePacket(sf::Packet& packet_receive)
 {
@@ -50,6 +38,18 @@ void NetworkClient::receivePacket(sf::Packet& packet_receive)
 		offset = ((server_time + (0.5 * latency)) - client_time);
 		std::cout << "offset: " << offset << "\n";
 	}
+}
+
+// MATCH 2 (variables must match witch MATCH 2 in the NetworkServer)
+sf::Packet NetworkClient::groupIntoPacket()
+{
+	// Group the variables to send into a packet
+	sf::Packet packet_to_send;
+	// Message to send
+	bool hello = true;
+	packet_to_send << hello;
+
+	return packet_to_send;
 }
 
 // Send a message to the server...
