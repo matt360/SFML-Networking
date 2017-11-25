@@ -67,7 +67,7 @@ void NetworkServerState::update()
 {	
 	text.setString("\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play");
 
-	std::cout << "Established connection:" << established_connection << "\n";
+	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
 	establishConnectionWithClient(debug_mode);
 

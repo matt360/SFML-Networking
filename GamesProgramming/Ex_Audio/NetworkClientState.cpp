@@ -69,7 +69,7 @@ void NetworkClientState::update()
 {
 	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
 
-	if (debug_message) std::cout << "Established connection:" << established_connection << "\n";
+	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
 	if (!established_connection)
 	{
@@ -78,7 +78,7 @@ void NetworkClientState::update()
 		if (debug_mode) std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 	}
 
-	std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
+	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime() << "\n";
 
 	if (ready && established_connection)
 	{

@@ -12,6 +12,9 @@ public:
 	// NETWORK //
 	/////////////
 	// server
+	sf::Packet groupIntoPacket();
+	void receivePacket(sf::Packet& packet_receive);
+
 	bool established_connection;
 	void establishConnectionWithClient(const bool& debug_mode);
 };
