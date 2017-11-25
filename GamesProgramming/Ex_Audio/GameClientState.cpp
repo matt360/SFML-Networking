@@ -231,14 +231,14 @@ void GameClientState::update()
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
-	std::cout << "linear prediction: " << linear_prediction << "\n";
-	std::cout << "quadratic prediction: " << quadratic_prediction << "\n";
-	lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
+	if (debug_message) std::cout << "linear prediction: " << linear_prediction << "\n";
+	if (debug_message) std::cout << "quadratic prediction: " << quadratic_prediction << "\n";
+	if (debug_message) lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
 
-	if (linear_prediction && linear_network_positions.size() == lin_num_msg && linear_local_positions.size() == lin_num_msg)
+	if (linear_prediction && linear_network_positions.size() == linear_message_number && linear_local_positions.size() == linear_message_number)
 		linearInterpolation(player, clock, offset, lerp_mode);
 
-	if (quadratic_prediction && quadratic_network_positions.size() == quad_num_msg && quadratic_local_positions.size() == quad_num_msg) 
+	if (quadratic_prediction && quadratic_network_positions.size() == quadratic_message_number && quadratic_local_positions.size() == quadratic_message_number) 
 		quadraticInterpolation(player, clock, offset, lerp_mode);
 
 	// increase fps

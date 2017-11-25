@@ -6,7 +6,7 @@ NetworkClientState::NetworkClientState(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	send_packet = true;
-	established_connection = false;
+	//established_connection = false;
 
 	ready = false;
 	server = false;

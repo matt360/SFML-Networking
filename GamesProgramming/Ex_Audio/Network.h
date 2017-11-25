@@ -17,6 +17,7 @@ protected:
 	// IP adrress to connect to
 	sf::IpAddress ip_address = "127.1.0";
 	////////////////////////////////
+	bool established_connection = false;
 
 	void displayReceiveMessage(sf::Int32 time);
 	void displaySendMessage(sf::Int32 time);
