@@ -19,6 +19,7 @@ public:
 	virtual void update() = 0;
 	virtual void render() = 0;
 
+	// game state needs to be accesed from the main function
 	inline GameStateEnum getGameState() { return game_state; };
 protected:
 	sf::RenderWindow* window;
