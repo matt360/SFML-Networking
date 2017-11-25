@@ -14,8 +14,10 @@ sf::Int32 NetworkClient::getCurrentTime()
 	return sf::Int32(current_time + (offset));
 }
 
+// MATCH 2 (variables must match witch MATCH 2 in the NetworkServer)
 sf::Packet NetworkClient::groupIntoPacket()
 {
+	// Group the variables to send into a packet
 	sf::Packet packet_to_send;
 	// Message to send
 	bool hello = true;
@@ -24,16 +26,38 @@ sf::Packet NetworkClient::groupIntoPacket()
 	return packet_to_send;
 }
 
-////////////////////////////////////////////////////////////
+// MATCH 1 (variables must match witch MATCH 1 in the NetworkServer)
+void NetworkClient::receivePacket(sf::Packet& packet_receive)
+{
+	// Extract the variables contained in the packet
+	sf::Int32 server_time;
+	// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
+	if (packet_receive >> server_time >> established_connection)
+	{
+		// Data extracted successfully...
+		// Deal with the messages from the packet
+		//if (debug_message) displayReceiveMessage(server_time);
+
+		// end timing latency
+		end_timing_latency = clock.getElapsedTime().asMilliseconds();
+		std::cout << "end_timing_latency: " << end_timing_latency << "\n";
+		latency = (end_timing_latency - start_timing_latency);
+		std::cout << "latency: " << latency << "\n";
+		// calculate server time
+		sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
+		std::cout << "client_time: " << client_time << "\n";
+		// server_time from the message
+		offset = ((server_time + (0.5 * latency)) - client_time);
+		std::cout << "offset: " << offset << "\n";
+	}
+}
+
 // Send a message to the server...
-//
-////////////////////////////////////////////////////////////
 void NetworkClient::sendPacketToServer(const bool& debug_mode)
 {
-	// message
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState
-
-	// Group the variables to send into a packet
+	///////////////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServerState //
+	///////////////////////////////////////////////////////////////////////////////////////
 	sf::Packet packet_send = groupIntoPacket();
 
 	// Send it over the network
@@ -77,18 +101,15 @@ void NetworkClient::sendPacketToServer(const bool& debug_mode)
 	/// packet_send.clear();
 }
 
-////////////////////////////////////////////////////////////
 // ...wait for the answer
-//
-////////////////////////////////////////////////////////////
 void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 {
-	////////////////////////////////////////////////////////////////////
-	// CHECK FOR INCOMING PACKETS                                     //
-	////////////////////////////////////////////////////////////////////
+	// CHECK FOR INCOMING PACKETS
 	while (true) {
 		// Try to receive the packet from the other end
-		// SEND (to the server) MUST MATCH packet_send in the GameServerState
+		////////////////////////////////////////////////////////////////////////
+		// SEND (to the server) MUST MATCH packet_send in the GameServerState //
+		////////////////////////////////////////////////////////////////////////
 		sf::Packet packet_receive;
 		sf::IpAddress sender;
 		unsigned short senderPort;
@@ -111,31 +132,6 @@ void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		}
 
 		receivePacket(packet_receive);
-	}
-}
-
-void NetworkClient::receivePacket(sf::Packet& packet_receive)
-{
-	sf::Int32 server_time;
-	// Extract the variables contained in the packet
-	// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-	if (packet_receive >> server_time >> established_connection)
-	{
-		// Data extracted successfully...
-		// Deal with the messages from the packet
-		//if (debug_message) displayReceiveMessage(server_time);
-
-		// end timing latency
-		end_timing_latency = clock.getElapsedTime().asMilliseconds();
-		std::cout << "end_timing_latency: " << end_timing_latency << "\n";
-		latency = (end_timing_latency - start_timing_latency);
-		std::cout << "latency: " << latency << "\n";
-		// calculate server time
-		sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
-		std::cout << "client_time: " << client_time << "\n";
-		// server_time from the message
-		offset = ((server_time + (0.5 * latency)) - client_time);
-		std::cout << "offset: " << offset << "\n";
 	}
 }
 
