@@ -19,8 +19,6 @@ public:
 	GameState();
 	~GameState();
 
-	//virtual void render();
-
 protected:
 	float fps;
 
