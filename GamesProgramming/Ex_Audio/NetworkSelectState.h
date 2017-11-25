@@ -16,6 +16,7 @@ public:
 	// which also makes changes to in
 	virtual void render();
 
+private:
 	bool debug_mode;
 	bool debug_message;
 };

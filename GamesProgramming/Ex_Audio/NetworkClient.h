@@ -10,9 +10,6 @@ public:
 	~NetworkClient();
 
 protected:
-	/////////////
-	// NETWORK //
-	/////////////
 	// client
 	sf::Packet groupIntoPacket();
 	void receivePacket(sf::Packet& packet_receive);

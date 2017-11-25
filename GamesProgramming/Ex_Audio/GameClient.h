@@ -13,6 +13,7 @@ public:
 	GameClient();
 	~GameClient();
 
+protected:
 	// toggle lerp mode - input handler
 	bool lerp_mode;
 	// toggle linear prediction - input handler

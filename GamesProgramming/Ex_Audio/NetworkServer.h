@@ -8,9 +8,7 @@ public:
 	NetworkServer();
 	~NetworkServer();
 
-	/////////////
-	// NETWORK //
-	/////////////
+protected:
 	// server
 	sf::Packet groupIntoPacket();
 	void receivePacket(sf::Packet& packet_receive);

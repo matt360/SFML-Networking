@@ -7,9 +7,7 @@ public:
 	NetworkSelect();
 	~NetworkSelect();
 
-	/////////////
-	// NETWORK //
-	/////////////
+protected:
 	// client
 	void createClientSocket();
 
