@@ -64,6 +64,18 @@
     <Filter Include="Source Files\Network\Client">
       <UniqueIdentifier>{42c880b4-1cf9-4fde-b19e-2d2201d5f1e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\State Handlers\Game State Handlers\Main">
+      <UniqueIdentifier>{49a4b593-3d3c-418f-bed4-dce9f108b9c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\State Handlers\Network State Handlers\Main">
+      <UniqueIdentifier>{66b3f054-406c-4c60-bdda-caf59932b1b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State Handlers\Game State Handlers\Main">
+      <UniqueIdentifier>{b23fcea0-4609-42cf-8c88-f74ecef66b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State Handlers\Network State Handlers\Main">
+      <UniqueIdentifier>{88852c34-fecb-45b6-b38b-72b4f8a8ca9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp">
@@ -108,26 +120,8 @@
     <ClCompile Include="State.cpp">
       <Filter>Source Files\State Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="GameClientState.cpp">
-      <Filter>Source Files\State Handlers\Game State Handlers</Filter>
-    </ClCompile>
-    <ClCompile Include="GameServerState.cpp">
-      <Filter>Source Files\State Handlers\Game State Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files\State Handlers\Game State Handlers</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkClientState.cpp">
-      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkSelectState.cpp">
-      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkServerState.cpp">
-      <Filter>Source Files\State Handlers\Network State Handlers</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Source Files\State Handlers</Filter>
     </ClCompile>
     <ClCompile Include="NetworkClient.cpp">
       <Filter>Source Files\Network\Client</Filter>
@@ -143,6 +137,24 @@
     </ClCompile>
     <ClCompile Include="GameClient.cpp">
       <Filter>Source Files\Network\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientState.cpp">
+      <Filter>Source Files\State Handlers\Game State Handlers\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerState.cpp">
+      <Filter>Source Files\State Handlers\Game State Handlers\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkClientState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSelectState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkServerState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,41 +191,14 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
-    <ClInclude Include="Messages.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Network.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Header Files\State Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameClientState.h">
-      <Filter>Header Files\State Handlers\Game State Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="GameServerState.h">
-      <Filter>Header Files\State Handlers\Game State Handlers</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>Header Files\State Handlers\Game State Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkClientState.h">
-      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkSelectState.h">
-      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkServerState.h">
-      <Filter>Header Files\State Handlers\Network State Handlers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Header Files\State Handlers</Filter>
-    </ClInclude>
     <ClInclude Include="NetworkClient.h">
       <Filter>Header Files\Network\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkSelect.h">
-      <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="NetworkServer.h">
       <Filter>Header Files\Network\Server</Filter>
@@ -223,6 +208,33 @@
     </ClInclude>
     <ClInclude Include="GameClient.h">
       <Filter>Header Files\Network\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientState.h">
+      <Filter>Header Files\State Handlers\Game State Handlers\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerState.h">
+      <Filter>Header Files\State Handlers\Game State Handlers\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkClientState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelectState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkServerState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Header Files\State Handlers\Network State Handlers\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Messages.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelect.h">
+      <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
