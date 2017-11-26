@@ -14,7 +14,7 @@ public:
 
 protected:
 	/*sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);*/
-	//using Prediction::getCurrentTime;
+	using Prediction::getCurrentTime;
 
 	// number of messages to keep track of
 	const unsigned int quadratic_message_number = 3;

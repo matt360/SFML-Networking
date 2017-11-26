@@ -7,7 +7,7 @@
 class GameClientState : public GameState, public GameClient
 {
 public:
-	using GameClient::getCurrentTime;
+	using Prediction::getCurrentTime;
 
 	GameClientState(sf::RenderWindow* hwnd, Input* in);
 	~GameClientState();
