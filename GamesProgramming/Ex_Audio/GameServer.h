@@ -19,9 +19,9 @@ protected:
 	bool quadratic_prediction;
 
 	virtual void addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock);
-	// MATCH 1 - create a packet to be sent
+	// SEND (to the client)
 	sf::Packet groupIntoPacket(const PlayerMessage & player_message_send);
-	// MATCH 2 - not used for anything at the time (could be used for multiple clients) TODO 
+	// RECEIVE(from the client)
 	void receivePacket(sf::Packet& packet_receive);
 
 	// receive and send messages to the client (in that order)

@@ -19,7 +19,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 	player_message_send.time = clock.getElapsedTime().asMilliseconds();
 }
 
-// MATCH 2 (variables must match witch MATCH 2 in the GameClient)
+// RECEIVE (from the client)
 void GameServer::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
@@ -29,12 +29,10 @@ void GameServer::receivePacket(sf::Packet& packet_receive)
 	{
 		// Data extracted successfully...
 		// Deal with the messages from the packet
-
-		//if (debug_mode) displayMessage(player_message_receive);
 	}
 }
 
-// MATCH 1 (variables must match witch MATCH 2 in the GameClient)
+// SEND (to the client)
 sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	sf::Packet packet_to_send;
@@ -68,14 +66,14 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 		return;
 	}
 
-	////////////////////////////////////////////////////////////////////////
-	// RECEIVE (from the client) MUST MATCH packet_send in the GameClient //
-	////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (from the client) variable layout MUST MATCH the GameClient's groupIntoPacket function's layout //
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	receivePacket(packet_receive);
 
-	//////////////////////////////////////////////////////////////////////
-	// SEND (to the client) MUST MATCH packet_receive in the GameClient //
-	//////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SEND (to the client) variable layout MUST MATCH the GameClient's receivePacket function's layout //
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Message to send
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock);

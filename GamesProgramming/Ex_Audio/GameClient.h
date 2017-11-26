@@ -58,9 +58,9 @@ protected:
 	void linearInterpolation(Player& player, const sf::Clock & clock, const sf::Int32 & offset, const bool& lerp_mode);
 	void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
 
-	// MATCH 2 - create a packet to be send
+	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
 	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
-	// MATCH 1 - receive a message from a packet
+	// SEND (from the client's perspective what server is sending for the client to receive)
 	void receivePacket(sf::Packet& packet_receive);
 
 	// send packet

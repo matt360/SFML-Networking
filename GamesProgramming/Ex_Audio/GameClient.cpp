@@ -225,16 +225,14 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 	keepTrackOfQuadraticLocalPositoins(lerp_position, clock, offset);
 }
 
-// MATCH 2 (variables must match witch MATCH 2 in the GameServer)
 sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	// message
 	sf::Packet packet_to_send;
-	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
+	packet_to_send << player_message_send;
 	return packet_to_send;
 }
 
-// MATCH 1 (variables must match witch MATCH 1 in the GameServer)
 void GameClient::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
@@ -262,9 +260,10 @@ void GameClient::receivePacket(sf::Packet& packet_receive)
 // Send a message to the server...
 void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
 {
-	//////////////////////////////////////////////////////////////////////////////////
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the GameServer //
-	//////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
+	// variable layout MUST MATCH the GameServer's receivePacket function's layout //
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock, offset);
 
@@ -325,9 +324,10 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 			return;
 		}
 
-		///////////////////////////////////////////////////////////////////
-		// SEND (to the server) MUST MATCH packet_send in the GameServer //
-		///////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SEND (from the client's perspective what server is sending for the client to receive)
+		// variable layout MUST MATCH the GameServer's groupIntoPacket function's layout //
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		receivePacket(packet_receive);
 	}
 }
