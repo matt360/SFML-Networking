@@ -1,7 +1,5 @@
 #include "LinearPrediction.h"
 
-
-
 LinearPrediction::LinearPrediction()
 {
 }
@@ -28,17 +26,6 @@ sf::Int32 LinearPrediction::getCurrentTime(const sf::Clock& clock, const sf::Int
 {
 	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
 	return sf::Int32(current_time + (offset));
-}
-
-void LinearPrediction::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock, const sf::Int32& offset)
-{
-	//PlayerMessage player_message_send;
-	player_message_send.id = 0;
-	player_message_send.position.x = player.getPosition().x;
-	player_message_send.position.y = player.getPosition().y;
-
-	//player_message_send.time = c_s;
-	player_message_send.time = (float)getCurrentTime(clock, offset);
 }
 
 void LinearPrediction::keepTrackOfLinearLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
