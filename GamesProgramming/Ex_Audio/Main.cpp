@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////////////////
+// Application based on Paul Robertson's (p.robertson@abertay.ac.uk) CMP105 SFML Framework:
+// App, Audio, System (Although main.cpp state machine has been changed a lot).
+// Original game logic (Collision detection, Player class, window and input)
+// has been broken up into GameState class and State class with most of
+// the original code kept it kept in the GameState class.
+// The new game, Networking, state machine in the main.cpp and State Handlers developed 
+// by Matthew Wallace (1502616@abertay.ac.uk)
+// For clarity of assessment all the functions developed by Paul Robertson has been collapsed.
+////////////////////////////////////////////////////////////////////////////////////////////
+
 #include <iostream>
 #include <cstdlib>
 #include "MenuState.h"
