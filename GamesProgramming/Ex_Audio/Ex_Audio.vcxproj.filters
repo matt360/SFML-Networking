@@ -197,6 +197,9 @@
     <ClCompile Include="LinearPrediction.cpp">
       <Filter>Source Files\Network\Prediction</Filter>
     </ClCompile>
+    <ClCompile Include="QuadraticPrediction.cpp">
+      <Filter>Source Files\Network\Prediction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -278,6 +281,9 @@
       <Filter>Header Files\State Handlers\Game State Handlers\Main\Client</Filter>
     </ClInclude>
     <ClInclude Include="LinearPrediction.h">
+      <Filter>Header Files\Network\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadraticPrediction.h">
       <Filter>Header Files\Network\Prediction</Filter>
     </ClInclude>
   </ItemGroup>

@@ -177,6 +177,7 @@
     <ClCompile Include="NetworkServer.cpp" />
     <ClCompile Include="NetworkServerState.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="QuadraticPrediction.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="NetworkClient.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="GameServer.h" />
     <ClInclude Include="GameServerState.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="QuadraticPrediction.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LinearPrediction.h" />
     <ClInclude Include="Map.h" />

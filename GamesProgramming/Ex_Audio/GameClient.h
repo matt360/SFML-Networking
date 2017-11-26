@@ -7,9 +7,10 @@
 #include "Messages.h"
 #include "GameState.h"
 #include "LinearPrediction.h"
+#include "QuadraticPrediction.h"
 
 // TODO change the name to GameClientNetowrk
-class GameClient : public Network, public LinearPrediction
+class GameClient : public Network, public LinearPrediction, public QuadraticPrediction
 {
 public:
 	GameClient();
@@ -48,18 +49,18 @@ protected:
 	////////////////////////////////////
 	// QUADRATIC PREDICTION FUNCTIONS //
 	// /////////////////////////////////
-	// number of messages to keep track of
-	const unsigned int quadratic_message_number = 3;
-	std::deque<PlayerMessage> quadratic_local_positions;
-	void keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
-	void keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive);
-	std::deque<PlayerMessage> quadratic_network_positions;
-	sf::Vector2f predictQuadraticLocalPath(const sf::Clock& clock, const sf::Int32& offset);
-	sf::Vector2f predictQuadraticNetworkPath(const sf::Clock& clock, const sf::Int32& offset);
+	//// number of messages to keep track of
+	//const unsigned int quadratic_message_number = 3;
+	//std::deque<PlayerMessage> quadratic_local_positions;
+	//void keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
+	//void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
+	//void keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive);
+	//std::deque<PlayerMessage> quadratic_network_positions;
+	//sf::Vector2f predictQuadraticLocalPath(const sf::Clock& clock, const sf::Int32& offset);
+	//sf::Vector2f predictQuadraticNetworkPath(const sf::Clock& clock, const sf::Int32& offset);
 
-	//void linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
-	void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
+	////void linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
+	//void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
 
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
 	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
