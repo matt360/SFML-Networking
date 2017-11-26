@@ -4,7 +4,6 @@
 #include <Windows.h>
 #include <iostream>
 #include <string.h>
-#include <mutex>
 #include "Input.h"
 #include "Player.h"
 #include "AnimatedSprite.h"
@@ -39,12 +38,6 @@ protected:
 	// sound test
 	sf::SoundBuffer buff;
 	sf::Sound soun;
-
-	// TODO delete ///////////////////////////////////////
-	std::once_flag set_window_flag;
-	//void call_once_set_window(sf::RenderWindow& window);
-	void call_once_set_window(sf::Vector2i vec);
-	///////////////////////////////////////////////////////
 
 	bool checkCollision(Sprite* s1, Sprite* s2);
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
