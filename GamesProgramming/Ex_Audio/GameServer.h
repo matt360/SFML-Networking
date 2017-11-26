@@ -21,7 +21,7 @@ protected:
 	virtual void addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock);
 	// SEND (to the client)
 	sf::Packet groupIntoPacket(const PlayerMessage & player_message_send);
-	// RECEIVE(from the client)
+	// RECEIVE (from the client)
 	void receivePacket(sf::Packet& packet_receive);
 
 	// receive and send messages to the client (in that order)

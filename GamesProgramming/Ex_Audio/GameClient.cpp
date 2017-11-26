@@ -225,6 +225,8 @@ void GameClient::quadraticInterpolation(Player& player, const sf::Clock& clock, 
 	keepTrackOfQuadraticLocalPositoins(lerp_position, clock, offset);
 }
 
+// RECEIVE (from the server's perspective what client is sending for the server to receive) 
+// packet layout MUST MATCH the GameServer's receivePacket function packet layout
 sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	// message
@@ -233,6 +235,8 @@ sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
 	return packet_to_send;
 }
 
+// SEND (from the client's perspective what server is sending for the client to receive)
+// packet layout MUST MATCH the GameServer's groupIntoPacket function packet layout
 void GameClient::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
@@ -262,7 +266,7 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
-	// variable layout MUST MATCH the GameServer's receivePacket function's layout //
+	// packet layout MUST MATCH the GameServer's receivePacket function packet layout
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock, offset);
@@ -326,7 +330,7 @@ void GameClient::checkForIncomingPackets(const bool& debug_mode)
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SEND (from the client's perspective what server is sending for the client to receive)
-		// variable layout MUST MATCH the GameServer's groupIntoPacket function's layout //
+		// packet layout MUST MATCH the GameServer's groupIntoPacket function packet layout
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		receivePacket(packet_receive);
 	}
