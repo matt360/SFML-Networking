@@ -2,18 +2,17 @@
 #include <SFML/Network.hpp>
 #include "Player.h"
 #include "Messages.h"
+#include "Prediction.h"
 #include <queue>
 #include <deque>
 
-class LinearPrediction
+class LinearPrediction : public Prediction
 {
 public:
 	LinearPrediction();
 	~LinearPrediction();
 
 protected:
-	float lerp(float start, float end, float time);
-	sf::Vector2f lerp(const sf::Vector2f & start, const sf::Vector2f& end, const float& time);
 	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
 
 	// number of messages to keep track of

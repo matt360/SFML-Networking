@@ -200,6 +200,9 @@
     <ClCompile Include="QuadraticPrediction.cpp">
       <Filter>Source Files\Network\Prediction</Filter>
     </ClCompile>
+    <ClCompile Include="Prediction.cpp">
+      <Filter>Source Files\Network\Prediction</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -284,6 +287,9 @@
       <Filter>Header Files\Network\Prediction</Filter>
     </ClInclude>
     <ClInclude Include="QuadraticPrediction.h">
+      <Filter>Header Files\Network\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="Prediction.h">
       <Filter>Header Files\Network\Prediction</Filter>
     </ClInclude>
   </ItemGroup>
