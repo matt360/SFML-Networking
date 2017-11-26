@@ -165,6 +165,7 @@
     <ClCompile Include="GameServerState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LinearPrediction.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuState.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="GameServerState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="LinearPrediction.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Messages.h" />

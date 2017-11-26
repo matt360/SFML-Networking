@@ -188,6 +188,9 @@
     <ClCompile Include="GameServerState.cpp">
       <Filter>Source Files\State Handlers\Game State Handlers\Main\Server</Filter>
     </ClCompile>
+    <ClCompile Include="LinearPrediction.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -250,9 +253,6 @@
     <ClInclude Include="NetworkSelect.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="GameClientState.h">
-      <Filter>Header Files\State Handlers\Game State Handlers\Main\Client</Filter>
-    </ClInclude>
     <ClInclude Include="GameServerState.h">
       <Filter>Header Files\State Handlers\Game State Handlers\Main\Server</Filter>
     </ClInclude>
@@ -267,6 +267,12 @@
     </ClInclude>
     <ClInclude Include="NetworkServerState.h">
       <Filter>Header Files\State Handlers\Network State Handlers\Main\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearPrediction.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientState.h">
+      <Filter>Header Files\State Handlers\Game State Handlers\Main\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
