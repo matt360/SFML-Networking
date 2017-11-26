@@ -108,6 +108,12 @@
     <Filter Include="Header Files\State Handlers\Network State Handlers\Main\Select">
       <UniqueIdentifier>{d0e491b1-b25a-4021-b5f3-c77af7eca170}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Network\Prediction">
+      <UniqueIdentifier>{23863f21-17c2-4ddf-a244-271dc709aea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Prediction">
+      <UniqueIdentifier>{750ecf6e-570c-4530-bcbe-57d2376def63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp">
@@ -189,7 +195,7 @@
       <Filter>Source Files\State Handlers\Game State Handlers\Main\Server</Filter>
     </ClCompile>
     <ClCompile Include="LinearPrediction.cpp">
-      <Filter>Source Files\Network</Filter>
+      <Filter>Source Files\Network\Prediction</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,11 +274,11 @@
     <ClInclude Include="NetworkServerState.h">
       <Filter>Header Files\State Handlers\Network State Handlers\Main\Server</Filter>
     </ClInclude>
-    <ClInclude Include="LinearPrediction.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
     <ClInclude Include="GameClientState.h">
       <Filter>Header Files\State Handlers\Game State Handlers\Main\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearPrediction.h">
+      <Filter>Header Files\Network\Prediction</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

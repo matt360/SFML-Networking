@@ -7,6 +7,7 @@
 #include "Messages.h"
 #include "GameState.h"
 
+// TODO change the name to GameClientNetowrk
 class GameClient : public Network
 {
 public:
@@ -22,10 +23,10 @@ protected:
 	bool quadratic_prediction;
 
 	// lerp functions
-	float lerp(float start, float end, float time);
-	sf::Vector2f lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float& time);
+	//float lerp(float start, float end, float time);
+	//sf::Vector2f lerp(const sf::Vector2f& start, const sf::Vector2f& end, const float& time);
 
-	// get current time and take into account the offset from the server
+	//// get current time and take into account the offset from the server
 	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
 	// compose a message to be send with PlayerMessage structure
 	void addMessage(PlayerMessage& player_message, const Player& player, const sf::Clock& clock, const sf::Int32& offset);

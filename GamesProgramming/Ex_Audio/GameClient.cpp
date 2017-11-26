@@ -4,6 +4,12 @@ GameClient::GameClient() {}
 
 GameClient::~GameClient() {}
 
+sf::Int32 GameClient::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
+{
+	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
+	return sf::Int32(current_time + (offset));
+}
+
 //inline float GameClient::lerp(float start, float end, float time)
 //{
 //	return start * (1.0f - time) + time * end;
@@ -15,12 +21,6 @@ GameClient::~GameClient() {}
 //	temp.x = lerp(start.x, end.x, time);
 //	temp.y = lerp(start.y, end.y, time);
 //	return temp;
-//}
-//
-//sf::Int32 GameClient::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
-//{
-//	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
-//	return sf::Int32(current_time + (offset));
 //}
 //
 //void GameClient::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock, const sf::Int32& offset)
