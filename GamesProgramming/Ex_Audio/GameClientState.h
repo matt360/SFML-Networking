@@ -4,9 +4,11 @@
 
 // TODO It should be possible to go back from the client game state to client network state (GameClientState -> NetworkClientState)
 
-class GameClientState : public GameState, public GameClient 
+class GameClientState : public GameState, public GameClient
 {
 public:
+	using GameClient::getCurrentTime;
+
 	GameClientState(sf::RenderWindow* hwnd, Input* in);
 	~GameClientState();
 

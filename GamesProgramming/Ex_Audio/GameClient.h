@@ -17,7 +17,9 @@ public:
 	~GameClient();
 
 protected:
-	using LinearPrediction::getCurrentTime;
+	/*using Prediction::getCurrentTime;*/
+	using Prediction::getCurrentTime;
+	
 	// toggle lerp mode - input handler
 	bool lerp_mode;
 	// toggle linear prediction - input handler
