@@ -11,6 +11,8 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
+	text.setPosition(10, 0);
+	text.setString("hellow world");
 	//error_text.setFont(font);
 	//error_text.setCharacterSize(32);
 	//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
@@ -19,7 +21,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&texture);
-	player.setPosition(5, 5);
+	player.setPosition(50, 50);
 	player.setInput(input);
 	player.setVelocity(0, 10);
 
@@ -141,7 +143,7 @@ void GameServerState::render()
 
 	level.render(window);
 	window->draw(player);
-	//window->draw(text);
+	window->draw(text);
 
 	endDraw();
 }

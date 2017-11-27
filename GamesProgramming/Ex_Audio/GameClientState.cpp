@@ -11,7 +11,8 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 
 	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
-	text.setCharacterSize(18);
+	text.setCharacterSize(32);
+	//text.setPosition(100, 10);
 	text.setString("hellow world");
 
 	texture.loadFromFile("gfx/MushroomTrans.png");
