@@ -166,7 +166,8 @@ void GameServerState::update()
 
 	//string buffer to convert numbers to string
 	std::ostringstream ss; 
-	// Put bool into string buffer and display lerp mode, linear prediction mode, quadratic prediction mode
+
+	// The way to disaply ON/OFF string indeat of 0/1. For me 0/1 looks cleaner and is easier to understand.
 	/*std::string lerp_mode_string;
 	lerp_mode ? lerp_mode_string = "ON" : lerp_mode_string = "OFF";
 
@@ -176,6 +177,7 @@ void GameServerState::update()
 	std::string quadratic_prediction_string;
 	quadratic_prediction ? quadratic_prediction_string = "ON" : quadratic_prediction_string = "OFF";*/
 
+	// Put bool into string buffer and display the state of the lerp mode, the linear prediction mode, the quadratic prediction mode
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction;
 
 	text.setString(ss.str());
