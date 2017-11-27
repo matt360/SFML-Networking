@@ -13,8 +13,6 @@ sf::Packet NetworkServer::groupIntoPacket()
 	// Group the variables to send into a packet
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	packet_to_send << server_time << established_connection;
-	// TODO lag here?
-	//sf::sleep(sf::milliseconds(100));
 
 	return packet_to_send;
 }

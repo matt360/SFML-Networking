@@ -68,26 +68,30 @@ void NetworkServerState::update()
 {	
 	// the string buffer to convert numbers to a string
 	std::ostringstream ss;
-
 	// Put the text to display into the string buffer
 	if (established_connection)
 		ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
 	else
 		ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
-
 	// display text
 	text.setString(ss.str());
 
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
+	// establish connection
 	if (!established_connection)
 	{
 		establishConnectionWithClient(debug_mode);
 	}
+
+	// tell the client to switch from the NetworkClientState to the GameClientState
 	setReady(ready);
 
-	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
-	if (debug_message) std::cout << "server_time: " << server_time << "\n";
+	if (debug_message)
+	{
+		sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
+		std::cout << "server_time: " << server_time << "\n";
+	}
 
 	//if (ready && established_connection && all_clients_connected)
 	if (ready && established_connection)
