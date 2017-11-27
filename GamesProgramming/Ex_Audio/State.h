@@ -41,5 +41,7 @@ protected:
 
 	// for loading in the font
 	sf::Font font;
+	// for displaying text
+	sf::Text text;
 };
 

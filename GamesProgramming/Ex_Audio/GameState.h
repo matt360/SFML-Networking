@@ -21,8 +21,6 @@ public:
 protected:
 	float fps;
 
-	sf::Text error_text;
-
 	AudioManager audioMgr;
 
 	bool hasStarted;

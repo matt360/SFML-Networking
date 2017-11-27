@@ -13,9 +13,5 @@ public:
 	virtual void handleInput();
 	virtual void update();
 	virtual void render();
-
-private:
-	// for displaying text
-	sf::Text text;
 };
 
