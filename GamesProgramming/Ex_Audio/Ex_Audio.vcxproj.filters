@@ -80,12 +80,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\App</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files\App</Filter>
-    </ClCompile>
     <ClCompile Include="LinearPrediction.cpp">
       <Filter>Source Files\Client\Prediction</Filter>
     </ClCompile>
@@ -135,6 +129,12 @@
       <Filter>Source Files\App</Filter>
     </ClCompile>
     <ClCompile Include="NetworkSelectState.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
   </ItemGroup>
