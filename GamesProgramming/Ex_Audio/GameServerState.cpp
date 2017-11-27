@@ -13,9 +13,6 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	text.setCharacterSize(32);
 	text.setPosition(10, 0);
 	text.setString("");
-	//error_text.setFont(font);
-	//error_text.setCharacterSize(32);
-	//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
 	
 	texture.loadFromFile("gfx/MushroomTrans.png");
 
@@ -164,8 +161,11 @@ void GameServerState::update()
 	//call_once_set_window(sf::Vector2i(1200, 1000));
 
 	//text.setString(std::to_string(fps));
+	//if (fps > 60)
+	//	fps = 0;
+
 	std::ostringstream ss; //string buffer to convert numbers to string
-	ss << "Hello World , frame count is: " << player.getPosition().x;// put float into string buffer
+	ss << "FPS" << fps;// put float into string buffer
 	text.setString(ss.str());
 
 	if (!hasStarted)
@@ -244,5 +244,7 @@ void GameServerState::update()
 
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
+
+	//++fps;
 }
 
