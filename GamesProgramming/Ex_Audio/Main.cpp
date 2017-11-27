@@ -7,6 +7,13 @@
 // The new game, Networking, state machine in the main.cpp and State Handlers developed 
 // by Matthew Wallace (1502616@abertay.ac.uk)
 // For clarity of assessment all the functions developed by Paul Robertson has been collapsed.
+
+// Your application must demonstrate : 
+// • a simulated world containing two or more moveable objects, at least one of which must be controllable by the user; 
+// • network communication between machines(running either multiple copies of the same program, or two or more different programs); 
+// • synchronisation of objects' positions between the machines, so that all machines are capable of showing a consistent view of the game world; 
+// • using appropriate prediction and/or interpolation techniques to maintain smoothlysynchronised movement even 
+//   when the network connection is affected by latency. 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>

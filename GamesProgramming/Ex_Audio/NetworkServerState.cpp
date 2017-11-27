@@ -5,7 +5,7 @@ NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 
-	established_connection = true; // TODO change back to false
+	established_connection = false;
 	
 	ready = false;
 	server = false;
@@ -73,7 +73,7 @@ void NetworkServerState::update()
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 
-	if (ready && established_connection)
+	if (ready && established_connection && all_clients_connected)
 	{
 		game_state = GameStateEnum::GAME_SERVER;
 	}
