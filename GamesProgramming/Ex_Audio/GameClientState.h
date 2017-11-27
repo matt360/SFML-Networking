@@ -4,7 +4,7 @@
 
 // TODO It should be possible to go back from the client game state to client network state (GameClientState -> NetworkClientState)
 
-class GameClientState : public GameState, public GameClient
+class GameClientState : public GameState, public GameClientNetwork
 {
 public:
 	using Prediction::getCurrentTime;

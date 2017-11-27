@@ -1,16 +1,16 @@
 #include "GameClient.h"
 
-GameClient::GameClient() {}
+GameClientNetwork::GameClientNetwork() {}
 
-GameClient::~GameClient() {}
+GameClientNetwork::~GameClientNetwork() {}
 //
-//sf::Int32 GameClient::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
+//sf::Int32 GameClientNetwork::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
 //{
 //	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
 //	return sf::Int32(current_time + (offset));
 //}
 
-void GameClient::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
@@ -23,7 +23,7 @@ void GameClient::addMessage(PlayerMessage& player_message_send, const Player& pl
 
 // RECEIVE (from the server's perspective what client is sending for the server to receive) 
 // packet layout MUST MATCH the GameServer's receivePacket function packet layout
-sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
+sf::Packet GameClientNetwork::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	// message
 	sf::Packet packet_to_send;
@@ -33,7 +33,7 @@ sf::Packet GameClient::groupIntoPacket(const PlayerMessage& player_message_send)
 
 // SEND (from the client's perspective what server is sending for the client to receive)
 // packet layout MUST MATCH the GameServer's groupIntoPacket function packet layout
-void GameClient::receivePacket(sf::Packet& packet_receive)
+void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
 	// Packets must match to what the server is sending (e.g.: server is sending a string, and an int, client must be expecting a string and an int, ect.)
@@ -58,7 +58,7 @@ void GameClient::receivePacket(sf::Packet& packet_receive)
 }
 
 // Send a message to the server...
-void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
+void GameClientNetwork::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
 {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
@@ -98,7 +98,7 @@ void GameClient::sendPacket(const Player& player, const sf::Clock& clock, const 
 }
 
 // ...wait for the answer
-void GameClient::checkForIncomingPackets(const bool& debug_mode)
+void GameClientNetwork::checkForIncomingPackets(const bool& debug_mode)
 {
 	while (true) 
 	{

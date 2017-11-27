@@ -10,11 +10,11 @@
 #include "QuadraticPrediction.h"
 
 // TODO change the name to GameClientNetowrk
-class GameClient : public Network, public LinearPrediction, public QuadraticPrediction
+class GameClientNetwork : public Network, public LinearPrediction, public QuadraticPrediction
 {
 public:
-	GameClient();
-	~GameClient();
+	GameClientNetwork();
+	~GameClientNetwork();
 
 protected:
 	using Prediction::getCurrentTime;

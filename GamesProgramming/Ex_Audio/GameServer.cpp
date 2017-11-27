@@ -20,7 +20,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 }
 
 // RECEIVE (from the client)
-// packet layout MUST MATCH the GameClient's groupIntoPacket function packet layout
+// packet layout MUST MATCH the GameClientNetwork's groupIntoPacket function packet layout
 void GameServer::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
@@ -34,7 +34,7 @@ void GameServer::receivePacket(sf::Packet& packet_receive)
 }
 
 // SEND (to the client)
-// packet layout MUST MATCH the GameClient's receivePacket function packet layout
+// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
 sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	sf::Packet packet_to_send;
@@ -70,13 +70,13 @@ void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, cons
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// RECEIVE (from the client) 
-	// packet layout MUST MATCH the GameClient's groupIntoPacket function packet layout
+	// packet layout MUST MATCH the GameClientNetwork's groupIntoPacket function packet layout
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	receivePacket(packet_receive);
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) 
-	// packet layout MUST MATCH the GameClient's receivePacket function packet layout
+	// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Message to send
 	PlayerMessage player_message_send;
