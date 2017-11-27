@@ -12,7 +12,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(10, 0);
-	text.setString("hellow world");
+	text.setString("");
 	//error_text.setFont(font);
 	//error_text.setCharacterSize(32);
 	//error_text.setPosition(window->getSize().x - 200, window->getSize().y - 200);
@@ -163,9 +163,7 @@ void GameServerState::update()
 {
 	//call_once_set_window(sf::Vector2i(1200, 1000));
 
-	//fps = 1.f / dt;
-	//text.setString(std::to_string(fps));
-	//std::cout << "dt:" << dt << std::endl;
+	text.setString(std::to_string(fps));
 
 	if (!hasStarted)
 	{
