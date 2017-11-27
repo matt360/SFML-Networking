@@ -228,10 +228,12 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 
 		// Extract the variables contained in the packet
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> ready)
+		bool set_ready;
+		if (packet_receive >> set_ready)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
+			ready = set_ready;
 			std::cout << "ready " << ready << "\n";
 		}
 	}
@@ -240,10 +242,7 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 void NetworkClient::establishConnectionWithServer()
 {
 	// send message to the server...
-	if (set_ready)
-	{
-		sendPacketToServer();
-	}
+	sendPacketToServer();
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer();

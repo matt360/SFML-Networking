@@ -13,6 +13,8 @@ protected:
 	sf::Packet groupIntoPacket();
 	void receivePacket(sf::Packet& packet_receive);
 
+	sf::Packet groupIntoPacket(const bool & rd);
 	void establishConnectionWithClient(const bool& debug_mode);
+	void setReady(const bool& ready);
 };
 
