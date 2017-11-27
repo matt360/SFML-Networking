@@ -7,6 +7,7 @@ NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	established_connection = false;
+	connection_status = false;
 	
 	ready = false;
 	server = false;
@@ -69,7 +70,7 @@ void NetworkServerState::update()
 	// the string buffer to convert numbers to a string
 	std::ostringstream ss;
 	// Put the text to display into the string buffer
-	if (established_connection)
+	if (connection_status)
 		ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
 	else
 		ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
@@ -79,10 +80,9 @@ void NetworkServerState::update()
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
 	// establish connection
-	if (!established_connection)
-	{
-		establishConnectionWithClient(debug_mode);
-	}
+	establishConnectionWithClient(debug_mode);
+
+	if (established_connection) connection_status = true;
 
 	// tell the client to switch from the NetworkClientState to the GameClientState
 	setReady(ready);

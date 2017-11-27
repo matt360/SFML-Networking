@@ -15,6 +15,7 @@ public:
 	virtual void render();
 
 private:
+	bool connection_status;
 	bool debug_mode;
 	bool debug_message;
 };
