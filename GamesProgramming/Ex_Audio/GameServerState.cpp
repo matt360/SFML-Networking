@@ -168,10 +168,16 @@ void GameServerState::update()
 	std::ostringstream ss; 
 	// Put bool into string buffer and display lerp mode, linear prediction mode, quadratic prediction mode
 	std::string lerp_mode_string;
-	if (lerp_mode) lerp_mode_string = "ON";
-	else lerp_mode_string = "OFF";
+	lerp_mode ? lerp_mode_string = "ON" : lerp_mode_string = "OFF";
 
-	ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction;
+	std::string linear_prediction_string;
+	linear_prediction ? linear_prediction_string = "ON" : linear_prediction_string = "OFF";
+
+	std::string quadratic_prediction_string;
+	quadratic_prediction ? quadratic_prediction_string = "ON" : quadratic_prediction_string = "OFF";
+
+	ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction_string << " QUADRATIC PREDICTION: " << quadratic_prediction_string;
+
 	text.setString(ss.str());
 
 	if (!hasStarted)
