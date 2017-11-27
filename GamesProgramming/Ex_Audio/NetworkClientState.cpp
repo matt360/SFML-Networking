@@ -72,7 +72,7 @@ void NetworkClientState::update()
 
 	// Put the text to display into the string buffer
 	if (established_connection)
-		ss << "\n\nYou're the client\n\nEstablished connection\n\nPress Enter to Play";
+		ss << "\n\nYou're the client\n\nEstablished connection\n\nWait for the game to start";
 	else
 		ss << "\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play";
 
