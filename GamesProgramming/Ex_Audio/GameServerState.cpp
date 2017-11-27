@@ -1,4 +1,5 @@
 #include "GameServerState.h"
+#include <sstream>
 
 GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 {
@@ -163,7 +164,10 @@ void GameServerState::update()
 {
 	//call_once_set_window(sf::Vector2i(1200, 1000));
 
-	text.setString(std::to_string(fps));
+	//text.setString(std::to_string(fps));
+	std::ostringstream ss; //string buffer to convert numbers to string
+	ss << "Hello World , frame count is: " << player.getPosition().x;// put float into string buffer
+	text.setString(ss.str());
 
 	if (!hasStarted)
 	{
