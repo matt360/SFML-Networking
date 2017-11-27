@@ -17,7 +17,6 @@ void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Pla
 	player_message_send.position.x = player.getPosition().x;
 	player_message_send.position.y = player.getPosition().y;
 
-	//player_message_send.time = c_s;
 	player_message_send.time = (float)Prediction::getCurrentTime(clock, offset);
 }
 
