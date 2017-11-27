@@ -16,9 +16,3 @@ sf::Vector2f Prediction::lerp(const sf::Vector2f& start, const sf::Vector2f& end
 	temp.y = lerp(start.y, end.y, time);
 	return temp;
 }
-
-sf::Int32 Prediction::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
-{
-	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
-	return sf::Int32(current_time + (offset));
-}

@@ -18,6 +18,9 @@ protected:
 	// connection handler - does not let the server start without establishing the connection with the client
 	bool established_connection;
 
+	// get cthe current time and take the offset into account
+	sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
+
 	// Debug functions
 	void displayReceiveMessage(sf::Int32 time);
 	void displaySendMessage(sf::Int32 time);
