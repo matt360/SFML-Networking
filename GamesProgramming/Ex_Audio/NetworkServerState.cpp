@@ -5,7 +5,7 @@ NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in)
 	window = hwnd;
 	input = in;
 
-	established_connection = true; // TODO change back to false
+	established_connection = false; // TODO change back to false
 	
 	ready = false;
 	server = false;

@@ -27,6 +27,7 @@ protected:
 	// NEVER RESTART THE CLOCK!!!
 	static sf::Clock clock;
 	static sf::Int32 offset;
+
 	GameStateEnum game_state;
 	NetworkStateEnum network_state;
 

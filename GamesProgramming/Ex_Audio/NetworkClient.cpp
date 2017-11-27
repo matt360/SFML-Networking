@@ -4,12 +4,6 @@ NetworkClient::NetworkClient() {}
 
 NetworkClient::~NetworkClient() {}
 
-sf::Int32 NetworkClient::getCurrentTime()
-{
-	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
-	return sf::Int32(current_time + (offset));
-}
-
 // MATCH 1 (variables must match witch MATCH 1 in the NetworkServer)
 void NetworkClient::receivePacket(sf::Packet& packet_receive)
 {

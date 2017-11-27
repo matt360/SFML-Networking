@@ -17,7 +17,6 @@ protected:
 	sf::Int32 start_timing_latency;
 	sf::Int32 end_timing_latency;
 	sf::Int32 latency;
-	sf::Int32 getCurrentTime();
 
 	bool send_packet = true;
 	void sendPacketToServer(const bool& debug_mode);
