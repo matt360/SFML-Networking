@@ -20,9 +20,12 @@ protected:
 
 	bool send_packet = true;
 	void sendPacketToServer(const bool& debug_mode);
-
 	void checkForIncomingPacketsFromServer(const bool& debug_mode);
-
 	void establishConnectionWithServer(const bool& debug_mode);
+
+	bool set_ready = true;
+	void sendPacketToServer();
+	void checkForIncomingPacketsFromServer();
+	void establishConnectionWithServer();
 };
 

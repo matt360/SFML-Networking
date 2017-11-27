@@ -88,6 +88,11 @@ void NetworkClientState::update()
 		if (debug_mode) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 	}
 
+	if (!ready)
+	{
+		establishConnectionWithServer();
+	}
+
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
 	if (ready && established_connection)
