@@ -128,15 +128,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
-    <ClCompile Include="LinearPrediction.cpp">
-      <Filter>Source Files\Client\Game State</Filter>
-    </ClCompile>
-    <ClCompile Include="Prediction.cpp">
-      <Filter>Source Files\Client\Game State</Filter>
-    </ClCompile>
-    <ClCompile Include="QuadraticPrediction.cpp">
-      <Filter>Source Files\Client\Game State</Filter>
-    </ClCompile>
     <ClCompile Include="GameClientNetwork.cpp">
       <Filter>Source Files\Client\Game State</Filter>
     </ClCompile>
@@ -160,6 +151,15 @@
     </ClCompile>
     <ClCompile Include="NetworkServerState.cpp">
       <Filter>Source Files\Server\Network State</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearPrediction.cpp">
+      <Filter>Source Files\Client\Game State\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadraticPrediction.cpp">
+      <Filter>Source Files\Client\Game State\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="Prediction.cpp">
+      <Filter>Source Files\Client\Game State\Prediction</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,15 +229,6 @@
     <ClInclude Include="NetworkServerState.h">
       <Filter>Header Files\Server\Network State</Filter>
     </ClInclude>
-    <ClInclude Include="LinearPrediction.h">
-      <Filter>Header Files\Client\Game State</Filter>
-    </ClInclude>
-    <ClInclude Include="Prediction.h">
-      <Filter>Header Files\Client\Game State</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadraticPrediction.h">
-      <Filter>Header Files\Client\Game State</Filter>
-    </ClInclude>
     <ClInclude Include="GameClientNetwork.h">
       <Filter>Header Files\Client\Game State</Filter>
     </ClInclude>
@@ -249,6 +240,15 @@
     </ClInclude>
     <ClInclude Include="NetworkClientState.h">
       <Filter>Header Files\Client\Network State</Filter>
+    </ClInclude>
+    <ClInclude Include="Prediction.h">
+      <Filter>Header Files\Client\Game State\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadraticPrediction.h">
+      <Filter>Header Files\Client\Game State\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearPrediction.h">
+      <Filter>Header Files\Client\Game State\Prediction</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
