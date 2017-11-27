@@ -159,13 +159,19 @@ void GameServerState::endDraw()
 void GameServerState::update()
 {
 	//call_once_set_window(sf::Vector2i(1200, 1000));
-
 	//text.setString(std::to_string(fps));
+
 	//if (fps > 60)
 	//	fps = 0;
 
-	std::ostringstream ss; //string buffer to convert numbers to string
-	ss << "FPS" << fps;// put float into string buffer
+	//string buffer to convert numbers to string
+	std::ostringstream ss; 
+	// Put bool into string buffer and display lerp mode, linear prediction mode, quadratic prediction mode
+	std::string lerp_mode_string;
+	if (lerp_mode) lerp_mode_string = "ON";
+	else lerp_mode_string = "OFF";
+
+	ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction;
 	text.setString(ss.str());
 
 	if (!hasStarted)
