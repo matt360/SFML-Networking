@@ -13,18 +13,16 @@ public:
 	~QuadraticPrediction();
 
 protected:
-	using Prediction::getCurrentTime;
-
 	// number of messages to keep track of
 	const unsigned int quadratic_message_number = 3;
 	std::deque<PlayerMessage> quadratic_local_positions;
-	void keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset);
-	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset);
+	void keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Int32& tm);
+	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm);
 	void keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive);
 	std::deque<PlayerMessage> quadratic_network_positions;
-	sf::Vector2f predictQuadraticLocalPath(const sf::Clock& clock, const sf::Int32& offset);
-	sf::Vector2f predictQuadraticNetworkPath(const sf::Clock& clock, const sf::Int32& offset);
+	sf::Vector2f predictQuadraticLocalPath(const sf::Int32& tm);
+	sf::Vector2f predictQuadraticNetworkPath(const sf::Int32& tm);
 
-	void quadraticInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode);
+	void quadraticInterpolation(Player& player, const sf::Int32& tm, const bool& lerp_mode);
 };
 
