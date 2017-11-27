@@ -80,14 +80,17 @@ void NetworkServerState::update()
 
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
-	establishConnectionWithClient(debug_mode);
+	if (!established_connection)
+	{
+		establishConnectionWithClient(debug_mode);
+	}
 	setReady(ready_status);
 
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 
 	//if (ready && established_connection && all_clients_connected)
-	if (ready && established_connection)
+	if (ready_status && established_connection)
 	{
 		game_state = GameStateEnum::GAME_SERVER;
 	}

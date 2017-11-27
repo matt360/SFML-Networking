@@ -16,6 +16,7 @@ public:
 
 private:
 	bool ready_status;
+	bool my_connection;
 
 	bool debug_mode;
 	bool debug_message;

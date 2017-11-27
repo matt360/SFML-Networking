@@ -156,6 +156,7 @@ void NetworkServer::setReady(const bool& rd)
 	//sf::Packet send_packet = groupIntoPacket();
 	// Message to send
 	sf::Packet send_packet;
+	/*bool send_status = true;*/
 	// Group the variables to send into a packet
 	send_packet << rd;
 
