@@ -21,6 +21,9 @@ private:
 	//void moveMushroom();
 	//Window m_window;
 
+	// for displaying text
+	sf::Text text;
+
 	// window
 	void beginDraw();
 	void endDraw();

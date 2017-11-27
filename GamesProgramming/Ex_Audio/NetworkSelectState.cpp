@@ -12,7 +12,6 @@ NetworkSelectState::NetworkSelectState(sf::RenderWindow* hwnd, Input* in)
 	debug_message = true;
 
 	// NetworkSelectState text
-	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);
@@ -83,7 +82,7 @@ void NetworkSelectState::update()
 	{
 		// create server socket
 		createServerSocket();
-		// display text
+		// for displaying text
 		text.setString(
 			"You're the Server\n\n"
 			"Press Enter to establish the connection with\n\n"
@@ -97,7 +96,7 @@ void NetworkSelectState::update()
 	{
 		// create client socket
 		createClientSocket();
-		// display text
+		// for displaying text
 		text.setString(
 			"You're the Client\n\n"
 			"Press Enter to establish the connection with\n\n"

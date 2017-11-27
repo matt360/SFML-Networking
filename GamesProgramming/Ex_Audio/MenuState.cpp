@@ -6,7 +6,6 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// Menu text
-	font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);

@@ -38,8 +38,7 @@ protected:
 	bool server;
 	bool client;
 
-	// display text
-	sf::Text text;
+	// for loading in the font
 	sf::Font font;
 };
 

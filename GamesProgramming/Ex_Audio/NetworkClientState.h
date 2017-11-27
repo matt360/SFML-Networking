@@ -17,6 +17,9 @@ public:
 	virtual void render();
 
 private:
+	// for displaying text
+	sf::Text text;
+
 	bool debug_mode;
 	bool debug_message;
 };

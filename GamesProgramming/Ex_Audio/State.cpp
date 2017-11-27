@@ -2,6 +2,9 @@
 
 State::State() 
 {
+	// load the font
+	font.loadFromFile("font/advanced_pixel-7.ttf");
+	// set the game state to the Menu
 	game_state = GameStateEnum::MENU;
 }
 

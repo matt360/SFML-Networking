@@ -9,7 +9,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	debug_mode = false;
 	debug_message = false;
 
-	font.loadFromFile("font/advanced_pixel-7.ttf");
+	//font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
 	//text.setPosition(100, 10);
