@@ -2,13 +2,9 @@
 #include "GameClientNetwork.h"
 #include "GameState.h"
 
-// TODO It should be possible to go back from the client game state to client network state (GameClientState -> NetworkClientState)
-
 class GameClientState : public GameState, public GameClientNetwork
 {
 public:
-	//using Prediction::getCurrentTime;
-
 	GameClientState(sf::RenderWindow* hwnd, Input* in);
 	~GameClientState();
 

@@ -17,8 +17,6 @@ public:
 	~GameClientNetwork();
 
 protected:
-	//using Prediction::getCurrentTime;
-	
 	// toggle lerp mode - input handler
 	bool lerp_mode;
 	// toggle linear prediction - input handler
@@ -27,7 +25,6 @@ protected:
 	bool quadratic_prediction;
 
 	// get current time and take into account the offset from the server
-	//sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);
 	// compose a message to be send with PlayerMessage structure
 	void addMessage(PlayerMessage& player_message, const Player& player, const sf::Clock& clock, const sf::Int32& offset);
 

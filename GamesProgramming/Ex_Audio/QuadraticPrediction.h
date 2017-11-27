@@ -13,7 +13,6 @@ public:
 	~QuadraticPrediction();
 
 protected:
-	/*sf::Int32 getCurrentTime(const sf::Clock& clock, const sf::Int32& offset);*/
 	using Prediction::getCurrentTime;
 
 	// number of messages to keep track of

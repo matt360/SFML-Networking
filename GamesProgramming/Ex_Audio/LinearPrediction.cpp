@@ -9,12 +9,6 @@ LinearPrediction::~LinearPrediction()
 {
 }
 
-//sf::Int32 LinearPrediction::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
-//{
-//	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
-//	return sf::Int32(current_time + (offset));
-//}
-
 void LinearPrediction::keepTrackOfLinearLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	// local message

@@ -9,12 +9,6 @@ QuadraticPrediction::~QuadraticPrediction()
 {
 }
 
-//sf::Int32 QuadraticPrediction::getCurrentTime(const sf::Clock& clock, const sf::Int32& offset)
-//{
-//	sf::Int32 current_time = clock.getElapsedTime().asMilliseconds();
-//	return sf::Int32(current_time + (offset));
-//}
-
 void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	// local message
