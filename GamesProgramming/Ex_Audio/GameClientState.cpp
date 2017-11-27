@@ -231,7 +231,7 @@ void GameClientState::update()
 	// - the current time, in "time"
 	// You need to update:
 	// - the predicted position at the current time, in "x_" and "y_"
-	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
+	if (debug_message) std::cout << "function call: getCurrentTime(): " << Prediction::getCurrentTime(clock, offset) << "\n";
 	if (debug_mode) std::cout << "linear prediction: " << linear_prediction << "\n";
 	if (debug_mode) std::cout << "quadratic prediction: " << quadratic_prediction << "\n";
 	if (debug_mode) lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
