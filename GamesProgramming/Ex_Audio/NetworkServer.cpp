@@ -6,7 +6,7 @@ NetworkServer::NetworkServer() {}
 NetworkServer::~NetworkServer() {}
 
 // MATCH 1 (variables must match witch MATCH 1 in the NetworkClient)
-sf::Packet NetworkServer::groupIntoPacket()
+sf::Packet NetworkServer::groupIntoPacket(const sf::Int32& lag)
 {
 	// Message to send
 	sf::Packet packet_to_send;
@@ -14,7 +14,7 @@ sf::Packet NetworkServer::groupIntoPacket()
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	packet_to_send << server_time << established_connection;
 	// TODO desiplay and let adjust this
-	sf::sleep(sf::milliseconds(100));
+	sf::sleep(sf::milliseconds(lag));
 
 	return packet_to_send;
 }
@@ -34,7 +34,7 @@ void NetworkServer::receivePacket(sf::Packet& packet_receive)
 }
 
 // Wait for a message
-void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
+void NetworkServer::establishConnectionWithClient(const sf::Int32& lag, bool& debug_mode)
 {
 	// Receive the packet at the other end
 	sf::Packet packet_receive;
@@ -66,7 +66,7 @@ void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 	/////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) MUST MATCH packet_receive in the NetworkClient //
 	/////////////////////////////////////////////////////////////////////////
-	sf::Packet send_packet = groupIntoPacket();
+	sf::Packet send_packet = groupIntoPacket(lag);
 
 	// Send it over the network
 	switch (socket.send(send_packet, sender, senderPort))

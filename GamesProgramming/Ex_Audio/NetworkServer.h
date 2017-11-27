@@ -10,9 +10,9 @@ public:
 
 protected:
 	// server
-	sf::Packet groupIntoPacket();
+	sf::Packet groupIntoPacket(const sf::Int32& lag);
 	void receivePacket(sf::Packet& packet_receive);
 
-	void establishConnectionWithClient(const bool& debug_mode);
+	void establishConnectionWithClient(const sf::Int32& lag, bool& debug_mode);
 };
 

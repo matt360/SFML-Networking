@@ -68,7 +68,7 @@ void NetworkServerState::update()
 
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
-	establishConnectionWithClient(debug_mode);
+	establishConnectionWithClient(1000, debug_mode);
 
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
