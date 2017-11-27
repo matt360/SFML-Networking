@@ -9,7 +9,6 @@ NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in)
 	established_connection = false;
 	
 	ready = false;
-	ready_status = false;
 	server = false;
 	client = false;
 	debug_mode = false;
@@ -40,7 +39,7 @@ void NetworkServerState::handleInput()
 	if (input->isKeyDown(sf::Keyboard::Return))
 	{
 		input->setKeyUp(sf::Keyboard::Return);
-		// player ready to play
+		// player ready to play only when at least one client has been connected
 		if (established_connection) 
 			ready = true;
 	}

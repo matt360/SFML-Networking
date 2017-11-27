@@ -99,18 +99,6 @@ void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 	//	}
 	//}
 }
-////////////////////////////////////////////////////////////////////////////////////////////
-sf::Packet NetworkServer::groupIntoPacket(const bool& rd)
-{
-	// Message to send
-	sf::Packet packet_to_send;
-	// Group the variables to send into a packet
-	packet_to_send << rd;
-	// TODO lag here?
-	//sf::sleep(sf::milliseconds(100));
-
-	return packet_to_send;
-}
 
 // Wait for a message
 void NetworkServer::setReady(const bool& rd)

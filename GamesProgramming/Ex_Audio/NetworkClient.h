@@ -23,7 +23,7 @@ protected:
 	void checkForIncomingPacketsFromServer(const bool& debug_mode);
 	void establishConnectionWithServer(const bool& debug_mode);
 
-	bool set_ready = true;
+	// overloaded functions for setting clients readinnes to observe
 	void sendPacketToServer();
 	void checkForIncomingPacketsFromServer();
 	void establishConnectionWithServer();

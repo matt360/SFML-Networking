@@ -159,22 +159,14 @@ void NetworkClient::sendPacketToServer()
 	{
 	case sf::Socket::Done:
 		// send a packet.
-		//if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
-		/*send_packet = false;
-		std::cout << "send_packet is false" << "\n";*/
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
-		//if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
-		set_ready = true;
-		std::cout << "send_packet is true" << "\n";
-		//if (debug_mode) 
 		return;
 
 	default:
 		// Something went wrong.
-		//if (debug_mode) std::cout << "\nCLIENT: send didn't return Done\n";
 		return;
 	}
 
@@ -212,17 +204,14 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 		{
 		case sf::Socket::Done:
 			// Received a packet.
-			//if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
-			//if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
 			return;
 
 		default:
 			// Something went wrong.
-			//if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
 			return;
 		}
 
@@ -234,7 +223,6 @@ void NetworkClient::checkForIncomingPacketsFromServer()
 			// Data extracted successfully...
 			// Deal with the messages from the packet
 			ready = set_ready;
-			std::cout << "ready " << ready << "\n";
 		}
 	}
 }
