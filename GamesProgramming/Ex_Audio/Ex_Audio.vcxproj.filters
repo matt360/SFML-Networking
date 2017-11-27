@@ -161,14 +161,8 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files\State Handlers\Game State Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkClient.cpp">
-      <Filter>Source Files\Network\Client</Filter>
-    </ClCompile>
     <ClCompile Include="NetworkSelect.cpp">
       <Filter>Source Files\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkServer.cpp">
-      <Filter>Source Files\Network\Server</Filter>
     </ClCompile>
     <ClCompile Include="GameServer.cpp">
       <Filter>Source Files\Network\Server</Filter>
@@ -202,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="GameClientNetwork.cpp">
       <Filter>Source Files\Network\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkClient.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers\Main.cpp\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkServer.cpp">
+      <Filter>Source Files\State Handlers\Network State Handlers\Main.cpp\Server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,12 +244,6 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files\State Handlers\Game State Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkClient.h">
-      <Filter>Header Files\Network\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkServer.h">
-      <Filter>Header Files\Network\Server</Filter>
-    </ClInclude>
     <ClInclude Include="GameServer.h">
       <Filter>Header Files\Network\Server</Filter>
     </ClInclude>
@@ -291,6 +285,12 @@
     </ClInclude>
     <ClInclude Include="GameClientNetwork.h">
       <Filter>Header Files\Network\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkClient.h">
+      <Filter>Header Files\State Handlers\Network State Handlers\Main.cpp\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkServer.h">
+      <Filter>Header Files\State Handlers\Network State Handlers\Main.cpp\Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
