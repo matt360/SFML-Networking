@@ -176,9 +176,9 @@ void GameClientState::update()
 	}
 
 	// keep track of local positions
-	keepTrackOfLinearLocalPositoins(player, clock, offset);
+	keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
 
-	keepTrackOfQuadraticLocalPositoins(player, (float)getCurrentTime(clock, offset));
+	keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
 
 	/*if (input->isKeyDown(sf::Keyboard::Up))
 	{
@@ -237,10 +237,10 @@ void GameClientState::update()
 	if (debug_mode) lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
 
 	if (linear_prediction && linear_network_positions.size() == linear_message_number && linear_local_positions.size() == linear_message_number)
-		linearInterpolation(player, clock, offset, lerp_mode);
+		linearInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
 	if (quadratic_prediction && quadratic_network_positions.size() == quadratic_message_number && quadratic_local_positions.size() == quadratic_message_number) 
-		quadraticInterpolation(player, (float)getCurrentTime(clock, offset), lerp_mode);
+		quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
 	// increase fps
 	fps++;

@@ -4,8 +4,6 @@
 class NetworkClientState : public NetworkClient
 {
 public:
-	using NetworkClient::getCurrentTime;
-
 	NetworkClientState(sf::RenderWindow* hwnd, Input* in);
 
 	~NetworkClientState();

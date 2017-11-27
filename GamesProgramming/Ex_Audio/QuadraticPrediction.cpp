@@ -15,7 +15,7 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Player& playe
 	PlayerMessage local_message;
 	local_message.position.x = player.getPosition().x;
 	local_message.position.y = player.getPosition().y;
-	local_message.time = tm;
+	local_message.time = (float)tm;
 	//
 	if (quadratic_local_positions.size() >= quadratic_message_number) quadratic_local_positions.pop_back();
 	quadratic_local_positions.push_front(local_message);
@@ -27,7 +27,7 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, 
 	PlayerMessage local_message;
 	local_message.position.x = vec.x;
 	local_message.position.y = vec.y;
-	local_message.time = tm;
+	local_message.time = (float)tm;
 	// 
 	if (quadratic_local_positions.size() >= quadratic_message_number) quadratic_local_positions.pop_back();
 	quadratic_local_positions.push_front(local_message);
@@ -51,7 +51,7 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Int32& tm)
 	PlayerMessage msg0 = quadratic_network_positions.at(0);
 	PlayerMessage msg1 = quadratic_network_positions.at(1);
 	PlayerMessage msg2 = quadratic_network_positions.at(2);
-	float time = tm;
+	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
@@ -83,7 +83,7 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(const sf::Int32& t
 	PlayerMessage msg0 = quadratic_network_positions.at(0);
 	PlayerMessage msg1 = quadratic_network_positions.at(1);
 	PlayerMessage msg2 = quadratic_network_positions.at(2);
-	float time = tm;
+	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);

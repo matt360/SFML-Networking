@@ -9,25 +9,25 @@ LinearPrediction::~LinearPrediction()
 {
 }
 
-void LinearPrediction::keepTrackOfLinearLocalPositoins(const Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void LinearPrediction::keepTrackOfLinearLocalPositoins(const Player& player, const sf::Int32& tm)
 {
 	// local message
 	PlayerMessage local_message;
 	local_message.position.x = player.getPosition().x;
 	local_message.position.y = player.getPosition().y;
-	local_message.time = (float)getCurrentTime(clock, offset);
+	local_message.time = (float)tm;
 
 	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();
 	linear_local_positions.push(local_message);
 }
 
-void LinearPrediction::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Clock& clock, const sf::Int32& offset)
+void LinearPrediction::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm)
 {
 	// local message
 	PlayerMessage local_message;
 	local_message.position.x = vec.x;
 	local_message.position.y = vec.y;
-	local_message.time = (float)getCurrentTime(clock, offset);
+	local_message.time = (float)tm;
 	// 
 	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();
 	linear_local_positions.push(local_message);
@@ -39,12 +39,12 @@ void LinearPrediction::keepTrackOfLinearNetworkPositions(const PlayerMessage& pl
 	linear_network_positions.push(player_message_receive);
 }
 
-sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Clock& clock, const sf::Int32& offset)
+sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Int32& tm)
 {
 	float x_average_velocity, y_average_velocity;
 	PlayerMessage msg0 = linear_local_positions.front();
 	PlayerMessage msg1 = linear_local_positions.back();
-	float time = (float)getCurrentTime(clock, offset);
+	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
@@ -59,12 +59,12 @@ sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Clock& clock, co
 	return local_player_pos;
 }
 
-sf::Vector2f LinearPrediction::predictLinearNetworkPath(const sf::Clock& clock, const sf::Int32& offset)
+sf::Vector2f LinearPrediction::predictLinearNetworkPath(const sf::Int32& tm)
 {
 	float x_average_velocity, y_average_velocity, x_, y_;
 	PlayerMessage msg0 = linear_network_positions.front();
 	PlayerMessage msg1 = linear_network_positions.back();
-	float time = (float)getCurrentTime(clock, offset);
+	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
@@ -78,10 +78,10 @@ sf::Vector2f LinearPrediction::predictLinearNetworkPath(const sf::Clock& clock, 
 	return network_player_pos;
 }
 
-void LinearPrediction::linearInterpolation(Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& lerp_mode)
+void LinearPrediction::linearInterpolation(Player& player, const sf::Int32& tm, const bool& lerp_mode)
 {
-	sf::Vector2f local_path = predictLinearLocalPath(clock, offset);
-	sf::Vector2f network_path = predictLinearNetworkPath(clock, offset);
+	sf::Vector2f local_path = predictLinearLocalPath(tm);
+	sf::Vector2f network_path = predictLinearNetworkPath(tm);
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 
@@ -89,6 +89,6 @@ void LinearPrediction::linearInterpolation(Player& player, const sf::Clock& cloc
 	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
 
 	// add lerped to the history of the local posistions
-	keepTrackOfLinearLocalPositoins(lerp_position, clock, offset);
+	keepTrackOfLinearLocalPositoins(lerp_position, tm);
 }
 
