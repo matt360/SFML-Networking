@@ -66,8 +66,8 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Clock& clo
 	x_average_velocity_2 = (msg1.position.x - msg2.position.x) / (msg1.time - msg2.time);
 	y_average_velocity_2 = (msg1.position.y - msg2.position.y) / (msg1.time - msg2.time);
 
-	a_x = (x_average_velocity_2 - x_average_velocity_1);
-	a_y = (y_average_velocity_2 - y_average_velocity_1);
+	a_x = (x_average_velocity_2 - x_average_velocity_1) / (msg2.time - msg0.time);
+	a_y = (y_average_velocity_2 - y_average_velocity_1) / (msg2.time - msg0.time);
 
 	// s = s0 + v0t + ½at2
 	x_ = msg2.position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
@@ -98,8 +98,8 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(const sf::Clock& c
 	x_average_velocity_2 = (msg1.position.x - msg2.position.x) / (msg1.time - msg2.time);
 	y_average_velocity_2 = (msg1.position.y - msg2.position.y) / (msg1.time - msg2.time);
 
-	a_x = (x_average_velocity_2 - x_average_velocity_1);
-	a_y = (y_average_velocity_2 - y_average_velocity_1);
+	a_x = (x_average_velocity_2 - x_average_velocity_1) / (msg2.time - msg0.time);
+	a_y = (y_average_velocity_2 - y_average_velocity_1) / (msg2.time - msg0.time);
 
 	// s = s0 + v0t + ½at2
 	x_ = msg2.position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
