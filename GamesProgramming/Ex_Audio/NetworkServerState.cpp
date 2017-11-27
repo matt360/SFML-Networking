@@ -41,7 +41,8 @@ void NetworkServerState::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::Return);
 		// player ready to play
-		ready_status = true;
+		if (established_connection) 
+			ready = true;
 	}
 
 	// toggle debug mode to display socket messages
@@ -84,13 +85,13 @@ void NetworkServerState::update()
 	{
 		establishConnectionWithClient(debug_mode);
 	}
-	setReady(ready_status);
+	setReady(ready);
 
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 
 	//if (ready && established_connection && all_clients_connected)
-	if (ready_status && established_connection)
+	if (ready && established_connection)
 	{
 		game_state = GameStateEnum::GAME_SERVER;
 	}
