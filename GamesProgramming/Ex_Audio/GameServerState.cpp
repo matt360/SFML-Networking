@@ -180,6 +180,7 @@ void GameServerState::update()
 	// Put bool into string buffer and display the state of the lerp mode, the linear prediction mode, the quadratic prediction mode
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction;
 
+	// display text
 	text.setString(ss.str());
 
 	if (!hasStarted)

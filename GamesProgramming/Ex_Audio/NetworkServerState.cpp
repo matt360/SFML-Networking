@@ -1,4 +1,5 @@
 #include "NetworkServerState.h"
+#include <sstream>
 
 NetworkServerState::NetworkServerState(sf::RenderWindow* hwnd, Input* in)
 {
@@ -64,7 +65,18 @@ void NetworkServerState::handleInput()
 
 void NetworkServerState::update()
 {	
-	text.setString("\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play");
+	// the string buffer to convert numbers to a string
+	std::ostringstream ss;
+
+	// Put the text to display into the string buffer
+	if (established_connection)
+		ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
+	else
+		ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
+
+
+	// display text
+	text.setString(ss.str());
 
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
@@ -73,7 +85,8 @@ void NetworkServerState::update()
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 
-	if (ready && established_connection && all_clients_connected)
+	//if (ready && established_connection && all_clients_connected)
+	if (ready && established_connection)
 	{
 		game_state = GameStateEnum::GAME_SERVER;
 	}
