@@ -173,9 +173,6 @@
     <ClCompile Include="GameServer.cpp">
       <Filter>Source Files\Network\Server</Filter>
     </ClCompile>
-    <ClCompile Include="GameClient.cpp">
-      <Filter>Source Files\Network\Client</Filter>
-    </ClCompile>
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\State Handlers\Network State Handlers\Main.cpp\Menu</Filter>
     </ClCompile>
@@ -202,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Prediction.cpp">
       <Filter>Source Files\Network\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientNetwork.cpp">
+      <Filter>Source Files\Network\Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,9 +253,6 @@
     <ClInclude Include="GameServer.h">
       <Filter>Header Files\Network\Server</Filter>
     </ClInclude>
-    <ClInclude Include="GameClient.h">
-      <Filter>Header Files\Network\Client</Filter>
-    </ClInclude>
     <ClInclude Include="Messages.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
@@ -291,6 +288,9 @@
     </ClInclude>
     <ClInclude Include="Prediction.h">
       <Filter>Header Files\Network\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientNetwork.h">
+      <Filter>Header Files\Network\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

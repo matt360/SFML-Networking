@@ -1,5 +1,5 @@
 #pragma once
-#include "GameClient.h"
+#include "GameClientNetwork.h"
 #include "GameState.h"
 
 // TODO It should be possible to go back from the client game state to client network state (GameClientState -> NetworkClientState)

@@ -1,4 +1,4 @@
-#include "GameClient.h"
+#include "GameClientNetwork.h"
 
 GameClientNetwork::GameClientNetwork() {}
 
