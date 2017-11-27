@@ -161,7 +161,7 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="GameClientNetwork.cpp" />
     <ClCompile Include="GameClientState.cpp" />
-    <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="GameServerNetwork.cpp" />
     <ClCompile Include="GameServerState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="GameClientNetwork.h" />
     <ClInclude Include="GameClientState.h" />
-    <ClInclude Include="GameServer.h" />
+    <ClInclude Include="GameServerNetwork.h" />
     <ClInclude Include="GameServerState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Prediction.h" />

@@ -1,15 +1,15 @@
-#include "GameServer.h"
+#include "GameServerNetwork.h"
 
-GameServer::GameServer() 
+GameServerNetwork::GameServerNetwork() 
 {
 	lerp_mode = true;
 	linear_prediction = true;
 	quadratic_prediction = false;
 }
 
-GameServer::~GameServer() {}
+GameServerNetwork::~GameServerNetwork() {}
 
-void GameServer::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock)
+void GameServerNetwork::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
@@ -21,7 +21,7 @@ void GameServer::addMessage(PlayerMessage& player_message_send, const Player& pl
 
 // RECEIVE (from the client)
 // packet layout MUST MATCH the GameClientNetwork's groupIntoPacket function packet layout
-void GameServer::receivePacket(sf::Packet& packet_receive)
+void GameServerNetwork::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
 	PlayerMessage player_message_receive;
@@ -35,7 +35,7 @@ void GameServer::receivePacket(sf::Packet& packet_receive)
 
 // SEND (to the client)
 // packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
-sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send)
+sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	sf::Packet packet_to_send;
 	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
@@ -43,7 +43,7 @@ sf::Packet GameServer::groupIntoPacket(const PlayerMessage& player_message_send)
 }
 
 // Wait for a message, send an answer.
-void GameServer::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
 {
 	// Wait for a message
 	// Receive the packet at the other end

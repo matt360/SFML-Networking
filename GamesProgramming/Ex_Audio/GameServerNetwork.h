@@ -4,11 +4,11 @@
 #include "Messages.h"
 #include "GameState.h"
 
-class GameServer : public Network
+class GameServerNetwork : public Network
 {
 public:
-	GameServer();
-	~GameServer();
+	GameServerNetwork();
+	~GameServerNetwork();
 
 protected:
 	// toggle lerp mode - input handler

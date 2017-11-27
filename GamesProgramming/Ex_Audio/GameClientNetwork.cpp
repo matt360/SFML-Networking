@@ -22,7 +22,7 @@ void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Pla
 }
 
 // RECEIVE (from the server's perspective what client is sending for the server to receive) 
-// packet layout MUST MATCH the GameServer's receivePacket function packet layout
+// packet layout MUST MATCH the GameServerNetwork's receivePacket function packet layout
 sf::Packet GameClientNetwork::groupIntoPacket(const PlayerMessage& player_message_send)
 {
 	// message
@@ -32,7 +32,7 @@ sf::Packet GameClientNetwork::groupIntoPacket(const PlayerMessage& player_messag
 }
 
 // SEND (from the client's perspective what server is sending for the client to receive)
-// packet layout MUST MATCH the GameServer's groupIntoPacket function packet layout
+// packet layout MUST MATCH the GameServerNetwork's groupIntoPacket function packet layout
 void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
@@ -62,7 +62,7 @@ void GameClientNetwork::sendPacket(const Player& player, const sf::Clock& clock,
 {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
-	// packet layout MUST MATCH the GameServer's receivePacket function packet layout
+	// packet layout MUST MATCH the GameServerNetwork's receivePacket function packet layout
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	PlayerMessage player_message_send;
 	addMessage(player_message_send, player, clock, offset);
@@ -126,7 +126,7 @@ void GameClientNetwork::checkForIncomingPackets(const bool& debug_mode)
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SEND (from the client's perspective what server is sending for the client to receive)
-		// packet layout MUST MATCH the GameServer's groupIntoPacket function packet layout
+		// packet layout MUST MATCH the GameServerNetwork's groupIntoPacket function packet layout
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		receivePacket(packet_receive);
 	}

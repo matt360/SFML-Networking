@@ -1,8 +1,8 @@
 #pragma once
-#include "GameServer.h"
+#include "GameServerNetwork.h"
 #include "GameState.h"
 
-class GameServerState : public GameState, public GameServer
+class GameServerState : public GameState, public GameServerNetwork
 {
 public:
 	GameServerState(sf::RenderWindow* hwnd, Input* in);
