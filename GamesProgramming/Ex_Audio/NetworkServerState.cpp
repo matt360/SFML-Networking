@@ -74,7 +74,6 @@ void NetworkServerState::update()
 	else
 		ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
 
-
 	// display text
 	text.setString(ss.str());
 

@@ -1,4 +1,5 @@
 #include "NetworkClientState.h"
+#include <sstream>
 
 NetworkClientState::NetworkClientState(sf::RenderWindow* hwnd, Input* in)
 {
@@ -66,7 +67,17 @@ void NetworkClientState::handleInput()
 
 void NetworkClientState::update()
 {
-	text.setString("\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play");
+	// the string buffer to convert numbers to a string
+	std::ostringstream ss;
+
+	// Put the text to display into the string buffer
+	if (established_connection)
+		ss << "\n\nYou're the client\n\nEstablished connection\n\nPress Enter to Play";
+	else
+		ss << "\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play";
+
+	// display text
+	text.setString(ss.str());
 
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
