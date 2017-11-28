@@ -5,7 +5,7 @@
 class Network
 {
 public:
-	Network(unsigned short pt = 50001, sf::IpAddress ip_adr = "127.1.0", bool established_connection = false);
+	Network(unsigned short pt = 50001, sf::IpAddress ip_adr = "10.1.5.85", bool established_connection = false);
 	~Network();
 
 protected:
