@@ -22,8 +22,8 @@ void NetworkClient::sendPacketToServer(const bool& debug_mode)
 	case sf::Socket::Done:
 		// send a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
-		/*send_packet = false;
-		std::cout << "send_packet is false" << "\n";*/
+		send_packet = false;
+		std::cout << "send_packet is false" << "\n";
 		break;
 
 	case sf::Socket::NotReady:
