@@ -242,7 +242,7 @@ void GameClientState::update()
 	if (quadratic_prediction && quadratic_network_positions.size() == quadratic_message_number && quadratic_local_positions.size() == quadratic_message_number) 
 		quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
-	std::cout << "ip address: " << ip_address << "\n";
+	//std::cout << "ip address: " << ip_address << "\n";
 
 	// increase fps
 	fps++;
