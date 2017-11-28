@@ -36,5 +36,4 @@ protected:
 	// send packet
 	void sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode);
 	void checkForIncomingPackets(const bool& debug_mode);
-
 };

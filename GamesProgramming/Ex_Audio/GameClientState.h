@@ -16,7 +16,15 @@ public:
 private:
 	//void moveMushroom();
 	//Window m_window;
+	sf::Int32 start_timing_latency;
+	sf::Int32 end_timing_latency;
+	sf::Int32 latency;
 
+	bool send_packet = true;
+	void sendPacketToServer(const bool& debug_mode);
+	void checkForIncomingPacketsFromServer(const bool& debug_mode);
+	void establishConnectionWithServer(const bool& debug_mode);
+	
 	// window
 	void beginDraw();
 	void endDraw();

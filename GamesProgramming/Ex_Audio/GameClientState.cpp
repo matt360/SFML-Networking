@@ -1,4 +1,5 @@
 #include "GameClientState.h"
+#include <sstream>
 
 GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 {
@@ -109,6 +110,114 @@ GameClientState::~GameClientState()
 
 }
 
+// CLIENT //
+// Send a message to the server...
+void GameClientState::sendPacketToServer(const bool& debug_mode)
+{
+	/////////////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the NetworkServer //
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Group the variables to send into a packet
+	sf::Packet packet_to_send;
+	// Message to send
+	bool hello = true;
+	packet_to_send << hello;
+	// Send it over the network
+	switch (socket.send(packet_to_send, ip_address, port))
+	{
+	case sf::Socket::Done:
+		// send a packet.
+		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
+		send_packet = false;
+		std::cout << "send_packet is false" << "\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
+		send_packet = true;
+		std::cout << "send_packet is true" << "\n";
+		//if (debug_mode) 
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: send didn't return Done\n";
+		return;
+	}
+
+	/// Extract the variables contained in the packet
+}
+
+// CLIENT //
+// ...wait for the answer
+void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
+{
+	// CHECK FOR INCOMING PACKETS
+	while (true)
+	{
+		// Try to receive the packet from the other end
+		///////////////////////////////////////////////////////////////////////////////
+		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
+		///////////////////////////////////////////////////////////////////////////////
+		sf::Packet packet_receive;
+		switch (socket.receive(packet_receive, ip_address, port))
+		{
+		case sf::Socket::Done:
+			// Received a packet.
+			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+			return;
+
+		default:
+			// Something went wrong.
+			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			return;
+		}
+
+		// Extract the variables contained in the packet
+		sf::Int32 server_time;
+		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
+		if (packet_receive >> server_time >> established_connection)
+		{
+			// Data extracted successfully...
+			// Deal with the messages from the packet
+
+			// end timing latency
+			end_timing_latency = clock.getElapsedTime().asMilliseconds();
+			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
+			latency = (end_timing_latency - start_timing_latency);
+			std::cout << "latency: " << latency << "\n";
+			// calculate server time
+			sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
+			std::cout << "client_time: " << client_time << "\n";
+			// server_time from the message
+			offset = ((server_time + (0.5 * latency)) - client_time);
+			std::cout << "offset: " << offset << "\n";
+		}
+	}
+}
+
+// CLIENT //
+void GameClientState::establishConnectionWithServer(const bool& debug_mode)
+{
+	// send message to the server...
+	if (send_packet)
+	{
+		// start timing latency
+		start_timing_latency = clock.getElapsedTime().asMilliseconds();
+		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
+		sendPacketToServer(debug_mode);
+	}
+
+	// ...wait for the answer
+	checkForIncomingPacketsFromServer(debug_mode);
+}
+
 void GameClientState::render()
 {
 	beginDraw();
@@ -161,12 +270,6 @@ void GameClientState::handleInput()
 
 void GameClientState::update()
 {
-	//std::thread st1(call_once_set_window, *window);
-	//st1.join();
-	//call_once_set_window(sf::Vector2i(1200, 1000));
-
-	//fps = 1.f / dt;
-	//text.setString(std::to_string(fps));
 	if (fps > 60) fps = 0;
 
 	if (!hasStarted)
@@ -175,9 +278,41 @@ void GameClientState::update()
 		hasStarted = true;
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	// the string buffer to convert numbers to a string
+	std::ostringstream ss;
+
+	// Put the text to display into the string buffer
+	if (established_connection)
+		ss << "\n\nYou're the client\n\nEstablished connection\n\nWait for the game to start";
+	else
+		ss << "\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play";
+
+	// display text
+	text.setString(ss.str());
+
+	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
+
+	if (!established_connection)
+	{
+		establishConnectionWithServer(debug_mode);
+		if (debug_mode) std::cout << "function call: establishConnectionWithServer()\n";
+		if (debug_mode) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
+	}
+
+	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
+
+	if (ready && established_connection)
+	{
+		game_state = GameStateEnum::GAME_CLIENT;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	// keep track of local positions
 	keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
-
 	keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
 
 	/*if (input->isKeyDown(sf::Keyboard::Up))
