@@ -31,14 +31,13 @@ void NetworkServer::receivePacket(sf::Packet& packet_receive)
 	}
 }
 
+// SERVER //
 // Wait for a message
 void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 {
 	// Receive the packet at the other end
 	sf::Packet packet_receive;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	switch (socket.receive(packet_receive, sender, senderPort))
+	switch (socket.receive(packet_receive, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// Received a packet.
@@ -59,15 +58,27 @@ void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 	///////////////////////////////////////////////////////////////////////////
 	// RECEIVE (from the client) MUST MATCH packet_send in the NetworkClient //
 	///////////////////////////////////////////////////////////////////////////
-	receivePacket(packet_receive);
+	// Extract the variables contained in the packet
+	// Deal with the messages from the packet
+	bool hello;
+	if (packet_receive >> hello)
+	{
+		// The message from the client
+		established_connection = hello;
+		//if (debug_message) displayReceiveMessage(hello);
+	}
 
 	/////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) MUST MATCH packet_receive in the NetworkClient //
 	/////////////////////////////////////////////////////////////////////////
-	sf::Packet send_packet = groupIntoPacket();
+	// Message to send
+	sf::Packet packet_to_send;
+	// Group the variables to send into a packet
+	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
+	packet_to_send << server_time << established_connection;
 
 	// Send it over the network
-	switch (socket.send(send_packet, sender, senderPort))
+	switch (socket.send(packet_to_send, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// Received a packet.

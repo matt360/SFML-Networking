@@ -103,9 +103,7 @@ void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		// SEND (to the server) MUST MATCH packet_send in the NetworkServer //
 		//////////////////////////////////////////////////////////////////////
 		sf::Packet packet_receive;
-		sf::IpAddress sender;
-		unsigned short senderPort;
-		switch (socket.receive(packet_receive, sender, senderPort))
+		switch (socket.receive(packet_receive, ip_address, port))
 		{
 		case sf::Socket::Done:
 			// Received a packet.
@@ -127,6 +125,7 @@ void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 	}
 }
 
+// CLIENT //
 void NetworkClient::establishConnectionWithServer(const bool& debug_mode)
 {
 	// send message to the server...
