@@ -19,7 +19,6 @@ private:
 	/////////////////////////// ESTABLISH CONNECTION WITH THE CLIENT ///////////////////////////////
 	void establishConnectionWithClient(const bool& debug_mode);
 
-
 	// window
 	void beginDraw();
 	void endDraw();

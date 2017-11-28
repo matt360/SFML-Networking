@@ -1,8 +1,6 @@
 #include "NetworkSelect.h"
 
-NetworkSelect::NetworkSelect()
-{
-}
+NetworkSelect::NetworkSelect() {}
 
 NetworkSelect::~NetworkSelect()
 {

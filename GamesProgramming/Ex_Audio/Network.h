@@ -5,16 +5,16 @@
 class Network
 {
 public:
-	Network(unsigned short pt = 50001, sf::IpAddress ip_adr = "127.1.0", bool established_connection = false);
+	Network();
 	~Network();
 
 protected:
 	// socket
 	static sf::UdpSocket socket;
 	// Choose an arbitrary port for opening sockets
-	unsigned short port;
+	unsigned short port = 50001;
 	// IP adrress to connect to
-	sf::IpAddress ip_address;
+	sf::IpAddress ip_address = "127.1.0";
 	// connection handler - does not let the server start without establishing the connection with the client
 	bool established_connection;
 
