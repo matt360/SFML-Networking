@@ -11,8 +11,8 @@ public:
 
 protected:
 	// client
-	sf::Packet groupIntoPacket();
-	void receivePacket(sf::Packet& packet_receive);
+	//sf::Packet groupIntoPacket();
+	//void receivePacket(sf::Packet& packet_receive);
 
 	sf::Int32 start_timing_latency;
 	sf::Int32 end_timing_latency;

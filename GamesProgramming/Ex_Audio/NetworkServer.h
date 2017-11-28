@@ -10,8 +10,8 @@ public:
 
 protected:
 	// server
-	sf::Packet groupIntoPacket();
-	void receivePacket(sf::Packet& packet_receive);
+	//sf::Packet groupIntoPacket();
+	//void receivePacket(sf::Packet& packet_receive);
 
 	void establishConnectionWithClient(const bool& debug_mode);
 };

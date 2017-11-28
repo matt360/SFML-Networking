@@ -6,9 +6,9 @@ NetworkServer::NetworkServer() {}
 NetworkServer::~NetworkServer() {}
 
 // SERVER //
-// Wait for a message
 void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 {
+	// Wait for a message...
 	// Receive the packet at the other end
 	sf::Packet packet_receive;
 	switch (socket.receive(packet_receive, ip_address, port))

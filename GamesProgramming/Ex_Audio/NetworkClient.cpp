@@ -51,9 +51,9 @@ void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 	while (true)
 	{
 		// Try to receive the packet from the other end
-		//////////////////////////////////////////////////////////////////////
-		// SEND (to the server) MUST MATCH packet_send in the NetworkServer //
-		//////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////
+		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
+		///////////////////////////////////////////////////////////////////////////////
 		sf::Packet packet_receive;
 		switch (socket.receive(packet_receive, ip_address, port))
 		{
@@ -80,7 +80,6 @@ void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
-			//if (debug_message) displayReceiveMessage(server_time);
 
 			// end timing latency
 			end_timing_latency = clock.getElapsedTime().asMilliseconds();
