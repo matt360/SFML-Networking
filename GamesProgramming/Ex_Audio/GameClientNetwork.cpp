@@ -64,7 +64,7 @@ void GameClientNetwork::sendPacket(const Player& player, const sf::Clock& clock,
 	sf::Packet send_packet = groupIntoPacket(player_message_send);
 
 	// Send it over the network (socket is a valid sf::TcpSocket)
-	switch (socket.send(send_packet, ip_address, port))
+	switch (socket.send(send_packet, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Done:
 		// send a packet.
@@ -95,9 +95,10 @@ void GameClientNetwork::checkForIncomingPackets(const bool& debug_mode)
 {
 	while (true) 
 	{
+		// TODO lost ip address and port need to pass it here
 		// Try to receive the packet from the other end
 		sf::Packet packet_receive;
-		switch (socket.receive(packet_receive, ip_address, port))
+		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 		{
 		case sf::Socket::Done:
 			// Received a packet.

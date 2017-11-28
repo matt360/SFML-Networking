@@ -158,6 +158,7 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		///////////////////////////////////////////////////////////////////////////////
 		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
 		///////////////////////////////////////////////////////////////////////////////
+		// TODO where the address changes
 		sf::Packet packet_receive;
 		switch (socket.receive(packet_receive, ip_address, port))
 		{
@@ -198,6 +199,8 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 			// server_time from the message
 			offset = ((server_time + (0.5 * latency)) - client_time);
 			std::cout << "offset: " << offset << "\n";
+
+			return;
 		}
 	}
 }
@@ -297,6 +300,7 @@ void GameClientState::update()
 
 	if (!established_connection)
 	{
+		//sendPacket(player, clock, offset, debug_mode);
 		establishConnectionWithServer(debug_mode);
 		if (debug_mode) std::cout << "function call: establishConnectionWithServer()\n";
 		if (debug_mode) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
@@ -355,8 +359,6 @@ void GameClientState::update()
 	//if ((int)fps % 6 == 0)
 	// send packets at 30Hz rate (at 30PFS)
 	//if ((int)fps % 2 == 0)
-		sendPacket(player, clock, offset, debug_mode);
-
 	checkForIncomingPackets(debug_mode);
 
 	// FIXME: Implement prediction here!

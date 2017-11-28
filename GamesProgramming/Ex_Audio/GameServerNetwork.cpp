@@ -50,7 +50,7 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 	// TODO shouldn't be receiving anymore
 	// TODO thats where its loosing it
 	//sf::Packet packet_receive;
-	//switch (socket.receive(packet_receive, ip_address, port))
+	//switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 	//{
 	//case sf::Socket::Done:
 	//	// Received a packet.
@@ -86,7 +86,7 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 	sf::Packet packet_send = groupIntoPacket(player_message_send);
 
 	// Send it over the network
-	switch (socket.send(packet_send, ip_address, port))
+	switch (socket.send(packet_send, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Done:
 		// Received a packet.
