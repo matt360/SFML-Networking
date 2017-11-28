@@ -261,6 +261,7 @@ void GameServerState::update()
 	if (debug_message) std::cout << "server_time: " << server_time << "\n";
 
 	std::cout << "ip address: " << ip_address << "\n";
+	std::cout << "port " << port << "\n";
 	//++fps;
 }
 
