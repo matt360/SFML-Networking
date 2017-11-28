@@ -43,23 +43,6 @@ void NetworkClient::sendPacketToServer(const bool& debug_mode)
 	/// Extract the variables contained in the packet
 }
 
-/// DEBUG - Extract the variables contained in the packet
-
-/// don't need to clear the packet since all the local variables 
-/// cease to exist once the function is over but it's good to 
-/// keep in mind that if the packet is static it should get cleared
-/// after each use
-/// packet_send.clear();
-
-/// bool hello;
-/// if (packet_send >> hello)
-/// {
-/// 	// Data extracted successfully...
-/// 	//if (debug_message) displaySendMessage(hello);
-/// 	send_packet = false;
-/// 	std::cout << "send_packet is false" << "\n";
-/// }
-
 // CLIENT //
 // ...wait for the answer
 void NetworkClient::checkForIncomingPacketsFromServer(const bool& debug_mode)
@@ -131,6 +114,16 @@ void NetworkClient::establishConnectionWithServer(const bool& debug_mode)
 }
 
 
+// DEBUG - Extract the variables contained in the packet
+// bool hello;
+// if (packet_send >> hello)
+// {
+// // Data extracted successfully...
+// //if (debug_message) displaySendMessage(hello);
+// send_packet = false;
+// std::cout << "send_packet is false" << "\n";
+// }
+//
 //// MATCH 1 (variables must match witch MATCH 1 in the NetworkServer)
 //void NetworkClient::receivePacket(sf::Packet& packet_receive)
 //{

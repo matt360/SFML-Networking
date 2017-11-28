@@ -74,17 +74,18 @@ void NetworkServer::establishConnectionWithClient(const bool& debug_mode)
 	/// Extract the variables contained in the packet
 }
 
-/// DEBUG - since we are sending server time it's not needed
-/// Extract the variables contained in the packet
-/// if (debug_message)
-/// {
-/// 	if (packet_send >> server_time >> established_connection)
-/// 	{
-/// 		// Data extracted successfully...
-/// 		if (debug_message) displaySendMessage(server_time);
-/// 	}
-/// }
 
+// DEBUG - since we are sending server time it's not needed
+// Extract the variables contained in the packet
+// if (debug_message)
+// {
+// 	if (packet_send >> server_time >> established_connection)
+// 	{
+// 		// Data extracted successfully...
+// 		if (debug_message) displaySendMessage(server_time);
+// 	}
+// }
+//
 //// MATCH 1 (variables must match witch MATCH 1 in the NetworkClient)
 //sf::Packet NetworkServer::groupIntoPacket()
 //{
