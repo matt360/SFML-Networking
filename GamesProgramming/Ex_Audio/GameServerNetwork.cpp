@@ -48,9 +48,7 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 	// Wait for a message
 	// Receive the packet at the other end
 	sf::Packet packet_receive;
-	sf::IpAddress sender;
-	unsigned short senderPort;
-	switch (socket.receive(packet_receive, sender, senderPort))
+	switch (socket.receive(packet_receive, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// Received a packet.
@@ -86,7 +84,7 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 	sf::Packet packet_send = groupIntoPacket(player_message_send);
 
 	// Send it over the network
-	switch (socket.send(packet_send, sender, senderPort))
+	switch (socket.send(packet_send, ip_address, port))
 	{
 	case sf::Socket::Done:
 		// Received a packet.

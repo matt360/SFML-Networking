@@ -286,9 +286,9 @@ void GameClientState::update()
 
 	// Put the text to display into the string buffer
 	if (established_connection)
-		ss << "\n\nYou're the client\n\nEstablished connection\n\nWait for the game to start";
+		ss << "\n\nYou're the client\n\nEstablished connection";
 	else
-		ss << "\n\nYou're the client\n\nConnecting to the server...\n\nPress Enter to Play";
+		ss << "\n\nYou're the client\n\nConnecting to the server...";
 
 	// display text
 	text.setString(ss.str());
@@ -304,10 +304,10 @@ void GameClientState::update()
 
 	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 
-	if (ready && established_connection)
+	/*if (ready && established_connection)
 	{
 		game_state = GameStateEnum::GAME_CLIENT;
-	}
+	}*/
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -97,9 +97,7 @@ void GameClientNetwork::checkForIncomingPackets(const bool& debug_mode)
 	{
 		// Try to receive the packet from the other end
 		sf::Packet packet_receive;
-		sf::IpAddress sender;
-		unsigned short senderPort;
-		switch (socket.receive(packet_receive, sender, senderPort))
+		switch (socket.receive(packet_receive, ip_address, port))
 		{
 		case sf::Socket::Done:
 			// Received a packet.
