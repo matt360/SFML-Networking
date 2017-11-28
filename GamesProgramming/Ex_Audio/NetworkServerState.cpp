@@ -79,8 +79,10 @@ void NetworkServerState::update()
 	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
 
 	// establish connection
-	//if (!established_connection)
+	if (!established_connection)
+	{
 		establishConnectionWithClient(debug_mode);
+	}
 	
 
 	if (debug_message)

@@ -161,6 +161,9 @@
     <ClCompile Include="Prediction.cpp">
       <Filter>Source Files\Client\Game State\Prediction</Filter>
     </ClCompile>
+    <ClCompile Include="Connection.cpp">
+      <Filter>Source Files\Client &amp; Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -249,6 +252,9 @@
     </ClInclude>
     <ClInclude Include="LinearPrediction.h">
       <Filter>Header Files\Client\Game State\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="Connection.h">
+      <Filter>Header Files\Client &amp; Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

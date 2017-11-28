@@ -112,10 +112,10 @@ void NetworkSelectState::update()
 		switch (network_state)
 		{
 		case (NetworkStateEnum::SERVER):
-			game_state = GameStateEnum::NETWORK_SERVER;
+			game_state = GameStateEnum::GAME_SERVER;
 			break;
 		case (NetworkStateEnum::CLIENT):
-			game_state = GameStateEnum::NETWORK_CLIENT;
+			game_state = GameStateEnum::GAME_CLIENT;
 			break;
 		default:
 			ready = false;
