@@ -16,6 +16,9 @@ public:
 private:
 	//void moveMushroom();
 	//Window m_window;
+	/////////////////////////// ESTABLISH CONNECTION WITH THE CLIENT ///////////////////////////////
+	void establishConnectionWithClient(const bool& debug_mode);
+
 
 	// window
 	void beginDraw();

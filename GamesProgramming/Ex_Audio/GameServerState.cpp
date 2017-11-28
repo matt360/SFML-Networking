@@ -96,6 +96,75 @@ GameServerState::~GameServerState()
 
 }
 
+// SERVER //
+void GameServerState::establishConnectionWithClient(const bool& debug_mode)
+{
+	// Wait for a message...
+	// Receive the packet at the other end
+	sf::Packet packet_receive;
+	switch (socket.receive(packet_receive, ip_address, port))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		return;
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// RECEIVE (from the client) MUST MATCH packet_send in the NetworkClient //
+	///////////////////////////////////////////////////////////////////////////
+	// Extract the variables contained in the packet
+	// Deal with the messages from the packet
+	bool hello;
+	if (packet_receive >> hello)
+	{
+		// The message from the client
+		established_connection = hello;
+		//if (debug_message) displayReceiveMessage(hello);
+	}
+
+	/////////////////////////////////////////////////////////////////////////
+	// SEND (to the client) MUST MATCH packet_receive in the NetworkClient //
+	/////////////////////////////////////////////////////////////////////////
+	// Message to send
+	sf::Packet packet_to_send;
+	// Group the variables to send into a packet
+	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
+	packet_to_send << server_time << established_connection;
+
+	// Send it over the network
+	switch (socket.send(packet_to_send, ip_address, port))
+	{
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		return;
+	}
+
+	/// Extract the variables contained in the packet
+}
+
 void GameServerState::handleInput()
 {
 	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
@@ -188,7 +257,36 @@ void GameServerState::update()
 		audioMgr.playMusicbyName("cantina");
 		hasStarted = true;
 	}
-	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	// CHECK FOR NEW CLIENT TO CONNECT
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	// the string buffer to convert numbers to a string
+	//std::ostringstream ss;
+	// Put the text to display into the string buffer
+	//if (established_connection)
+	//	ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
+	//else
+	//	ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
+	//// display text
+	//text.setString(ss.str());
+
+	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
+
+	// establish connection
+	if (!established_connection)
+	{
+		establishConnectionWithClient(debug_mode);
+	}
+
+	//if (ready && established_connection && all_clients_connected)
+	/*if (ready && established_connection)
+	{
+		game_state = GameStateEnum::GAME_SERVER;
+	}*/
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	//if (input->isKeyDown(sf::Keyboard::Up))
 	//{
 	//	input->setKeyUp(sf::Keyboard::Up);
@@ -257,8 +355,11 @@ void GameServerState::update()
 	// server should probably keep listening and sending all the time
 	runUdpServer(player, clock, debug_mode);
 
-	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
-	if (debug_message) std::cout << "server_time: " << server_time << "\n";
+	if (debug_message)
+	{
+		sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
+		std::cout << "server_time: " << server_time << "\n";
+	}
 
 	//std::cout << "ip address: " << ip_address << "\n";
 	//std::cout << "port " << port << "\n";
