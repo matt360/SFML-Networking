@@ -14,6 +14,5 @@ protected:
 	void receivePacket(sf::Packet& packet_receive);
 
 	void establishConnectionWithClient(const bool& debug_mode);
-	void setReady(const bool& ready);
 };
 

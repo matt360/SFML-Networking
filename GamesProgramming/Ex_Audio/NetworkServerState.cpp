@@ -80,10 +80,8 @@ void NetworkServerState::update()
 
 	// establish connection
 	//if (!established_connection)
-	establishConnectionWithClient(debug_mode);
-
-	// tell the client to switch from the NetworkClientState to the GameClientState
-	setReady(ready);
+		establishConnectionWithClient(debug_mode);
+	
 
 	if (debug_message)
 	{
