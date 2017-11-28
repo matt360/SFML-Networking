@@ -25,5 +25,5 @@ protected:
 	void receivePacket(sf::Packet& packet_receive);
 
 	// receive and send messages to the client (in that order)
-	void runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode);
+	void runUdpServer(const Player& player, const sf::Clock& clock, const sf::IpAddress& ip_address, const unsigned short& port, const bool& debug_mode);
 };

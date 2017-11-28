@@ -43,34 +43,36 @@ sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_messag
 }
 
 // Wait for a message, send an answer.
-void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const sf::IpAddress& ip_address, const unsigned short& port, const bool& debug_mode)
 {
 	// Wait for a message
 	// Receive the packet at the other end
-	sf::Packet packet_receive;
-	switch (socket.receive(packet_receive, ip_address, port))
-	{
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "CLIENT: Got one!\n";
-		break;
+	// TODO shouldn't be receiving anymore
+	// TODO thats where its loosing it
+	//sf::Packet packet_receive;
+	//switch (socket.receive(packet_receive, ip_address, port))
+	//{
+	//case sf::Socket::Done:
+	//	// Received a packet.
+	//	if (debug_mode) std::cout << "CLIENT: Got one!\n";
+	//	break;
 
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
-		return;
+	//case sf::Socket::NotReady:
+	//	// No more data to receive (yet).
+	//	if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+	//	return;
 
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
-		return;
-	}
+	//default:
+	//	// Something went wrong.
+	//	if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+	//	return;
+	//}
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// RECEIVE (from the client) 
-	// packet layout MUST MATCH the GameClientNetwork's groupIntoPacket function packet layout
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	receivePacket(packet_receive);
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//// RECEIVE (from the client) 
+	//// packet layout MUST MATCH the GameClientNetwork's groupIntoPacket function packet layout
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//receivePacket(packet_receive);
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) 
