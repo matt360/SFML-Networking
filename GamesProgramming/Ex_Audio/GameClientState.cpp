@@ -179,7 +179,7 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		}
 
 		// Extract the variables contained in the packet
-		sf::Int32 server_time;
+		//sf::Int32 server_time;
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		if (packet_receive >> server_time >> established_connection)
 		{
@@ -287,15 +287,16 @@ void GameClientState::update()
 	// the string buffer to convert numbers to a string
 	std::ostringstream ss;
 
-	std::string est_con_string;
-	established_connection ? est_con_string = "YES" : est_con_string = "NO";
+	/*std::string est_con_string;
+	established_connection ? est_con_string = "YES" : est_con_string = "NO";*/
 
 	// Put the text to display into the string buffer
-	if (established_connection)
-		ss << "ESTABLISHED CONNECTION: " << est_con_string << " LATENCY: " << latency << "MS" << " OFFSET: " << offset << "\n"
+	//if (established_connection)
+		ss << "ESTABLISHED CONNECTION: " << established_connection << " SERVER TIME: " << server_time << " OFFSET: " << offset << "\n"
+		   << "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" <<"\n"
 	       << "CLOCK: " << getCurrentTime(clock, offset);
-	else
-		ss << "CONNECTING TO THE SERVER...";
+	/*else
+		ss << "CONNECTING TO THE SERVER...";*/
 
 	// display text
 	text.setString(ss.str());
