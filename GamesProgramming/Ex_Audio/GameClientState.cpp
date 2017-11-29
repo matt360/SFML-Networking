@@ -179,7 +179,6 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		}
 
 		// Extract the variables contained in the packet
-		//sf::Int32 server_time;
 		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
 		if (packet_receive >> server_time >> established_connection)
 		{
@@ -284,55 +283,30 @@ void GameClientState::update()
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	// the string buffer to convert numbers to a string
 	std::ostringstream ss;
 
-	/*std::string est_con_string;
-	established_connection ? est_con_string = "YES" : est_con_string = "NO";*/
-
 	// Put the text to display into the string buffer
-	//if (established_connection)
-		ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
-	       << "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << "\n"
-		   << "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
-	       << "CLOCK: " << getCurrentTime(clock, offset);
-	/*else
-		ss << "CONNECTING TO THE SERVER...";*/
+	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
+		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << "\n"
+		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
+		<< "IP: " << Network::ip_address << "CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());
 
-	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
-
 	if (!established_connection)
 	{
-		//sendPacket(player, clock, offset, debug_mode);
 		establishConnectionWithServer(debug_mode);
-		if (debug_mode) std::cout << "function call: establishConnectionWithServer()\n";
-		if (debug_mode) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
 	}
-
-	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
-
-	/*if (ready && established_connection)
-	{
-		game_state = GameStateEnum::GAME_CLIENT;
-	}*/
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	// keep track of local positions
 	keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
 	keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
-
-	/*if (input->isKeyDown(sf::Keyboard::Up))
-	{
-		input->setKeyUp(sf::Keyboard::Up);
-		player.jump();
-		audioMgr.playSoundbyName("jump");
-	}*/
-
-	//player.update(dt);
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
@@ -367,26 +341,31 @@ void GameClientState::update()
 	//if ((int)fps % 2 == 0)
 	checkForIncomingPackets(debug_mode);
 
-	// FIXME: Implement prediction here!
-	// You have:
-	// - the history of position messages received, in "messages_"
-	//   (msg0 is the most recent, msg1 the 2nd most recent, msg2 the 3rd most recent)
-	// - the current time, in "time"
-	// You need to update:
-	// - the predicted position at the current time, in "x_" and "y_"
-	if (debug_message) std::cout << "function call: getCurrentTime(): " << getCurrentTime(clock, offset) << "\n";
-	if (debug_mode) std::cout << "linear prediction: " << linear_prediction << "\n";
-	if (debug_mode) std::cout << "quadratic prediction: " << quadratic_prediction << "\n";
-	if (debug_mode) lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
-
 	if (linear_prediction && linear_network_positions.size() == linear_message_number && linear_local_positions.size() == linear_message_number)
 		linearInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
 	if (quadratic_prediction && quadratic_network_positions.size() == quadratic_message_number && quadratic_local_positions.size() == quadratic_message_number) 
 		quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
-	//std::cout << "ip address: " << ip_address << "\n";
-
 	// increase fps
 	fps++;
 }
+
+// void GameClientState::update()
+//{
+// ESTABLISHED CONNECTION //
+//std::string est_con_string;
+//established_connection ? est_con_string = "YES" : est_con_string = "NO";
+//
+//if (ready && established_connection)
+//{
+//game_state = GameStateEnum::GAME_CLIENT;
+//}
+//if (input->isKeyDown(sf::Keyboard::Up))
+//{
+//input->setKeyUp(sf::Keyboard::Up);
+//player.jump();
+//audioMgr.playSoundbyName("jump");
+//}
+//player.update(dt);
+//}
