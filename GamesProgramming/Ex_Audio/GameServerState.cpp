@@ -91,10 +91,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	//sf::Music music;
 }
 
-GameServerState::~GameServerState()
-{
-
-}
+GameServerState::~GameServerState() {}
 
 void GameServerState::handleInput()
 {
@@ -227,9 +224,7 @@ void GameServerState::update()
 	std::ostringstream ss; 
 
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
-	   << "CLOCK: " << getCurrentTime(clock, offset);
-	//std::cout << "ip address: " << ip_address << "\n";
-	//std::cout << "port " << port << "\n";
+		<< "IP: " << GameServerState::ip_address << "PORT: " << GameServerState::port << "CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());
@@ -294,17 +289,8 @@ void GameServerState::update()
 		}
 	}
 
-	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time
 	runUdpServer(player, clock, GameServerState::ip_address, GameServerState::port, debug_mode);
-
-	if (debug_message)
-	{
-		sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
-		std::cout << "server_time: " << server_time << "\n";
-	}
-
-	//++fps;
 }
 
 /*
@@ -358,5 +344,6 @@ else
 *game_state = GameStateEnum::GAME_SERVER;
 }
 }
+++fps;
 */
 
