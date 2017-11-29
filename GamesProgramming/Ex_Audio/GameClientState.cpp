@@ -105,9 +105,56 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	//sf::Music music;
 }
 
-GameClientState::~GameClientState()
-{
+GameClientState::~GameClientState() {}
 
+void GameClientState::render()
+{
+	beginDraw();
+
+	level.render(window);
+	window->draw(player);
+	window->draw(text);
+
+	endDraw();
+}
+
+void GameClientState::beginDraw()
+{
+	window->clear(sf::Color(0, 0, 0));
+}
+
+void GameClientState::endDraw()
+{
+	window->display();
+}
+
+void GameClientState::handleInput()
+{
+	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
+	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
+	
+	// toggle debug mode to display socket messages
+	if (input->isKeyDown(sf::Keyboard::D))
+	{
+		input->setKeyUp(sf::Keyboard::D);
+		debug_mode = !debug_mode;
+	}
+	// toggle debug messages to display messages
+	if (input->isKeyDown(sf::Keyboard::M))
+	{
+		input->setKeyUp(sf::Keyboard::M);
+		debug_message = !debug_message;
+	}
+
+	/*if (input->isKeyDown(sf::Keyboard::P))
+	{
+		input->setKeyUp(sf::Keyboard::P);
+		linear_prediction = !linear_prediction;
+		quadratic_prediction = !quadratic_prediction;
+
+		std::cout << "linear_prediction: " << linear_prediction << "\n";
+		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
+	}*/
 }
 
 // CLIENT //
@@ -220,56 +267,6 @@ void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 	checkForIncomingPacketsFromServer(debug_mode);
 }
 
-void GameClientState::render()
-{
-	beginDraw();
-
-	level.render(window);
-	window->draw(player);
-	window->draw(text);
-
-	endDraw();
-}
-
-void GameClientState::beginDraw()
-{
-	window->clear(sf::Color(0, 0, 0));
-}
-
-void GameClientState::endDraw()
-{
-	window->display();
-}
-
-void GameClientState::handleInput()
-{
-	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
-	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
-	
-	// toggle debug mode to display socket messages
-	if (input->isKeyDown(sf::Keyboard::D))
-	{
-		input->setKeyUp(sf::Keyboard::D);
-		debug_mode = !debug_mode;
-	}
-	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
-	{
-		input->setKeyUp(sf::Keyboard::M);
-		debug_message = !debug_message;
-	}
-
-	/*if (input->isKeyDown(sf::Keyboard::P))
-	{
-		input->setKeyUp(sf::Keyboard::P);
-		linear_prediction = !linear_prediction;
-		quadratic_prediction = !quadratic_prediction;
-
-		std::cout << "linear_prediction: " << linear_prediction << "\n";
-		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
-	}*/
-}
-
 void GameClientState::update()
 {
 	if (fps > 60) fps = 0;
@@ -302,7 +299,6 @@ void GameClientState::update()
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 	// keep track of local positions
 	keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
@@ -351,21 +347,23 @@ void GameClientState::update()
 	fps++;
 }
 
-// void GameClientState::update()
-//{
+/*
+ void GameClientState::update()
+{
 // ESTABLISHED CONNECTION //
-//std::string est_con_string;
-//established_connection ? est_con_string = "YES" : est_con_string = "NO";
-//
-//if (ready && established_connection)
-//{
-//game_state = GameStateEnum::GAME_CLIENT;
-//}
-//if (input->isKeyDown(sf::Keyboard::Up))
-//{
-//input->setKeyUp(sf::Keyboard::Up);
-//player.jump();
-//audioMgr.playSoundbyName("jump");
-//}
-//player.update(dt);
-//}
+std::string est_con_string;
+established_connection ? est_con_string = "YES" : est_con_string = "NO";
+
+if (ready && established_connection)
+{
+game_state = GameStateEnum::GAME_CLIENT;
+}
+if (input->isKeyDown(sf::Keyboard::Up))
+{
+input->setKeyUp(sf::Keyboard::Up);
+player.jump();
+audioMgr.playSoundbyName("jump");
+}
+player.update(dt);
+}
+*/

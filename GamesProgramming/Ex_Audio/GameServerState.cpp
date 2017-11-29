@@ -96,6 +96,60 @@ GameServerState::~GameServerState()
 
 }
 
+void GameServerState::handleInput()
+{
+	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
+	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
+
+	// toggle debug mode to display socket messages
+	if (input->isKeyDown(sf::Keyboard::D))
+	{
+		input->setKeyUp(sf::Keyboard::D);
+		debug_mode = !debug_mode;
+	}
+	// toggle debug messages to display messages
+	if (input->isKeyDown(sf::Keyboard::M))
+	{
+		input->setKeyUp(sf::Keyboard::M);
+		debug_message = !debug_message;
+	}
+
+	// toggle lerp mode
+	if (input->isKeyDown(sf::Keyboard::L))
+	{
+		input->setKeyUp(sf::Keyboard::L);
+		lerp_mode = !lerp_mode;
+	}
+
+	if (input->isKeyDown(sf::Keyboard::P))
+	{
+		input->setKeyUp(sf::Keyboard::P);
+		linear_prediction = !linear_prediction;
+		quadratic_prediction = !quadratic_prediction;
+	}
+}
+
+void GameServerState::render()
+{
+	beginDraw();
+
+	level.render(window);
+	window->draw(player);
+	window->draw(text);
+
+	endDraw();
+}
+
+void GameServerState::beginDraw()
+{
+	window->clear(sf::Color(0, 0, 0));
+}
+
+void GameServerState::endDraw()
+{
+	window->display();
+}
+
 // SERVER //
 void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 {
@@ -133,7 +187,6 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	{
 		// The message from the client
 		established_connection = hello;
-		//if (debug_message) displayReceiveMessage(hello);
 	}
 
 	/////////////////////////////////////////////////////////////////////////
@@ -168,91 +221,15 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	/// Extract the variables contained in the packet
 }
 
-void GameServerState::handleInput()
-{
-	//The class that provides access to the keyboard state is sf::Keyboard.It only contains one function, isKeyPressed, which checks the current state of a key(pressed or released).It is a static function, so you don't need to instanciate sf::Keyboard to use it.
-	//This function directly reads the keyboard state, ignoring the focus state of your window.This means that isKeyPressed may return true even if your window is inactive.
-
-	// toggle debug mode to display socket messages
-	if (input->isKeyDown(sf::Keyboard::D))
-	{
-		input->setKeyUp(sf::Keyboard::D);
-		debug_mode = !debug_mode;
-	}
-	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
-	{
-		input->setKeyUp(sf::Keyboard::M);
-		debug_message = !debug_message;
-	}
-
-	// toggle lerp mode
-	if (input->isKeyDown(sf::Keyboard::L))
-	{
-		input->setKeyUp(sf::Keyboard::L);
-		lerp_mode = !lerp_mode;
-		// display lerp_mode state
-		lerp_mode ? std::cout << "Lerp is ON\n" : std::cout << "Lerp is OFF. Using the network path directly\n";
-	}
-
-	if (input->isKeyDown(sf::Keyboard::P))
-	{
-		input->setKeyUp(sf::Keyboard::P);
-		linear_prediction = !linear_prediction;
-		quadratic_prediction = !quadratic_prediction;
-
-		std::cout << "linear_prediction: " << linear_prediction << "\n";
-		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
-	}
-}
-
-void GameServerState::render()
-{
-	beginDraw();
-
-	level.render(window);
-	window->draw(player);
-	window->draw(text);
-
-	endDraw();
-}
-//
-
-void GameServerState::beginDraw()
-{
-	window->clear(sf::Color(0, 0, 0));
-}
-
-void GameServerState::endDraw()
-{
-	window->display();
-}
-
 void GameServerState::update()
 {
-	//call_once_set_window(sf::Vector2i(1200, 1000));
-	//text.setString(std::to_string(fps));
-
-	//if (fps > 60)
-	//	fps = 0;
-
 	//string buffer to convert numbers to string
 	std::ostringstream ss; 
 
-	// The way to disaply ON/OFF string indeat of 0/1. For me 0/1 looks cleaner and is easier to understand.
-	/*std::string lerp_mode_string;
-	lerp_mode ? lerp_mode_string = "YES" : lerp_mode_string = "NO";
-
-	std::string linear_prediction_string;
-	linear_prediction ? linear_prediction_string = "YES" : linear_prediction_string = "NO";
-
-	std::string quadratic_prediction_string;
-	quadratic_prediction ? quadratic_prediction_string = "YES" : quadratic_prediction_string = "NO";*/
-
-	// Put bool into string buffer and display the state of the lerp mode, the linear prediction mode, the quadratic prediction mode
-	//ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction_string << " QUADRATIC PREDICTION: " << quadratic_prediction_string << "\n"
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
 	   << "CLOCK: " << getCurrentTime(clock, offset);
+	//std::cout << "ip address: " << ip_address << "\n";
+	//std::cout << "port " << port << "\n";
 
 	// display text
 	text.setString(ss.str());
@@ -265,39 +242,13 @@ void GameServerState::update()
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// CHECK FOR NEW CLIENT TO CONNECT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// the string buffer to convert numbers to a string
-	//std::ostringstream ss;
-	// Put the text to display into the string buffer
-	//if (established_connection)
-	//	ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
-	//else
-	//	ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
-	//// display text
-	//text.setString(ss.str());
-
-	if (debug_mode) std::cout << "Established connection:" << established_connection << "\n";
-
 	// establish connection
 	if (!established_connection)
 	{
 		establishConnectionWithClient(debug_mode);
 	}
-
-	//if (ready && established_connection && all_clients_connected)
-	/*if (ready && established_connection)
-	{
-		game_state = GameStateEnum::GAME_SERVER;
-	}*/
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	//if (input->isKeyDown(sf::Keyboard::Up))
-	//{
-	//	input->setKeyUp(sf::Keyboard::Up);
-	//	//player.jump();
-	//	audioMgr.playSoundbyName("jump");
-	//}
 
 	player.update();
 
@@ -343,19 +294,6 @@ void GameServerState::update()
 		}
 	}
 
-	/*if (player.getPosition().y > window->getSize().y)
-	{
-		*game_state = GameStateEnum::NETWORK;
-		player.setPosition(0, 0);
-		hasStarted = false;
-		audioMgr.stopAllSounds();
-		audioMgr.stopAllMusic();
-	}
-	else
-	{
-		*game_state = GameStateEnum::GAME_SERVER;
-	}*/
-
 	//if ((int)fps % 6 == 0)
 	// server should probably keep listening and sending all the time
 	runUdpServer(player, clock, GameServerState::ip_address, GameServerState::port, debug_mode);
@@ -366,8 +304,59 @@ void GameServerState::update()
 		std::cout << "server_time: " << server_time << "\n";
 	}
 
-	//std::cout << "ip address: " << ip_address << "\n";
-	//std::cout << "port " << port << "\n";
 	//++fps;
 }
+
+/*
+void GameServerState()
+{
+// The way to disaply ON/OFF string indeat of 0/1. For me 0/1 looks cleaner and is easier to understand.
+std::string lerp_mode_string;
+lerp_mode ? lerp_mode_string = "YES" : lerp_mode_string = "NO";
+
+std::string linear_prediction_string;
+linear_prediction ? linear_prediction_string = "YES" : linear_prediction_string = "NO";
+
+std::string quadratic_prediction_string;
+quadratic_prediction ? quadratic_prediction_string = "YES" : quadratic_prediction_string = "NO";
+
+// Put bool into string buffer and display the state of the lerp mode, the linear prediction mode, the quadratic prediction mode
+ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction_string << " QUADRATIC PREDICTION: " << quadratic_prediction_string << "\n"
+ ESTABLISH CONNECTION WITH THE SERVER
+// the string buffer to convert numbers to a string
+std::ostringstream ss;
+// Put the text to display into the string buffer
+if (established_connection)
+	ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
+else
+	ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
+// display text
+text.setString(ss.str());
+
+if (player.getPosition().y > window->getSize().y)
+{
+if (ready && established_connection && all_clients_connected)
+if (ready && established_connection)
+{
+game_state = GameStateEnum::GAME_SERVER;
+}
+if (input->isKeyDown(sf::Keyboard::Up))
+{
+input->setKeyUp(sf::Keyboard::Up);
+//player.jump();
+audioMgr.playSoundbyName("jump");
+}
+
+*game_state = GameStateEnum::NETWORK;
+player.setPosition(0, 0);
+hasStarted = false;
+audioMgr.stopAllSounds();
+audioMgr.stopAllMusic();
+}
+else
+{
+*game_state = GameStateEnum::GAME_SERVER;
+}
+}
+*/
 
