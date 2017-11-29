@@ -19,10 +19,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "MenuState.h"
-#include "NetworkClient.h"
 #include "NetworkSelectState.h"
-#include "NetworkServerState.h"
-#include "NetworkClientState.h"
 #include "GameClientState.h"
 #include "GameServerState.h"
 
@@ -42,8 +39,6 @@ void main(int argc, char** argv[])
 	// initial game state is set in the State class
 	State* state = new Menu(&window, &input);
 	State* network = new NetworkSelectState(&window, &input);
-	State* network_server = new NetworkServerState(&window, &input);
-	State* network_client = new NetworkClientState(&window, &input);
 	State* game_server = new GameServerState(&window, &input);
 	State* game_client = new GameClientState(&window, &input);
 	
@@ -149,14 +144,6 @@ void main(int argc, char** argv[])
 
 		case (GameStateEnum::NETWORK) :
 			state = network;
-			break;
-		// establish connection with the client
-		case (GameStateEnum::NETWORK_SERVER):
-			state = network_server;
-			break;
-
-		case (GameStateEnum::NETWORK_CLIENT):
-			state = network_client;
 			break;
 
 		case(GameStateEnum::GAME_SERVER):

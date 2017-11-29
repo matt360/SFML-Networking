@@ -45,14 +45,8 @@
     <Filter Include="Header Files\Server\Game State">
       <UniqueIdentifier>{e56fa06e-f435-4e20-abe2-748f6df6fa94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Server\Network State">
-      <UniqueIdentifier>{08da6d0d-b583-4b26-920b-dd829cc28790}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Client\Game State">
       <UniqueIdentifier>{fc0c205f-049d-4cb6-bae1-783d7d2f2c09}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Client\Network State">
-      <UniqueIdentifier>{d333c7d4-a46c-4dbf-9eef-cba128f3a9cb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Client\Game State\Prediction">
       <UniqueIdentifier>{23863f21-17c2-4ddf-a244-271dc709aea9}</UniqueIdentifier>
@@ -60,17 +54,11 @@
     <Filter Include="Source Files\Client\Game State">
       <UniqueIdentifier>{308f6050-c4f4-40b2-8dcf-4f01a2511a3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Client\Network State">
-      <UniqueIdentifier>{c0cf5248-60e3-44c0-984f-7ba45f56102e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Client\Game State\Prediction">
       <UniqueIdentifier>{750ecf6e-570c-4530-bcbe-57d2376def63}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Server\Game State">
       <UniqueIdentifier>{cdf99517-2fab-4caa-b29b-45ff5eaac3bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Server\Network State">
-      <UniqueIdentifier>{6e942a33-7174-4c7c-be13-0e767e4a6790}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -134,23 +122,11 @@
     <ClCompile Include="GameClientState.cpp">
       <Filter>Source Files\Client\Game State</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkClient.cpp">
-      <Filter>Source Files\Client\Network State</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkClientState.cpp">
-      <Filter>Source Files\Client\Network State</Filter>
-    </ClCompile>
     <ClCompile Include="GameServerNetwork.cpp">
       <Filter>Source Files\Server\Game State</Filter>
     </ClCompile>
     <ClCompile Include="GameServerState.cpp">
       <Filter>Source Files\Server\Game State</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkServer.cpp">
-      <Filter>Source Files\Server\Network State</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkServerState.cpp">
-      <Filter>Source Files\Server\Network State</Filter>
     </ClCompile>
     <ClCompile Include="LinearPrediction.cpp">
       <Filter>Source Files\Client\Game State\Prediction</Filter>
@@ -226,23 +202,11 @@
     <ClInclude Include="GameServerState.h">
       <Filter>Header Files\Server\Game State</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkServer.h">
-      <Filter>Header Files\Server\Network State</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkServerState.h">
-      <Filter>Header Files\Server\Network State</Filter>
-    </ClInclude>
     <ClInclude Include="GameClientNetwork.h">
       <Filter>Header Files\Client\Game State</Filter>
     </ClInclude>
     <ClInclude Include="GameClientState.h">
       <Filter>Header Files\Client\Game State</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkClient.h">
-      <Filter>Header Files\Client\Network State</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkClientState.h">
-      <Filter>Header Files\Client\Network State</Filter>
     </ClInclude>
     <ClInclude Include="Prediction.h">
       <Filter>Header Files\Client\Game State\Prediction</Filter>
