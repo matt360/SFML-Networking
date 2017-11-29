@@ -241,16 +241,18 @@ void GameServerState::update()
 
 	// The way to disaply ON/OFF string indeat of 0/1. For me 0/1 looks cleaner and is easier to understand.
 	/*std::string lerp_mode_string;
-	lerp_mode ? lerp_mode_string = "ON" : lerp_mode_string = "OFF";
+	lerp_mode ? lerp_mode_string = "YES" : lerp_mode_string = "NO";
 
 	std::string linear_prediction_string;
-	linear_prediction ? linear_prediction_string = "ON" : linear_prediction_string = "OFF";
+	linear_prediction ? linear_prediction_string = "YES" : linear_prediction_string = "NO";
 
 	std::string quadratic_prediction_string;
-	quadratic_prediction ? quadratic_prediction_string = "ON" : quadratic_prediction_string = "OFF";*/
+	quadratic_prediction ? quadratic_prediction_string = "YES" : quadratic_prediction_string = "NO";*/
 
 	// Put bool into string buffer and display the state of the lerp mode, the linear prediction mode, the quadratic prediction mode
-	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction;
+	//ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction_string << " QUADRATIC PREDICTION: " << quadratic_prediction_string << "\n"
+	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
+	   << "CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());

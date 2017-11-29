@@ -209,13 +209,13 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 {
 	// send message to the server...
-	if (send_packet)
-	{
+	//if (send_packet)
+	//{
 		// start timing latency
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
 		sendPacketToServer(debug_mode);
-	}
+	//}
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer(debug_mode);
@@ -287,11 +287,15 @@ void GameClientState::update()
 	// the string buffer to convert numbers to a string
 	std::ostringstream ss;
 
+	std::string est_con_string;
+	established_connection ? est_con_string = "YES" : est_con_string = "NO";
+
 	// Put the text to display into the string buffer
 	if (established_connection)
-		ss << "\n\nYou're the client\n\nEstablished connection";
+		ss << "ESTABLISHED CONNECTION: " << est_con_string << " LATENCY: " << latency << "MS" << " OFFSET: " << offset << "\n"
+	       << "CLOCK: " << getCurrentTime(clock, offset);
 	else
-		ss << "\n\nYou're the client\n\nConnecting to the server...";
+		ss << "CONNECTING TO THE SERVER...";
 
 	// display text
 	text.setString(ss.str());
