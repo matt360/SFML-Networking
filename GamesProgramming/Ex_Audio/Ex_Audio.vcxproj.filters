@@ -24,65 +24,62 @@
     <Filter Include="Source Files\App">
       <UniqueIdentifier>{72892e6e-bb3b-417b-aa9c-62b16dcd5583}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Client">
-      <UniqueIdentifier>{72e46324-3637-4ae9-a625-78b32979b032}</UniqueIdentifier>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{048a13f5-e4ed-46ba-bf3e-b3e9b38ff784}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Server">
-      <UniqueIdentifier>{0fc147a1-ea9a-4804-bf8d-d697fa7f819e}</UniqueIdentifier>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{980f0512-6b70-47c2-929d-df7aeb3587b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Client &amp; Server">
-      <UniqueIdentifier>{9668db80-1034-4e86-a361-729a04233a3a}</UniqueIdentifier>
+    <Filter Include="Header Files\Game\Client">
+      <UniqueIdentifier>{fda3499e-3c6b-4db7-b021-aabb1fec7730}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Client">
-      <UniqueIdentifier>{3cdcb971-82bb-4ccc-8983-b3ab38415e61}</UniqueIdentifier>
+    <Filter Include="Header Files\Game\Server">
+      <UniqueIdentifier>{0cae24ea-6ddd-41df-b199-28d621ae2482}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Server">
-      <UniqueIdentifier>{1ffcd7f4-3474-4547-8820-c990e90b1160}</UniqueIdentifier>
+    <Filter Include="Header Files\Game\Client &amp; Server">
+      <UniqueIdentifier>{4406d928-982c-4b3c-b785-2404e3462a03}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Client &amp; Server">
-      <UniqueIdentifier>{88996bb1-75f2-4588-b846-28114b6256dc}</UniqueIdentifier>
+    <Filter Include="Header Files\Network\Client">
+      <UniqueIdentifier>{2d9f4c54-5cbf-4b41-9c5e-a5a00f85d9dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Client\Network">
-      <UniqueIdentifier>{2e8b0619-6166-471e-b991-944393f2fcd7}</UniqueIdentifier>
+    <Filter Include="Header Files\Network\Server">
+      <UniqueIdentifier>{1e9825c0-e5ee-4e87-afba-fbdd7d92539a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Client\Game">
-      <UniqueIdentifier>{fc0c205f-049d-4cb6-bae1-783d7d2f2c09}</UniqueIdentifier>
+    <Filter Include="Header Files\Network\Client &amp; Server">
+      <UniqueIdentifier>{ce7d6dcb-3a44-4307-a7e7-9a3df24d54d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Client\Network\Prediction">
+    <Filter Include="Header Files\Network\Client\Prediction">
       <UniqueIdentifier>{23863f21-17c2-4ddf-a244-271dc709aea9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Server\Game">
-      <UniqueIdentifier>{e56fa06e-f435-4e20-abe2-748f6df6fa94}</UniqueIdentifier>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{8a73f630-7739-4587-8c80-09a8e52edc45}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Server\Network">
-      <UniqueIdentifier>{7a07c13e-bda4-4ae8-ba87-157520955720}</UniqueIdentifier>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{125c79e0-c912-4481-9686-5d9fd0d2af5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Client\Game">
-      <UniqueIdentifier>{308f6050-c4f4-40b2-8dcf-4f01a2511a3f}</UniqueIdentifier>
+    <Filter Include="Source Files\Game\Client">
+      <UniqueIdentifier>{612b97d5-d026-4966-a3a1-04078916caa3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Client\Game\Prediction">
+    <Filter Include="Source Files\Game\Server">
+      <UniqueIdentifier>{75cbd89b-d6a6-49a7-942c-ac6b9c9778a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Client &amp; Server">
+      <UniqueIdentifier>{12ce05af-c145-4fe4-bf2c-3cc985e101e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Client">
+      <UniqueIdentifier>{f57aeb47-c775-48ac-b243-11a849b76fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Server">
+      <UniqueIdentifier>{e67c4b95-6483-4a7a-91c1-6d87d7d4f58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Client &amp; Server">
+      <UniqueIdentifier>{cdc6e38a-ba88-431c-8ba5-b634cbd71d65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Client\Prediction">
       <UniqueIdentifier>{750ecf6e-570c-4530-bcbe-57d2376def63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Server\Game">
-      <UniqueIdentifier>{cdf99517-2fab-4caa-b29b-45ff5eaac3bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Client\Network">
-      <UniqueIdentifier>{56673be3-a77c-4677-ba9c-b8ad7a9e5c46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Server\Network">
-      <UniqueIdentifier>{717b7210-3aa1-405d-bf8f-0019a0e56e0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Client &amp; Server\Game">
-      <UniqueIdentifier>{65de3693-5f57-4d02-b063-be72fc9f86b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Client &amp; Server\Network">
+    <Filter Include="Source Files\Network\Client &amp; Server\Network">
       <UniqueIdentifier>{dab59a8d-8800-4204-aa30-150293fb8fbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Client &amp; Server\Game">
-      <UniqueIdentifier>{427fce4b-c7b9-43eb-ac13-38caa74c9628}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Client &amp; Server\Network">
-      <UniqueIdentifier>{2a46f8d8-bb3d-4dcb-af6c-df06118aaa3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,38 +128,38 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
-    <ClCompile Include="GameClientState.cpp">
-      <Filter>Source Files\Client\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameServerState.cpp">
-      <Filter>Source Files\Server\Game</Filter>
-    </ClCompile>
     <ClCompile Include="LinearPrediction.cpp">
-      <Filter>Source Files\Client\Game\Prediction</Filter>
+      <Filter>Source Files\Game\Client\Prediction</Filter>
     </ClCompile>
     <ClCompile Include="QuadraticPrediction.cpp">
-      <Filter>Source Files\Client\Game\Prediction</Filter>
+      <Filter>Source Files\Game\Client\Prediction</Filter>
     </ClCompile>
     <ClCompile Include="Prediction.cpp">
-      <Filter>Source Files\Client\Game\Prediction</Filter>
-    </ClCompile>
-    <ClCompile Include="GameClientNetwork.cpp">
-      <Filter>Source Files\Client\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="GameServerNetwork.cpp">
-      <Filter>Source Files\Server\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Source Files\Client &amp; Server\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Source Files\Client &amp; Server\Game</Filter>
+      <Filter>Source Files\Game\Client\Prediction</Filter>
     </ClCompile>
     <ClCompile Include="Connection.cpp">
-      <Filter>Source Files\Client &amp; Server\Network</Filter>
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
     </ClCompile>
     <ClCompile Include="Network.cpp">
-      <Filter>Source Files\Client &amp; Server\Network</Filter>
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerState.cpp">
+      <Filter>Source Files\Game\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerNetwork.cpp">
+      <Filter>Source Files\Network\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientState.cpp">
+      <Filter>Source Files\Game\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientNetwork.cpp">
+      <Filter>Source Files\Network\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files\Game\Client &amp; Server</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\Game\Client &amp; Server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,41 +205,41 @@
     <ClInclude Include="NetworkSelect.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
-    <ClInclude Include="GameServerState.h">
-      <Filter>Header Files\Server\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Prediction.h">
-      <Filter>Header Files\Client\Network\Prediction</Filter>
+      <Filter>Header Files\Network\Client\Prediction</Filter>
     </ClInclude>
     <ClInclude Include="QuadraticPrediction.h">
-      <Filter>Header Files\Client\Network\Prediction</Filter>
+      <Filter>Header Files\Network\Client\Prediction</Filter>
     </ClInclude>
     <ClInclude Include="LinearPrediction.h">
-      <Filter>Header Files\Client\Network\Prediction</Filter>
-    </ClInclude>
-    <ClInclude Include="GameClientNetwork.h">
-      <Filter>Header Files\Client\Network</Filter>
+      <Filter>Header Files\Network\Client\Prediction</Filter>
     </ClInclude>
     <ClInclude Include="GameClientState.h">
-      <Filter>Header Files\Client\Game</Filter>
+      <Filter>Header Files\Game\Client</Filter>
     </ClInclude>
-    <ClInclude Include="GameServerNetwork.h">
-      <Filter>Header Files\Server\Network</Filter>
+    <ClInclude Include="GameClientNetwork.h">
+      <Filter>Header Files\Network\Client</Filter>
     </ClInclude>
     <ClInclude Include="Connection.h">
-      <Filter>Header Files\Client &amp; Server\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Network.h">
-      <Filter>Header Files\Client &amp; Server\Network</Filter>
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
     </ClInclude>
     <ClInclude Include="Messages.h">
-      <Filter>Header Files\Client &amp; Server\Network</Filter>
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Header Files\Client &amp; Server\Game</Filter>
+      <Filter>Header Files\Game\Client &amp; Server</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Header Files\Client &amp; Server\Game</Filter>
+      <Filter>Header Files\Game\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerState.h">
+      <Filter>Header Files\Game\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerNetwork.h">
+      <Filter>Header Files\Network\Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
