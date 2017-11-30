@@ -25,7 +25,7 @@
 
 void main(int argc, char** argv[])
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML-Networking"); // , sf::Style::None);
+	sf::RenderWindow window(sf::VideoMode(900, 600), "SFML-Networking"); // , sf::Style::None);
 	// Set framerate to 60FPS
 	window.setFramerateLimit(60);
 	//window.setPosition(sf::Vector2i(250, 250));

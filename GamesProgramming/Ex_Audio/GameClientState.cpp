@@ -13,7 +13,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	//font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
-	//text.setPosition(100, 10);
+	text.setPosition(10, 0);
 	text.setString("hellow world");
 
 	texture.loadFromFile("gfx/MushroomTrans.png");
@@ -295,7 +295,7 @@ void GameClientState::update()
 
 	// Put the text to display into the string buffer
 	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
-		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG " << lag << "MS" << "\n"
+		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n"
 		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
 		<< "IP: " << Network::ip_address << " PORT: " << Network::port << " CLOCK: " << getCurrentTime(clock, offset);
 
