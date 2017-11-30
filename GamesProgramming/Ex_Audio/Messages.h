@@ -8,6 +8,9 @@ struct PlayerMessage {
 	/** The coordinates of this Player within the game world. */
 	sf::Vector2f position;
 
+	/** The coordinates of this Enemy within the game world. */
+	sf::Vector2f enemy_position;
+
 	/** The time at which this message was sent.
 	    (Not the time at which it was received!) */
 	float time;

@@ -115,6 +115,7 @@ void GameClientState::render()
 
 	level.render(window);
 	window->draw(player);
+	window->draw(enemy);
 	window->draw(text);
 
 	endDraw();

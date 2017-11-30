@@ -9,7 +9,7 @@ LinearPrediction::~LinearPrediction()
 {
 }
 
-void LinearPrediction::keepTrackOfLinearLocalPositoins(const Player& player, const sf::Int32& tm)
+void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& player, const sf::Int32& tm)
 {
 	// local message
 	PlayerMessage local_message;
@@ -78,7 +78,7 @@ sf::Vector2f LinearPrediction::predictLinearNetworkPath(const sf::Int32& tm)
 	return network_player_pos;
 }
 
-void LinearPrediction::linearInterpolation(Player& player, const sf::Int32& tm, const bool& lerp_mode)
+void LinearPrediction::linearInterpolation(Sprite& player, const sf::Int32& tm, const bool& lerp_mode)
 {
 	sf::Vector2f local_path = predictLinearLocalPath(tm);
 	sf::Vector2f network_path = predictLinearNetworkPath(tm);
