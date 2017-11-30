@@ -172,6 +172,10 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 	// Send it over the network
 	switch (socket.send(packet_to_send, Network::ip_address, Network::port))
 	{
+	case sf::Socket::Partial:
+		while (sf::Socket::Done) { socket.send(packet_to_send, Network::ip_address, Network::port); }
+		break;
+
 	case sf::Socket::Done:
 		// send a packet.
 		// stop timing latency
@@ -186,6 +190,13 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
 		std::cout << "send_packet is true" << "\n";
 		//if (debug_mode) 
+		return;
+
+	case sf::Socket::Disconnected:
+		established_connection = false;
+		return;
+
+	case sf::Socket::Error:
 		return;
 
 	default:
@@ -217,6 +228,9 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		sf::Packet packet_receive;
 		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 		{
+		case sf::Socket::Partial:
+			break;
+
 		case sf::Socket::Done:
 			// Received a packet.
 			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
@@ -227,6 +241,13 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+			return;
+
+		case sf::Socket::Disconnected:
+			established_connection = false;
+			return;
+
+		case sf::Socket::Error:
 			return;
 
 		default:

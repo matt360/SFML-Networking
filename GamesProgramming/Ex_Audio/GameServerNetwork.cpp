@@ -88,10 +88,10 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 	// Send it over the network
 	switch (socket.send(packet_send, Network::ip_address, Network::port))
 	{
-	// stop sending is 
 	case sf::Socket::Partial:
 		while (sf::Socket::Done) { socket.send(packet_send, Network::ip_address, Network::port); }
 		break;
+
 	case sf::Socket::Done:
 		// Received a packet.
 		if (debug_mode) std::cout << "CLIENT: Got one!\n";
@@ -100,7 +100,13 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
 
+	case sf::Socket::Disconnected:
+		established_connection = false;
+		return;
+
+	case sf::Socket::Error:
 		return;
 
 	default:

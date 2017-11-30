@@ -66,6 +66,10 @@ void GameClientNetwork::sendPacket(const Player& player, const sf::Clock& clock,
 	// Send it over the network (socket is a valid sf::TcpSocket)
 	switch (socket.send(send_packet, Network::ip_address, Network::port))
 	{
+	case sf::Socket::Partial:
+		while (sf::Socket::Done) { socket.send(send_packet, Network::ip_address, Network::port); }
+		break;
+
 	case sf::Socket::Done:
 		// send a packet.
 		if (debug_mode) std::cout << "CLIENT: Got one!\n";
@@ -74,6 +78,13 @@ void GameClientNetwork::sendPacket(const Player& player, const sf::Clock& clock,
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
+
+	case sf::Socket::Disconnected:
+		established_connection = false;
+		return;
+
+	case sf::Socket::Error:
 		return;
 
 	default:
@@ -100,6 +111,9 @@ void GameClientNetwork::checkForIncomingPackets(const bool& debug_mode)
 		sf::Packet packet_receive;
 		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 		{
+		case sf::Socket::Partial:
+			break;
+
 		case sf::Socket::Done:
 			// Received a packet.
 			if (debug_mode) std::cout << "CLIENT: Got one!\n";
@@ -108,6 +122,13 @@ void GameClientNetwork::checkForIncomingPackets(const bool& debug_mode)
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+			return;
+
+		case sf::Socket::Disconnected:
+			established_connection = false;
+			return;
+
+		case sf::Socket::Error:
 			return;
 
 		default:

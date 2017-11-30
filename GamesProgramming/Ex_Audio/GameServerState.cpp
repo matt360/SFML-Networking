@@ -209,7 +209,8 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	switch (socket.send(packet_to_send, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Partial:
-		return;
+		while (sf::Socket::Done) { socket.send(packet_to_send, Network::ip_address, Network::port); }
+		break;
 
 	case sf::Socket::Done:
 		// Received a packet.
