@@ -99,11 +99,11 @@ void main(int argc, char** argv[])
 		}
 
 		// if escape is pressed
-		if (input.isKeyDown(sf::Keyboard::Escape))
+		/*if (input.isKeyDown(sf::Keyboard::Escape))
 		{
 			input.setKeyUp(sf::Keyboard::Escape);
 			window.close();
-		}
+		}*/
 
 		/*if (input.isKeyDown(sf::Keyboard::Pause))
 		{
