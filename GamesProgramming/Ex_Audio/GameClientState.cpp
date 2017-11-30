@@ -25,6 +25,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	PlayerMessage initial_player_message;
 	initial_player_message.position.x = initial_player_position.x;
 	initial_player_message.position.y = initial_player_position.y;
+
 	linear_local_positions.push(initial_player_message);
 	linear_local_positions.push(initial_player_message);
 
@@ -32,8 +33,9 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	quadratic_local_positions.push_front(initial_player_message);
 	quadratic_local_positions.push_front(initial_player_message);
 
-	player.setInput(input);
-	player.setVelocity(0, 10);
+	enemy.setSize(sf::Vector2f(32, 32));
+	enemy.setTexture(&texture);
+	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
 
 	//window->setMouseCursorVisible(false);
 
