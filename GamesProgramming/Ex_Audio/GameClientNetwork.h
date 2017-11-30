@@ -26,7 +26,7 @@ protected:
 
 	// get current time and take into account the offset from the server
 	// compose a message to be send with PlayerMessage structure
-	void addMessage(PlayerMessage& player_message, const Sprite& player, const sf::Clock& clock, const sf::Int32& offset);
+	void addMessage(PlayerMessage& player_message, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset);
 
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
 	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
@@ -34,6 +34,6 @@ protected:
 	void receivePacket(sf::Packet& packet_receive);
 
 	// send packet
-	void sendPacket(const Sprite& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode);
+	void sendPacket(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode);
 	void checkForIncomingPackets(const bool& debug_mode);
 };
