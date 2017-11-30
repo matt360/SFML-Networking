@@ -260,13 +260,12 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 // CLIENT //
 void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 {
-	// set the lag
-	//sf::sleep(sf::milliseconds(lag));
 	// send message to the server...
 	if (send_packet)
 	{
-		// start timing latency	
+		// set the lag
 		sf::sleep(sf::milliseconds(lag));
+		// start timing latency	
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
 		sendPacketToServer(debug_mode);
