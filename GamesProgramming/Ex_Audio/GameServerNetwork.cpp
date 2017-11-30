@@ -9,12 +9,14 @@ GameServerNetwork::GameServerNetwork()
 
 GameServerNetwork::~GameServerNetwork() {}
 
-void GameServerNetwork::addMessage(PlayerMessage& player_message_send, const Sprite& player, const sf::Clock& clock)
+void GameServerNetwork::addMessage(PlayerMessage& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
 	player_message_send.position.x = player.getPosition().x;
 	player_message_send.position.y = player.getPosition().y;
+	player_message_send.enemy_position.x = enemy.getPosition().x;
+	player_message_send.enemy_position.y = enemy.getPosition().y;
 
 	player_message_send.time = clock.getElapsedTime().asMilliseconds();
 }
@@ -41,7 +43,7 @@ sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_messag
 }
 
 // Wait for a message, send an answer.
-void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const bool& debug_mode)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) 
@@ -49,7 +51,7 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& cloc
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Message to send
 	PlayerMessage player_message_send;
-	addMessage(player_message_send, player, clock);
+	addMessage(player_message_send, player, enemy, clock);
 
 	// Group the variables to send into a packet
 	sf::Packet packet_send = groupIntoPacket(player_message_send);
@@ -112,7 +114,7 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& cloc
 					//////////////////////////////////////////////////////////////////////////////////////////////////////
 					// Message to send
 					PlayerMessage player_message_send;
-					addMessage(player_message_send, player, clock);
+					addMessage(player_message_send, player, enemy, clock);
 
 					// Group the variables to send into a packet
 					sf::Packet packet_send = groupIntoPacket(player_message_send);

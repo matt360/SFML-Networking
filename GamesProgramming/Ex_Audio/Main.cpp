@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 // Application based on Paul Robertson's (p.robertson@abertay.ac.uk) CMP105 SFML Framework:
 // Audio, System, in App: Map and Player, in Main.cpp: the state machine has been changed a lot.
-// Original game logic (Collision detection, Player class, window and input)
+// Original game logic (Collision detection, Player class (modified), window and input)
 // has been broken up into GameState class and State class with most of
 // the original code kept it kept in the GameState class.
 // The new game, Networking, state machine in the main.cpp and State Handlers developed 
