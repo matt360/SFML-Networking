@@ -13,8 +13,8 @@ protected:
 	static sf::UdpSocket socket;
 	// Choose an arbitrary port for opening sockets
 	unsigned short port = 50001;
-	// IP adrress to connect to
-	sf::IpAddress ip_address = "127.1.0";
+	// IP adrress to connect to (local host IP by default)
+	sf::IpAddress ip_address = "127.0.0.1";
 	// connection handler - does not let the server start without establishing the connection with the client
 	bool established_connection;
 
