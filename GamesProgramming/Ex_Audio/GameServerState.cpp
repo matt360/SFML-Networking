@@ -168,6 +168,9 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
 		return;
 
+	case sf::Socket::Disconnected:
+		established_connection = false;
+
 	default:
 		// Something went wrong.
 		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
@@ -206,7 +209,6 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
-
 		return;
 
 	default:
