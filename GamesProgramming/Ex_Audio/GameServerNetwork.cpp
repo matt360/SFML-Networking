@@ -41,7 +41,7 @@ sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_messag
 }
 
 // Wait for a message, send an answer.
-void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const sf::IpAddress& ip_address, const unsigned short& port, const bool& debug_mode)
+void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
 {
 	// Wait for a message
 	// Receive the packet at the other end
