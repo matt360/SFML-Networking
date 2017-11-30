@@ -90,6 +90,8 @@ void NetworkSelectState::update()
 			"Press 'S' to be the server\n\n"
 			"Press 'C' to be the client\n\n");
 
+		window->setTitle("Server");
+
 		server = false;
 	}
 	if (client)
@@ -103,6 +105,8 @@ void NetworkSelectState::update()
 			"The Server\n\n"
 			"Press 'S' to be the server\n\n"
 			"Press 'C' to be the client\n\n");
+
+		window->setTitle("Client");
 
 		client = false;
 	}
