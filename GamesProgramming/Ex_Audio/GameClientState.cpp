@@ -170,8 +170,8 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 		// send a packet.
 		// stop timing latency
 		clocks_synced = true;
-		GameClientState::ip_address = Network::ip_address;
-		GameClientState::port = Network::port;
+		//GameClientState::ip_address = Network::ip_address;
+		//GameClientState::port = Network::port;
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
 		break;
 

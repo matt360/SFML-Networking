@@ -162,8 +162,8 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	case sf::Socket::Done:
 		// Received a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-		GameServerState::ip_address = Network::ip_address;
-		GameServerState::port = Network::port;
+		//GameServerState::ip_address = Network::ip_address;
+		//GameServerState::port = Network::port;
 		break;
 
 	case sf::Socket::NotReady:
@@ -310,7 +310,7 @@ void GameServerState::update()
 	}
 
 	// server should probably keep listening and sending all the time
-	runUdpServer(player, clock, GameServerState::ip_address, GameServerState::port, debug_mode);
+	runUdpServer(player, clock, Network::ip_address, Network::port, debug_mode);
 }
 
 /*

@@ -19,8 +19,8 @@ private:
 	/////////////////////////// ESTABLISH CONNECTION WITH THE CLIENT ///////////////////////////////
 	void establishConnectionWithClient(const bool& debug_mode);
 
-	sf::IpAddress ip_address;
-	unsigned short port;
+	//sf::IpAddress ip_address;
+	//unsigned short port;
 
 	// window
 	void beginDraw();
