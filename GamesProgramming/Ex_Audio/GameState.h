@@ -6,6 +6,7 @@
 #include <string.h>
 #include "Input.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "AnimatedSprite.h"
 #include "Map.h"
 #include "AudioManager.h"
@@ -27,7 +28,7 @@ protected:
 
 	// Game Variables
 	Player player;
-	Player enemy;
+	Enemy enemy;
 	//Cursor cursor;
 	sf::Texture texture;
 

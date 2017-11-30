@@ -20,13 +20,12 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	player.setTexture(&texture);
 	player.setPosition(50, 50);
 	player.setInput(input);
-	player.setVelocity(5, 5);
+	//player.setVelocity(5, 5);
 
 	enemy.setSize(sf::Vector2f(32, 32));
 	enemy.setTexture(&texture);
-	enemy.setPosition(window->getSize().x - 55, window->getSize().y - 55);
-	enemy.setInput(input);
-	enemy.setVelocity(3, 3);
+	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
+	//enemy.setVelocity(3, 3);
 
 	//window->setMouseCursorVisible(false);
 
