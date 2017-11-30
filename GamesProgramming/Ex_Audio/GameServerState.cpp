@@ -244,7 +244,7 @@ void GameServerState::update()
 	std::ostringstream ss; 
 
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
-		<< "IP: " << GameServerState::ip_address << " PORT: " << GameServerState::port << " CLOCK: " << getCurrentTime(clock, offset);
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());

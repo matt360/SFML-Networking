@@ -311,7 +311,7 @@ void GameClientState::update()
 	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
 		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n" // TODO remove lag
 		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
-		<< "IP: " << GameClientState::ip_address << " PORT: " << GameClientState::port << " CLOCK: " << getCurrentTime(clock, offset);
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());
