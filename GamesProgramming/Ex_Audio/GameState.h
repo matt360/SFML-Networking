@@ -27,7 +27,7 @@ protected:
 
 	// Game Variables
 	Player player;
-	//Enemy enemy;
+	Player enemy;
 	//Cursor cursor;
 	sf::Texture texture;
 

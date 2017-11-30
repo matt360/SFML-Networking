@@ -20,7 +20,13 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	player.setTexture(&texture);
 	player.setPosition(50, 50);
 	player.setInput(input);
-	player.setVelocity(0, 10);
+	player.setVelocity(5, 5);
+
+	enemy.setSize(sf::Vector2f(32, 32));
+	enemy.setTexture(&texture);
+	enemy.setPosition(window->getSize().x - 55, window->getSize().y - 55);
+	enemy.setInput(input);
+	enemy.setVelocity(3, 3);
 
 	//window->setMouseCursorVisible(false);
 
@@ -132,6 +138,7 @@ void GameServerState::render()
 
 	level.render(window);
 	window->draw(player);
+	window->draw(enemy);
 	window->draw(text);
 
 	endDraw();
@@ -266,6 +273,7 @@ void GameServerState::update()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	player.update();
+	enemy.update();
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
@@ -307,6 +315,11 @@ void GameServerState::update()
 				player.collisionRespone(&(*world)[i]);
 			}
 		}
+	}
+
+	if (checkCollision(&player, &enemy))
+	{
+		player.collisionResponse();
 	}
 
 	// server should probably keep listening and sending all the time

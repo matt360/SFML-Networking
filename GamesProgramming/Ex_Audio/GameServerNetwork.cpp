@@ -43,6 +43,48 @@ sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_messag
 // Wait for a message, send an answer.
 void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
 {
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	// SEND (to the client) 
+	// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
+	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Message to send
+	PlayerMessage player_message_send;
+	addMessage(player_message_send, player, clock);
+
+	// Group the variables to send into a packet
+	sf::Packet packet_send = groupIntoPacket(player_message_send);
+
+	// Send it over the network
+	//switch (socket.send(packet_send, Network::ip_address, Network::port))
+	switch (socket.send(packet_send, Network::ip_address, Network::port))
+	{
+	case sf::Socket::Partial:
+		while (sf::Socket::Done) { socket.send(packet_send, Network::ip_address, Network::port); }
+		break;
+
+	case sf::Socket::Done:
+		// Received a packet.
+		if (debug_mode) std::cout << "CLIENT: Got one!\n";
+		break;
+
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		if (debug_mode) std::cout << "CLIENT: No more data to receive now\n";
+		return;
+
+	case sf::Socket::Disconnected:
+		established_connection = false;
+		return;
+
+	case sf::Socket::Error:
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
+		return;
+	}
+
 	// Make the selector wait for data on any socket
 	if (selector.wait())
 	{
