@@ -345,9 +345,11 @@ void GameClientState::update()
 	//if ((int)fps % 2 == 0)
 	checkForIncomingPackets(debug_mode);
 
+	// start the linear prediction only if the queue of local and network positions is full and the linear mode is on
 	if (linear_prediction && linear_network_positions.size() == linear_message_number && linear_local_positions.size() == linear_message_number)
 		linearInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
+	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
 	if (quadratic_prediction && quadratic_network_positions.size() == quadratic_message_number && quadratic_local_positions.size() == quadratic_message_number) 
 		quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
