@@ -34,6 +34,8 @@ private:
 	// toggle debug - input handler
 	bool debug_mode;
 	bool debug_message;
+
+	inline float clamp(float n, float lower, float upper) { return std::fmax(lower, (std::fmin(n, upper))); }
 };
 
 

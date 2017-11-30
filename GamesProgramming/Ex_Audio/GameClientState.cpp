@@ -146,6 +146,17 @@ void GameClientState::handleInput()
 		debug_message = !debug_message;
 	}
 
+	// add lag
+	if (input->isKeyDown(sf::Keyboard::Add))
+	{
+		clamp(++lag, 0, 3000);
+	}
+
+	// add lag
+	if (input->isKeyDown(sf::Keyboard::Subtract))
+	{
+		clamp(--lag, 0, 3000);
+	}
 	/*if (input->isKeyDown(sf::Keyboard::P))
 	{
 		input->setKeyUp(sf::Keyboard::P);
