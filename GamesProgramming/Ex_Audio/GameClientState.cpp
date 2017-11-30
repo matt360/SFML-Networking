@@ -195,6 +195,11 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 	}
 
 	/// Extract the variables contained in the packet
+	//if (packet_to_send >> hello)
+	//{
+	//	send_packet = false;
+	//	// Data extracted successfully...
+	//}
 }
 
 // CLIENT //

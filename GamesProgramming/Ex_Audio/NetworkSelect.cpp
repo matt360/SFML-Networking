@@ -17,11 +17,11 @@ void NetworkSelect::createServerSocket()
 {
 	//////////////////////////////////////////
 	// Create a socket to receive a message from anyone
-	socket.setBlocking(false);
 	// unbinding the socket prevents the socket binding failure if the person tries to bind the port more than once.
-	// in this case the server will always use the same port
+	// it also assignes a random port number
 	socket.unbind();
-	// Listen to messages on the specified port
+	socket.setBlocking(false);
+	// Listen to messages on the aumatically assigned port
 	if (socket.bind(port) != sf::Socket::Done) return;
 
 	//if (debug_mode) std::cout << "Server is listening to port " << port << ", waiting for a message...\n";
