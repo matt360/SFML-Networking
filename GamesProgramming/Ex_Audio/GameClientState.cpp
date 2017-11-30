@@ -145,16 +145,6 @@ void GameClientState::handleInput()
 		input->setKeyUp(sf::Keyboard::M);
 		debug_message = !debug_message;
 	}
-
-	/*if (input->isKeyDown(sf::Keyboard::P))
-	{
-		input->setKeyUp(sf::Keyboard::P);
-		linear_prediction = !linear_prediction;
-		quadratic_prediction = !quadratic_prediction;
-
-		std::cout << "linear_prediction: " << linear_prediction << "\n";
-		std::cout << "quadratic_prediction: " << quadratic_prediction << "\n";
-	}*/
 }
 
 // CLIENT //
@@ -180,6 +170,8 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 		// send a packet.
 		// stop timing latency
 		clocks_synced = true;
+		GameClientState::ip_address = Network::ip_address;
+		GameClientState::port = Network::port;
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
 		break;
 
@@ -220,48 +212,6 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 	// CHECK FOR INCOMING PACKETS
 	while (true)
 	{
-		/////////////////////////////////////////////////////////////////////////////////////
-		// RECEIVE (what server receives) - MUST MATCH packet_receive in the NetworkServer //
-		/////////////////////////////////////////////////////////////////////////////////////
-		// Group the variables to send into a packet
-		sf::Packet packet_to_send;
-		// Message to send
-		bool established_connection = false;
-		packet_to_send << established_connection;
-		// Send it over the network
-		switch (socket.send(packet_to_send, Network::ip_address, Network::port))
-		{
-		case sf::Socket::Partial:
-			while (sf::Socket::Done) { socket.send(packet_to_send, Network::ip_address, Network::port); }
-			break;
-
-		case sf::Socket::Done:
-			// send a packet.
-			// stop timing latency
-			if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
-			break;
-
-		case sf::Socket::NotReady:
-			// No more data to receive (yet).
-			// allow for timing latency when the client is establishing the connection
-			if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
-			std::cout << "send_packet is true" << "\n";
-			//if (debug_mode) 
-			return;
-
-		case sf::Socket::Disconnected:
-			established_connection = false;
-			return;
-
-		case sf::Socket::Error:
-			return;
-
-		default:
-			// Something went wrong.
-			if (debug_mode) std::cout << "\nCLIENT: send didn't return Done\n";
-			return;
-		}
-
 		// Try to receive the packet from the other end
 		///////////////////////////////////////////////////////////////////////////////
 		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
@@ -276,8 +226,8 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		case sf::Socket::Done:
 			// Received a packet.
 			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-			GameClientState::ip_address = Network::ip_address;
-			GameClientState::port = Network::port;
+			//GameClientState::ip_address = Network::ip_address;
+			//GameClientState::port = Network::port;
 			break;
 
 		case sf::Socket::NotReady:
