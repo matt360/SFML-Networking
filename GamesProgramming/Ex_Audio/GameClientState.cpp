@@ -175,14 +175,14 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 	case sf::Socket::Done:
 		// send a packet.
 		// stop timing latency
-		clocks_synced = false;
+		clocks_synced = true;
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		// allow for timing latency when the client is establishing the connection
-		clocks_synced = true;
+		clocks_synced = false;
 		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
 		std::cout << "send_packet is true" << "\n";
 		//if (debug_mode) 
@@ -261,10 +261,10 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 {
 	// send message to the server...
-	if (clocks_synced)
+	if (!clocks_synced)
 	{
 		// set the lag
-		sf::sleep(sf::milliseconds(lag));
+		// TODO is lag good here? sf::sleep(sf::milliseconds(lag));
 		// start timing latency	
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
@@ -294,7 +294,7 @@ void GameClientState::update()
 
 	// Put the text to display into the string buffer
 	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
-		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n"
+		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n" // TODO remove lag
 		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
 		<< "IP: " << Network::ip_address << " PORT: " << Network::port << " CLOCK: " << getCurrentTime(clock, offset);
 

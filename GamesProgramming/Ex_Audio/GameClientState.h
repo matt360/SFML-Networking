@@ -22,7 +22,7 @@ private:
 	sf::Int32 end_timing_latency;
 	sf::Int32 latency;
 
-	bool clocks_synced = true;
+	bool clocks_synced = false;
 	void sendPacketToServer(const bool& debug_mode);
 	void checkForIncomingPacketsFromServer(const bool& debug_mode);
 	void establishConnectionWithServer(const bool& debug_mode);
