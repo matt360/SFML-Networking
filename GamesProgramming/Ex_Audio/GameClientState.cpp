@@ -26,12 +26,12 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	initial_player_message.position.x = initial_player_position.x;
 	initial_player_message.position.y = initial_player_position.y;
 
-	linear_local_positions.push(initial_player_message);
-	linear_local_positions.push(initial_player_message);
+	player_linear_prediction.linear_local_positions.push(initial_player_message);
+	player_linear_prediction.linear_local_positions.push(initial_player_message);
 
-	quadratic_local_positions.push_front(initial_player_message);
-	quadratic_local_positions.push_front(initial_player_message);
-	quadratic_local_positions.push_front(initial_player_message);
+	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
+	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
+	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
 
 	enemy.setSize(sf::Vector2f(32, 32));
 	enemy.setTexture(&texture);
@@ -327,8 +327,8 @@ void GameClientState::update()
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// keep track of local positions
-	keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
-	keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
+	player_linear_prediction.keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
+	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
@@ -364,12 +364,16 @@ void GameClientState::update()
 	checkForIncomingPackets(debug_mode);
 
 	// start the linear prediction only if the queue of local and network positions is full and the linear mode is on
-	if (linear_prediction && linear_network_positions.size() == linear_message_number && linear_local_positions.size() == linear_message_number)
-		linearInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
+	if (linear_prediction && 
+		player_linear_prediction.linear_network_positions.size() == player_linear_prediction.linear_message_number && 
+		player_linear_prediction.linear_local_positions.size() == player_linear_prediction.linear_message_number)
+		player_linear_prediction.linearInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
 	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
-	if (quadratic_prediction && quadratic_network_positions.size() == quadratic_message_number && quadratic_local_positions.size() == quadratic_message_number) 
-		quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
+	if (quadratic_prediction && 
+		player_quadratic_prediction.quadratic_network_positions.size() == player_quadratic_prediction.quadratic_message_number && 
+		player_quadratic_prediction.quadratic_local_positions.size() == player_quadratic_prediction.quadratic_message_number)
+		player_quadratic_prediction.quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
 	// increase fps
 	fps++;

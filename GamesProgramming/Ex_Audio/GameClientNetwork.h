@@ -10,7 +10,7 @@
 #include "QuadraticPrediction.h"
 
 // TODO change the name to GameClientNetowrk
-class GameClientNetwork : public Network, public LinearPrediction, public QuadraticPrediction
+class GameClientNetwork : public Network
 {
 public:
 	GameClientNetwork();
@@ -23,6 +23,9 @@ protected:
 	bool linear_prediction;
 	// toggle quadratic prediction - input handler
 	bool quadratic_prediction;
+
+	LinearPrediction player_linear_prediction;
+	QuadraticPrediction player_quadratic_prediction;
 
 	// get current time and take into account the offset from the server
 	// compose a message to be send with PlayerMessage structure

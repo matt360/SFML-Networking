@@ -47,8 +47,8 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 		lerp_mode = lerp_mod;
 
 		// Put position into history of network positions
-		keepTrackOfLinearNetworkPositions(player_message_receive);
-		keepTrackOfQuadraticNetworkPositions(player_message_receive);
+		player_linear_prediction.keepTrackOfLinearNetworkPositions(player_message_receive);
+		player_quadratic_prediction.keepTrackOfQuadraticNetworkPositions(player_message_receive);
 	}
 }
 
