@@ -4,7 +4,7 @@ GameClientNetwork::GameClientNetwork() {}
 
 GameClientNetwork::~GameClientNetwork() {}
 
-void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock, const sf::Int32& offset)
+void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Sprite& player, const sf::Clock& clock, const sf::Int32& offset)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
@@ -51,7 +51,7 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 }
 
 // Send a message to the server...
-void GameClientNetwork::sendPacket(const Player& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
+void GameClientNetwork::sendPacket(const Sprite& player, const sf::Clock& clock, const sf::Int32& offset, const bool& debug_mode)
 {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 

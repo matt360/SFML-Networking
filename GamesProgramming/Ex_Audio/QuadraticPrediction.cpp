@@ -9,7 +9,7 @@ QuadraticPrediction::~QuadraticPrediction()
 {
 }
 
-void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Player& player, const sf::Int32& tm)
+void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Sprite& player, const sf::Int32& tm)
 {
 	// local message
 	PlayerMessage local_message;
@@ -103,7 +103,7 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(const sf::Int32& t
 	return network_player_pos;
 }
 
-void QuadraticPrediction::quadraticInterpolation(Player& player, const sf::Int32& tm, const bool& lerp_mode)
+void QuadraticPrediction::quadraticInterpolation(Sprite& player, const sf::Int32& tm, const bool& lerp_mode)
 {
 	sf::Vector2f local_path = predictQuadraticLocalPath(tm);
 	sf::Vector2f network_path = predictQuadraticNetworkPath(tm);

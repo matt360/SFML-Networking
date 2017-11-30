@@ -9,7 +9,7 @@ GameServerNetwork::GameServerNetwork()
 
 GameServerNetwork::~GameServerNetwork() {}
 
-void GameServerNetwork::addMessage(PlayerMessage& player_message_send, const Player& player, const sf::Clock& clock)
+void GameServerNetwork::addMessage(PlayerMessage& player_message_send, const Sprite& player, const sf::Clock& clock)
 {
 	//PlayerMessage player_message_send;
 	player_message_send.id = 0;
@@ -41,7 +41,7 @@ sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_messag
 }
 
 // Wait for a message, send an answer.
-void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& clock, const bool& debug_mode)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) 
@@ -156,7 +156,7 @@ void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& cloc
 
 
 /*
-void GameServerNetwork::runUdpServer(const Player& player, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& clock, const bool& debug_mode)
 {
 	/// Wait for a message
 	Receive the packet at the other end
