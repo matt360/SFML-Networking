@@ -170,7 +170,7 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 	bool hello = true;
 	packet_to_send << hello;
 	// Send it over the network
-	switch (socket.send(packet_to_send, ip_address, port))
+	switch (socket.send(packet_to_send, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Done:
 		// send a packet.
@@ -215,11 +215,13 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		///////////////////////////////////////////////////////////////////////////////
 		// TODO where the address changes
 		sf::Packet packet_receive;
-		switch (socket.receive(packet_receive, ip_address, port))
+		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 		{
 		case sf::Socket::Done:
 			// Received a packet.
 			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+			GameClientState::ip_address = Network::ip_address;
+			GameClientState::port = Network::port;
 			break;
 
 		case sf::Socket::NotReady:
@@ -296,7 +298,7 @@ void GameClientState::update()
 	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
 		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n" // TODO remove lag
 		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
-		<< "IP: " << Network::ip_address << " PORT: " << Network::port << " CLOCK: " << getCurrentTime(clock, offset);
+		<< "IP: " << GameClientState::ip_address << " PORT: " << GameClientState::port << " CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());

@@ -22,6 +22,11 @@ private:
 	sf::Int32 end_timing_latency;
 	sf::Int32 latency;
 
+	// keep track of the current ip address
+	sf::IpAddress ip_address;
+	// keep track of the current port
+	unsigned short port;
+
 	bool clocks_synced = false;
 	void sendPacketToServer(const bool& debug_mode);
 	void checkForIncomingPacketsFromServer(const bool& debug_mode);
