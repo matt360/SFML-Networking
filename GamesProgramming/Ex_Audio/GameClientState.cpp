@@ -295,7 +295,7 @@ void GameClientState::update()
 
 	// Put the text to display into the string buffer
 	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
-		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG " << lag << " MS" << "\n"
+		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG " << lag << "MS" << "\n"
 		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
 		<< "IP: " << Network::ip_address << " PORT: " << Network::port << " CLOCK: " << getCurrentTime(clock, offset);
 
