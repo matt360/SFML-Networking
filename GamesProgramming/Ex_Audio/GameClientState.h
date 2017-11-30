@@ -17,6 +17,7 @@ private:
 	//void moveMushroom();
 	//Window m_window;
 	sf::Int32 server_time;
+	sf::Int32 lag = 1000; // in milliseconds
 	sf::Int32 start_timing_latency;
 	sf::Int32 end_timing_latency;
 	sf::Int32 latency;

@@ -174,13 +174,16 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 	{
 	case sf::Socket::Done:
 		// send a packet.
+		// stop timing latency
+		send_packet = false;
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
-		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
+		// allow for timing latency when the client is establishing the connection
 		send_packet = true;
+		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
 		std::cout << "send_packet is true" << "\n";
 		//if (debug_mode) 
 		return;
@@ -231,8 +234,6 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
-
-			send_packet = false;
 			std::cout << "send_packet is false" << "\n";
 			// end timing latency
 			end_timing_latency = clock.getElapsedTime().asMilliseconds();
@@ -254,14 +255,17 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 // CLIENT //
 void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 {
+	// set the lag
+	//sf::sleep(sf::milliseconds(lag));
 	// send message to the server...
-	//if (send_packet)
-	//{
-		// start timing latency
+	if (send_packet)
+	{
+		// start timing latency	
+		sf::sleep(sf::milliseconds(lag));
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
 		sendPacketToServer(debug_mode);
-	//}
+	}
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer(debug_mode);
