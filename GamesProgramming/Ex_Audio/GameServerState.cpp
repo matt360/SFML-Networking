@@ -156,6 +156,9 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	sf::Packet packet_receive;
 	switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 	{
+	case sf::Socket::Partial:
+		return;
+
 	case sf::Socket::Done:
 		// Received a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
@@ -170,6 +173,10 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 
 	case sf::Socket::Disconnected:
 		established_connection = false;
+		return;
+
+	case sf::Socket::Error:
+		return;
 
 	default:
 		// Something went wrong.
@@ -201,6 +208,9 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	// Send it over the network
 	switch (socket.send(packet_to_send, Network::ip_address, Network::port))
 	{
+	case sf::Socket::Partial:
+		return;
+
 	case sf::Socket::Done:
 		// Received a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
@@ -209,6 +219,13 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+		return;
+
+	case sf::Socket::Disconnected:
+		established_connection = false;
+		return;
+
+	case sf::Socket::Error:
 		return;
 
 	default:
