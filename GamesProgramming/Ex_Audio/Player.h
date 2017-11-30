@@ -1,9 +1,8 @@
 #pragma once
 #include "Sprite.h"
 #include "Input.h"
-#include "Character.h"
 
-class Player : public Sprite, public Character
+class Player : public Sprite
 {
 public :
 	Player(const sf::Vector2f & size = sf::Vector2f(0, 0));

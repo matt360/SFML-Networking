@@ -272,7 +272,12 @@ void GameServerState::update()
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	player.update();
-	enemy.update();
+	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
+
+	if (checkSphereBounding(&player, &enemy))
+	{
+		player.collisionRespone(&enemy);
+	}
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
@@ -314,11 +319,6 @@ void GameServerState::update()
 				player.collisionRespone(&(*world)[i]);
 			}
 		}
-	}
-
-	if (checkCollision(&player, &enemy))
-	{
-		player.collisionResponse();
 	}
 
 	// server should probably keep listening and sending all the time

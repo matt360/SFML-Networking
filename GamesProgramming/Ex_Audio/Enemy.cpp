@@ -12,6 +12,7 @@ Enemy::~Enemy()
 
 void Enemy::update()
 {
+	
 	//if (input->isKeyDown(sf::Keyboard::Right))
 	//{
 	//	velocity.x += speed;
