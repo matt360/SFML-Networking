@@ -175,14 +175,14 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 	case sf::Socket::Done:
 		// send a packet.
 		// stop timing latency
-		send_packet = false;
+		clocks_synced = false;
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
 		break;
 
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		// allow for timing latency when the client is establishing the connection
-		send_packet = true;
+		clocks_synced = true;
 		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
 		std::cout << "send_packet is true" << "\n";
 		//if (debug_mode) 
@@ -261,7 +261,7 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 {
 	// send message to the server...
-	if (send_packet)
+	if (clocks_synced)
 	{
 		// set the lag
 		sf::sleep(sf::milliseconds(lag));
