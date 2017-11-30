@@ -161,6 +161,12 @@
     <ClCompile Include="State.cpp">
       <Filter>Source Files\Game\Client &amp; Server</Filter>
     </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -240,6 +246,12 @@
     </ClInclude>
     <ClInclude Include="GameServerNetwork.h">
       <Filter>Header Files\Network\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\App</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
