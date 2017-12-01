@@ -137,17 +137,17 @@ sf::Vector2f LinearPrediction::predictLinearLocalPath(sf::Vector2f& msg0_local_p
 }
 
 sf::Vector2f LinearPrediction::predictLinearNetworkPath(sf::Vector2f& msg0_network_position, sf::Vector2f& msg1_network_position,
-	float& time0, float& time1, float& time)
+	float& msg0_time, float& msg1_time, float& time)
 {
 	float x_average_velocity, y_average_velocity, x_, y_;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
-	y_average_velocity = (msg0.player_position.y - msg1.player_position.y) / (msg0.time - msg1.time);
+	x_average_velocity = (msg0_network_position.x - msg1_network_position.x) / (msg0_time - msg1_time);
+	y_average_velocity = (msg0_network_position.y - msg1_network_position.y) / (msg0_time - msg1_time);
 
 	// linear model
-	x_ = x_average_velocity * (time - msg1.time) + msg1.player_position.x;
-	y_ = y_average_velocity * (time - msg1.time) + msg1.player_position.y;
+	x_ = x_average_velocity * (time - msg1_time) + msg1_network_position.x;
+	y_ = y_average_velocity * (time - msg1_time) + msg1_network_position.y;
 
 	sf::Vector2f network_player_pos(x_, y_);
 	return network_player_pos;
@@ -177,8 +177,9 @@ void LinearPrediction::linearInterpolation(Sprite& sprite,
 	//	local_message.player_position.y = vec.y;
 	//	local_message.time = (float)tm;
 
+
 	// add lerped to the history of the local posistions
-	keepTrackOfLinearLocalPositoins(lerp_position, tm);
+	//keepTrackOfLinearLocalPositoins(lerp_position, tm);
 }
 
 //void LinearPrediction::linearInterpolation(Sprite& sprite, const sf::Int32& tm, const bool& lerp_mode)
