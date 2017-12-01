@@ -19,7 +19,7 @@ public:
 	void render(sf::RenderWindow* window);
 	std::vector<Tile>* getLevel(){ return &level; };
 
-	void setPosition(sf::Vector2f pos) { position = pos; };
+	void setPosition(sf::Vector2f pos) { player_position = pos; };
 
 protected:
 	std::vector<Tile> tileSet;
@@ -27,6 +27,6 @@ protected:
 	std::vector<Tile> level;
 	sf::Texture texture;
 	sf::Vector2u mapSize;
-	sf::Vector2f position;
+	sf::Vector2f player_position;
 };
 

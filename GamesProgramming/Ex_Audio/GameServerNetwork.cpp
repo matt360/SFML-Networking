@@ -13,8 +13,8 @@ void GameServerNetwork::addMessage(Message& player_message_send, const Sprite& p
 {
 	//Message player_message_send;
 	player_message_send.id = 0;
-	player_message_send.position.x = player.getPosition().x;
-	player_message_send.position.y = player.getPosition().y;
+	player_message_send.player_position.x = player.getPosition().x;
+	player_message_send.player_position.y = player.getPosition().y;
 	player_message_send.enemy_position.x = enemy.getPosition().x;
 	player_message_send.enemy_position.y = enemy.getPosition().y;
 

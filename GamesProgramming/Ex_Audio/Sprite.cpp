@@ -28,7 +28,7 @@ sf::FloatRect Sprite::getAABB()
 
 void Sprite::updateAABB()
 {
-	// Axis Aligned Bounding Box, based on sprite size and position.
+	// Axis Aligned Bounding Box, based on sprite size and player_position.
 	// Shape could be smaller/larger and offset if required.
 	// Can be overwritten by child classes
 	AABB.left = getPosition().x;

@@ -23,8 +23,8 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
 	Message initial_player_message;
-	initial_player_message.position.x = initial_player_position.x;
-	initial_player_message.position.y = initial_player_position.y;
+	initial_player_message.player_position.x = initial_player_position.x;
+	initial_player_message.player_position.y = initial_player_position.y;
 
 	player_linear_prediction.linear_local_positions.push(initial_player_message);
 	player_linear_prediction.linear_local_positions.push(initial_player_message);

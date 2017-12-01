@@ -1,9 +1,9 @@
 #include "Map.h"
 
-// Constructor sets default position value.
+// Constructor sets default player_position value.
 Map::Map()
 {
-	position = sf::Vector2f(0, 0);
+	player_position = sf::Vector2f(0, 0);
 }
 
 Map::~Map()
@@ -51,7 +51,7 @@ void Map::buildLevel()
 		{
 			x = i % mapSize.x;
 			y = (int)floor(i / mapSize.x);
-			tileSet[tileMap[i]].setPosition(position.x + (x * tileSize.x), position.y + (y * tileSize.y));
+			tileSet[tileMap[i]].setPosition(player_position.x + (x * tileSize.x), player_position.y + (y * tileSize.y));
 			level.push_back(tileSet[tileMap[i]]);
 			level[i].setTexture(&texture);
 			level[i].updateAABB();

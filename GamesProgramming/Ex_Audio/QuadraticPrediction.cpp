@@ -13,8 +13,8 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Sprite& playe
 {
 	// local message
 	Message local_message;
-	local_message.position.x = player.getPosition().x;
-	local_message.position.y = player.getPosition().y;
+	local_message.player_position.x = player.getPosition().x;
+	local_message.player_position.y = player.getPosition().y;
 	local_message.time = (float)tm;
 	//
 	if (quadratic_local_positions.size() >= quadratic_message_number) quadratic_local_positions.pop_back();
@@ -25,8 +25,8 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, 
 {
 	// local message
 	Message local_message;
-	local_message.position.x = vec.x;
-	local_message.position.y = vec.y;
+	local_message.player_position.x = vec.x;
+	local_message.player_position.y = vec.y;
 	local_message.time = (float)tm;
 	// 
 	if (quadratic_local_positions.size() >= quadratic_message_number) quadratic_local_positions.pop_back();
@@ -54,18 +54,18 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Int32& tm)
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
-	y_average_velocity_1 = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
+	x_average_velocity_1 = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
+	y_average_velocity_1 = (msg0.player_position.y - msg1.player_position.y) / (msg0.time - msg1.time);
 
-	x_average_velocity_2 = (msg1.position.x - msg2.position.x) / (msg1.time - msg2.time);
-	y_average_velocity_2 = (msg1.position.y - msg2.position.y) / (msg1.time - msg2.time);
+	x_average_velocity_2 = (msg1.player_position.x - msg2.player_position.x) / (msg1.time - msg2.time);
+	y_average_velocity_2 = (msg1.player_position.y - msg2.player_position.y) / (msg1.time - msg2.time);
 
 	a_x = (x_average_velocity_2 - x_average_velocity_1) / (msg2.time - msg0.time);
 	a_y = (y_average_velocity_2 - y_average_velocity_1) / (msg2.time - msg0.time);
 
 	// s = s0 + v0t + ½at2
-	x_ = msg2.position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
-	y_ = msg2.position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
+	x_ = msg2.player_position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
+	y_ = msg2.player_position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
 
 	sf::Vector2f local_player_pos(x_, y_);
 	return local_player_pos;
@@ -86,18 +86,18 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(const sf::Int32& t
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity_1 = (msg0.position.x - msg1.position.x) / (msg0.time - msg1.time);
-	y_average_velocity_1 = (msg0.position.y - msg1.position.y) / (msg0.time - msg1.time);
+	x_average_velocity_1 = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
+	y_average_velocity_1 = (msg0.player_position.y - msg1.player_position.y) / (msg0.time - msg1.time);
 
-	x_average_velocity_2 = (msg1.position.x - msg2.position.x) / (msg1.time - msg2.time);
-	y_average_velocity_2 = (msg1.position.y - msg2.position.y) / (msg1.time - msg2.time);
+	x_average_velocity_2 = (msg1.player_position.x - msg2.player_position.x) / (msg1.time - msg2.time);
+	y_average_velocity_2 = (msg1.player_position.y - msg2.player_position.y) / (msg1.time - msg2.time);
 
 	a_x = (x_average_velocity_2 - x_average_velocity_1) / (msg2.time - msg0.time);
 	a_y = (y_average_velocity_2 - y_average_velocity_1) / (msg2.time - msg0.time);
 
 	// s = s0 + v0t + ½at2
-	x_ = msg2.position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
-	y_ = msg2.position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
+	x_ = msg2.player_position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
+	y_ = msg2.player_position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
 
 	sf::Vector2f network_player_pos(x_, y_);
 	return network_player_pos;
@@ -110,7 +110,7 @@ void QuadraticPrediction::quadraticInterpolation(Sprite& player, const sf::Int32
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 
-	// set position
+	// set player_position
 	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
 
 	// add lerped to the history of the local posistions

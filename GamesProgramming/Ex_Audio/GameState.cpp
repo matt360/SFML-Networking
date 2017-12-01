@@ -42,8 +42,8 @@ void GameState::displayMessage(const Message player_message)
 	std::cout << "\n\nSERVER: Message received from the client:";
 	// Data extracted successfully...
 	std::cout << "\nSERVER: ID: " << player_message.id
-		<< "\nSERVER: Player x: " << player_message.position.x
-		<< "\nSERVER: Player y: " << player_message.position.y
+		<< "\nSERVER: Player x: " << player_message.player_position.x
+		<< "\nSERVER: Player y: " << player_message.player_position.y
 		<< "\nSERVER: Time: " << player_message.time;
 }
 
@@ -53,8 +53,8 @@ void GameState::displayMessage(const Message player_message, const sf::IpAddress
 	std::cout << "\n\nSERVER: Message received from the client:";
 	// Data extracted successfully...
 	std::cout << "\nSERVER: ID: " << player_message.id
-		<< "\nSERVER: Player x: " << player_message.position.x
-		<< "\nSERVER: Player y: " << player_message.position.y
+		<< "\nSERVER: Player x: " << player_message.player_position.x
+		<< "\nSERVER: Player y: " << player_message.player_position.y
 		<< "\nSERVER: Time: " << player_message.time;
 	std::cout << "\nSERVER: client's IP: " << sender;
 	std::cout << "\nSERVER: client's port: " << sender_port;

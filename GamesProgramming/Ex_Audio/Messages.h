@@ -1,12 +1,12 @@
 #pragma once
 
-/** A position update message. */
+/** A player_position update message. */
 struct Message {
 	/** The object number of this Player within the game world. */
 	int id;
 
 	/** The coordinates of this Player within the game world. */
-	sf::Vector2f position;
+	sf::Vector2f player_position;
 
 	/** The coordinates of this Enemy within the game world. */
 	sf::Vector2f enemy_position;
@@ -19,7 +19,7 @@ struct Message {
 static sf::Packet& operator <<(sf::Packet& packet, const Message& message)
 {
 	return packet << message.id << 
-		message.position.x << message.position.y << 
+		message.player_position.x << message.player_position.y << 
 		message.enemy_position.x << message.enemy_position.y <<
 		message.time;
 }
@@ -27,7 +27,7 @@ static sf::Packet& operator <<(sf::Packet& packet, const Message& message)
 static sf::Packet& operator >> (sf::Packet& packet, Message& message)
 {
 	return packet >> message.id >> 
-		message.position.x >> message.position.y >>
+		message.player_position.x >> message.player_position.y >>
 		message.enemy_position.x >> message.enemy_position.y >> 
 		message.time;
 }

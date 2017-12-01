@@ -8,8 +8,8 @@ void GameClientNetwork::addMessage(Message& player_message_send, const Sprite& p
 {
 	//Message player_message_send;
 	player_message_send.id = 0;
-	player_message_send.position.x = player.getPosition().x;
-	player_message_send.position.y = player.getPosition().y;
+	player_message_send.player_position.x = player.getPosition().x;
+	player_message_send.player_position.y = player.getPosition().y;
 	player_message_send.enemy_position.x = enemy.getPosition().x;
 	player_message_send.enemy_position.y = enemy.getPosition().y;
 
@@ -46,8 +46,8 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 		quadratic_prediction = quad_pred;
 		lerp_mode = lerp_mod;
 
-		// Put position into history of network positions
-		// TODO must take vector position
+		// Put player_position into history of network positions
+		// TODO must take vector player_position
 		player_linear_prediction.keepTrackOfLinearNetworkPositions(player_message_receive);
 		player_quadratic_prediction.keepTrackOfQuadraticNetworkPositions(player_message_receive);
 	}
