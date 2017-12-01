@@ -39,12 +39,6 @@ void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& player_m
 	linear_network_positions.push(player_message_receive);
 }
 
-void LinearPrediction::keepTrackOfLinearNetworkPositions(sf::Vector2f& vec)
-{
-	if (linear_network_positions.size() >= linear_message_number) linear_network_positions.pop();
-	linear_network_positions.push(player_message_receive);
-}
-
 sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Int32& tm)
 {
 	float x_average_velocity, y_average_velocity;

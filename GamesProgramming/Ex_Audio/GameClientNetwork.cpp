@@ -32,12 +32,12 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
 	// Packets must match to what the server is sending (e.g.: server is sending a string, and an int, client must be expecting a string and an int, ect.)
-	Message player_message_receive;
+	Message message_receive;
 	bool lin_pred;
 	bool quad_pred;
 	bool lerp_mod;
 	// Extract packet into local variables
-	if (packet_receive >> player_message_receive >> lin_pred >> quad_pred >> lerp_mod)
+	if (packet_receive >> message_receive >> lin_pred >> quad_pred >> lerp_mod)
 	{
 		// Data extracted successfully...
 		//if (debug_mode) displayMessage(player_message_receive);
@@ -48,8 +48,13 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 
 		// Put player_position into history of network positions
 		// TODO pass position
-		player_linear_prediction.keepTrackOfLinearNetworkPositions(player_message_receive);
-		player_quadratic_prediction.keepTrackOfQuadraticNetworkPositions(player_message_receive);
+		Message player_message;
+		player_message.player_position.x = message_receive.player_position.x;
+		player_message.player_position.y = message_receive.player_position.y;
+		player_message.time = message_receive.time;
+
+		player_linear_prediction.keepTrackOfLinearNetworkPositions(player_message);
+		player_quadratic_prediction.keepTrackOfQuadraticNetworkPositions(player_message);
 	}
 }
 
