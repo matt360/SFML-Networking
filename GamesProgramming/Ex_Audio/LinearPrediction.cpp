@@ -118,24 +118,26 @@ void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& message_
 //	return network_player_pos;
 //}
 
-sf::Vector2f LinearPrediction::predictLinearLocalPath(sf::Vector2f& local_position_0, sf::Vector2f& local_position_1, float& time)
+sf::Vector2f LinearPrediction::predictLinearLocalPath(sf::Vector2f& msg0_local_position, sf::Vector2f& masg1_local_position, 
+	float& msg0_time, float& msg1_time, float& time)
 {
 	float x_average_velocity, y_average_velocity;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
-	y_average_velocity = (msg0.player_position.y - msg1.player_position.y) / (msg0.time - msg1.time);
+	x_average_velocity = (msg0_local_position.x - masg1_local_position.x) / (msg0_time - msg1_time);
+	y_average_velocity = (msg0_local_position.y - masg1_local_position.y) / (msg0_time - msg1_time);
 
 	//// linear model
 	float x_, y_;
-	x_ = x_average_velocity * (time - msg1.time) + msg1.player_position.x;
-	y_ = y_average_velocity * (time - msg1.time) + msg1.player_position.y;
+	x_ = x_average_velocity * (time - msg1_time) + masg1_local_position.x;
+	y_ = y_average_velocity * (time - msg1_time) + masg1_local_position.y;
 
 	sf::Vector2f local_player_pos(x_, y_);
 	return local_player_pos;
 }
 
-sf::Vector2f LinearPrediction::predictLinearNetworkPath(sf::Vector2f& network_position_0, sf::Vector2f& network_position_1, float& time)
+sf::Vector2f LinearPrediction::predictLinearNetworkPath(sf::Vector2f& msg0_network_position, sf::Vector2f& msg1_network_position,
+	float& time0, float& time1, float& time)
 {
 	float x_average_velocity, y_average_velocity, x_, y_;
 
@@ -153,14 +155,15 @@ sf::Vector2f LinearPrediction::predictLinearNetworkPath(sf::Vector2f& network_po
 
 // pass local position vectors and network position vectors of the sprite
 void LinearPrediction::linearInterpolation(Sprite& sprite, 
-	sf::Vector2f& local_position_0, sf::Vector2f& local_position_1,
-	sf::Vector2f& network_position_0, sf::Vector2f& network_position_2, 
+	sf::Vector2f& msg0_local_position, sf::Vector2f& masg1_local_position,
+	sf::Vector2f& msg0_network_position, sf::Vector2f& msg1_network_position,
+	float& msg0_time, float& msg1_time,
 	const sf::Int32& tm, const bool& lerp_mode)
 {
 	float time = (float)tm;
 	// TODO
-	sf::Vector2f local_path = predictLinearLocalPath(local_position_0, local_position_1, time);
-	sf::Vector2f network_path = predictLinearNetworkPath(network_position_0, network_position_1, time);
+	sf::Vector2f local_path = predictLinearLocalPath(msg0_local_position, masg1_local_position, msg0_time, msg1_time, time);
+	sf::Vector2f network_path = predictLinearNetworkPath(msg0_network_position, msg1_network_position, msg0_time, msg1_time, time);
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 
