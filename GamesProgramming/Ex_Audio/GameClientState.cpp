@@ -331,7 +331,7 @@ void GameClientState::sayHelloToServer(const bool& debug_mode)
 	case sf::Socket::Done:
 		// send a packet.
 		// stop timing latency
-		clocks_synced = true;
+		
 		//GameClientState::ip_address = Network::ip_address;
 		//GameClientState::port = Network::port;
 		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
@@ -435,13 +435,15 @@ void GameClientState::syncClockWithServer(const bool& debug_mode)
 			offset = ((server_time + (0.5 * latency)) - client_time);
 			std::cout << "offset: " << offset << "\n";
 
+			clocks_synced = true;
+
 			return;
 		}
 	}
 }
 
 // CLIENT //
-void GameClientState::establishConnectionWithServer(const bool& debug_mode)
+void GameClientState::syncClocks(const bool& debug_mode)
 {
 	// send message to the server...
 	if (!clocks_synced)
@@ -452,10 +454,10 @@ void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
 		sayHelloToServer(debug_mode);
+		// ...wait for the answer
+		syncClockWithServer(debug_mode);
 	}
 
-	// ...wait for the answer
-	syncClockWithServer(debug_mode);
 }
 
 void GameClientState::update()
@@ -469,11 +471,7 @@ void GameClientState::update()
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	if (!established_connection)
-	{
-		establishConnectionWithServer(debug_mode);
-	}
+	syncClocks(debug_mode);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
