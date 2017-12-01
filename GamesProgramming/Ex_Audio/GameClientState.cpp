@@ -15,8 +15,6 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	text.setPosition(10, 0);
 	text.setString("");
 
-	player_texture.loadFromFile("gfx/MushroomTrans.png");
-
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&player_texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
@@ -63,15 +61,6 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 		1, 2, 3, 4, 6, 1, 2, 3, 0, 0,
 		4, 5, 6, 0, 0, 4, 5, 6, 0, 0
 	};
-
-	/*std::vector<int> map = {
-	1, 3, 0, 0, 0, 0, 0, 0, 0, 0,
-	4, 6, 1, 3, 0, 0, 0, 0, 0, 0,
-	0, 0, 4, 6, 1, 3, 0, 0, 0, 0,
-	0, 0, 0, 0, 4, 6, 1, 3, 0, 0,
-	0, 0, 0, 0, 0, 0, 4, 6, 1, 3,
-	0, 0, 0, 0, 0, 0, 0, 0, 4, 6
-	};*/
 
 	level.setTileMap(map, mapSize);
 	level.setPosition(sf::Vector2f(0, 408));

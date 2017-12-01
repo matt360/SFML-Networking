@@ -13,8 +13,6 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	text.setCharacterSize(32);
 	text.setPosition(10, 0);
 	text.setString("");
-	
-	player_texture.loadFromFile("gfx/MushroomTrans.png");
 
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&player_texture);

@@ -2,6 +2,8 @@
 
 GameState::GameState()
 {
+	player_texture.loadFromFile("gfx/MushroomTrans.png");
+
 	fps = 0;
 }
 
