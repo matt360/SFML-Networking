@@ -72,159 +72,19 @@ void GameClientState::handleInput()
 	}
 }
 
-// CLIENT //
-// Send a message to the server...
-void GameClientState::sayHelloToServer(const bool& debug_mode)
+void GameClientState::displayText()
 {
-	/////////////////////////////////////////////////////////////////////////////////////
-	// RECEIVE (what server receives) - MUST MATCH packet_receive in the NetworkServer //
-	/////////////////////////////////////////////////////////////////////////////////////
-	// Group the variables to send into a packet
-	sf::Packet send_packet;
-	// Message to send
-	bool hello = true;
-	send_packet << hello;
-	// Send it over the network
-	switch (socket.send(send_packet, Network::ip_address, Network::port))
-	{
-	case sf::Socket::Partial:
-		/*
-		https://www.sfml-dev.org/tutorials/2.4/network-socket.php
-		if only a part of the data was sent in the call, the return status will be sf::Socket::Partial to indicate a partial send.
-		If sf::Socket::Partial is returned, you must make sure to handle the partial send properly or else data corruption will occur.
-		When sending raw data, you must reattempt sending the raw data at the byte offset where the previous send call stopped.
-		*/
-		while (socket.send(send_packet, Network::ip_address, Network::port) != sf::Socket::Done) {}
-		break;
+	// the string buffer to convert numbers to a string
+	std::ostringstream ss;
 
-	case sf::Socket::Done:
-		// send a packet.
-		// stop timing latency
-		clocks_synced = true;
-		//GameClientState::ip_address = Network::ip_address;
-		//GameClientState::port = Network::port;
-		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
-		break;
+	// Put the text to display into the string buffer
+	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
+		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n" // TODO remove lag
+		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
 
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		// allow for timing latency when the client is establishing the connection
-		clocks_synced = false;
-		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
-		std::cout << "send_packet is true" << "\n";
-		//if (debug_mode) 
-		return;
-
-	case sf::Socket::Disconnected:
-		if (debug_mode) std::cout << "CLIENT: Disconnected\n";
-		return;
-
-	case sf::Socket::Error:
-		// Something went wrong.
-		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-		return;
-
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "\nCLIENT: send didn't return Done\n";
-		return;
-	}
-
-	/// Extract the variables contained in the packet
-	//if (packet_to_send >> hello)
-	//{
-	//	send_packet = false;
-	//	// Data extracted successfully...
-	//}
-}
-
-// CLIENT //
-// ...wait for the answer
-void GameClientState::syncClockWithServer(const bool& debug_mode)
-{
-	// CHECK FOR INCOMING PACKETS
-	while (true)
-	{
-		// Try to receive the packet from the other end
-		///////////////////////////////////////////////////////////////////////////////
-		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
-		///////////////////////////////////////////////////////////////////////////////
-		// TODO where the address changes
-		sf::Packet packet_receive;
-		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
-		{
-		case sf::Socket::Partial:
-			// clear the packet if only part of the data was received
-			packet_receive.clear();
-			break;
-
-		case sf::Socket::Done:
-			// Received a packet.
-			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-			//GameClientState::ip_address = Network::ip_address;
-			//GameClientState::port = Network::port;
-			break;
-
-		case sf::Socket::NotReady:
-			// No more data to receive (yet).
-			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
-			return;
-
-		case sf::Socket::Disconnected:
-			if (debug_mode) std::cout << "CLIENT: Disconnected\n";
-			return;
-
-		case sf::Socket::Error:
-			// Something went wrong.
-			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-			return;
-
-		default:
-			// Something went wrong.
-			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-			return;
-		}
-
-		// Extract the variables contained in the packet
-		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
-		if (packet_receive >> server_time >> established_connection)
-		{
-			// Data extracted successfully...
-			// Deal with the messages from the packet
-			std::cout << "send_packet is false" << "\n";
-			// end timing latency
-			end_timing_latency = clock.getElapsedTime().asMilliseconds();
-			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
-			latency = (end_timing_latency - start_timing_latency);
-			std::cout << "latency: " << latency << "\n";
-			// calculate server time
-			sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
-			std::cout << "client_time: " << client_time << "\n";
-			// server_time from the message
-			offset = ((server_time + (0.5 * latency)) - client_time);
-			std::cout << "offset: " << offset << "\n";
-
-			return;
-		}
-	}
-}
-
-// CLIENT //
-void GameClientState::establishConnectionWithServer(const bool& debug_mode)
-{
-	// send message to the server...
-	if (!clocks_synced)
-	{
-		// set the lag
-		// TODO is lag good here? sf::sleep(sf::milliseconds(lag));
-		// start timing latency	
-		start_timing_latency = clock.getElapsedTime().asMilliseconds();
-		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
-		sayHelloToServer(debug_mode);
-	}
-
-	// ...wait for the answer
-	syncClockWithServer(debug_mode);
+	// display text
+	text.setString(ss.str());
 }
 
 // keep track of player's local positions for linear and quadratic prediction
@@ -443,19 +303,159 @@ void GameClientState::enemyQuadraticPrediction()
 	}
 }
 
-void GameClientState::displayText()
+// CLIENT //
+// Send a message to the server...
+void GameClientState::sayHelloToServer(const bool& debug_mode)
 {
-	// the string buffer to convert numbers to a string
-	std::ostringstream ss;
+	/////////////////////////////////////////////////////////////////////////////////////
+	// RECEIVE (what server receives) - MUST MATCH packet_receive in the NetworkServer //
+	/////////////////////////////////////////////////////////////////////////////////////
+	// Group the variables to send into a packet
+	sf::Packet send_packet;
+	// Message to send
+	bool hello = true;
+	send_packet << hello;
+	// Send it over the network
+	switch (socket.send(send_packet, Network::ip_address, Network::port))
+	{
+	case sf::Socket::Partial:
+		/*
+		https://www.sfml-dev.org/tutorials/2.4/network-socket.php
+		if only a part of the data was sent in the call, the return status will be sf::Socket::Partial to indicate a partial send.
+		If sf::Socket::Partial is returned, you must make sure to handle the partial send properly or else data corruption will occur.
+		When sending raw data, you must reattempt sending the raw data at the byte offset where the previous send call stopped.
+		*/
+		while (socket.send(send_packet, Network::ip_address, Network::port) != sf::Socket::Done) {}
+		break;
 
-	// Put the text to display into the string buffer
-	ss << "ESTABLISHED CONNECTION: " << established_connection << "\n"
-		<< "SERVER TIME: " << server_time << " CLIENT TIME: " << start_timing_latency << " OFFSET: " << offset << "MS" << " LAG: " << lag << "MS" << "\n" // TODO remove lag
-		<< "START TIMING LATENCY: " << start_timing_latency << " END TIMING LATENCY: " << end_timing_latency << " LATENCY: " << latency << "MS" << "\n"
-		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
+	case sf::Socket::Done:
+		// send a packet.
+		// stop timing latency
+		clocks_synced = true;
+		//GameClientState::ip_address = Network::ip_address;
+		//GameClientState::port = Network::port;
+		if (debug_mode) std::cout << "\nCLIENT: Sent one!\n";
+		break;
 
-	// display text
-	text.setString(ss.str());
+	case sf::Socket::NotReady:
+		// No more data to receive (yet).
+		// allow for timing latency when the client is establishing the connection
+		clocks_synced = false;
+		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
+		std::cout << "send_packet is true" << "\n";
+		//if (debug_mode) 
+		return;
+
+	case sf::Socket::Disconnected:
+		if (debug_mode) std::cout << "CLIENT: Disconnected\n";
+		return;
+
+	case sf::Socket::Error:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		return;
+
+	default:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: send didn't return Done\n";
+		return;
+	}
+
+	/// Extract the variables contained in the packet
+	//if (packet_to_send >> hello)
+	//{
+	//	send_packet = false;
+	//	// Data extracted successfully...
+	//}
+}
+
+// CLIENT //
+// ...wait for the answer
+void GameClientState::syncClockWithServer(const bool& debug_mode)
+{
+	// CHECK FOR INCOMING PACKETS
+	while (true)
+	{
+		// Try to receive the packet from the other end
+		///////////////////////////////////////////////////////////////////////////////
+		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
+		///////////////////////////////////////////////////////////////////////////////
+		// TODO where the address changes
+		sf::Packet packet_receive;
+		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
+		{
+		case sf::Socket::Partial:
+			// clear the packet if only part of the data was received
+			packet_receive.clear();
+			break;
+
+		case sf::Socket::Done:
+			// Received a packet.
+			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+			//GameClientState::ip_address = Network::ip_address;
+			//GameClientState::port = Network::port;
+			break;
+
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+			return;
+
+		case sf::Socket::Disconnected:
+			if (debug_mode) std::cout << "CLIENT: Disconnected\n";
+			return;
+
+		case sf::Socket::Error:
+			// Something went wrong.
+			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			return;
+
+		default:
+			// Something went wrong.
+			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			return;
+		}
+
+		// Extract the variables contained in the packet
+		// Packets must match to what the server is sending (e.g.: server is sending string, client must expect string)
+		if (packet_receive >> server_time >> established_connection)
+		{
+			// Data extracted successfully...
+			// Deal with the messages from the packet
+			std::cout << "send_packet is false" << "\n";
+			// end timing latency
+			end_timing_latency = clock.getElapsedTime().asMilliseconds();
+			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
+			latency = (end_timing_latency - start_timing_latency);
+			std::cout << "latency: " << latency << "\n";
+			// calculate server time
+			sf::Int32 client_time = clock.getElapsedTime().asMilliseconds();
+			std::cout << "client_time: " << client_time << "\n";
+			// server_time from the message
+			offset = ((server_time + (0.5 * latency)) - client_time);
+			std::cout << "offset: " << offset << "\n";
+
+			return;
+		}
+	}
+}
+
+// CLIENT //
+void GameClientState::establishConnectionWithServer(const bool& debug_mode)
+{
+	// send message to the server...
+	if (!clocks_synced)
+	{
+		// set the lag
+		// TODO is lag good here? sf::sleep(sf::milliseconds(lag));
+		// start timing latency	
+		start_timing_latency = clock.getElapsedTime().asMilliseconds();
+		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
+		sayHelloToServer(debug_mode);
+	}
+
+	// ...wait for the answer
+	syncClockWithServer(debug_mode);
 }
 
 void GameClientState::update()

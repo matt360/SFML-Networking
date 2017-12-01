@@ -87,6 +87,18 @@ void GameServerState::endDraw()
 	window->display();
 }
 
+void GameServerState::displayText()
+{
+	//string buffer to convert numbers to string
+	std::ostringstream ss;
+
+	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
+
+	// display text
+	text.setString(ss.str());
+}
+
 // SERVER //
 void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 {
@@ -189,18 +201,6 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	}
 
 	/// Extract the variables contained in the packet
-}
-
-void GameServerState::displayText()
-{
-	//string buffer to convert numbers to string
-	std::ostringstream ss;
-
-	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
-		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
-
-	// display text
-	text.setString(ss.str());
 }
 
 void GameServerState::update()
