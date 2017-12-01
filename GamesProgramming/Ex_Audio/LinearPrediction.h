@@ -27,10 +27,10 @@ public:
 	void keepTrackOfLinearLocalPositoins(const Message & local_message);
 	void keepTrackOfLinearNetworkPositions(const Message& message_receive);
 
-	sf::Vector2f predictLinearLocalPath(Message& msg0, Message& msg1, float& time);
-	sf::Vector2f predictLinearNetworkPath(Message& msg0, Message& msg1, float& time);
 
 	void linearInterpolation(Sprite & sprite, const std::queue<Message>& history_of_local_positions, const std::queue<Message>& history_of_network_positions, const sf::Int32 & tm, const bool & lerp_mode);
 protected:
+	sf::Vector2f predictLinearLocalPath(Message& msg0, Message& msg1, float& time);
+	sf::Vector2f predictLinearNetworkPath(Message& msg0, Message& msg1, float& time);
 };
 
