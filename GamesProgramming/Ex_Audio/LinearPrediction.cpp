@@ -9,12 +9,12 @@ LinearPrediction::~LinearPrediction()
 {
 }
 
-void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& player, const sf::Int32& tm)
+void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& tm)
 {
 	// local message
 	Message local_message;
-	local_message.position.x = player.getPosition().x;
-	local_message.position.y = player.getPosition().y;
+	local_message.position.x = sprite.getPosition().x;
+	local_message.position.y = sprite.getPosition().y;
 	local_message.time = (float)tm;
 
 	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();

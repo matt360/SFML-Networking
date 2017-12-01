@@ -17,7 +17,7 @@ public:
 	std::queue<Message> linear_local_positions;
 	std::queue<Message> linear_network_positions;
 
-	void keepTrackOfLinearLocalPositoins(const Sprite& player, const sf::Int32& time);
+	void keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& time);
 	void keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& time);
 	void keepTrackOfLinearNetworkPositions(const Message& player_message_receive);
 

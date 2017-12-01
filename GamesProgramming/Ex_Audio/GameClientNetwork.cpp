@@ -47,6 +47,7 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 		lerp_mode = lerp_mod;
 
 		// Put position into history of network positions
+		// TODO must take vector position
 		player_linear_prediction.keepTrackOfLinearNetworkPositions(player_message_receive);
 		player_quadratic_prediction.keepTrackOfQuadraticNetworkPositions(player_message_receive);
 	}
