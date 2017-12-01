@@ -29,9 +29,9 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	player_linear_prediction.local_message_history.push(initial_player_message);
 	player_linear_prediction.local_message_history.push(initial_player_message);
 
-	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
-	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
-	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);*/
+	player_quadratic_prediction.local_message_history.push_front(initial_player_message);
+	player_quadratic_prediction.local_message_history.push_front(initial_player_message);
+	player_quadratic_prediction.local_message_history.push_front(initial_player_message);*/
 
 	enemy.setSize(sf::Vector2f(32, 32));
 	enemy.setTexture(&texture);
@@ -454,8 +454,8 @@ void GameClientState::update()
 	}
 	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
 	if (quadratic_prediction && 
-		player_quadratic_prediction.quadratic_network_positions.size() == player_quadratic_prediction.quadratic_message_number && 
-		player_quadratic_prediction.quadratic_local_positions.size() == player_quadratic_prediction.quadratic_message_number)
+		player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number && 
+		player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
 		player_quadratic_prediction.quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
 
 	// increase fps

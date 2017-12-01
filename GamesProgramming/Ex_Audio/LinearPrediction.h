@@ -20,7 +20,7 @@ public:
 	// history of sprite's network positions
 	std::queue<Message> network_message_history;
 
-	void keepTrackOfLinearLocalPositoins(const Message & local_message);
+	void keepTrackOfLinearLocalPositoins(const Message& local_message);
 	void keepTrackOfLinearNetworkPositions(const Message& message_receive);
 
 	sf::Vector2f linearInterpolation(Sprite & sprite, sf::Vector2f & msg0_local_position, sf::Vector2f & masg1_local_position, sf::Vector2f & msg0_network_position, sf::Vector2f & msg1_network_position, float & msg0_time, float & msg1_time, const sf::Int32 & tm, const bool & lerp_mode);

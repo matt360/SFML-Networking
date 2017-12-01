@@ -14,8 +14,8 @@ public:
 
 	const unsigned int quadratic_message_number = 3;
 
-	std::deque<Message> quadratic_local_positions;
-	std::deque<Message> quadratic_network_positions;
+	std::deque<Message> local_message_history;
+	std::deque<Message> network_message_history;
 
 	void keepTrackOfQuadraticLocalPositoins(const Sprite& player, const sf::Int32& tm);
 	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm);

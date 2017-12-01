@@ -17,8 +17,8 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Sprite& playe
 	local_message.player_position.y = player.getPosition().y;
 	local_message.time = (float)tm;
 	//
-	if (quadratic_local_positions.size() >= quadratic_message_number) quadratic_local_positions.pop_back();
-	quadratic_local_positions.push_front(local_message);
+	if (local_message_history.size() >= quadratic_message_number) local_message_history.pop_back();
+	local_message_history.push_front(local_message);
 }
 
 void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm)
@@ -29,14 +29,14 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, 
 	local_message.player_position.y = vec.y;
 	local_message.time = (float)tm;
 	// 
-	if (quadratic_local_positions.size() >= quadratic_message_number) quadratic_local_positions.pop_back();
-	quadratic_local_positions.push_front(local_message);
+	if (local_message_history.size() >= quadratic_message_number) local_message_history.pop_back();
+	local_message_history.push_front(local_message);
 }
 
 void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const Message& player_message_receive)
 {
-	if (quadratic_network_positions.size() >= quadratic_message_number) quadratic_network_positions.pop_back();
-	quadratic_network_positions.push_front(player_message_receive);
+	if (network_message_history.size() >= quadratic_message_number) network_message_history.pop_back();
+	network_message_history.push_front(player_message_receive);
 }
 
 sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Int32& tm)
@@ -48,9 +48,9 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Int32& tm)
 		x_, y_;
 
 
-	Message msg0 = quadratic_network_positions.at(0);
-	Message msg1 = quadratic_network_positions.at(1);
-	Message msg2 = quadratic_network_positions.at(2);
+	Message msg0 = network_message_history.at(0);
+	Message msg1 = network_message_history.at(1);
+	Message msg2 = network_message_history.at(2);
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
@@ -80,9 +80,9 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(const sf::Int32& t
 		x_, y_;
 
 
-	Message msg0 = quadratic_network_positions.at(0);
-	Message msg1 = quadratic_network_positions.at(1);
-	Message msg2 = quadratic_network_positions.at(2);
+	Message msg0 = network_message_history.at(0);
+	Message msg1 = network_message_history.at(1);
+	Message msg2 = network_message_history.at(2);
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
