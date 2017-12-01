@@ -235,7 +235,7 @@ void GameServerState::update()
 	// server should probably keep listening and sending all the time
 	//for (const auto& pair : addresses)
 	//const auto& fromAddr = pair.first;
-	for (auto& port : addresses) 
-		sendMessageToClient(player, enemy, clock, port.first, debug_mode);
+	for (auto& pair : addresses) 
+		sendMessageToClient(player, enemy, clock, pair.second, debug_mode);
 }
 
