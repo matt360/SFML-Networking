@@ -24,6 +24,8 @@ private:
 	//std::vector<unsigned short> addresses_v;
 	int latestID = 0;
 
+	bool new_connection = false;
+
 	// display text
 	void displayText();
 

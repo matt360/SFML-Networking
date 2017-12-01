@@ -8,7 +8,7 @@ GameState::GameState()
 	// enemy
 	enemy_texture.loadFromFile("gfx/EnemyMushroomTrans.png");
 
-	fps = 0;
+	frame = 0;
 }
 
 GameState::~GameState()
