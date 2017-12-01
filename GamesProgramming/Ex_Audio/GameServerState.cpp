@@ -100,7 +100,7 @@ void GameServerState::displayText()
 }
 
 // SERVER //
-void GameServerState::establishConnectionWithClient(const bool& debug_mode)
+void GameServerState::syncClocksWithClient(const bool& debug_mode)
 {
 	// Wait for a message...
 	// Receive the packet at the other end
@@ -225,7 +225,7 @@ void GameServerState::update()
 
 	// CHECK FOR NEW CLIENT TO CONNECT. Currently working only with one client.
 	//if (!established_connection)
-	establishConnectionWithClient(debug_mode);
+	syncClocksWithClient(debug_mode);
 
 	player.update();
 	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
@@ -236,6 +236,7 @@ void GameServerState::update()
 	}
 
 	// server should probably keep listening and sending all the time
-	for (auto& port : addresses) { sendMessageToClient(player, enemy, clock, port.first, debug_mode); }
+	for (auto& port : addresses) 
+		sendMessageToClient(player, enemy, clock, port.first, debug_mode);
 }
 

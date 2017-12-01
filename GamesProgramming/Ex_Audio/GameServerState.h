@@ -17,7 +17,7 @@ private:
 	//void moveMushroom();
 	//Window m_window;
 	/////////////////////////// ESTABLISH CONNECTION WITH THE CLIENT ///////////////////////////////
-	void establishConnectionWithClient(const bool& debug_mode);
+	void syncClocksWithClient(const bool& debug_mode);
 
 	//std::set<unsigned short> addresses;
 	std::map<unsigned short, unsigned short> addresses;
