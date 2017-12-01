@@ -149,8 +149,12 @@ void GameServerState::displayText()
 
 void GameServerState::keepPlayerWithinWindow()
 {
+	// keep the player within window's x
 	if (player.getPosition().x > window->getSize().x - player.getSize().x) player.setVelocity(-15, 0);
 	if (player.getPosition().x < 0) player.setVelocity(15, 0);
+	// keep the player within window's y
+	if (player.getPosition().y > window->getSize().y - player.getSize().y) player.setVelocity(0, -15);
+	if (player.getPosition().y < 0) player.setVelocity(0, 15);
 }
 
 // SERVER //
