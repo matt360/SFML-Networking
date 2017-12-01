@@ -221,8 +221,8 @@ void GameServerState::update()
 	displayText();
 
 	// CHECK FOR NEW CLIENT TO CONNECT. Currently working only with one client.
-	//if (!established_connection)
-	syncClocksWithClient(debug_mode);
+	if (!established_connection)
+		syncClocksWithClient(debug_mode);
 
 	player.update();
 	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
