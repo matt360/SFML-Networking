@@ -53,15 +53,27 @@ sf::Vector2f LinearPrediction::predictLinearNetworkPath(sf::Vector2f& msg0_netwo
 
 // pass local position vectors and network position vectors of the sprite
 sf::Vector2f LinearPrediction::linearInterpolation(Sprite& sprite, 
-	sf::Vector2f& msg0_local_position, sf::Vector2f& msg1_local_position,
-	sf::Vector2f& msg0_network_position, sf::Vector2f& msg1_network_position,
-	float& msg0_time, float& msg1_time,
-	const sf::Int32& tm)
+	sf::Vector2f& msg0_local_position, 
+	sf::Vector2f& msg1_local_position,
+	sf::Vector2f& msg0_network_position, 
+	sf::Vector2f& msg1_network_position,
+	float& msg0_time,
+	float& msg1_time,
+	const sf::Int32& tm, 
+	const bool& lerp_mode)
 {
 	float time = (float)tm;
 	// TODO
-	sf::Vector2f local_path = predictLinearLocalPath(msg0_local_position, msg1_local_position, msg0_time, msg1_time, time);
-	sf::Vector2f network_path = predictLinearNetworkPath(msg0_network_position, msg1_network_position, msg0_time, msg1_time, time);
+	sf::Vector2f local_path = predictLinearLocalPath(msg0_local_position,
+		msg1_local_position, 
+		msg0_time,
+		msg1_time, 
+		time);
+	sf::Vector2f network_path = predictLinearNetworkPath(msg0_network_position,
+		msg1_network_position,
+		msg0_time, 
+		msg1_time, 
+		time);
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 

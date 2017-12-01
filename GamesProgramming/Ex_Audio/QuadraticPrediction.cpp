@@ -86,13 +86,13 @@ void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const Message& me
 //}
 
 sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(
-	sf::Vector2f& msg0_local_position, 
-	sf::Vector2f& masg1_local_position,
-	sf::Vector2f& masg2_local_position
-	float& msg0_time, 
-	float& msg1_time, 
-	float& msg2_time
-	float& time)
+	sf::Vector2f & msg0_local_position,
+	sf::Vector2f & masg1_local_position,
+	sf::Vector2f & masg2_local_position,
+	float &msg0_time,
+	float & msg1_time,
+	float & msg2_time,
+	float &time)
 {
 	// quadratic model
 	float x_average_velocity_1, y_average_velocity_1,
@@ -124,13 +124,13 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(
 	return local_player_pos;
 }
 
-sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(sf::Vector2f& msg0_network_position,
-	sf::Vector2f& msg1_network_position,
-	sf::Vector2f& msg2_network_position
-	float& msg0_time,
-	float& msg1_time,
-	float& msg2_time
-	float& time)
+sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(sf::Vector2f & msg0_network_position,
+	sf::Vector2f & msg1_network_position,
+	sf::Vector2f & msg2_network_position,
+	float &msg0_time,
+	float & msg1_time,
+	float & msg2_time,
+	float &time)
 {
 	// quadratic model
 	float x_average_velocity_1, y_average_velocity_1,
@@ -163,21 +163,40 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(sf::Vector2f& msg0
 }
 
 void QuadraticPrediction::quadraticInterpolation(Sprite& sprite,
-	sf::Vector2f& msg0_local_position, sf::Vector2f& msg1_local_position, sf::Vector2f& masg2_local_position
-	sf::Vector2f& msg0_network_position, sf::Vector2f& msg1_network_position, sf::Vector2f& msg2_network_position
-	float& msg0_time, float& msg1_time, float& msg2_time,
-	const sf::Int32& tm)
+	sf::Vector2f & msg0_local_position,
+	sf::Vector2f & msg1_local_position,
+	sf::Vector2f & masg2_local_position,
+	sf::Vector2f & msg0_network_position,
+	sf::Vector2f & msg1_network_position,
+	sf::Vector2f & msg2_network_position,
+	float & msg0_time,
+	float & msg1_time,
+	float & msg2_time,
+	const sf::Int32 & tm,
+	const bool & lerp_mode)
 {
 	float time = (float)tm;
 
-	sf::Vector2f local_path = predictQuadraticLocalPath(msg0_local_position, msg1_local_position, masg2_local_position, 
-		msg0_time, msg1_time, msg2_time, time);
-	sf::Vector2f network_path = predictQuadraticNetworkPath(msg0_network_position, msg1_network_position, msg0_time, msg1_time, time);
+	sf::Vector2f local_path = predictQuadraticLocalPath(
+		msg0_local_position, 
+		msg1_local_position, 
+		masg2_local_position, 
+		msg0_time, 
+		msg1_time, 
+		msg2_time, 
+		time);
+	sf::Vector2f network_path = predictQuadraticNetworkPath(msg0_network_position, 
+		msg1_network_position,
+		msg2_network_position,
+		msg0_time, 
+		msg1_time, 
+		msg2_time,
+		time);
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 
 	// set player_position
-	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
+	lerp_mode ? sprite.setPosition(lerp_position) : sprite.setPosition(network_path);
 
 	// add lerped to the history of the local posistions
 }
