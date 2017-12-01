@@ -468,22 +468,15 @@ void GameClientState::update()
 	// display text
 	displayText();
 
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
-	///////////////////////////////////////////////////////////////////////////////////////////////
+	// SYNC THE CLIENT'S CLOCK WITH THE SERVER'S CLOCK - DO IT ONLY ONCE!!!
 	syncClocks(debug_mode);
-	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// keep track of player's local positions for linear and quadratic prediction
 	keepTrackOfPlayerLocalPositions();
 	// keep track of enemy's local positions for linear and quadratic prediction
 	keepTrackOfEnemyLocalPositions();
-
-	// send packets at 10Hz rate (at 10PFS)
-	//if ((int)fps % 6 == 0)
-	// send packets at 30Hz rate (at 30PFS)
-	//if ((int)fps % 2 == 0)
+	
+	// 
 	checkForIncomingPackets(debug_mode);
 
 	playerLinearPrediction();
