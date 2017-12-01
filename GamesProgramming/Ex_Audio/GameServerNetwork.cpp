@@ -88,5 +88,6 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, 
 		if (debug_mode) std::cout << "CLIENT: receive didn't return Done\n";
 		return;
 	}
+}
 
 
