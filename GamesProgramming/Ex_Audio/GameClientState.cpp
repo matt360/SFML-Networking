@@ -327,6 +327,7 @@ void GameClientState::update()
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// keep track of local positions
+	// TODO pass position
 	player_linear_prediction.keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
 	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
 

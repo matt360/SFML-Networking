@@ -39,6 +39,12 @@ void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& player_m
 	linear_network_positions.push(player_message_receive);
 }
 
+void LinearPrediction::keepTrackOfLinearNetworkPositions(sf::Vector2f& vec)
+{
+	if (linear_network_positions.size() >= linear_message_number) linear_network_positions.pop();
+	linear_network_positions.push(player_message_receive);
+}
+
 sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Int32& tm)
 {
 	float x_average_velocity, y_average_velocity;
@@ -78,15 +84,16 @@ sf::Vector2f LinearPrediction::predictLinearNetworkPath(const sf::Int32& tm)
 	return network_player_pos;
 }
 
-void LinearPrediction::linearInterpolation(Sprite& player, const sf::Int32& tm, const bool& lerp_mode)
+void LinearPrediction::linearInterpolation(Sprite& sprite, const sf::Int32& tm, const bool& lerp_mode)
 {
+	// TODO
 	sf::Vector2f local_path = predictLinearLocalPath(tm);
 	sf::Vector2f network_path = predictLinearNetworkPath(tm);
 	//lerp path works better with 100ms lag
 	sf::Vector2f lerp_position = lerp(local_path, network_path, 0.1);
 
 	// set player_position
-	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
+	lerp_mode ? sprite.setPosition(lerp_position) : sprite.setPosition(network_path);
 
 	// add lerped to the history of the local posistions
 	keepTrackOfLinearLocalPositoins(lerp_position, tm);
