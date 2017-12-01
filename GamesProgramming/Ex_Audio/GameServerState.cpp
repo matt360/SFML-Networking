@@ -14,16 +14,16 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	text.setPosition(10, 0);
 	text.setString("");
 	
-	texture.loadFromFile("gfx/MushroomTrans.png");
+	player_texture.loadFromFile("gfx/MushroomTrans.png");
 
 	player.setSize(sf::Vector2f(32, 32));
-	player.setTexture(&texture);
+	player.setTexture(&player_texture);
 	player.setPosition(250, 250);
 	player.setInput(input);
 	//player.setVelocity(5, 5);
 
 	enemy.setSize(sf::Vector2f(32, 32));
-	enemy.setTexture(&texture);
+	enemy.setTexture(&player_texture);
 	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
 	//enemy.setVelocity(3, 3);
 

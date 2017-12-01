@@ -15,15 +15,15 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	text.setPosition(10, 0);
 	text.setString("");
 
-	texture.loadFromFile("gfx/MushroomTrans.png");
+	player_texture.loadFromFile("gfx/MushroomTrans.png");
 
 	player.setSize(sf::Vector2f(32, 32));
-	player.setTexture(&texture);
+	player.setTexture(&player_texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
 
 	enemy.setSize(sf::Vector2f(32, 32));
-	enemy.setTexture(&texture);
+	enemy.setTexture(&player_texture);
 	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
 
 	//window->setMouseCursorVisible(false);

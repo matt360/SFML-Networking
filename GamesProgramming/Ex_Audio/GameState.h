@@ -30,7 +30,8 @@ protected:
 	Player player;
 	Enemy enemy;
 	//Cursor cursor;
-	sf::Texture texture;
+	sf::Texture player_texture;
+	sf::Texture enemy_texture;
 
 	Map level;
 
