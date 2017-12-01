@@ -114,6 +114,7 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 		break;
 
 	case sf::Socket::Done:
+		// TODO keep track of the new sockets GET THE ADDRESS OF THE NEW CLIENT HERE
 		// Received a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
 		//GameServerState::ip_address = Network::ip_address;
@@ -208,16 +209,11 @@ void GameServerState::update()
 	// display text
 	displayText();
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	// CHECK FOR NEW CLIENT TO CONNECT
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// establish connection
+	// CHECK FOR NEW CLIENT TO CONNECT. Currently working only with one client.
 	if (!established_connection)
 	{
 		establishConnectionWithClient(debug_mode);
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	player.update();
 	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
