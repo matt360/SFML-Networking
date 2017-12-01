@@ -32,6 +32,8 @@ private:
 	
 	// display text
 	void displayText();
+	//
+	void keepPlayerWithinWindow();
 
 	// window
 	void beginDraw();

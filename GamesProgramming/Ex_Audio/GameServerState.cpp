@@ -147,6 +147,12 @@ void GameServerState::displayText()
 	text.setString(ss.str());
 }
 
+void GameServerState::keepPlayerWithinWindow()
+{
+	if (player.getPosition().x > window->getSize().x - player.getSize().x) player.setVelocity(-15, 0);
+	if (player.getPosition().x < 0) player.setVelocity(15, 0);
+}
+
 // SERVER //
 void GameServerState::syncClocksWithClient(const bool& debug_mode)
 {
@@ -286,7 +292,7 @@ void GameServerState::update()
 		syncClocksWithClient(debug_mode);
 
 	player.update();
-	if (player.getPosition().x > window->getSize().x) player.setVelocity(-15, 0);
+	keepPlayerWithinWindow();
 
 	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
 
