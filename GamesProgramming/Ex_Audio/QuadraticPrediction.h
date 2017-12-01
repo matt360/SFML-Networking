@@ -17,9 +17,8 @@ public:
 	std::deque<Message> local_message_history;
 	std::deque<Message> network_message_history;
 
-	void keepTrackOfQuadraticLocalPositoins(const Sprite& player, const sf::Int32& tm);
-	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm);
-	void keepTrackOfQuadraticNetworkPositions(const Message& player_message_receive);
+	void keepTrackOfQuadraticLocalPositoins(const Message& local_message);
+	void keepTrackOfQuadraticNetworkPositions(const Message& message_receive);
 
 	void quadraticInterpolation(Sprite& player, const sf::Int32& tm, const bool& lerp_mode);
 protected:

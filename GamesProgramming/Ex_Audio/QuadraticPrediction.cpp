@@ -9,34 +9,16 @@ QuadraticPrediction::~QuadraticPrediction()
 {
 }
 
-void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Sprite& player, const sf::Int32& tm)
-{
-	// local message
-	Message local_message;
-	local_message.player_position.x = player.getPosition().x;
-	local_message.player_position.y = player.getPosition().y;
-	local_message.time = (float)tm;
-	//
+void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Message& local_message)
+{ 
 	if (local_message_history.size() >= quadratic_message_number) local_message_history.pop_back();
 	local_message_history.push_front(local_message);
 }
 
-void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm)
-{
-	// local message
-	Message local_message;
-	local_message.player_position.x = vec.x;
-	local_message.player_position.y = vec.y;
-	local_message.time = (float)tm;
-	// 
-	if (local_message_history.size() >= quadratic_message_number) local_message_history.pop_back();
-	local_message_history.push_front(local_message);
-}
-
-void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const Message& player_message_receive)
+void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const Message& message_receive)
 {
 	if (network_message_history.size() >= quadratic_message_number) network_message_history.pop_back();
-	network_message_history.push_front(player_message_receive);
+	network_message_history.push_front(message_receive);
 }
 
 sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Int32& tm)
@@ -114,5 +96,4 @@ void QuadraticPrediction::quadraticInterpolation(Sprite& player, const sf::Int32
 	lerp_mode ? player.setPosition(lerp_position) : player.setPosition(network_path);
 
 	// add lerped to the history of the local posistions
-	keepTrackOfQuadraticLocalPositoins(lerp_position, tm);
 }

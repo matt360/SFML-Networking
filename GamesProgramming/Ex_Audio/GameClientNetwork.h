@@ -28,6 +28,7 @@ protected:
 	QuadraticPrediction player_quadratic_prediction;
 
 	LinearPrediction enemy_linear_prediction;
+	QuadraticPrediction enemy_quadratic_prediction;
 
 	// get current time and take into account the offset from the server
 	// compose a message to be send with Message structure

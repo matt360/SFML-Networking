@@ -332,8 +332,7 @@ void GameClientState::update()
 	player_local_message.player_position.y = player.getPosition().y;
 	player_local_message.time = getCurrentTime(clock, offset);
 	player_linear_prediction.keepTrackOfLinearLocalPositoins(player_local_message);
-
-	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
+	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player_local_message);
 
 	// keep track of enemy's local positions
 	Message enemy_local_message;
@@ -341,6 +340,7 @@ void GameClientState::update()
 	enemy_local_message.enemy_position.y = enemy.getPosition().y;
 	enemy_local_message.time = getCurrentTime(clock, offset);
 	enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_local_message);
+	// TODO enemy quadratic
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
 	{
