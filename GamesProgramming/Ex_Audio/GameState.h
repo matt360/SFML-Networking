@@ -33,12 +33,6 @@ protected:
 	sf::Texture player_texture;
 	sf::Texture enemy_texture;
 
-	Map level;
-
-	// sound test
-	sf::SoundBuffer buff;
-	sf::Sound soun;
-
 	bool checkCollision(Sprite* s1, Sprite* s2);
 	bool checkSphereBounding(Sprite* s1, Sprite* s2);
 

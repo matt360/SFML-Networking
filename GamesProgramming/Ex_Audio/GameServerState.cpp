@@ -69,7 +69,7 @@ void GameServerState::render()
 {
 	beginDraw();
 
-	level.render(window);
+	//level.render(window);
 	window->draw(player);
 	window->draw(enemy);
 	window->draw(text);
