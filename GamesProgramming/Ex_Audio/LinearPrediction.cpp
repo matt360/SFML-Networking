@@ -154,7 +154,7 @@ sf::Vector2f LinearPrediction::predictLinearNetworkPath(sf::Vector2f& msg0_netwo
 }
 
 // pass local position vectors and network position vectors of the sprite
-void LinearPrediction::linearInterpolation(Sprite& sprite, 
+sf::Vector2f LinearPrediction::linearInterpolation(Sprite& sprite, 
 	sf::Vector2f& msg0_local_position, sf::Vector2f& masg1_local_position,
 	sf::Vector2f& msg0_network_position, sf::Vector2f& msg1_network_position,
 	float& msg0_time, float& msg1_time,
@@ -170,16 +170,8 @@ void LinearPrediction::linearInterpolation(Sprite& sprite,
 	// set player_position
 	lerp_mode ? sprite.setPosition(lerp_position) : sprite.setPosition(network_path);
 
-	//	Message local_message;
-	/*Message lerp_position_message;
-	lerp_position_message.*/
-	//	local_message.player_position.x = vec.x;
-	//	local_message.player_position.y = vec.y;
-	//	local_message.time = (float)tm;
-
-
 	// add lerped to the history of the local posistions
-	//keepTrackOfLinearLocalPositoins(lerp_position, tm);
+	return lerp_position;
 }
 
 //void LinearPrediction::linearInterpolation(Sprite& sprite, const sf::Int32& tm, const bool& lerp_mode)

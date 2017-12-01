@@ -391,7 +391,7 @@ void GameClientState::update()
 		float msg0_time = player_linear_prediction.linear_local_positions.front().time;
 		float msg1_time = player_linear_prediction.linear_local_positions.back().time;
 
-		player_linear_prediction.linearInterpolation(player,
+		sf::Vector2f player_lerp_position = player_linear_prediction.linearInterpolation(player,
 			msg0_local_position,
 			masg1_local_position,
 			msg0_network_position,
@@ -400,6 +400,17 @@ void GameClientState::update()
 			msg1_time,
 			getCurrentTime(clock, offset),
 			lerp_mode);
+
+		if (lerp_mode)
+		{
+			// add lerped to the history of the local posistions
+			Message player_lerp_position_msg;
+			player_lerp_position_msg.player_position.x = player_lerp_position.x;
+			player_lerp_position_msg.player_position.y = player_lerp_position.y;
+			player_lerp_position_msg.time = getCurrentTime(clock, offset);
+
+			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
+		}
 	}
 
 	// start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
@@ -419,7 +430,7 @@ void GameClientState::update()
 		float msg1_time = enemy_linear_prediction.linear_local_positions.back().time;
 
 
-
+		sf::Vector2f enemy_lerp_position =
 		enemy_linear_prediction.linearInterpolation(enemy,
 			msg0_local_position,
 			masg1_local_position,
@@ -429,6 +440,17 @@ void GameClientState::update()
 			msg1_time,
 			getCurrentTime(clock, offset),
 			lerp_mode);
+
+		if (lerp_mode)
+		{
+			// add lerped to the history of the local posistions
+			Message enemy_lerp_position_msg;
+			enemy_lerp_position_msg.enemy_position.x = enemy_lerp_position.x;
+			enemy_lerp_position_msg.enemy_position.y = enemy_lerp_position.y;
+			enemy_lerp_position_msg.time = getCurrentTime(clock, offset);
+
+			enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_lerp_position_msg);
+		}
 	}
 	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
 	if (quadratic_prediction && 
