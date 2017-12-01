@@ -146,7 +146,9 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Partial:
-		return;
+		// clear the packet if only part of the data was received
+		packet_receive.clear();
+		break;
 
 	case sf::Socket::Done:
 		// Received a packet.
@@ -189,16 +191,23 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	// SEND (to the client) MUST MATCH packet_receive in the NetworkClient //
 	/////////////////////////////////////////////////////////////////////////
 	// Message to send
-	sf::Packet packet_to_send;
+	sf::Packet send_packet;
 	// Group the variables to send into a packet
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
-	packet_to_send << server_time << established_connection;
+	send_packet << server_time << established_connection;
 
 	// Send it over the network
-	switch (socket.send(packet_to_send, Network::ip_address, Network::port))
+	switch (socket.send(send_packet, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Partial:
-		while (sf::Socket::Done) { socket.send(packet_to_send, Network::ip_address, Network::port); }
+		// 
+		/*
+		https://www.sfml-dev.org/tutorials/2.4/network-socket.php
+		if only a part of the data was sent in the call, the return status will be sf::Socket::Partial to indicate a partial send.
+		If sf::Socket::Partial is returned, you must make sure to handle the partial send properly or else data corruption will occur.
+		When sending raw data, you must reattempt sending the raw data at the byte offset where the previous send call stopped.
+		*/
+		while (socket.send(send_packet, Network::ip_address, Network::port) != sf::Socket::Done) {}
 		break;
 
 	case sf::Socket::Done:

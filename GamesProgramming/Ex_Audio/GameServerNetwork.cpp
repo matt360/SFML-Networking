@@ -54,16 +54,21 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, 
 	addMessage(message_send, player, enemy, clock);
 
 	// Group the variables to send into a packet
-	sf::Packet packet_send = groupIntoPacket(message_send);
+	sf::Packet send_packet = groupIntoPacket(message_send);
 
 	// Send it over the network
 	//switch (socket.send(packet_send, Network::ip_address, Network::port))
-	switch (socket.send(packet_send, Network::ip_address, Network::port))
+	switch (socket.send(send_packet, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Partial:
-		while (socket.send(packet_send, Network::ip_address, Network::port) != sf::Socket::Done)
-		{
-		}
+		// 
+		/*
+		https://www.sfml-dev.org/tutorials/2.4/network-socket.php
+		if only a part of the data was sent in the call, the return status will be sf::Socket::Partial to indicate a partial send.
+		If sf::Socket::Partial is returned, you must make sure to handle the partial send properly or else data corruption will occur.
+		When sending raw data, you must reattempt sending the raw data at the byte offset where the previous send call stopped.
+		*/
+		while (socket.send(send_packet, Network::ip_address, Network::port) != sf::Socket::Done) {}
 		break;
 
 	case sf::Socket::Done:
