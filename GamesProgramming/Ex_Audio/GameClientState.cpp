@@ -74,7 +74,7 @@ void GameClientState::handleInput()
 
 // CLIENT //
 // Send a message to the server...
-void GameClientState::sendPacketToServer(const bool& debug_mode)
+void GameClientState::sayHelloToServer(const bool& debug_mode)
 {
 	/////////////////////////////////////////////////////////////////////////////////////
 	// RECEIVE (what server receives) - MUST MATCH packet_receive in the NetworkServer //
@@ -220,7 +220,7 @@ void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 		// start timing latency	
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
-		sendPacketToServer(debug_mode);
+		sayHelloToServer(debug_mode);
 	}
 
 	// ...wait for the answer
@@ -443,14 +443,8 @@ void GameClientState::enemyQuadraticPrediction()
 	}
 }
 
-void GameClientState::update()
+void GameClientState::displayText()
 {
-	if (fps > 60) fps = 0;
-
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
 	// the string buffer to convert numbers to a string
 	std::ostringstream ss;
 
@@ -462,6 +456,19 @@ void GameClientState::update()
 
 	// display text
 	text.setString(ss.str());
+}
+
+void GameClientState::update()
+{
+	// client wants to receive message as soon as it gets to it
+	// so we don't need to keep track of the frames
+
+	// display text
+	displayText();
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	if (!established_connection)
 	{
@@ -485,7 +492,4 @@ void GameClientState::update()
 	enemyLinearPrediciton();
 	playerQuadraticPrediction();
 	enemyQuadraticPrediction();
-
-	// increase fps
-	fps++;
 }

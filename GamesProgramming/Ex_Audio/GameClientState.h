@@ -36,10 +36,13 @@ private:
 	void enemyQuadraticPrediction();
 
 	bool clocks_synced = false;
-	void sendPacketToServer(const bool& debug_mode);
+	// send a hello meesage to the server and then run syncClockWithServer only once
+	void sayHelloToServer(const bool& debug_mode);
 	void syncClockWithServer(const bool& debug_mode);
 	void establishConnectionWithServer(const bool& debug_mode);
 	
+	// display text
+	void displayText();
 	// window
 	void beginDraw();
 	void endDraw();

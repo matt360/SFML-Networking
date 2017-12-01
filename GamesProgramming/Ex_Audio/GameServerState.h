@@ -22,6 +22,9 @@ private:
 	//sf::IpAddress ip_address;
 	//unsigned short port;
 
+	// display text
+	void displayText();
+
 	// window
 	void beginDraw();
 	void endDraw();
