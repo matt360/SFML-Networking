@@ -375,25 +375,25 @@ void GameClientState::update()
 	//if ((int)fps % 2 == 0)
 	checkForIncomingPackets(debug_mode);
 
-	// start player's linear prediction only if the queue of local and network positions is full and the linear mode is on
+	// LINEAR PREDICTION // start player's linear prediction only if the queue of local and network positions is full and the linear mode is on
 	if (linear_prediction &&
 		player_linear_prediction.network_message_history.size() == player_linear_prediction.linear_message_number &&
 		player_linear_prediction.local_message_history.size() == player_linear_prediction.linear_message_number)
 	{
 		sf::Vector2f msg0_local_position(player_linear_prediction.local_message_history.front().player_position.x,
 			player_linear_prediction.local_message_history.front().player_position.y);
-		sf::Vector2f masg1_local_position(player_linear_prediction.local_message_history.back().player_position.x,
+		sf::Vector2f msg1_local_position(player_linear_prediction.local_message_history.back().player_position.x,
 			player_linear_prediction.local_message_history.back().player_position.y);
 		sf::Vector2f msg0_network_position(player_linear_prediction.network_message_history.front().player_position.x,
 			player_linear_prediction.network_message_history.front().player_position.y);
 		sf::Vector2f msg1_network_position(player_linear_prediction.network_message_history.back().player_position.x,
 			player_linear_prediction.network_message_history.back().player_position.y);
-		float msg0_time = player_linear_prediction.local_message_history.front().time;
-		float msg1_time = player_linear_prediction.local_message_history.back().time;
+		float msg0_time = player_linear_prediction.network_message_history.front().time;
+		float msg1_time = player_linear_prediction.network_message_history.back().time;
 
 		sf::Vector2f player_lerp_position = player_linear_prediction.linearInterpolation(player,
 			msg0_local_position,
-			masg1_local_position,
+			msg1_local_position,
 			msg0_network_position,
 			msg1_network_position,
 			msg0_time,
@@ -413,27 +413,27 @@ void GameClientState::update()
 		}
 	}
 
-	// start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
+	// LINEAR PREDICTION // start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
 	if (linear_prediction &&
 		enemy_linear_prediction.network_message_history.size() == enemy_linear_prediction.linear_message_number &&
 		enemy_linear_prediction.local_message_history.size() == enemy_linear_prediction.linear_message_number)
 	{
 		sf::Vector2f msg0_local_position(enemy_linear_prediction.local_message_history.front().enemy_position.x,
 			enemy_linear_prediction.local_message_history.front().enemy_position.y);
-		sf::Vector2f masg1_local_position(enemy_linear_prediction.local_message_history.back().enemy_position.x,
+		sf::Vector2f msg1_local_position(enemy_linear_prediction.local_message_history.back().enemy_position.x,
 			enemy_linear_prediction.local_message_history.back().enemy_position.y);
 		sf::Vector2f msg0_network_position(enemy_linear_prediction.network_message_history.front().enemy_position.x,
 			enemy_linear_prediction.network_message_history.front().enemy_position.y);
 		sf::Vector2f msg1_network_position(enemy_linear_prediction.network_message_history.back().enemy_position.x,
 			enemy_linear_prediction.network_message_history.back().enemy_position.y);
-		float msg0_time = enemy_linear_prediction.local_message_history.front().time;
-		float msg1_time = enemy_linear_prediction.local_message_history.back().time;
+		float msg0_time = enemy_linear_prediction.network_message_history.front().time;
+		float msg1_time = enemy_linear_prediction.network_message_history.back().time;
 
 
 		sf::Vector2f enemy_lerp_position =
 		enemy_linear_prediction.linearInterpolation(enemy,
 			msg0_local_position,
-			masg1_local_position,
+			msg1_local_position,
 			msg0_network_position,
 			msg1_network_position,
 			msg0_time,
@@ -452,11 +452,29 @@ void GameClientState::update()
 			enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_lerp_position_msg);
 		}
 	}
-	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
-	if (quadratic_prediction && 
-		player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number && 
+	// QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
+	if (quadratic_prediction &&
+		player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number &&
 		player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
+	{
+		// HISTORY OF LOCAL POSITIONS
+		sf::Vector2f msg0_local_position(player_linear_prediction.local_message_history.front().player_position.x,
+			player_linear_prediction.local_message_history.front().player_position.y);
+		sf::Vector2f msg1_local_position(player_linear_prediction.local_message_history.back().player_position.x,
+			player_linear_prediction.local_message_history.back().player_position.y);
+		sf::Vector2f msg2_local_position(player_linear_prediction.local_message_history.back().player_position.x,
+			player_linear_prediction.local_message_history.back().player_position.y);
+		// HISTORY OF NETWORK POSITIONS
+		sf::Vector2f msg0_network_position(player_linear_prediction.network_message_history.front().player_position.x,
+			player_linear_prediction.network_message_history.front().player_position.y);
+		sf::Vector2f msg1_network_position(player_linear_prediction.network_message_history.back().player_position.x,
+			player_linear_prediction.network_message_history.back().player_position.y);
+		// HISTORY OF TIME STAMPS
+		float msg0_time = player_linear_prediction.local_message_history.front().time;
+		float msg1_time = player_linear_prediction.local_message_history.back().time;
+		
 		player_quadratic_prediction.quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
+	}
 
 	// increase fps
 	fps++;
