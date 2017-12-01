@@ -376,38 +376,41 @@ void GameClientState::update()
 	checkForIncomingPackets(debug_mode);
 
 	// start player's linear prediction only if the queue of local and network positions is full and the linear mode is on
-	//Sprite& sprite,
-
-	sf::Vector2f msg0_local_position(player_linear_prediction.linear_local_positions.front().player_position.x, 
-		player_linear_prediction.linear_local_positions.front().player_position.y);
-	sf::Vector2f masg1_local_position(player_linear_prediction.linear_local_positions.back().player_position.x, 
-		player_linear_prediction.linear_local_positions.back().player_position.y);
-	sf::Vector2f msg0_network_position(player_linear_prediction.linear_network_positions.front().player_position.x,
-		player_linear_prediction.linear_network_positions.front().player_position.y);
-	sf::Vector2f msg1_network_position(player_linear_prediction.linear_network_positions.back().player_position.x,
-		player_linear_prediction.linear_network_positions.back().player_position.y);
-	float& msg0_time, 
-	float& msg1_time,
-
-		//const sf::Int32& tm, const bool& lerp_mode
-	if (linear_prediction && 
-		player_linear_prediction.linear_network_positions.size() == player_linear_prediction.linear_message_number && 
+	if (linear_prediction &&
+		player_linear_prediction.linear_network_positions.size() == player_linear_prediction.linear_message_number &&
 		player_linear_prediction.linear_local_positions.size() == player_linear_prediction.linear_message_number)
-		player_linear_prediction.linearInterpolation(player, 
-			player_linear_prediction.linear_local_positions.front().player_position.x,
-			player_linear_prediction.linear_network_positions,
-			getCurrentTime(clock, offset), 
+	{
+		sf::Vector2f msg0_local_position(player_linear_prediction.linear_local_positions.front().player_position.x,
+			player_linear_prediction.linear_local_positions.front().player_position.y);
+		sf::Vector2f masg1_local_position(player_linear_prediction.linear_local_positions.back().player_position.x,
+			player_linear_prediction.linear_local_positions.back().player_position.y);
+		sf::Vector2f msg0_network_position(player_linear_prediction.linear_network_positions.front().player_position.x,
+			player_linear_prediction.linear_network_positions.front().player_position.y);
+		sf::Vector2f msg1_network_position(player_linear_prediction.linear_network_positions.back().player_position.x,
+			player_linear_prediction.linear_network_positions.back().player_position.y);
+		float msg0_time = player_linear_prediction.linear_local_positions.front().time;
+		float msg1_time = player_linear_prediction.linear_local_positions.back().time;
+
+		player_linear_prediction.linearInterpolation(player,
+			msg0_local_position,
+			masg1_local_position,
+			msg0_network_position,
+			msg1_network_position,
+			msg0_time,
+			msg1_time,
+			getCurrentTime(clock, offset),
 			lerp_mode);
+	}
 
 	// start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
-	if (linear_prediction &&
+	/*if (linear_prediction &&
 		enemy_linear_prediction.linear_network_positions.size() == enemy_linear_prediction.linear_message_number &&
 		enemy_linear_prediction.linear_local_positions.size() == enemy_linear_prediction.linear_message_number)
 		enemy_linear_prediction.linearInterpolation(enemy,
 			enemy_linear_prediction.linear_local_positions,
 			enemy_linear_prediction.linear_network_positions,
 			getCurrentTime(clock, offset),
-			lerp_mode);
+			lerp_mode);*/
 
 	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
 	if (quadratic_prediction && 
