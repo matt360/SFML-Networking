@@ -61,7 +61,7 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 		enemy_message.enemy_position.x = message_receive.enemy_position.x;
 		enemy_message.enemy_position.y = message_receive.enemy_position.y;
 		enemy_message.time = message_receive.time;
-		enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_message);
+		enemy_linear_prediction.keepTrackOfLinearNetworkPositions(enemy_message);
 	}
 }
 
