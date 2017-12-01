@@ -22,7 +22,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	player.setTexture(&texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
-	Message initial_player_message;
+	/*Message initial_player_message;
 	initial_player_message.player_position.x = initial_player_position.x;
 	initial_player_message.player_position.y = initial_player_position.y;
 
@@ -31,7 +31,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 
 	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
 	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
-	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);
+	player_quadratic_prediction.quadratic_local_positions.push_front(initial_player_message);*/
 
 	enemy.setSize(sf::Vector2f(32, 32));
 	enemy.setTexture(&texture);
@@ -375,7 +375,7 @@ void GameClientState::update()
 	//if ((int)fps % 2 == 0)
 	checkForIncomingPackets(debug_mode);
 
-	// start the linear prediction only if the queue of local and network positions is full and the linear mode is on
+	// start player's linear prediction only if the queue of local and network positions is full and the linear mode is on
 	if (linear_prediction && 
 		player_linear_prediction.linear_network_positions.size() == player_linear_prediction.linear_message_number && 
 		player_linear_prediction.linear_local_positions.size() == player_linear_prediction.linear_message_number)
@@ -383,6 +383,16 @@ void GameClientState::update()
 			player_linear_prediction.linear_local_positions,
 			player_linear_prediction.linear_network_positions,
 			getCurrentTime(clock, offset), 
+			lerp_mode);
+
+	// start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
+	if (linear_prediction &&
+		enemy_linear_prediction.linear_network_positions.size() == enemy_linear_prediction.linear_message_number &&
+		enemy_linear_prediction.linear_local_positions.size() == enemy_linear_prediction.linear_message_number)
+		enemy_linear_prediction.linearInterpolation(enemy,
+			enemy_linear_prediction.linear_local_positions,
+			enemy_linear_prediction.linear_network_positions,
+			getCurrentTime(clock, offset),
 			lerp_mode);
 
 	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on

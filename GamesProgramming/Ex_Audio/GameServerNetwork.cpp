@@ -9,16 +9,16 @@ GameServerNetwork::GameServerNetwork()
 
 GameServerNetwork::~GameServerNetwork() {}
 
-void GameServerNetwork::addMessage(Message& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock)
+void GameServerNetwork::addMessage(Message& message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock)
 {
 	//Message player_message_send;
-	player_message_send.id = 0;
-	player_message_send.player_position.x = player.getPosition().x;
-	player_message_send.player_position.y = player.getPosition().y;
-	player_message_send.enemy_position.x = enemy.getPosition().x;
-	player_message_send.enemy_position.y = enemy.getPosition().y;
+	message_send.id = 0;
+	message_send.player_position.x = player.getPosition().x;
+	message_send.player_position.y = player.getPosition().y;
+	message_send.enemy_position.x = enemy.getPosition().x;
+	message_send.enemy_position.y = enemy.getPosition().y;
 
-	player_message_send.time = clock.getElapsedTime().asMilliseconds();
+	message_send.time = clock.getElapsedTime().asMilliseconds();
 }
 
 // RECEIVE (from the client)

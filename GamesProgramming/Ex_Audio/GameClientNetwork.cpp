@@ -4,25 +4,25 @@ GameClientNetwork::GameClientNetwork() {}
 
 GameClientNetwork::~GameClientNetwork() {}
 
-void GameClientNetwork::addMessage(Message& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset)
+void GameClientNetwork::addMessage(Message& message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset)
 {
 	//Message player_message_send;
-	player_message_send.id = 0;
-	player_message_send.player_position.x = player.getPosition().x;
-	player_message_send.player_position.y = player.getPosition().y;
-	player_message_send.enemy_position.x = enemy.getPosition().x;
-	player_message_send.enemy_position.y = enemy.getPosition().y;
+	message_send.id = 0;
+	message_send.player_position.x = player.getPosition().x;
+	message_send.player_position.y = player.getPosition().y;
+	message_send.enemy_position.x = enemy.getPosition().x;
+	message_send.enemy_position.y = enemy.getPosition().y;
 
-	player_message_send.time = (float)getCurrentTime(clock, offset);
+	message_send.time = (float)getCurrentTime(clock, offset);
 }
 
 // RECEIVE (from the server's perspective what client is sending for the server to receive) 
 // packet layout MUST MATCH the GameServerNetwork's receivePacket function packet layout
-sf::Packet GameClientNetwork::groupIntoPacket(const Message& player_message_send)
+sf::Packet GameClientNetwork::groupIntoPacket(const Message& message_send)
 {
 	// message
 	sf::Packet packet_to_send;
-	packet_to_send << player_message_send;
+	packet_to_send << message_send;
 	return packet_to_send;
 }
 

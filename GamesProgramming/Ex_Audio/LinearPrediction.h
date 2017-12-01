@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Network.hpp>
-#include "Player.h"
+#include "Sprite.h"
 #include "Messages.h"
 #include "Prediction.h"
 #include <queue>

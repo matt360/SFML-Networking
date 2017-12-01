@@ -152,6 +152,13 @@ void LinearPrediction::linearInterpolation(Sprite& sprite,
 	// set player_position
 	lerp_mode ? sprite.setPosition(lerp_position) : sprite.setPosition(network_path);
 
+	//	Message local_message;
+	/*Message lerp_position_message;
+	lerp_position_message.*/
+	//	local_message.player_position.x = vec.x;
+	//	local_message.player_position.y = vec.y;
+	//	local_message.time = (float)tm;
+
 	// add lerped to the history of the local posistions
 	keepTrackOfLinearLocalPositoins(lerp_position, tm);
 }
