@@ -46,7 +46,7 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 		quadratic_prediction = quad_pred;
 		lerp_mode = lerp_mod;
 
-		// Put player_position into history of network positions
+		// Put player's position into history of network positions for linear interpolation
 		// TODO pass position
 		Message player_message;
 		player_message.player_position.x = message_receive.player_position.x;
@@ -55,6 +55,13 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 
 		player_linear_prediction.keepTrackOfLinearNetworkPositions(player_message);
 		player_quadratic_prediction.keepTrackOfQuadraticNetworkPositions(player_message);
+
+		// Put enemy's position into history of network positions for linear interpolation
+		Message enemy_message;
+		enemy_message.enemy_position.x = message_receive.enemy_position.x;
+		enemy_message.enemy_position.y = message_receive.enemy_position.y;
+		enemy_message.time = message_receive.time;
+		enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_message);
 	}
 }
 

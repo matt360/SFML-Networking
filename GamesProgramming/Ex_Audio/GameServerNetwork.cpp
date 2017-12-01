@@ -35,10 +35,10 @@ void GameServerNetwork::receivePacket(sf::Packet& packet_receive)
 
 // SEND (to the client)
 // packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
-sf::Packet GameServerNetwork::groupIntoPacket(const Message& player_message_send)
+sf::Packet GameServerNetwork::groupIntoPacket(const Message& message_send)
 {
 	sf::Packet packet_to_send;
-	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
+	packet_to_send << message_send << linear_prediction << quadratic_prediction << lerp_mode;
 	return packet_to_send;
 }
 
@@ -50,11 +50,11 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, 
 	// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Message to send
-	Message player_message_send;
-	addMessage(player_message_send, player, enemy, clock);
+	Message message_send;
+	addMessage(message_send, player, enemy, clock);
 
 	// Group the variables to send into a packet
-	sf::Packet packet_send = groupIntoPacket(player_message_send);
+	sf::Packet packet_send = groupIntoPacket(message_send);
 
 	// Send it over the network
 	//switch (socket.send(packet_send, Network::ip_address, Network::port))
