@@ -4,9 +4,9 @@ GameClientNetwork::GameClientNetwork() {}
 
 GameClientNetwork::~GameClientNetwork() {}
 
-void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset)
+void GameClientNetwork::addMessage(Message& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset)
 {
-	//PlayerMessage player_message_send;
+	//Message player_message_send;
 	player_message_send.id = 0;
 	player_message_send.position.x = player.getPosition().x;
 	player_message_send.position.y = player.getPosition().y;
@@ -18,7 +18,7 @@ void GameClientNetwork::addMessage(PlayerMessage& player_message_send, const Spr
 
 // RECEIVE (from the server's perspective what client is sending for the server to receive) 
 // packet layout MUST MATCH the GameServerNetwork's receivePacket function packet layout
-sf::Packet GameClientNetwork::groupIntoPacket(const PlayerMessage& player_message_send)
+sf::Packet GameClientNetwork::groupIntoPacket(const Message& player_message_send)
 {
 	// message
 	sf::Packet packet_to_send;
@@ -32,7 +32,7 @@ void GameClientNetwork::receivePacket(sf::Packet& packet_receive)
 {
 	// Extract the variables contained in the packet
 	// Packets must match to what the server is sending (e.g.: server is sending a string, and an int, client must be expecting a string and an int, ect.)
-	PlayerMessage player_message_receive;
+	Message player_message_receive;
 	bool lin_pred;
 	bool quad_pred;
 	bool lerp_mod;
@@ -59,7 +59,7 @@ void GameClientNetwork::sendPacket(const Sprite& player, const Sprite& enemy, co
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
 	// packet layout MUST MATCH the GameServerNetwork's receivePacket function packet layout
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	PlayerMessage player_message_send;
+	Message player_message_send;
 	addMessage(player_message_send, player, enemy, clock, offset);
 
 	// Group the variables to send into a packet

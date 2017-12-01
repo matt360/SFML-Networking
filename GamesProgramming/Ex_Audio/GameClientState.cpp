@@ -22,7 +22,7 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	player.setTexture(&texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
-	PlayerMessage initial_player_message;
+	Message initial_player_message;
 	initial_player_message.position.x = initial_player_position.x;
 	initial_player_message.position.y = initial_player_position.y;
 

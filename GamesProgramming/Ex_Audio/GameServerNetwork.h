@@ -18,9 +18,9 @@ protected:
 	// toggle quadratic prediction - input handler
 	bool quadratic_prediction;
 
-	virtual void addMessage(PlayerMessage& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock);
+	virtual void addMessage(Message& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock);
 	// SEND (to the client)
-	sf::Packet groupIntoPacket(const PlayerMessage & player_message_send);
+	sf::Packet groupIntoPacket(const Message & player_message_send);
 	// RECEIVE (from the client)
 	void receivePacket(sf::Packet& packet_receive);
 

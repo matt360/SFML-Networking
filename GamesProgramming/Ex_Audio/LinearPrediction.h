@@ -14,12 +14,12 @@ public:
 
 	const unsigned int linear_message_number = 2;
 
-	std::queue<PlayerMessage> linear_local_positions;
-	std::queue<PlayerMessage> linear_network_positions;
+	std::queue<Message> linear_local_positions;
+	std::queue<Message> linear_network_positions;
 
 	void keepTrackOfLinearLocalPositoins(const Sprite& player, const sf::Int32& time);
 	void keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& time);
-	void keepTrackOfLinearNetworkPositions(const PlayerMessage& player_message_receive);
+	void keepTrackOfLinearNetworkPositions(const Message& player_message_receive);
 
 	void linearInterpolation(Sprite& player, const sf::Int32& time, const bool& lerp_mode);
 protected:

@@ -9,9 +9,9 @@ GameServerNetwork::GameServerNetwork()
 
 GameServerNetwork::~GameServerNetwork() {}
 
-void GameServerNetwork::addMessage(PlayerMessage& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock)
+void GameServerNetwork::addMessage(Message& player_message_send, const Sprite& player, const Sprite& enemy, const sf::Clock& clock)
 {
-	//PlayerMessage player_message_send;
+	//Message player_message_send;
 	player_message_send.id = 0;
 	player_message_send.position.x = player.getPosition().x;
 	player_message_send.position.y = player.getPosition().y;
@@ -35,7 +35,7 @@ void GameServerNetwork::receivePacket(sf::Packet& packet_receive)
 
 // SEND (to the client)
 // packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
-sf::Packet GameServerNetwork::groupIntoPacket(const PlayerMessage& player_message_send)
+sf::Packet GameServerNetwork::groupIntoPacket(const Message& player_message_send)
 {
 	sf::Packet packet_to_send;
 	packet_to_send << player_message_send << linear_prediction << quadratic_prediction << lerp_mode;
@@ -50,7 +50,7 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, 
 	// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Message to send
-	PlayerMessage player_message_send;
+	Message player_message_send;
 	addMessage(player_message_send, player, enemy, clock);
 
 	// Group the variables to send into a packet
@@ -113,7 +113,7 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, 
 	//				// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
 	//				//////////////////////////////////////////////////////////////////////////////////////////////////////
 	//				// Message to send
-	//				PlayerMessage player_message_send;
+	//				Message player_message_send;
 	//				addMessage(player_message_send, player, enemy, clock);
 
 	//				// Group the variables to send into a packet
@@ -194,7 +194,7 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& cloc
 	// packet layout MUST MATCH the GameClientNetwork's receivePacket function packet layout
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Message to send
-	PlayerMessage player_message_send;
+	Message player_message_send;
 	addMessage(player_message_send, player, clock);
 
 	// Group the variables to send into a packet
@@ -234,7 +234,7 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const sf::Clock& cloc
 	// Extract the variables contained in the packet
 	//if (debug_mode)
 	//{
-	//	PlayerMessage player_message_send_d;
+	//	Message player_message_send_d;
 	//	if (packet_send >> player_message_send_d)
 	//	{
 	//		// Data extracted successfully...

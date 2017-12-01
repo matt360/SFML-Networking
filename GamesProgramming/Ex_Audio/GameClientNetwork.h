@@ -28,11 +28,11 @@ protected:
 	QuadraticPrediction player_quadratic_prediction;
 
 	// get current time and take into account the offset from the server
-	// compose a message to be send with PlayerMessage structure
-	void addMessage(PlayerMessage& player_message, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset);
+	// compose a message to be send with Message structure
+	void addMessage(Message& player_message, const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const sf::Int32& offset);
 
 	// RECEIVE (from the server's perspective what client is sending for the server to receive) 
-	sf::Packet groupIntoPacket(const PlayerMessage& player_message_send);
+	sf::Packet groupIntoPacket(const Message& player_message_send);
 	// SEND (from the client's perspective what server is sending for the client to receive)
 	void receivePacket(sf::Packet& packet_receive);
 

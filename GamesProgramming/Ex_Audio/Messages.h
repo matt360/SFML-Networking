@@ -1,7 +1,7 @@
 #pragma once
 
 /** A position update message. */
-struct PlayerMessage {
+struct Message {
 	/** The object number of this Player within the game world. */
 	int id;
 
@@ -16,12 +16,12 @@ struct PlayerMessage {
 	float time;
 };
 
-static sf::Packet& operator <<(sf::Packet& packet, const PlayerMessage& player_message)
+static sf::Packet& operator <<(sf::Packet& packet, const Message& player_message)
 {
 	return packet << player_message.id << player_message.position.x << player_message.position.y << player_message.time;
 }
 
-static sf::Packet& operator >> (sf::Packet& packet, PlayerMessage& player_message)
+static sf::Packet& operator >> (sf::Packet& packet, Message& player_message)
 {
 	return packet >> player_message.id >> player_message.position.x >> player_message.position.y >> player_message.time;
 }

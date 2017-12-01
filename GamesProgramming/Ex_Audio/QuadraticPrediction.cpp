@@ -12,7 +12,7 @@ QuadraticPrediction::~QuadraticPrediction()
 void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Sprite& player, const sf::Int32& tm)
 {
 	// local message
-	PlayerMessage local_message;
+	Message local_message;
 	local_message.position.x = player.getPosition().x;
 	local_message.position.y = player.getPosition().y;
 	local_message.time = (float)tm;
@@ -24,7 +24,7 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(const Sprite& playe
 void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm)
 {
 	// local message
-	PlayerMessage local_message;
+	Message local_message;
 	local_message.position.x = vec.x;
 	local_message.position.y = vec.y;
 	local_message.time = (float)tm;
@@ -33,7 +33,7 @@ void QuadraticPrediction::keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, 
 	quadratic_local_positions.push_front(local_message);
 }
 
-void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive)
+void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const Message& player_message_receive)
 {
 	if (quadratic_network_positions.size() >= quadratic_message_number) quadratic_network_positions.pop_back();
 	quadratic_network_positions.push_front(player_message_receive);
@@ -48,9 +48,9 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(const sf::Int32& tm)
 		x_, y_;
 
 
-	PlayerMessage msg0 = quadratic_network_positions.at(0);
-	PlayerMessage msg1 = quadratic_network_positions.at(1);
-	PlayerMessage msg2 = quadratic_network_positions.at(2);
+	Message msg0 = quadratic_network_positions.at(0);
+	Message msg1 = quadratic_network_positions.at(1);
+	Message msg2 = quadratic_network_positions.at(2);
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
@@ -80,9 +80,9 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(const sf::Int32& t
 		x_, y_;
 
 
-	PlayerMessage msg0 = quadratic_network_positions.at(0);
-	PlayerMessage msg1 = quadratic_network_positions.at(1);
-	PlayerMessage msg2 = quadratic_network_positions.at(2);
+	Message msg0 = quadratic_network_positions.at(0);
+	Message msg1 = quadratic_network_positions.at(1);
+	Message msg2 = quadratic_network_positions.at(2);
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)

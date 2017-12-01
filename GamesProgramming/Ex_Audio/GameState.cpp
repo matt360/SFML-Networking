@@ -36,7 +36,7 @@ bool GameState::checkSphereBounding(Sprite* s1, Sprite* s2)
 	return false;
 }
 
-void GameState::displayMessage(const PlayerMessage player_message)
+void GameState::displayMessage(const Message player_message)
 {
 	// The message from the client
 	std::cout << "\n\nSERVER: Message received from the client:";
@@ -47,7 +47,7 @@ void GameState::displayMessage(const PlayerMessage player_message)
 		<< "\nSERVER: Time: " << player_message.time;
 }
 
-void GameState::displayMessage(const PlayerMessage player_message, const sf::IpAddress sender, const unsigned short sender_port)
+void GameState::displayMessage(const Message player_message, const sf::IpAddress sender, const unsigned short sender_port)
 {
 	// The message from the client
 	std::cout << "\n\nSERVER: Message received from the client:";

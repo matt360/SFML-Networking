@@ -14,12 +14,12 @@ public:
 
 	const unsigned int quadratic_message_number = 3;
 
-	std::deque<PlayerMessage> quadratic_local_positions;
-	std::deque<PlayerMessage> quadratic_network_positions;
+	std::deque<Message> quadratic_local_positions;
+	std::deque<Message> quadratic_network_positions;
 
 	void keepTrackOfQuadraticLocalPositoins(const Sprite& player, const sf::Int32& tm);
 	void keepTrackOfQuadraticLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm);
-	void keepTrackOfQuadraticNetworkPositions(const PlayerMessage& player_message_receive);
+	void keepTrackOfQuadraticNetworkPositions(const Message& player_message_receive);
 
 	void quadraticInterpolation(Sprite& player, const sf::Int32& tm, const bool& lerp_mode);
 protected:

@@ -12,7 +12,7 @@ LinearPrediction::~LinearPrediction()
 void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& player, const sf::Int32& tm)
 {
 	// local message
-	PlayerMessage local_message;
+	Message local_message;
 	local_message.position.x = player.getPosition().x;
 	local_message.position.y = player.getPosition().y;
 	local_message.time = (float)tm;
@@ -24,7 +24,7 @@ void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& player, con
 void LinearPrediction::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm)
 {
 	// local message
-	PlayerMessage local_message;
+	Message local_message;
 	local_message.position.x = vec.x;
 	local_message.position.y = vec.y;
 	local_message.time = (float)tm;
@@ -33,7 +33,7 @@ void LinearPrediction::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const 
 	linear_local_positions.push(local_message);
 }
 
-void LinearPrediction::keepTrackOfLinearNetworkPositions(const PlayerMessage& player_message_receive)
+void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& player_message_receive)
 {
 	if (linear_network_positions.size() >= linear_message_number) linear_network_positions.pop();
 	linear_network_positions.push(player_message_receive);
@@ -42,8 +42,8 @@ void LinearPrediction::keepTrackOfLinearNetworkPositions(const PlayerMessage& pl
 sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Int32& tm)
 {
 	float x_average_velocity, y_average_velocity;
-	PlayerMessage msg0 = linear_local_positions.front();
-	PlayerMessage msg1 = linear_local_positions.back();
+	Message msg0 = linear_local_positions.front();
+	Message msg1 = linear_local_positions.back();
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
@@ -62,8 +62,8 @@ sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Int32& tm)
 sf::Vector2f LinearPrediction::predictLinearNetworkPath(const sf::Int32& tm)
 {
 	float x_average_velocity, y_average_velocity, x_, y_;
-	PlayerMessage msg0 = linear_network_positions.front();
-	PlayerMessage msg1 = linear_network_positions.back();
+	Message msg0 = linear_network_positions.front();
+	Message msg1 = linear_network_positions.back();
 	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
