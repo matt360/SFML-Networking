@@ -37,7 +37,7 @@ private:
 
 	bool clocks_synced = false;
 	void sendPacketToServer(const bool& debug_mode);
-	void checkForIncomingPacketsFromServer(const bool& debug_mode);
+	void syncClockWithServer(const bool& debug_mode);
 	void establishConnectionWithServer(const bool& debug_mode);
 	
 	// window

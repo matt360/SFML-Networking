@@ -140,7 +140,7 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 
 // CLIENT //
 // ...wait for the answer
-void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
+void GameClientState::syncClockWithServer(const bool& debug_mode)
 {
 	// CHECK FOR INCOMING PACKETS
 	while (true)
@@ -224,7 +224,7 @@ void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 	}
 
 	// ...wait for the answer
-	checkForIncomingPacketsFromServer(debug_mode);
+	syncClockWithServer(debug_mode);
 }
 
 // keep track of player's local positions for linear and quadratic prediction
