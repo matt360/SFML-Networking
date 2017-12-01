@@ -33,10 +33,16 @@ void LinearPrediction::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const 
 	linear_local_positions.push(local_message);
 }
 
-void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& player_message_receive)
+void LinearPrediction::keepTrackOfLinearLocalPositoins(const Message& local_message)
+{
+	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();
+	linear_local_positions.push(local_message);
+}
+
+void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& message_receive)
 {
 	if (linear_network_positions.size() >= linear_message_number) linear_network_positions.pop();
-	linear_network_positions.push(player_message_receive);
+	linear_network_positions.push(message_receive);
 }
 
 sf::Vector2f LinearPrediction::predictLinearLocalPath(const sf::Int32& tm)

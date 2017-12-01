@@ -22,7 +22,9 @@ public:
 	void keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& time);
 	void keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& time);
 
-	void keepTrackOfLinearNetworkPositions(const Message& player_message_receive);
+	void keepTrackOfLinearLocalPositoins(const Message & local_message);
+	void keepTrackOfLinearNetworkPositions(const Message& message_receive);
+
 	//void keepTrackOfLinearNetworkPositions(sf::Vector2f & vec, const sf::Int32& tm);
 
 	void linearInterpolation(Sprite& sprite, const sf::Int32& time, const bool& lerp_mode);
