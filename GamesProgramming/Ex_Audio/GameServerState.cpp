@@ -93,7 +93,7 @@ void GameServerState::displayText()
 	std::ostringstream ss;
 
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
-		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " CLOCK: " << getCurrentTime(clock, offset);
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " SEND MSG AT: 15HZ" << " CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());
