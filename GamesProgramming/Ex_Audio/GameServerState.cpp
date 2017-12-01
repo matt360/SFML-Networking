@@ -77,23 +77,6 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	level.setTileMap(map, mapSize);
 	level.setPosition(sf::Vector2f(0, 408));
 	level.buildLevel();
-
-	audioMgr.addMusic("sfx/cantina.wav", "cantina");
-	audioMgr.addMusic("sfx/hyrulefield.wav", "hyrule");
-
-	audioMgr.addSound("sfx/SMB_jump-small.wav", "jump");
-	audioMgr.addSound("sfx/SMB_1-up.wav", "up");
-	audioMgr.addSound("sfx/getover.wav", "getover");
-	audioMgr.addSound("sfx/TP_Secret.wav", "secret");
-	audioMgr.addSound("sfx/Glass_Break.wav", "glass");
-
-	hasStarted = false;
-	//audioMgr.playSoundbyName("cantina");
-
-	//int err = buff.loadFromFile("sfx/cantina.ogg");
-	//soun.setBuffer(buff);
-	//soun.play();
-	//sf::Music music;
 }
 
 GameServerState::~GameServerState() {}
@@ -255,11 +238,6 @@ void GameServerState::update()
 	// display text
 	text.setString(ss.str());
 
-	if (!hasStarted)
-	{
-		audioMgr.playMusicbyName("cantina");
-		hasStarted = true;
-	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// CHECK FOR NEW CLIENT TO CONNECT
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -277,33 +255,6 @@ void GameServerState::update()
 	if (checkSphereBounding(&player, &enemy))
 	{
 		player.collisionRespone(&enemy);
-	}
-
-	if (input->isKeyDown(sf::Keyboard::Num1))
-	{
-		input->setKeyUp(sf::Keyboard::Num1);
-		audioMgr.playSoundbyName("up");
-	}
-
-	if (input->isKeyDown(sf::Keyboard::Num2))
-	{
-		input->setKeyUp(sf::Keyboard::Num2);
-		audioMgr.playSoundbyName("getover");
-	}
-	if (input->isKeyDown(sf::Keyboard::Num3))
-	{
-		input->setKeyUp(sf::Keyboard::Num3);
-		audioMgr.playSoundbyName("glass");
-	}
-	if (input->isKeyDown(sf::Keyboard::BackSpace))
-	{
-		input->setKeyUp(sf::Keyboard::BackSpace);
-		audioMgr.stopAllMusic();
-	}
-	if (input->isKeyDown(sf::Keyboard::Num4))
-	{
-		input->setKeyUp(sf::Keyboard::Num4);
-		audioMgr.playMusicbyName("hyrule");
 	}
 
 	// check collision with world
@@ -324,58 +275,4 @@ void GameServerState::update()
 	// server should probably keep listening and sending all the time
 	runUdpServer(player, enemy, clock, debug_mode);
 }
-
-/*
-void GameServerState()
-{
-// The way to disaply ON/OFF string indeat of 0/1. For me 0/1 looks cleaner and is easier to understand.
-std::string lerp_mode_string;
-lerp_mode ? lerp_mode_string = "YES" : lerp_mode_string = "NO";
-
-std::string linear_prediction_string;
-linear_prediction ? linear_prediction_string = "YES" : linear_prediction_string = "NO";
-
-std::string quadratic_prediction_string;
-quadratic_prediction ? quadratic_prediction_string = "YES" : quadratic_prediction_string = "NO";
-
-// Put bool into string buffer and display the state of the lerp mode, the linear prediction mode, the quadratic prediction mode
-ss << "LERP MODE: " << lerp_mode_string << " LINEAR PREDICTION: " << linear_prediction_string << " QUADRATIC PREDICTION: " << quadratic_prediction_string << "\n"
- ESTABLISH CONNECTION WITH THE SERVER
-// the string buffer to convert numbers to a string
-std::ostringstream ss;
-// Put the text to display into the string buffer
-if (established_connection)
-	ss << "\n\nYou're the server\n\nEstablished connection\n\nPress Enter to Play";
-else
-	ss << "\n\nYou're the server\n\nWaiting for the client...\n\nPress Enter to Play";
-// display text
-text.setString(ss.str());
-
-if (player.getPosition().y > window->getSize().y)
-{
-if (ready && established_connection && all_clients_connected)
-if (ready && established_connection)
-{
-game_state = GameStateEnum::GAME_SERVER;
-}
-if (input->isKeyDown(sf::Keyboard::Up))
-{
-input->setKeyUp(sf::Keyboard::Up);
-//player.jump();
-audioMgr.playSoundbyName("jump");
-}
-
-*game_state = GameStateEnum::NETWORK;
-player.setPosition(0, 0);
-hasStarted = false;
-audioMgr.stopAllSounds();
-audioMgr.stopAllMusic();
-}
-else
-{
-*game_state = GameStateEnum::GAME_SERVER;
-}
-}
-++fps;
-*/
 
