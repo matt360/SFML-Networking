@@ -165,10 +165,12 @@ void GameClientState::sendPacketToServer(const bool& debug_mode)
 		return;
 
 	case sf::Socket::Disconnected:
-		established_connection = false;
+		if (debug_mode) std::cout << "CLIENT: Disconnected\n";
 		return;
 
 	case sf::Socket::Error:
+		// Something went wrong.
+		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
 		return;
 
 	default:
@@ -218,10 +220,12 @@ void GameClientState::checkForIncomingPacketsFromServer(const bool& debug_mode)
 			return;
 
 		case sf::Socket::Disconnected:
-			established_connection = false;
+			if (debug_mode) std::cout << "CLIENT: Disconnected\n";
 			return;
 
 		case sf::Socket::Error:
+			// Something went wrong.
+			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
 			return;
 
 		default:
