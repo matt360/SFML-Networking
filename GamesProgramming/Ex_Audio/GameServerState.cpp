@@ -117,19 +117,17 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 		// TODO keep track of the new sockets GET THE ADDRESS OF THE NEW CLIENT HERE
 		// check if the address is new if so...
 		// The insertion only takes place if no other element in the container is equivalent to the one being emplaced (elements in a set container are unique).
-		addresses.emplace(Network::port);
-		//if (addresses.find(Network::port) == addresses.end()) {
-		//	// ...this is an address we've not seen before.
-		//	addresses.
-		//	//latestID++;
-		//	printf("New address, giving it ID %d\n", latestID);
-		//	// create a pair
-		//	//addresses[Network::port] = latestID;
-		//}
+		//addresses.emplace(Network::port);
+		// check if the address is new if so...
+		if (addresses.find(Network::port) == addresses.end()) {
+			// ...this is an address we've not seen before.
+			latestID++;
+			printf("New address, giving it ID %d\n", latestID);
+			// create a pair
+			addresses[Network::port] = latestID;
+		}
 		// Received a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-		//GameServerState::ip_address = Network::ip_address;
-		//GameServerState::port = Network::port;
 		break;
 
 	case sf::Socket::NotReady:
@@ -174,10 +172,11 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	send_packet << server_time << established_connection;
 	
 	// SEND THE SERVER'S TIME TO SYNC THE CLIENT'S AND THE SERVER'C CLOCKS
-	for (auto port : addresses)
+	for (const auto& pair : addresses)
 	{
+		const auto& fromAddr = pair.first;
 		// Send it over the network
-		switch (socket.send(send_packet, Network::ip_address, port))
+		switch (socket.send(send_packet, Network::ip_address, fromAddr))
 		{
 		case sf::Socket::Partial:
 			// 
@@ -239,6 +238,6 @@ void GameServerState::update()
 	}
 
 	// server should probably keep listening and sending all the time
-	for (auto& port : addresses) { sendMessageToClient(player, enemy, clock, port, debug_mode); }
+	for (auto& port : addresses) { sendMessageToClient(player, enemy, clock, port.first, debug_mode); }
 }
 

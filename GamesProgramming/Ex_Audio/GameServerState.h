@@ -19,7 +19,8 @@ private:
 	/////////////////////////// ESTABLISH CONNECTION WITH THE CLIENT ///////////////////////////////
 	void establishConnectionWithClient(const bool& debug_mode);
 
-	std::set<unsigned short> addresses;
+	//std::set<unsigned short> addresses;
+	std::map<unsigned short, unsigned short> addresses;
 	//std::vector<unsigned short> addresses_v;
 	int latestID = 0;
 
