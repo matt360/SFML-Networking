@@ -18,7 +18,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&texture);
-	player.setPosition(50, 50);
+	player.setPosition(250, 250);
 	player.setInput(input);
 	//player.setVelocity(5, 5);
 
