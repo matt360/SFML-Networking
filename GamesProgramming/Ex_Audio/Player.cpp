@@ -45,9 +45,11 @@ void Player::setInput(Input* in)
 
 void Player::collisionRespone(Sprite* sp)
 {
-	// TODO dead response with the sprite working
-	std::cout << "dead\n";
-	velocity.y = 0;
+	// Becasue the game is about showing networking there's no other consequences 
+	// to touching the enemy than just seing the player's alive state set to false
+	//velocity.y = 0;
+	//velocity.x = 0;
+	setAlive(false);
 	setPosition(getPosition().x, sp->getPosition().y-getSize().y);
 }
 

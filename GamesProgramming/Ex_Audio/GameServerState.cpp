@@ -19,6 +19,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	player.setTexture(&player_texture);
 	player.setPosition(250, 250);
 	player.setInput(input);
+	player.setAlive(true);
 	//player.setVelocity(5, 5);
 
 	// enemy
@@ -141,7 +142,8 @@ void GameServerState::displayText()
 	std::ostringstream ss;
 
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
-		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " SEND MSG AT: " << hertz_string << "Hz" << " CLOCK: " << getCurrentTime(clock, offset);
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " SEND MSG AT: " << hertz_string << "Hz" << " CLOCK: " << getCurrentTime(clock, offset) << "\n"
+		<< "PLAYER ALIVE: " << player.isAlive();
 
 	// display text
 	text.setString(ss.str());
