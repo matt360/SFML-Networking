@@ -151,7 +151,7 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(
 	return network_player_pos;
 }
 
-void QuadraticPrediction::quadraticInterpolation(Sprite& sprite,
+sf::Vector2f QuadraticPrediction::quadraticInterpolation(Sprite& sprite,
 	sf::Vector2f & msg0_local_position,
 	sf::Vector2f & msg1_local_position,
 	sf::Vector2f & msg2_local_position,
@@ -188,6 +188,7 @@ void QuadraticPrediction::quadraticInterpolation(Sprite& sprite,
 	lerp_mode ? sprite.setPosition(lerp_position) : sprite.setPosition(network_path);
 
 	// add lerped to the history of the local posistions
+	return lerp_position;
 }
 
 //void QuadraticPrediction::quadraticInterpolation(Sprite& player, const sf::Int32& tm, const bool& lerp_mode)

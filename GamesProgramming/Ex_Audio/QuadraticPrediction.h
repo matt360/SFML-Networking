@@ -21,7 +21,7 @@ public:
 	void keepTrackOfQuadraticLocalPositoins(const Message& local_message);
 	void keepTrackOfQuadraticNetworkPositions(const Message& message_receive);
 
-	void quadraticInterpolation(Sprite & sprite, 
+	sf::Vector2f quadraticInterpolation(Sprite & sprite, 
 		sf::Vector2f & msg0_local_position, 
 		sf::Vector2f & msg1_local_position, 
 		sf::Vector2f & msg2_local_position,
