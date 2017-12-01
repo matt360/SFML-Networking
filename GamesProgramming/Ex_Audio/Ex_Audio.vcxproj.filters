@@ -137,9 +137,6 @@
     <ClCompile Include="Prediction.cpp">
       <Filter>Source Files\Game\Client\Prediction</Filter>
     </ClCompile>
-    <ClCompile Include="Connection.cpp">
-      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
-    </ClCompile>
     <ClCompile Include="Network.cpp">
       <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
     </ClCompile>
@@ -222,9 +219,6 @@
     </ClInclude>
     <ClInclude Include="GameClientNetwork.h">
       <Filter>Header Files\Network\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Connection.h">
-      <Filter>Header Files\Network\Client &amp; Server</Filter>
     </ClInclude>
     <ClInclude Include="Messages.h">
       <Filter>Header Files\Network\Client &amp; Server</Filter>
