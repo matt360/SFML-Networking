@@ -458,22 +458,36 @@ void GameClientState::update()
 		player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
 	{
 		// HISTORY OF LOCAL POSITIONS
-		sf::Vector2f msg0_local_position(player_linear_prediction.local_message_history.front().player_position.x,
-			player_linear_prediction.local_message_history.front().player_position.y);
-		sf::Vector2f msg1_local_position(player_linear_prediction.local_message_history.back().player_position.x,
-			player_linear_prediction.local_message_history.back().player_position.y);
-		sf::Vector2f msg2_local_position(player_linear_prediction.local_message_history.back().player_position.x,
-			player_linear_prediction.local_message_history.back().player_position.y);
+		sf::Vector2f msg0_local_position(player_quadratic_prediction.local_message_history.at(0).player_position.x,
+			player_quadratic_prediction.local_message_history.at(0).player_position.y);
+		sf::Vector2f msg1_local_position(player_quadratic_prediction.local_message_history.at(1).player_position.x,
+			player_quadratic_prediction.local_message_history.at(1).player_position.y);
+		sf::Vector2f msg2_local_position(player_quadratic_prediction.local_message_history.at(2).player_position.x,
+			player_quadratic_prediction.local_message_history.at(2).player_position.y);
 		// HISTORY OF NETWORK POSITIONS
-		sf::Vector2f msg0_network_position(player_linear_prediction.network_message_history.front().player_position.x,
-			player_linear_prediction.network_message_history.front().player_position.y);
-		sf::Vector2f msg1_network_position(player_linear_prediction.network_message_history.back().player_position.x,
-			player_linear_prediction.network_message_history.back().player_position.y);
+		sf::Vector2f msg0_network_position(player_quadratic_prediction.network_message_history.at(0).player_position.x,
+			player_quadratic_prediction.network_message_history.at(0).player_position.y);
+		sf::Vector2f msg1_network_position(player_quadratic_prediction.network_message_history.at(1).player_position.x,
+			player_quadratic_prediction.network_message_history.at(1).player_position.y);
+		sf::Vector2f msg2_network_position(player_quadratic_prediction.network_message_history.at(2).player_position.x,
+			player_quadratic_prediction.network_message_history.at(2).player_position.y);
 		// HISTORY OF TIME STAMPS
-		float msg0_time = player_linear_prediction.local_message_history.front().time;
-		float msg1_time = player_linear_prediction.local_message_history.back().time;
+		float msg0_time = player_quadratic_prediction.local_message_history.at(0).time;
+		float msg1_time = player_quadratic_prediction.local_message_history.at(1).time;
+		float msg2_time = player_quadratic_prediction.local_message_history.at(2).time;
 		
-		player_quadratic_prediction.quadraticInterpolation(player, getCurrentTime(clock, offset), lerp_mode);
+		player_quadratic_prediction.quadraticInterpolation(player,
+			msg0_local_position,
+			msg1_local_position,
+			msg2_local_position,
+			msg0_network_position,
+			msg1_network_position,
+			msg2_network_position,
+			msg0_time,
+			msg1_time, 
+			msg2_time,
+			getCurrentTime(clock, offset),
+			lerp_mode);
 	}
 
 	// increase fps
