@@ -223,6 +223,9 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 
 void GameServerState::update()
 {
+	// reset the counter because the game is locked at 60fps
+	if (frame > 60) frame = 0;
+
 	// display text
 	displayText();
 
@@ -241,9 +244,14 @@ void GameServerState::update()
 	}
 
 	// server should probably keep listening and sending all the time
-	//for (const auto& pair : addresses)
-	//const auto& fromAddr = pair.first;
-	for (auto& pair : addresses) 
-		sendMessageToClient(player, enemy, clock, pair.second, debug_mode);
+	// send messages at 15Hz
+	if (frame % 4 == 0)
+	{
+		for (auto& pair : addresses)
+			sendMessageToClient(player, enemy, clock, pair.second, debug_mode);
+	}
+
+	// keep track of frames
+	frame++;
 }
 

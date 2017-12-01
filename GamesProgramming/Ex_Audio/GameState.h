@@ -20,7 +20,7 @@ public:
 	~GameState();
 
 protected:
-	float frame;
+	unsigned short frame;
 
 	AudioManager audioMgr;
 
