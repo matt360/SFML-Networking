@@ -19,8 +19,9 @@ private:
 	/////////////////////////// ESTABLISH CONNECTION WITH THE CLIENT ///////////////////////////////
 	void establishConnectionWithClient(const bool& debug_mode);
 
-	//sf::IpAddress ip_address;
-	//unsigned short port;
+	std::set<unsigned short> addresses;
+	//std::vector<unsigned short> addresses_v;
+	int latestID = 0;
 
 	// display text
 	void displayText();

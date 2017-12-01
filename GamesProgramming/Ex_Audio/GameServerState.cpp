@@ -115,6 +115,17 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 
 	case sf::Socket::Done:
 		// TODO keep track of the new sockets GET THE ADDRESS OF THE NEW CLIENT HERE
+		// check if the address is new if so...
+		// The insertion only takes place if no other element in the container is equivalent to the one being emplaced (elements in a set container are unique).
+		addresses.emplace(Network::port);
+		//if (addresses.find(Network::port) == addresses.end()) {
+		//	// ...this is an address we've not seen before.
+		//	addresses.
+		//	//latestID++;
+		//	printf("New address, giving it ID %d\n", latestID);
+		//	// create a pair
+		//	//addresses[Network::port] = latestID;
+		//}
 		// Received a packet.
 		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
 		//GameServerState::ip_address = Network::ip_address;
@@ -161,44 +172,47 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	// Group the variables to send into a packet
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	send_packet << server_time << established_connection;
-
-	// Send it over the network
-	switch (socket.send(send_packet, Network::ip_address, Network::port))
+	
+	for (auto port : addresses)
 	{
-	case sf::Socket::Partial:
-		// 
-		/*
-		https://www.sfml-dev.org/tutorials/2.4/network-socket.php
-		if only a part of the data was sent in the call, the return status will be sf::Socket::Partial to indicate a partial send.
-		If sf::Socket::Partial is returned, you must make sure to handle the partial send properly or else data corruption will occur.
-		When sending raw data, you must reattempt sending the raw data at the byte offset where the previous send call stopped.
-		*/
-		while (socket.send(send_packet, Network::ip_address, Network::port) != sf::Socket::Done) {}
-		break;
+		// Send it over the network
+		switch (socket.send(send_packet, Network::ip_address, port))
+		{
+		case sf::Socket::Partial:
+			// 
+			/*
+			https://www.sfml-dev.org/tutorials/2.4/network-socket.php
+			if only a part of the data was sent in the call, the return status will be sf::Socket::Partial to indicate a partial send.
+			If sf::Socket::Partial is returned, you must make sure to handle the partial send properly or else data corruption will occur.
+			When sending raw data, you must reattempt sending the raw data at the byte offset where the previous send call stopped.
+			*/
+			while (socket.send(send_packet, Network::ip_address, Network::port) != sf::Socket::Done) {}
+			break;
 
-	case sf::Socket::Done:
-		// Received a packet.
-		if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-		break;
+		case sf::Socket::Done:
+			// Received a packet.
+			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+			break;
 
-	case sf::Socket::NotReady:
-		// No more data to receive (yet).
-		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
-		return;
+		case sf::Socket::NotReady:
+			// No more data to receive (yet).
+			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+			return;
 
-	case sf::Socket::Disconnected:
-		if (debug_mode) std::cout << "CLIENT: Disconnected\n";
-		return;
+		case sf::Socket::Disconnected:
+			if (debug_mode) std::cout << "CLIENT: Disconnected\n";
+			return;
 
-	case sf::Socket::Error:
-		// Something went wrong.
-		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-		return;
+		case sf::Socket::Error:
+			// Something went wrong.
+			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			return;
 
-	default:
-		// Something went wrong.
-		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-		return;
+		default:
+			// Something went wrong.
+			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			return;
+		}
 	}
 
 	/// Extract the variables contained in the packet
