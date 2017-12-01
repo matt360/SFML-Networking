@@ -28,55 +28,6 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	//enemy.setVelocity(3, 3);
 
 	//window->setMouseCursorVisible(false);
-
-	level.loadTexture("gfx/marioTiles.png");
-	Tile tile;
-	std::vector<Tile> tiles;
-	//187, 51
-	for (int i = 0; i < 7; i++)
-	{
-
-		tile.setSize(sf::Vector2f(32, 32));
-		tile.setAlive(true);
-		tiles.push_back(tile);
-	}
-
-	tiles[0].setAlive(false);
-	tiles[0].setTextureRect(sf::IntRect(187, 51, 16, 16));
-	tiles[1].setTextureRect(sf::IntRect(0, 0, 16, 16));
-	tiles[2].setTextureRect(sf::IntRect(17, 0, 16, 16));
-	tiles[3].setTextureRect(sf::IntRect(34, 0, 16, 16));
-	tiles[4].setTextureRect(sf::IntRect(0, 34, 16, 16));
-	tiles[5].setTextureRect(sf::IntRect(17, 34, 16, 16));
-	tiles[6].setTextureRect(sf::IntRect(34, 34, 16, 16));
-
-	level.setTileSet(tiles);
-
-	// Map dimensions
-	sf::Vector2u mapSize(10, 6);
-
-	// build map
-	/*std::vector<int> map = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 1, 3, 0, 0, 0, 0, 0,
-		1, 2, 3, 4, 6, 1, 2, 3, 0, 0,
-		4, 5, 6, 0, 0, 4, 5, 6, 0, 0
-	};*/
-
-	std::vector<int> map = {
-	1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 
-	4, 6, 0, 0, 1, 3, 0, 0, 0, 0,
-	4, 6, 0, 0, 4, 6, 1, 3, 0, 0,
-	4, 6, 1, 3, 4, 6, 4, 6, 0, 0,
-	4, 6, 4, 6, 4, 6, 4, 6, 1, 3,
-	4, 6, 4, 6, 4, 6, 4, 6, 4, 6,
-	};
-
-	level.setTileMap(map, mapSize);
-	level.setPosition(sf::Vector2f(0, 408));
-	level.buildLevel();
 }
 
 GameServerState::~GameServerState() {}
@@ -268,21 +219,6 @@ void GameServerState::update()
 	if (checkSphereBounding(&player, &enemy))
 	{
 		player.collisionRespone(&enemy);
-	}
-
-	// check collision with world
-	std::vector<Tile>* world = level.getLevel();
-	for (int i = 0; i < (int)world->size(); i++)
-	{
-		if ((*world)[i].isAlive())
-		{
-			// if "alive" check collision
-			// world tile which are not alive don't want collision checks
-			if (checkCollision(&player, &(*world)[i]))
-			{
-				player.collisionRespone(&(*world)[i]);
-			}
-		}
 	}
 
 	// server should probably keep listening and sending all the time
