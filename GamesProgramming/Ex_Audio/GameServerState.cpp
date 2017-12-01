@@ -173,6 +173,7 @@ void GameServerState::establishConnectionWithClient(const bool& debug_mode)
 	sf::Int32 server_time = clock.getElapsedTime().asMilliseconds();
 	send_packet << server_time << established_connection;
 	
+	// SEND THE SERVER'S TIME TO SYNC THE CLIENT'S AND THE SERVER'C CLOCKS
 	for (auto port : addresses)
 	{
 		// Send it over the network
