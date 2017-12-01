@@ -16,12 +16,18 @@ struct Message {
 	float time;
 };
 
-static sf::Packet& operator <<(sf::Packet& packet, const Message& player_message)
+static sf::Packet& operator <<(sf::Packet& packet, const Message& message)
 {
-	return packet << player_message.id << player_message.position.x << player_message.position.y << player_message.time;
+	return packet << message.id << 
+		message.position.x << message.position.y << 
+		message.enemy_position.x << message.enemy_position.y <<
+		message.time;
 }
 
-static sf::Packet& operator >> (sf::Packet& packet, Message& player_message)
+static sf::Packet& operator >> (sf::Packet& packet, Message& message)
 {
-	return packet >> player_message.id >> player_message.position.x >> player_message.position.y >> player_message.time;
+	return packet >> message.id >> 
+		message.position.x >> message.position.y >>
+		message.enemy_position.x >> message.enemy_position.y >> 
+		message.time;
 }
