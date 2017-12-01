@@ -19,7 +19,8 @@ public:
 	// history of sprite's network positions
 	std::queue<Message> linear_network_positions;
 
-	void keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& time);
+	//void keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& time);
+	// for adding lepred position to the history of positions
 	void keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& time);
 
 	void keepTrackOfLinearLocalPositoins(const Message & local_message);

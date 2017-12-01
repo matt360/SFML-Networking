@@ -9,18 +9,18 @@ LinearPrediction::~LinearPrediction()
 {
 }
 
-void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& tm)
-{
-	// local message
-	Message local_message;
-	local_message.player_position.x = sprite.getPosition().x;
-	local_message.player_position.y = sprite.getPosition().y;
-	local_message.time = (float)tm;
-
-	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();
-	linear_local_positions.push(local_message);
-}
-
+//void LinearPrediction::keepTrackOfLinearLocalPositoins(const Sprite& sprite, const sf::Int32& tm)
+//{
+//	// local message
+//	Message local_message;
+//	local_message.player_position.x = sprite.getPosition().x;
+//	local_message.player_position.y = sprite.getPosition().y;
+//	local_message.time = (float)tm;
+//
+//	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();
+//	linear_local_positions.push(local_message);
+//}
+//
 void LinearPrediction::keepTrackOfLinearLocalPositoins(sf::Vector2f& vec, const sf::Int32& tm)
 {
 	// local message

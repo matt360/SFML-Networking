@@ -328,7 +328,12 @@ void GameClientState::update()
 
 	// keep track of local positions
 	// TODO pass position
-	player_linear_prediction.keepTrackOfLinearLocalPositoins(player, getCurrentTime(clock, offset));
+	Message player_local_message;
+	player_local_message.player_position.x = player.getPosition().x;
+	player_local_message.player_position.y = player.getPosition().y;
+	player_local_message.time = getCurrentTime(clock, offset);
+
+	player_linear_prediction.keepTrackOfLinearLocalPositoins(player_local_message);
 	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player, getCurrentTime(clock, offset));
 
 	if (input->isKeyDown(sf::Keyboard::Num1))
