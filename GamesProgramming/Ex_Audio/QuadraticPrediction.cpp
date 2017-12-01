@@ -87,8 +87,8 @@ void QuadraticPrediction::keepTrackOfQuadraticNetworkPositions(const Message& me
 
 sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(
 	sf::Vector2f & msg0_local_position,
-	sf::Vector2f & masg1_local_position,
-	sf::Vector2f & masg2_local_position,
+	sf::Vector2f & msg1_local_position,
+	sf::Vector2f & msg2_local_position,
 	float &msg0_time,
 	float & msg1_time,
 	float & msg2_time,
@@ -99,12 +99,6 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(
 		x_average_velocity_2, y_average_velocity_2,
 		a_x, a_y,
 		x_, y_;
-
-
-	Message msg0 = network_message_history.at(0);
-	Message msg1 = network_message_history.at(1);
-	Message msg2 = network_message_history.at(2);
-	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity_1 = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
@@ -127,7 +121,7 @@ sf::Vector2f QuadraticPrediction::predictQuadraticLocalPath(
 sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(sf::Vector2f & msg0_network_position,
 	sf::Vector2f & msg1_network_position,
 	sf::Vector2f & msg2_network_position,
-	float &msg0_time,
+	float & msg0_time,
 	float & msg1_time,
 	float & msg2_time,
 	float &time)
@@ -137,12 +131,6 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(sf::Vector2f & msg
 		x_average_velocity_2, y_average_velocity_2,
 		a_x, a_y,
 		x_, y_;
-
-
-	Message msg0 = network_message_history.at(0);
-	Message msg1 = network_message_history.at(1);
-	Message msg2 = network_message_history.at(2);
-	float time = (float)tm;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
 	x_average_velocity_1 = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
@@ -165,7 +153,7 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(sf::Vector2f & msg
 void QuadraticPrediction::quadraticInterpolation(Sprite& sprite,
 	sf::Vector2f & msg0_local_position,
 	sf::Vector2f & msg1_local_position,
-	sf::Vector2f & masg2_local_position,
+	sf::Vector2f & msg2_local_position,
 	sf::Vector2f & msg0_network_position,
 	sf::Vector2f & msg1_network_position,
 	sf::Vector2f & msg2_network_position,
@@ -180,7 +168,7 @@ void QuadraticPrediction::quadraticInterpolation(Sprite& sprite,
 	sf::Vector2f local_path = predictQuadraticLocalPath(
 		msg0_local_position, 
 		msg1_local_position, 
-		masg2_local_position, 
+		msg2_local_position, 
 		msg0_time, 
 		msg1_time, 
 		msg2_time, 

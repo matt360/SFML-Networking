@@ -24,7 +24,7 @@ public:
 	void quadraticInterpolation(Sprite & sprite, 
 		sf::Vector2f & msg0_local_position, 
 		sf::Vector2f & msg1_local_position, 
-		sf::Vector2f &masg2_local_position,
+		sf::Vector2f & msg2_local_position,
 		sf::Vector2f & msg0_network_position, 
 		sf::Vector2f & msg1_network_position, 
 		sf::Vector2f & msg2_network_position,
@@ -35,8 +35,8 @@ public:
 		const bool & lerp_mode);
 protected:
 	sf::Vector2f predictQuadraticLocalPath(sf::Vector2f & msg0_local_position, 
-		sf::Vector2f & masg1_local_position, 
-		sf::Vector2f & masg2_local_position,
+		sf::Vector2f & msg1_local_position, 
+		sf::Vector2f & msg2_local_position,
 		float &msg0_time, 
 		float & msg1_time, 
 		float & msg2_time,

@@ -16,19 +16,19 @@ void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& message_
 	network_message_history.push(message_receive);
 }
 
-sf::Vector2f LinearPrediction::predictLinearLocalPath(sf::Vector2f& msg0_local_position, sf::Vector2f& masg1_local_position, 
+sf::Vector2f LinearPrediction::predictLinearLocalPath(sf::Vector2f& msg0_local_position, sf::Vector2f& msg1_local_position, 
 	float& msg0_time, float& msg1_time, float& time)
 {
 	float x_average_velocity, y_average_velocity;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity = (msg0_local_position.x - masg1_local_position.x) / (msg0_time - msg1_time);
-	y_average_velocity = (msg0_local_position.y - masg1_local_position.y) / (msg0_time - msg1_time);
+	x_average_velocity = (msg0_local_position.x - msg1_local_position.x) / (msg0_time - msg1_time);
+	y_average_velocity = (msg0_local_position.y - msg1_local_position.y) / (msg0_time - msg1_time);
 
 	//// linear model
 	float x_, y_;
-	x_ = x_average_velocity * (time - msg1_time) + masg1_local_position.x;
-	y_ = y_average_velocity * (time - msg1_time) + masg1_local_position.y;
+	x_ = x_average_velocity * (time - msg1_time) + msg1_local_position.x;
+	y_ = y_average_velocity * (time - msg1_time) + msg1_local_position.y;
 
 	sf::Vector2f local_player_pos(x_, y_);
 	return local_player_pos;
