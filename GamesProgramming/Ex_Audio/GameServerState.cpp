@@ -67,7 +67,7 @@ void GameServerState::handleInput()
 	if (input->isKeyDown(sf::Keyboard::H))
 	{
 		input->setKeyUp(sf::Keyboard::H);
-		hertz_rate > 5 ? hertz_rate = 0 : hertz_rate++;
+		hertz < 5 ? hertz++ : hertz = 0;
 	}
 }
 
@@ -93,47 +93,58 @@ void GameServerState::endDraw()
 	window->display();
 }
 
+void GameServerState::setHertz()
+{
+	switch (hertz)
+	{
+	case 0:
+		// 30Hz
+		hertz_rate = 2;
+		hertz_string = "30";
+		break;
+
+	case 1:
+		// 20Hz
+		hertz_rate = 3;
+		hertz_string = "20";
+		break;
+
+	case 2:
+		// 15Hz
+		hertz_rate = 4;
+		hertz_string = "15";
+		break;
+
+	case 3:
+		// 12Hz
+		hertz_rate = 5;
+		hertz_string = "12";
+		break;
+
+	case 4:
+		// 10 Hz
+		hertz_rate = 6;
+		hertz_string = "10";
+		break;
+
+	case 5:
+		// 10 Hz
+		hertz_rate = 1;
+		hertz_string = "60";
+		break;
+	}
+}
+
 void GameServerState::displayText()
 {
 	//string buffer to convert numbers to string
 	std::ostringstream ss;
 
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
-		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " SEND MSG AT: 15HZ" << " CLOCK: " << getCurrentTime(clock, offset);
+		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " SEND MSG AT: " << hertz_string << "Hz" << " CLOCK: " << getCurrentTime(clock, offset);
 
 	// display text
 	text.setString(ss.str());
-}
-
-void GameServerState::setHertz()
-{
-	switch (hertz_rate)
-	{
-	case 0:
-		// 30Hz
-		hertz = 2;
-		break;
-
-	case 1:
-		// 20Hz
-		hertz = 3;
-		break;
-
-	case 2:
-		// 15Hz
-		hertz = 4;
-		break;
-
-	case 3:
-		// 12Hz
-		hertz = 5;
-		break;
-
-	case 4:
-		// 10 Hz
-		hertz = 6;
-		break;
-	}
 }
 
 // SERVER //
@@ -284,7 +295,7 @@ void GameServerState::update()
 
 	// server should probably keep listening and sending all the time
 	// send messages at 15Hz
-	if (frame % hertz == 0)
+	if (frame % hertz_rate == 0)
 	{
 		for (auto& pair : addresses)
 			sendMessageToClient(player, enemy, clock, pair.second, debug_mode);

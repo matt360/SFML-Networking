@@ -25,8 +25,9 @@ private:
 	int latestID = 0;
 	// is there a new connection?
 	bool new_connection = false;
-	uint8_t hertz = 0;
-	uint8_t hertz_rate = 0;
+	unsigned short hertz = 5;
+	unsigned short hertz_rate = 0;
+	std::string hertz_string = "";
 	void setHertz();
 	
 	// display text
