@@ -61,7 +61,9 @@ void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, 
 	switch (socket.send(packet_send, Network::ip_address, Network::port))
 	{
 	case sf::Socket::Partial:
-		while (sf::Socket::Done) { socket.send(packet_send, Network::ip_address, Network::port); }
+		while (socket.send(packet_send, Network::ip_address, Network::port) != sf::Socket::Done)
+		{
+		}
 		break;
 
 	case sf::Socket::Done:
