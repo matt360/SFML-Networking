@@ -134,18 +134,18 @@ sf::Vector2f QuadraticPrediction::predictQuadraticNetworkPath(
 		x_, y_;
 
 	// average velocity = (recieved_position - last_position) / (recieved_time - last_time)
-	x_average_velocity_1 = (msg0.player_position.x - msg1.player_position.x) / (msg0.time - msg1.time);
-	y_average_velocity_1 = (msg0.player_position.y - msg1.player_position.y) / (msg0.time - msg1.time);
+	x_average_velocity_1 = (msg0_network_position.x - msg1_network_position.x) / (msg0_time - msg1_time);
+	y_average_velocity_1 = (msg0_network_position.y - msg1_network_position.y) / (msg0_time - msg1_time);
 
-	x_average_velocity_2 = (msg1.player_position.x - msg2.player_position.x) / (msg1.time - msg2.time);
-	y_average_velocity_2 = (msg1.player_position.y - msg2.player_position.y) / (msg1.time - msg2.time);
+	x_average_velocity_2 = (msg1_network_position.x - msg2_network_position.x) / (msg1_time - msg2_time);
+	y_average_velocity_2 = (msg1_network_position.y - msg2_network_position.y) / (msg1_time - msg2_time);
 
-	a_x = (x_average_velocity_2 - x_average_velocity_1) / (msg2.time - msg0.time);
-	a_y = (y_average_velocity_2 - y_average_velocity_1) / (msg2.time - msg0.time);
+	a_x = (x_average_velocity_2 - x_average_velocity_1) / (msg2_time - msg0_time);
+	a_y = (y_average_velocity_2 - y_average_velocity_1) / (msg2_time - msg0_time);
 
 	// s = s0 + v0t + ½at2
-	x_ = msg2.player_position.x + (x_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_x) * powf((time - msg2.time), 2));
-	y_ = msg2.player_position.y + (y_average_velocity_2 * (time - msg2.time)) + ((0.5 * a_y) * powf((time - msg2.time), 2));
+	x_ = msg2_network_position.x + (x_average_velocity_2 * (time - msg2_time)) + ((0.5 * a_x) * powf((time - msg2_time), 2));
+	y_ = msg2_network_position.y + (y_average_velocity_2 * (time - msg2_time)) + ((0.5 * a_y) * powf((time - msg2_time), 2));
 
 	sf::Vector2f network_player_pos(x_, y_);
 	return network_player_pos;
