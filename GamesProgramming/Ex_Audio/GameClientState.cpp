@@ -312,7 +312,7 @@ void GameClientState::playerLinearPrediction()
 		float msg1_time = player_linear_prediction.network_message_history.back().time;
 
 		sf::Vector2f player_lerp_position = player_linear_prediction.linearInterpolation(
-			player,
+			player, // PLAYER
 			msg0_local_position,
 			msg1_local_position,
 			msg0_network_position,
@@ -331,6 +331,158 @@ void GameClientState::playerLinearPrediction()
 			player_lerp_position_msg.time = getCurrentTime(clock, offset);
 
 			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
+		}
+	}
+}
+
+void GameClientState::enemyLinearPrediciton()
+{
+	// ENEMY LINEAR PREDICTION // start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
+	if (linear_prediction &&
+		enemy_linear_prediction.network_message_history.size() == enemy_linear_prediction.linear_message_number &&
+		enemy_linear_prediction.local_message_history.size() == enemy_linear_prediction.linear_message_number)
+	{
+		sf::Vector2f msg0_local_position(enemy_linear_prediction.local_message_history.front().enemy_position.x,
+			enemy_linear_prediction.local_message_history.front().enemy_position.y);
+		sf::Vector2f msg1_local_position(enemy_linear_prediction.local_message_history.back().enemy_position.x,
+			enemy_linear_prediction.local_message_history.back().enemy_position.y);
+		sf::Vector2f msg0_network_position(enemy_linear_prediction.network_message_history.front().enemy_position.x,
+			enemy_linear_prediction.network_message_history.front().enemy_position.y);
+		sf::Vector2f msg1_network_position(enemy_linear_prediction.network_message_history.back().enemy_position.x,
+			enemy_linear_prediction.network_message_history.back().enemy_position.y);
+		float msg0_time = enemy_linear_prediction.network_message_history.front().time;
+		float msg1_time = enemy_linear_prediction.network_message_history.back().time;
+
+
+		sf::Vector2f enemy_lerp_position =
+			enemy_linear_prediction.linearInterpolation(
+				enemy, // ENEMY
+				msg0_local_position,
+				msg1_local_position,
+				msg0_network_position,
+				msg1_network_position,
+				msg0_time,
+				msg1_time,
+				getCurrentTime(clock, offset),
+				lerp_mode);
+
+		if (lerp_mode)
+		{
+			// add lerped to the history of the local posistions
+			Message enemy_lerp_position_msg;
+			enemy_lerp_position_msg.enemy_position.x = enemy_lerp_position.x;
+			enemy_lerp_position_msg.enemy_position.y = enemy_lerp_position.y;
+			enemy_lerp_position_msg.time = getCurrentTime(clock, offset);
+
+			enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_lerp_position_msg);
+		}
+	}
+}
+
+void GameClientState::playerQuadraticPrediction()
+{
+	// PLAYER QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
+	if (quadratic_prediction &&
+		player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number &&
+		player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
+	{
+		// HISTORY OF LOCAL POSITIONS
+		sf::Vector2f msg0_local_position(player_quadratic_prediction.local_message_history.at(0).player_position.x,
+			player_quadratic_prediction.local_message_history.at(0).player_position.y);
+		sf::Vector2f msg1_local_position(player_quadratic_prediction.local_message_history.at(1).player_position.x,
+			player_quadratic_prediction.local_message_history.at(1).player_position.y);
+		sf::Vector2f msg2_local_position(player_quadratic_prediction.local_message_history.at(2).player_position.x,
+			player_quadratic_prediction.local_message_history.at(2).player_position.y);
+		// HISTORY OF NETWORK POSITIONS
+		sf::Vector2f msg0_network_position(player_quadratic_prediction.network_message_history.at(0).player_position.x,
+			player_quadratic_prediction.network_message_history.at(0).player_position.y);
+		sf::Vector2f msg1_network_position(player_quadratic_prediction.network_message_history.at(1).player_position.x,
+			player_quadratic_prediction.network_message_history.at(1).player_position.y);
+		sf::Vector2f msg2_network_position(player_quadratic_prediction.network_message_history.at(2).player_position.x,
+			player_quadratic_prediction.network_message_history.at(2).player_position.y);
+		// HISTORY OF TIME STAMPS
+		float msg0_time = player_quadratic_prediction.local_message_history.at(0).time;
+		float msg1_time = player_quadratic_prediction.local_message_history.at(1).time;
+		float msg2_time = player_quadratic_prediction.local_message_history.at(2).time;
+
+		sf::Vector2f player_lerp_position =
+			player_quadratic_prediction.quadraticInterpolation(
+				player, // PLAYER
+				msg0_local_position,
+				msg1_local_position,
+				msg2_local_position,
+				msg0_network_position,
+				msg1_network_position,
+				msg2_network_position,
+				msg0_time,
+				msg1_time,
+				msg2_time,
+				getCurrentTime(clock, offset),
+				lerp_mode);
+
+		if (lerp_mode)
+		{
+			// add lerped to the history of the local posistions
+			Message player_lerp_position_msg;
+			player_lerp_position_msg.player_position.x = player_lerp_position.x;
+			player_lerp_position_msg.player_position.y = player_lerp_position.y;
+			player_lerp_position_msg.time = getCurrentTime(clock, offset);
+
+			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
+		}
+	}
+}
+
+void GameClientState::enemyQuadraticPrediction()
+{
+	// ENEMY QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
+	if (quadratic_prediction &&
+		enemy_quadratic_prediction.network_message_history.size() == enemy_quadratic_prediction.quadratic_message_number &&
+		enemy_quadratic_prediction.local_message_history.size() == enemy_quadratic_prediction.quadratic_message_number)
+	{
+		// HISTORY OF LOCAL POSITIONS
+		sf::Vector2f msg0_local_position(enemy_quadratic_prediction.local_message_history.at(0).enemy_position.x,
+			enemy_quadratic_prediction.local_message_history.at(0).enemy_position.y);
+		sf::Vector2f msg1_local_position(enemy_quadratic_prediction.local_message_history.at(1).enemy_position.x,
+			enemy_quadratic_prediction.local_message_history.at(1).enemy_position.y);
+		sf::Vector2f msg2_local_position(enemy_quadratic_prediction.local_message_history.at(2).enemy_position.x,
+			enemy_quadratic_prediction.local_message_history.at(2).enemy_position.y);
+		// HISTORY OF NETWORK POSITIONS
+		sf::Vector2f msg0_network_position(enemy_quadratic_prediction.network_message_history.at(0).enemy_position.x,
+			enemy_quadratic_prediction.network_message_history.at(0).enemy_position.y);
+		sf::Vector2f msg1_network_position(enemy_quadratic_prediction.network_message_history.at(1).enemy_position.x,
+			enemy_quadratic_prediction.network_message_history.at(1).enemy_position.y);
+		sf::Vector2f msg2_network_position(enemy_quadratic_prediction.network_message_history.at(2).enemy_position.x,
+			enemy_quadratic_prediction.network_message_history.at(2).enemy_position.y);
+		// HISTORY OF TIME STAMPS
+		float msg0_time = enemy_quadratic_prediction.local_message_history.at(0).time;
+		float msg1_time = enemy_quadratic_prediction.local_message_history.at(1).time;
+		float msg2_time = enemy_quadratic_prediction.local_message_history.at(2).time;
+
+		sf::Vector2f enemy_lerp_position =
+			enemy_quadratic_prediction.quadraticInterpolation(
+				enemy, // ENEMY
+				msg0_local_position,
+				msg1_local_position,
+				msg2_local_position,
+				msg0_network_position,
+				msg1_network_position,
+				msg2_network_position,
+				msg0_time,
+				msg1_time,
+				msg2_time,
+				getCurrentTime(clock, offset),
+				lerp_mode);
+
+		if (lerp_mode)
+		{
+			// add lerped to the history of the local posistions
+			Message enemy_lerp_position_msg;
+			enemy_lerp_position_msg.enemy_position.x = enemy_lerp_position.x;
+			enemy_lerp_position_msg.enemy_position.y = enemy_lerp_position.y;
+			enemy_lerp_position_msg.time = getCurrentTime(clock, offset);
+
+			enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_lerp_position_msg);
 		}
 	}
 }
@@ -418,256 +570,13 @@ void GameClientState::update()
 	checkForIncomingPackets(debug_mode);
 
 	playerLinearPrediction();
-	
-	// ENEMY LINEAR PREDICTION // start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
-	if (linear_prediction &&
-		enemy_linear_prediction.network_message_history.size() == enemy_linear_prediction.linear_message_number &&
-		enemy_linear_prediction.local_message_history.size() == enemy_linear_prediction.linear_message_number)
-	{
-		sf::Vector2f msg0_local_position(enemy_linear_prediction.local_message_history.front().enemy_position.x,
-			enemy_linear_prediction.local_message_history.front().enemy_position.y);
-		sf::Vector2f msg1_local_position(enemy_linear_prediction.local_message_history.back().enemy_position.x,
-			enemy_linear_prediction.local_message_history.back().enemy_position.y);
-		sf::Vector2f msg0_network_position(enemy_linear_prediction.network_message_history.front().enemy_position.x,
-			enemy_linear_prediction.network_message_history.front().enemy_position.y);
-		sf::Vector2f msg1_network_position(enemy_linear_prediction.network_message_history.back().enemy_position.x,
-			enemy_linear_prediction.network_message_history.back().enemy_position.y);
-		float msg0_time = enemy_linear_prediction.network_message_history.front().time;
-		float msg1_time = enemy_linear_prediction.network_message_history.back().time;
-
-
-		sf::Vector2f enemy_lerp_position =
-		enemy_linear_prediction.linearInterpolation(
-			enemy,
-			msg0_local_position,
-			msg1_local_position,
-			msg0_network_position,
-			msg1_network_position,
-			msg0_time,
-			msg1_time,
-			getCurrentTime(clock, offset),
-			lerp_mode);
-
-		if (lerp_mode)
-		{
-			// add lerped to the history of the local posistions
-			Message enemy_lerp_position_msg;
-			enemy_lerp_position_msg.enemy_position.x = enemy_lerp_position.x;
-			enemy_lerp_position_msg.enemy_position.y = enemy_lerp_position.y;
-			enemy_lerp_position_msg.time = getCurrentTime(clock, offset);
-
-			enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_lerp_position_msg);
-		}
-	}
-	// PLAYER QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
-	if (quadratic_prediction &&
-		player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number &&
-		player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
-	{
-		// HISTORY OF LOCAL POSITIONS
-		sf::Vector2f msg0_local_position(player_quadratic_prediction.local_message_history.at(0).player_position.x,
-			player_quadratic_prediction.local_message_history.at(0).player_position.y);
-		sf::Vector2f msg1_local_position(player_quadratic_prediction.local_message_history.at(1).player_position.x,
-			player_quadratic_prediction.local_message_history.at(1).player_position.y);
-		sf::Vector2f msg2_local_position(player_quadratic_prediction.local_message_history.at(2).player_position.x,
-			player_quadratic_prediction.local_message_history.at(2).player_position.y);
-		// HISTORY OF NETWORK POSITIONS
-		sf::Vector2f msg0_network_position(player_quadratic_prediction.network_message_history.at(0).player_position.x,
-			player_quadratic_prediction.network_message_history.at(0).player_position.y);
-		sf::Vector2f msg1_network_position(player_quadratic_prediction.network_message_history.at(1).player_position.x,
-			player_quadratic_prediction.network_message_history.at(1).player_position.y);
-		sf::Vector2f msg2_network_position(player_quadratic_prediction.network_message_history.at(2).player_position.x,
-			player_quadratic_prediction.network_message_history.at(2).player_position.y);
-		// HISTORY OF TIME STAMPS
-		float msg0_time = player_quadratic_prediction.local_message_history.at(0).time;
-		float msg1_time = player_quadratic_prediction.local_message_history.at(1).time;
-		float msg2_time = player_quadratic_prediction.local_message_history.at(2).time;
-		
-		sf::Vector2f player_lerp_position =
-			player_quadratic_prediction.quadraticInterpolation(
-			player,
-			msg0_local_position,
-			msg1_local_position,
-			msg2_local_position,
-			msg0_network_position,
-			msg1_network_position,
-			msg2_network_position,
-			msg0_time,
-			msg1_time, 
-			msg2_time,
-			getCurrentTime(clock, offset),
-			lerp_mode);
-
-		if (lerp_mode)
-		{
-			// add lerped to the history of the local posistions
-			Message player_lerp_position_msg;
-			player_lerp_position_msg.player_position.x = player_lerp_position.x;
-			player_lerp_position_msg.player_position.y = player_lerp_position.y;
-			player_lerp_position_msg.time = getCurrentTime(clock, offset);
-
-			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
-		}
-
-		// PLAYER QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
-		if (quadratic_prediction &&
-			player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number &&
-			player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
-		{
-			// HISTORY OF LOCAL POSITIONS
-			sf::Vector2f msg0_local_position(player_quadratic_prediction.local_message_history.at(0).player_position.x,
-				player_quadratic_prediction.local_message_history.at(0).player_position.y);
-			sf::Vector2f msg1_local_position(player_quadratic_prediction.local_message_history.at(1).player_position.x,
-				player_quadratic_prediction.local_message_history.at(1).player_position.y);
-			sf::Vector2f msg2_local_position(player_quadratic_prediction.local_message_history.at(2).player_position.x,
-				player_quadratic_prediction.local_message_history.at(2).player_position.y);
-			// HISTORY OF NETWORK POSITIONS
-			sf::Vector2f msg0_network_position(player_quadratic_prediction.network_message_history.at(0).player_position.x,
-				player_quadratic_prediction.network_message_history.at(0).player_position.y);
-			sf::Vector2f msg1_network_position(player_quadratic_prediction.network_message_history.at(1).player_position.x,
-				player_quadratic_prediction.network_message_history.at(1).player_position.y);
-			sf::Vector2f msg2_network_position(player_quadratic_prediction.network_message_history.at(2).player_position.x,
-				player_quadratic_prediction.network_message_history.at(2).player_position.y);
-			// HISTORY OF TIME STAMPS
-			float msg0_time = player_quadratic_prediction.local_message_history.at(0).time;
-			float msg1_time = player_quadratic_prediction.local_message_history.at(1).time;
-			float msg2_time = player_quadratic_prediction.local_message_history.at(2).time;
-
-			sf::Vector2f player_lerp_position =
-				player_quadratic_prediction.quadraticInterpolation(player,
-					msg0_local_position,
-					msg1_local_position,
-					msg2_local_position,
-					msg0_network_position,
-					msg1_network_position,
-					msg2_network_position,
-					msg0_time,
-					msg1_time,
-					msg2_time,
-					getCurrentTime(clock, offset),
-					lerp_mode);
-
-			if (lerp_mode)
-			{
-				// add lerped to the history of the local posistions
-				Message player_lerp_position_msg;
-				player_lerp_position_msg.player_position.x = player_lerp_position.x;
-				player_lerp_position_msg.player_position.y = player_lerp_position.y;
-				player_lerp_position_msg.time = getCurrentTime(clock, offset);
-
-				player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
-			}
-	}
+	enemyLinearPrediciton();
+	playerQuadraticPrediction();
+	enemyQuadraticPrediction();
 
 	// increase fps
 	fps++;
 }
-
-	// PLAYER QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
-	if (quadratic_prediction &&
-		player_quadratic_prediction.network_message_history.size() == player_quadratic_prediction.quadratic_message_number &&
-		player_quadratic_prediction.local_message_history.size() == player_quadratic_prediction.quadratic_message_number)
-	{
-		// HISTORY OF LOCAL POSITIONS
-		sf::Vector2f msg0_local_position(player_quadratic_prediction.local_message_history.at(0).player_position.x,
-			player_quadratic_prediction.local_message_history.at(0).player_position.y);
-		sf::Vector2f msg1_local_position(player_quadratic_prediction.local_message_history.at(1).player_position.x,
-			player_quadratic_prediction.local_message_history.at(1).player_position.y);
-		sf::Vector2f msg2_local_position(player_quadratic_prediction.local_message_history.at(2).player_position.x,
-			player_quadratic_prediction.local_message_history.at(2).player_position.y);
-		// HISTORY OF NETWORK POSITIONS
-		sf::Vector2f msg0_network_position(player_quadratic_prediction.network_message_history.at(0).player_position.x,
-			player_quadratic_prediction.network_message_history.at(0).player_position.y);
-		sf::Vector2f msg1_network_position(player_quadratic_prediction.network_message_history.at(1).player_position.x,
-			player_quadratic_prediction.network_message_history.at(1).player_position.y);
-		sf::Vector2f msg2_network_position(player_quadratic_prediction.network_message_history.at(2).player_position.x,
-			player_quadratic_prediction.network_message_history.at(2).player_position.y);
-		// HISTORY OF TIME STAMPS
-		float msg0_time = player_quadratic_prediction.local_message_history.at(0).time;
-		float msg1_time = player_quadratic_prediction.local_message_history.at(1).time;
-		float msg2_time = player_quadratic_prediction.local_message_history.at(2).time;
-
-		sf::Vector2f player_lerp_position =
-			player_quadratic_prediction.quadraticInterpolation(
-				player,
-				msg0_local_position,
-				msg1_local_position,
-				msg2_local_position,
-				msg0_network_position,
-				msg1_network_position,
-				msg2_network_position,
-				msg0_time,
-				msg1_time,
-				msg2_time,
-				getCurrentTime(clock, offset),
-				lerp_mode);
-
-		if (lerp_mode)
-		{
-			// add lerped to the history of the local posistions
-			Message player_lerp_position_msg;
-			player_lerp_position_msg.player_position.x = player_lerp_position.x;
-			player_lerp_position_msg.player_position.y = player_lerp_position.y;
-			player_lerp_position_msg.time = getCurrentTime(clock, offset);
-
-			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
-		}
-	}
-
-	// ENEMY QUADRATIC PREDICTION // start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
-	if (quadratic_prediction &&
-		enemy_quadratic_prediction.network_message_history.size() == enemy_quadratic_prediction.quadratic_message_number &&
-		enemy_quadratic_prediction.local_message_history.size() == enemy_quadratic_prediction.quadratic_message_number)
-	{
-		// HISTORY OF LOCAL POSITIONS
-		sf::Vector2f msg0_local_position(enemy_quadratic_prediction.local_message_history.at(0).enemy_position.x,
-			enemy_quadratic_prediction.local_message_history.at(0).enemy_position.y);
-		sf::Vector2f msg1_local_position(enemy_quadratic_prediction.local_message_history.at(1).enemy_position.x,
-			enemy_quadratic_prediction.local_message_history.at(1).enemy_position.y);
-		sf::Vector2f msg2_local_position(enemy_quadratic_prediction.local_message_history.at(2).enemy_position.x,
-			enemy_quadratic_prediction.local_message_history.at(2).enemy_position.y);
-		// HISTORY OF NETWORK POSITIONS
-		sf::Vector2f msg0_network_position(enemy_quadratic_prediction.network_message_history.at(0).enemy_position.x,
-			enemy_quadratic_prediction.network_message_history.at(0).enemy_position.y);
-		sf::Vector2f msg1_network_position(enemy_quadratic_prediction.network_message_history.at(1).enemy_position.x,
-			enemy_quadratic_prediction.network_message_history.at(1).enemy_position.y);
-		sf::Vector2f msg2_network_position(enemy_quadratic_prediction.network_message_history.at(2).enemy_position.x,
-			enemy_quadratic_prediction.network_message_history.at(2).enemy_position.y);
-		// HISTORY OF TIME STAMPS
-		float msg0_time = enemy_quadratic_prediction.local_message_history.at(0).time;
-		float msg1_time = enemy_quadratic_prediction.local_message_history.at(1).time;
-		float msg2_time = enemy_quadratic_prediction.local_message_history.at(2).time;
-
-		sf::Vector2f enemy_lerp_position =
-			enemy_quadratic_prediction.quadraticInterpolation(
-				enemy,
-				msg0_local_position,
-				msg1_local_position,
-				msg2_local_position,
-				msg0_network_position,
-				msg1_network_position,
-				msg2_network_position,
-				msg0_time,
-				msg1_time,
-				msg2_time,
-				getCurrentTime(clock, offset),
-				lerp_mode);
-
-		if (lerp_mode)
-		{
-			// add lerped to the history of the local posistions
-			Message enemy_lerp_position_msg;
-			enemy_lerp_position_msg.enemy_position.x = enemy_lerp_position.x;
-			enemy_lerp_position_msg.enemy_position.y = enemy_lerp_position.y;
-			enemy_lerp_position_msg.time = getCurrentTime(clock, offset);
-
-			enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_lerp_position_msg);
-		}
-	}
-
-		// increase fps
-		fps++;
-	}
 
 /*
  void GameClientState::update()

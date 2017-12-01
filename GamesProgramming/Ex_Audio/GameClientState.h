@@ -27,6 +27,9 @@ private:
 	// keep track of the current port
 	//unsigned short port;
 	void playerLinearPrediction();
+	void enemyLinearPrediciton();
+	void playerQuadraticPrediction();
+	void enemyQuadraticPrediction();
 
 	bool clocks_synced = false;
 	void sendPacketToServer(const bool& debug_mode);
