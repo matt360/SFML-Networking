@@ -25,5 +25,5 @@ protected:
 	void receivePacket(sf::Packet& packet_receive);
 
 	// receive and send messages to the client (in that order)
-	void sendMessageToClient(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const bool& debug_mode);
+	void sendMessageToClient(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const unsigned short& port, const bool& debug_mode);
 };

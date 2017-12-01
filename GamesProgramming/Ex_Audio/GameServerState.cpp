@@ -239,6 +239,6 @@ void GameServerState::update()
 	}
 
 	// server should probably keep listening and sending all the time
-	sendMessageToClient(player, enemy, clock, debug_mode);
+	for (auto& port : addresses) { sendMessageToClient(player, enemy, clock, port, debug_mode); }
 }
 

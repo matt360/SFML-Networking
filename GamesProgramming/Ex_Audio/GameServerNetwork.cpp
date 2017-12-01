@@ -43,7 +43,7 @@ sf::Packet GameServerNetwork::groupIntoPacket(const Message& message_send)
 }
 
 // Wait for a message, send an answer.
-void GameServerNetwork::sendMessageToClient(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::sendMessageToClient(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const unsigned short& port, const bool& debug_mode)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) 
@@ -58,7 +58,7 @@ void GameServerNetwork::sendMessageToClient(const Sprite& player, const Sprite& 
 
 	// Send it over the network
 	//switch (socket.send(packet_send, Network::ip_address, Network::port))
-	switch (socket.send(send_packet, Network::ip_address, Network::port))
+	switch (socket.send(send_packet, Network::ip_address, port))
 	{
 	case sf::Socket::Partial:
 		// 
