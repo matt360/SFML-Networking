@@ -286,6 +286,6 @@ void GameServerState::update()
 	}
 
 	// server should probably keep listening and sending all the time
-	runUdpServer(player, enemy, clock, debug_mode);
+	sendMessageToClient(player, enemy, clock, debug_mode);
 }
 

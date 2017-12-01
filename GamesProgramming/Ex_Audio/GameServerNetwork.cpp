@@ -43,7 +43,7 @@ sf::Packet GameServerNetwork::groupIntoPacket(const Message& message_send)
 }
 
 // Wait for a message, send an answer.
-void GameServerNetwork::runUdpServer(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const bool& debug_mode)
+void GameServerNetwork::sendMessageToClient(const Sprite& player, const Sprite& enemy, const sf::Clock& clock, const bool& debug_mode)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) 
