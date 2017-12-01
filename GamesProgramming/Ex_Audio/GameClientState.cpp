@@ -403,15 +403,33 @@ void GameClientState::update()
 	}
 
 	// start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
-	/*if (linear_prediction &&
+	if (linear_prediction &&
 		enemy_linear_prediction.linear_network_positions.size() == enemy_linear_prediction.linear_message_number &&
 		enemy_linear_prediction.linear_local_positions.size() == enemy_linear_prediction.linear_message_number)
-		enemy_linear_prediction.linearInterpolation(enemy,
-			enemy_linear_prediction.linear_local_positions,
-			enemy_linear_prediction.linear_network_positions,
-			getCurrentTime(clock, offset),
-			lerp_mode);*/
+	{
+		sf::Vector2f msg0_local_position(enemy_linear_prediction.linear_local_positions.front().enemy_position.x,
+			enemy_linear_prediction.linear_local_positions.front().enemy_position.y);
+		sf::Vector2f masg1_local_position(enemy_linear_prediction.linear_local_positions.back().enemy_position.x,
+			enemy_linear_prediction.linear_local_positions.back().enemy_position.y);
+		sf::Vector2f msg0_network_position(enemy_linear_prediction.linear_network_positions.front().enemy_position.x,
+			enemy_linear_prediction.linear_network_positions.front().enemy_position.y);
+		sf::Vector2f msg1_network_position(enemy_linear_prediction.linear_network_positions.back().enemy_position.x,
+			enemy_linear_prediction.linear_network_positions.back().enemy_position.y);
+		float msg0_time = enemy_linear_prediction.linear_local_positions.front().time;
+		float msg1_time = enemy_linear_prediction.linear_local_positions.back().time;
 
+
+
+		enemy_linear_prediction.linearInterpolation(enemy,
+			msg0_local_position,
+			masg1_local_position,
+			msg0_network_position,
+			msg1_network_position,
+			msg0_time,
+			msg1_time,
+			getCurrentTime(clock, offset),
+			lerp_mode);
+	}
 	// start the quadratic prediction only if the queue of local and network positions is full and the quadratic mode is on
 	if (quadratic_prediction && 
 		player_quadratic_prediction.quadratic_network_positions.size() == player_quadratic_prediction.quadratic_message_number && 
