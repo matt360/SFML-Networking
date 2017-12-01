@@ -105,29 +105,6 @@ void main(int argc, char** argv[])
 			window.close();
 		}
 
-		/*if (input.isKeyDown(sf::Keyboard::Pause))
-		{
-			input.setKeyUp(sf::Keyboard::Pause);
-			pause = !pause;
-
-			if (pause)
-			{
-				state = GameStateEnum::PAUSE;
-			}
-			else
-			{
-				switch (state)
-				{
-				case (GameStateEnum::GAME_CLIENT):
-					state = GameStateEnum::GAME_CLIENT;
-					break;
-				case (GameStateEnum::GAME_SERVER):
-					state = GameStateEnum::GAME_SERVER;
-					break;
-				}
-			}
-		}*/
-
 		// game loop
 		// Update/Render object based on current game state
 
@@ -152,22 +129,6 @@ void main(int argc, char** argv[])
 
 		case(GameStateEnum::GAME_CLIENT):
 			state = game_client;
-			break;
-
-		case(GameStateEnum::PAUSE) :
-			switch (state->getGameState())
-			{
-			case (GameStateEnum::GAME_CLIENT):
-				state = game_client;
-				break;
-			case (GameStateEnum::GAME_SERVER):
-				state = game_server;
-				break;
-			}
-			break;
-			
-		case(GameStateEnum::CREDITS) :
-			//...
 			break;
 		}
 
