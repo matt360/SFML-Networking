@@ -23,9 +23,12 @@ private:
 	std::map<unsigned short, unsigned short> addresses;
 	//std::vector<unsigned short> addresses_v;
 	int latestID = 0;
-
+	// is there a new connection?
 	bool new_connection = false;
-
+	uint8_t hertz = 0;
+	uint8_t hertz_rate = 0;
+	void setHertz();
+	
 	// display text
 	void displayText();
 

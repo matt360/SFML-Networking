@@ -63,6 +63,12 @@ void GameServerState::handleInput()
 		linear_prediction = !linear_prediction;
 		quadratic_prediction = !quadratic_prediction;
 	}
+
+	if (input->isKeyDown(sf::Keyboard::H))
+	{
+		input->setKeyUp(sf::Keyboard::H);
+		hertz_rate > 5 ? hertz_rate = 0 : hertz_rate++;
+	}
 }
 
 void GameServerState::render()
@@ -97,6 +103,37 @@ void GameServerState::displayText()
 
 	// display text
 	text.setString(ss.str());
+}
+
+void GameServerState::setHertz()
+{
+	switch (hertz_rate)
+	{
+	case 0:
+		// 30Hz
+		hertz = 2;
+		break;
+
+	case 1:
+		// 20Hz
+		hertz = 3;
+		break;
+
+	case 2:
+		// 15Hz
+		hertz = 4;
+		break;
+
+	case 3:
+		// 12Hz
+		hertz = 5;
+		break;
+
+	case 4:
+		// 10 Hz
+		hertz = 6;
+		break;
+	}
 }
 
 // SERVER //
@@ -226,6 +263,8 @@ void GameServerState::update()
 	// reset the counter because the game is locked at 60fps
 	if (frame > 60) frame = 0;
 
+	setHertz();
+
 	// display text
 	displayText();
 
@@ -245,7 +284,7 @@ void GameServerState::update()
 
 	// server should probably keep listening and sending all the time
 	// send messages at 15Hz
-	if (frame % 4 == 0)
+	if (frame % hertz == 0)
 	{
 		for (auto& pair : addresses)
 			sendMessageToClient(player, enemy, clock, pair.second, debug_mode);
