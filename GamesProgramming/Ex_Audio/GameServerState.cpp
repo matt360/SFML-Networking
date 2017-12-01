@@ -14,12 +14,14 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	text.setPosition(10, 0);
 	text.setString("");
 
+	// player
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&player_texture);
 	player.setPosition(250, 250);
 	player.setInput(input);
 	//player.setVelocity(5, 5);
 
+	// enemy
 	enemy.setSize(sf::Vector2f(32, 32));
 	enemy.setTexture(&enemy_texture);
 	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
