@@ -10,11 +10,10 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	debug_mode = false;
 	debug_message = false;
 
-	//font.loadFromFile("font/advanced_pixel-7.ttf");
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(10, 0);
-	text.setString("hellow world");
+	text.setString("");
 
 	texture.loadFromFile("gfx/MushroomTrans.png");
 
@@ -22,16 +21,6 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	player.setTexture(&texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
-	/*Message initial_player_message;
-	initial_player_message.player_position.x = initial_player_position.x;
-	initial_player_message.player_position.y = initial_player_position.y;
-
-	player_linear_prediction.local_message_history.push(initial_player_message);
-	player_linear_prediction.local_message_history.push(initial_player_message);
-
-	player_quadratic_prediction.local_message_history.push_front(initial_player_message);
-	player_quadratic_prediction.local_message_history.push_front(initial_player_message);
-	player_quadratic_prediction.local_message_history.push_front(initial_player_message);*/
 
 	enemy.setSize(sf::Vector2f(32, 32));
 	enemy.setTexture(&texture);
@@ -87,24 +76,6 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	level.setTileMap(map, mapSize);
 	level.setPosition(sf::Vector2f(0, 408));
 	level.buildLevel();
-
-
-	audioMgr.addMusic("sfx/cantina.wav", "cantina");
-	audioMgr.addMusic("sfx/hyrulefield.wav", "hyrule");
-
-	audioMgr.addSound("sfx/SMB_jump-small.wav", "jump");
-	audioMgr.addSound("sfx/SMB_1-up.wav", "up");
-	audioMgr.addSound("sfx/getover.wav", "getover");
-	audioMgr.addSound("sfx/TP_Secret.wav", "secret");
-	audioMgr.addSound("sfx/Glass_Break.wav", "glass");
-
-	hasStarted = false;
-	//audioMgr.playSoundbyName("cantina");
-
-	//	int err = buff.loadFromFile("sfx/cantina.ogg");
-	//soun.setBuffer(buff);
-	//soun.play();
-	//sf::Music music;
 }
 
 GameClientState::~GameClientState() {}
@@ -291,6 +262,28 @@ void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 
 	// ...wait for the answer
 	checkForIncomingPacketsFromServer(debug_mode);
+}
+
+// keep track of player's local positions for linear and quadratic prediction
+void GameClientState::keepTrackOfPlayerLocalPositions()
+{
+	Message player_local_message;
+	player_local_message.player_position.x = player.getPosition().x;
+	player_local_message.player_position.y = player.getPosition().y;
+	player_local_message.time = getCurrentTime(clock, offset);
+	player_linear_prediction.keepTrackOfLinearLocalPositoins(player_local_message);
+	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player_local_message);
+}
+
+// keep track of enemy's local positions for linear and quadratic prediction
+void GameClientState::keepTrackOfEnemyLocalPositions()
+{
+	Message enemy_local_message;
+	enemy_local_message.enemy_position.x = enemy.getPosition().x;
+	enemy_local_message.enemy_position.y = enemy.getPosition().y;
+	enemy_local_message.time = getCurrentTime(clock, offset);
+	enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_local_message);
+	enemy_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(enemy_local_message);
 }
 
 void GameClientState::playerLinearPrediction()
@@ -491,12 +484,6 @@ void GameClientState::update()
 {
 	if (fps > 60) fps = 0;
 
-	if (!hasStarted)
-	{
-		audioMgr.playMusicbyName("cantina");
-		hasStarted = true;
-	}
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// ESTABLISH NEW CONNECTION - ADD THE CLIENT TO THE CONNECTION LIST - DO IT ONLY ONCE
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -521,47 +508,9 @@ void GameClientState::update()
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// keep track of player's local positions for linear and quadratic prediction
-	Message player_local_message;
-	player_local_message.player_position.x = player.getPosition().x;
-	player_local_message.player_position.y = player.getPosition().y;
-	player_local_message.time = getCurrentTime(clock, offset);
-	player_linear_prediction.keepTrackOfLinearLocalPositoins(player_local_message);
-	player_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(player_local_message);
-
+	keepTrackOfPlayerLocalPositions();
 	// keep track of enemy's local positions for linear and quadratic prediction
-	Message enemy_local_message;
-	enemy_local_message.enemy_position.x = enemy.getPosition().x;
-	enemy_local_message.enemy_position.y = enemy.getPosition().y;
-	enemy_local_message.time = getCurrentTime(clock, offset);
-	enemy_linear_prediction.keepTrackOfLinearLocalPositoins(enemy_local_message);
-	enemy_quadratic_prediction.keepTrackOfQuadraticLocalPositoins(enemy_local_message);
-
-	if (input->isKeyDown(sf::Keyboard::Num1))
-	{
-		input->setKeyUp(sf::Keyboard::Num1);
-		audioMgr.playSoundbyName("up");
-	}
-
-	if (input->isKeyDown(sf::Keyboard::Num2))
-	{
-		input->setKeyUp(sf::Keyboard::Num2);
-		audioMgr.playSoundbyName("getover");
-	}
-	if (input->isKeyDown(sf::Keyboard::Num3))
-	{
-		input->setKeyUp(sf::Keyboard::Num3);
-		audioMgr.playSoundbyName("glass");
-	}
-	if (input->isKeyDown(sf::Keyboard::BackSpace))
-	{
-		input->setKeyUp(sf::Keyboard::BackSpace);
-		audioMgr.stopAllMusic();
-	}
-	if (input->isKeyDown(sf::Keyboard::Num4))
-	{
-		input->setKeyUp(sf::Keyboard::Num4);
-		audioMgr.playMusicbyName("hyrule");
-	}
+	keepTrackOfEnemyLocalPositions();
 
 	// send packets at 10Hz rate (at 10PFS)
 	//if ((int)fps % 6 == 0)
@@ -577,24 +526,3 @@ void GameClientState::update()
 	// increase fps
 	fps++;
 }
-
-/*
- void GameClientState::update()
-{
-// ESTABLISHED CONNECTION //
-std::string est_con_string;
-established_connection ? est_con_string = "YES" : est_con_string = "NO";
-
-if (ready && established_connection)
-{
-game_state = GameStateEnum::GAME_CLIENT;
-}
-if (input->isKeyDown(sf::Keyboard::Up))
-{
-input->setKeyUp(sf::Keyboard::Up);
-player.jump();
-audioMgr.playSoundbyName("jump");
-}
-player.update(dt);
-}
-*/

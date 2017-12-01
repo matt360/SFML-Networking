@@ -26,6 +26,10 @@ private:
 	//sf::IpAddress ip_address;
 	// keep track of the current port
 	//unsigned short port;
+
+	void keepTrackOfPlayerLocalPositions();
+	void keepTrackOfEnemyLocalPositions();
+
 	void playerLinearPrediction();
 	void enemyLinearPrediciton();
 	void playerQuadraticPrediction();
