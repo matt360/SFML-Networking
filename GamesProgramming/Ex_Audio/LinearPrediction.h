@@ -15,10 +15,10 @@ public:
 	// number of messages to keep track of
 	const unsigned int linear_message_number = 2;
 
-	// history of sprite's local positions
-	std::queue<Message> linear_local_positions;
+	// history of messages used for linear interpolation
+	std::queue<Message> local_message_history;
 	// history of sprite's network positions
-	std::queue<Message> linear_network_positions;
+	std::queue<Message> network_message_history;
 
 	void keepTrackOfLinearLocalPositoins(const Message & local_message);
 	void keepTrackOfLinearNetworkPositions(const Message& message_receive);

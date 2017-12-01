@@ -6,14 +6,14 @@ LinearPrediction::~LinearPrediction() {}
 
 void LinearPrediction::keepTrackOfLinearLocalPositoins(const Message& local_message)
 {
-	if (linear_local_positions.size() >= linear_message_number) linear_local_positions.pop();
-	linear_local_positions.push(local_message);
+	if (local_message_history.size() >= linear_message_number) local_message_history.pop();
+	local_message_history.push(local_message);
 }
 
 void LinearPrediction::keepTrackOfLinearNetworkPositions(const Message& message_receive)
 {
-	if (linear_network_positions.size() >= linear_message_number) linear_network_positions.pop();
-	linear_network_positions.push(message_receive);
+	if (network_message_history.size() >= linear_message_number) network_message_history.pop();
+	network_message_history.push(message_receive);
 }
 
 sf::Vector2f LinearPrediction::predictLinearLocalPath(sf::Vector2f& msg0_local_position, sf::Vector2f& masg1_local_position, 
