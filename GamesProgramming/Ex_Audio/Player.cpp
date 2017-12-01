@@ -33,7 +33,7 @@ void Player::update()
 		velocity.x = 0;
 		velocity.y = 0;
 	}
-
+	
 	move(velocity);
 	updateAABB();
 }

@@ -286,12 +286,12 @@ void GameServerState::update()
 		syncClocksWithClient(debug_mode);
 
 	player.update();
+	if (player.getPosition().x > window->getSize().x) player.setVelocity(-15, 0);
+
 	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
 
 	if (checkSphereBounding(&player, &enemy))
-	{
 		player.collisionRespone(&enemy);
-	}
 
 	// server should probably keep listening and sending all the time
 	// send messages at 15Hz
