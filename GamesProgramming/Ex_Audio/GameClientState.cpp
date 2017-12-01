@@ -293,6 +293,48 @@ void GameClientState::establishConnectionWithServer(const bool& debug_mode)
 	checkForIncomingPacketsFromServer(debug_mode);
 }
 
+void GameClientState::playerLinearPrediction()
+{
+	// PLAYER LINEAR PREDICTION // start player's linear prediction only if the queue of local and network positions is full and the linear mode is on
+	if (linear_prediction &&
+		player_linear_prediction.network_message_history.size() == player_linear_prediction.linear_message_number &&
+		player_linear_prediction.local_message_history.size() == player_linear_prediction.linear_message_number)
+	{
+		sf::Vector2f msg0_local_position(player_linear_prediction.local_message_history.front().player_position.x,
+			player_linear_prediction.local_message_history.front().player_position.y);
+		sf::Vector2f msg1_local_position(player_linear_prediction.local_message_history.back().player_position.x,
+			player_linear_prediction.local_message_history.back().player_position.y);
+		sf::Vector2f msg0_network_position(player_linear_prediction.network_message_history.front().player_position.x,
+			player_linear_prediction.network_message_history.front().player_position.y);
+		sf::Vector2f msg1_network_position(player_linear_prediction.network_message_history.back().player_position.x,
+			player_linear_prediction.network_message_history.back().player_position.y);
+		float msg0_time = player_linear_prediction.network_message_history.front().time;
+		float msg1_time = player_linear_prediction.network_message_history.back().time;
+
+		sf::Vector2f player_lerp_position = player_linear_prediction.linearInterpolation(
+			player,
+			msg0_local_position,
+			msg1_local_position,
+			msg0_network_position,
+			msg1_network_position,
+			msg0_time,
+			msg1_time,
+			getCurrentTime(clock, offset),
+			lerp_mode);
+
+		if (lerp_mode)
+		{
+			// add lerped to the history of the local posistions
+			Message player_lerp_position_msg;
+			player_lerp_position_msg.player_position.x = player_lerp_position.x;
+			player_lerp_position_msg.player_position.y = player_lerp_position.y;
+			player_lerp_position_msg.time = getCurrentTime(clock, offset);
+
+			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
+		}
+	}
+}
+
 void GameClientState::update()
 {
 	if (fps > 60) fps = 0;
@@ -375,45 +417,8 @@ void GameClientState::update()
 	//if ((int)fps % 2 == 0)
 	checkForIncomingPackets(debug_mode);
 
-	// PLAYER LINEAR PREDICTION // start player's linear prediction only if the queue of local and network positions is full and the linear mode is on
-	if (linear_prediction &&
-		player_linear_prediction.network_message_history.size() == player_linear_prediction.linear_message_number &&
-		player_linear_prediction.local_message_history.size() == player_linear_prediction.linear_message_number)
-	{
-		sf::Vector2f msg0_local_position(player_linear_prediction.local_message_history.front().player_position.x,
-			player_linear_prediction.local_message_history.front().player_position.y);
-		sf::Vector2f msg1_local_position(player_linear_prediction.local_message_history.back().player_position.x,
-			player_linear_prediction.local_message_history.back().player_position.y);
-		sf::Vector2f msg0_network_position(player_linear_prediction.network_message_history.front().player_position.x,
-			player_linear_prediction.network_message_history.front().player_position.y);
-		sf::Vector2f msg1_network_position(player_linear_prediction.network_message_history.back().player_position.x,
-			player_linear_prediction.network_message_history.back().player_position.y);
-		float msg0_time = player_linear_prediction.network_message_history.front().time;
-		float msg1_time = player_linear_prediction.network_message_history.back().time;
-
-		sf::Vector2f player_lerp_position = player_linear_prediction.linearInterpolation(
-			player,
-			msg0_local_position,
-			msg1_local_position,
-			msg0_network_position,
-			msg1_network_position,
-			msg0_time,
-			msg1_time,
-			getCurrentTime(clock, offset),
-			lerp_mode);
-
-		if (lerp_mode)
-		{
-			// add lerped to the history of the local posistions
-			Message player_lerp_position_msg;
-			player_lerp_position_msg.player_position.x = player_lerp_position.x;
-			player_lerp_position_msg.player_position.y = player_lerp_position.y;
-			player_lerp_position_msg.time = getCurrentTime(clock, offset);
-
-			player_linear_prediction.keepTrackOfLinearLocalPositoins(player_lerp_position_msg);
-		}
-	}
-
+	playerLinearPrediction();
+	
 	// ENEMY LINEAR PREDICTION // start enemny's linear prediction only if the queue of local and network positions is full and the linear mode is on
 	if (linear_prediction &&
 		enemy_linear_prediction.network_message_history.size() == enemy_linear_prediction.linear_message_number &&

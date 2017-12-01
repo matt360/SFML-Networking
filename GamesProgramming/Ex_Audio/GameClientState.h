@@ -26,6 +26,7 @@ private:
 	//sf::IpAddress ip_address;
 	// keep track of the current port
 	//unsigned short port;
+	void playerLinearPrediction();
 
 	bool clocks_synced = false;
 	void sendPacketToServer(const bool& debug_mode);
