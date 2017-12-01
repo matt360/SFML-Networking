@@ -21,7 +21,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	//player.setVelocity(5, 5);
 
 	enemy.setSize(sf::Vector2f(32, 32));
-	enemy.setTexture(&player_texture);
+	enemy.setTexture(&enemy_texture);
 	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
 	//enemy.setVelocity(3, 3);
 

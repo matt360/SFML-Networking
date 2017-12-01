@@ -15,14 +15,19 @@ GameClientState::GameClientState(sf::RenderWindow* hwnd, Input* in)
 	text.setPosition(10, 0);
 	text.setString("");
 
+	
+
 	player.setSize(sf::Vector2f(32, 32));
 	player.setTexture(&player_texture);
 	sf::Vector2f initial_player_position(5.0f, 5.0f);
 	player.setPosition(initial_player_position);
 
+	// enemy
+	
 	enemy.setSize(sf::Vector2f(32, 32));
-	enemy.setTexture(&player_texture);
-	enemy.setPosition(window->getSize().x - 100, window->getSize().y - 100);
+	enemy.setTexture(&enemy_texture);
+	enemy.setPosition(800, 500);
+
 
 	//window->setMouseCursorVisible(false);
 

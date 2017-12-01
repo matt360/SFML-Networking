@@ -2,7 +2,20 @@
 
 GameState::GameState()
 {
+	// player
 	player_texture.loadFromFile("gfx/MushroomTrans.png");
+	player.setSize(sf::Vector2f(32, 32));
+	player.setTexture(&player_texture);
+	sf::Vector2f initial_player_position(5.0f, 5.0f);
+	player.setPosition(initial_player_position);
+
+	// enemy
+	enemy_texture.loadFromFile("gfx/MushroomTrans.png");
+	enemy.setSize(sf::Vector2f(32, 32));
+	enemy.setTexture(&enemy_texture);
+	enemy.setPosition(800, 500);
+
+
 
 	fps = 0;
 }
