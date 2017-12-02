@@ -40,7 +40,6 @@ private:
 	void endDraw();
 
 	bool debug_mode;
-	bool debug_message;
 
 	inline float lerp(float start, float end, float time)
 	{

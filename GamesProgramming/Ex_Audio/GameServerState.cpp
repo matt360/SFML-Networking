@@ -7,8 +7,7 @@ GameServerState::GameServerState(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	debug_mode = false;
-	debug_message = false;
-
+	
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(10, 0);
@@ -43,12 +42,6 @@ void GameServerState::handleInput()
 	{
 		input->setKeyUp(sf::Keyboard::D);
 		debug_mode = !debug_mode;
-	}
-	// toggle debug messages to display messages
-	if (input->isKeyDown(sf::Keyboard::M))
-	{
-		input->setKeyUp(sf::Keyboard::M);
-		debug_message = !debug_message;
 	}
 
 	// toggle lerp mode
