@@ -1,12 +1,18 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
-// Application based on Paul Robertson's (p.robertson@abertay.ac.uk) CMP105 SFML Framework:
-// Audio, System, in App: Map and Player, in Main.cpp: the state machine has been changed a lot.
+// Application based on Paul Robertson's (p.robertson@abertay.ac.uk) CMP105 SFML Framework
+// with changes made by Matthew Wallace (1502616@abertayac.uk):
+// Audio: no changes
+// App: changes to the Player class, new Enemy class based on the previous Player class.
+// System: Main.cpp game state machine has been changed a lot
+//
+// Developed by Matthew Wallace and based on Adam Sampson's (a.sampson@abertay.ac.uk) lab exercises with
+// a lot of help and insight from him: 
+// Network: entirely new
+// Game: entirely new
+// App: added: MenuState, NetworkSelect, NetworkSelectState
 // Original game logic (Collision detection, Player class (modified), window and input)
 // has been broken up into GameState class and State class with most of
 // the original code kept it kept in the GameState class.
-// The new game, Networking, state machine in the main.cpp and State Handlers developed 
-// by Matthew Wallace (1502616@abertay.ac.uk)
-// For clarity of assessment all the functions developed by Paul Robertson has been collapsed.
 
 // Your application must demonstrate : 
 // • a simulated world containing two or more moveable objects, at least one of which must be controllable by the user; 
