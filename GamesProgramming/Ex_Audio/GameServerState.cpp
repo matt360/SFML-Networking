@@ -70,6 +70,12 @@ void GameServerState::handleInput()
 		input->setKeyUp(sf::Keyboard::H);
 		hertz < 5 ? hertz++ : hertz = 0;
 	}
+
+	if (input->isKeyDown(sf::Keyboard::C))
+	{
+		input->setKeyUp(sf::Keyboard::C);
+		established_connection = false;
+	}
 }
 
 void GameServerState::render()
