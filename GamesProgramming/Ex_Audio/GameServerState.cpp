@@ -149,6 +149,7 @@ void GameServerState::displayText()
 
 	ss << "LERP MODE: " << lerp_mode << " LINEAR PREDICTION: " << linear_prediction << " QUADRATIC PREDICTION: " << quadratic_prediction << "\n"
 		<< "IP: " << Network::ip_address.getLocalAddress() << " PORT: " << Network::socket.getLocalPort() << " SEND MSG AT: " << hertz_string << "Hz" << " CLOCK: " << getCurrentTime(clock, offset) << "\n"
+		<< "NUMBER OF CLIENTS: " << addresses.size() << "\n"
 		<< "PLAYER ALIVE: " << player.isAlive();
 
 	// display text
