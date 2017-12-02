@@ -25,7 +25,7 @@ private:
 	int latestID = 0;
 	// is there a new connection?
 	bool new_connection = false;
-	unsigned short hertz = 5;
+	unsigned short hertz = 0;
 	unsigned short hertz_rate = 0;
 	std::string hertz_string = "";
 	void setHertz();
@@ -33,7 +33,7 @@ private:
 	// display text
 	void displayText();
 	//
-	void keepPlayerWithinWindow();
+	void keepSpriteWithinWindow(Sprite& sprite);
 
 	// window
 	void beginDraw();

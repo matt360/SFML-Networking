@@ -111,15 +111,15 @@ void GameServerState::setHertz()
 	switch (hertz)
 	{
 	case 0:
-		// 30Hz
-		hertz_rate = 2;
-		hertz_string = "30";
+		// 10 Hz
+		hertz_rate = 6;
+		hertz_string = "10";
 		break;
 
 	case 1:
-		// 20Hz
-		hertz_rate = 3;
-		hertz_string = "20";
+		// 12Hz
+		hertz_rate = 5;
+		hertz_string = "12";
 		break;
 
 	case 2:
@@ -129,19 +129,19 @@ void GameServerState::setHertz()
 		break;
 
 	case 3:
-		// 12Hz
-		hertz_rate = 5;
-		hertz_string = "12";
+		// 20Hz
+		hertz_rate = 3;
+		hertz_string = "20";
 		break;
 
 	case 4:
-		// 10 Hz
-		hertz_rate = 6;
-		hertz_string = "10";
+		// 30Hz
+		hertz_rate = 2;
+		hertz_string = "30";
 		break;
 
 	case 5:
-		// 10 Hz
+		// 60 Hz
 		hertz_rate = 1;
 		hertz_string = "60";
 		break;
@@ -162,14 +162,14 @@ void GameServerState::displayText()
 	text.setString(ss.str());
 }
 
-void GameServerState::keepPlayerWithinWindow()
+void GameServerState::keepSpriteWithinWindow(Sprite& sprite)
 {
-	// keep the player within window's x
-	if (player.getPosition().x > window->getSize().x - player.getSize().x) player.setVelocity(-15, 0);
-	if (player.getPosition().x < 0) player.setVelocity(15, 0);
-	// keep the player within window's y
-	if (player.getPosition().y > window->getSize().y - player.getSize().y) player.setVelocity(0, -15);
-	if (player.getPosition().y < 0) player.setVelocity(0, 15);
+	// keep the sprite within window's x
+	if (sprite.getPosition().x > window->getSize().x - sprite.getSize().x) sprite.setVelocity(-15, 0);
+	if (sprite.getPosition().x < 0) sprite.setVelocity(15, 0);
+	// keep the sprite within window's y
+	if (sprite.getPosition().y > window->getSize().y - sprite.getSize().y) sprite.setVelocity(0, -15);
+	if (sprite.getPosition().y < 0) sprite.setVelocity(0, 15);
 }
 
 // SERVER //
@@ -304,14 +304,16 @@ void GameServerState::update()
 	// display text
 	displayText();
 
-	// CHECK FOR NEW CLIENT TO CONNECT. Currently working only with one client.
-	// WITHOUT established_connection THE CLIENT WILL NOT RESPOND AND ITS SOCKET WILL RETURN NOTREADY
-	// AND THE SERVERS SOCKET WILL RETURN ERROR
+	// CONNECT A NEW CLIENT
+	// WITHOUT established_connection THE CLIENT WILL NOT RESPOND AND ITS SOCKET WILL RETURN NOTREADY AND THE SERVERS SOCKET WILL RETURN ERROR
 	if (!established_connection)
 		syncClocksWithClient(debug_mode);
 
 	player.update();
-	keepPlayerWithinWindow();
+	// keep the player within the window
+	keepSpriteWithinWindow(player);
+	// keep the enemy within the window
+	keepSpriteWithinWindow(enemy);
 
 	enemy.setPosition(lerp(enemy.getPosition(), player.getPosition(), 0.01));
 
