@@ -76,6 +76,12 @@ void GameServerState::handleInput()
 		input->setKeyUp(sf::Keyboard::C);
 		established_connection = false;
 	}
+
+	if (input->isKeyDown(sf::Keyboard::R))
+	{
+		input->setKeyUp(sf::Keyboard::R);
+		player.setAlive(true);
+	}
 }
 
 void GameServerState::render()
