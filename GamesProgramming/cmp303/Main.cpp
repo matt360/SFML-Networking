@@ -2,23 +2,20 @@
 // Application based on Paul Robertson's (p.robertson@abertay.ac.uk) CMP105 SFML Framework
 // with changes made by Matthew Wallace (1502616@abertayac.uk):
 // Audio: no changes
-// App: changes to the Player class, new Enemy class based on the previous Player class.
-// System: Main.cpp game state machine has been changed a lot
+// App: new: Enemy class (based on the previous Player class); changes: Player class.
+// System: Main.cpp game state machine changed a lot
 //
 // Developed by Matthew Wallace and based on Adam Sampson's (a.sampson@abertay.ac.uk) lab exercises with
-// a lot of help and insight from him: 
-// Network: entirely new
-// Game: entirely new
+// his help and insight: 
+// Network: new
+// Game: new
 // App: added: MenuState, NetworkSelect, NetworkSelectState
-// Original game logic (Collision detection, Player class (modified), window and input)
-// has been broken up into GameState class and State class with most of
-// the original code kept it kept in the GameState class.
 
-// Your application must demonstrate : 
-// • a simulated world containing two or more moveable objects, at least one of which must be controllable by the user; 
-// • network communication between machines(running either multiple copies of the same program, or two or more different programs); 
+// Application demonstrates: 
+// • a simulated world containing two moveable objects, of which one is controllable by the user; 
+// • network communication between machines (running multiple copies of the same program);
 // • synchronisation of objects' positions between the machines, so that all machines are capable of showing a consistent view of the game world; 
-// • using appropriate prediction and/or interpolation techniques to maintain smoothlysynchronised movement even 
+// • using appropriate prediction and interpolation techniques to maintain smoothlysynchronised movement even 
 //   when the network connection is affected by latency. 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
