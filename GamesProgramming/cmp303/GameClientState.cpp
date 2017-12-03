@@ -414,7 +414,6 @@ void GameClientState::syncClockWithServer(const bool& debug_mode)
 		{
 			// Data extracted successfully...
 			// Deal with the messages from the packet
-			std::cout << "send_packet is false" << "\n";
 			// end timing latency
 			end_timing_latency = clock.getElapsedTime().asMilliseconds();
 			std::cout << "end_timing_latency: " << end_timing_latency << "\n";
@@ -426,6 +425,7 @@ void GameClientState::syncClockWithServer(const bool& debug_mode)
 			// server_time from the message
 			offset = ((server_time + (0.5 * latency)) - client_time);
 			std::cout << "offset: " << offset << "\n";
+			std::cout << "clocks synced" << "\n";
 
 			clocks_synced = true;
 

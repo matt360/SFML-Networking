@@ -9,7 +9,7 @@ Menu::Menu(sf::RenderWindow* hwnd, Input* in)
 	text.setFont(font);
 	text.setCharacterSize(32);
 	text.setPosition(200, 100);
-	text.setString("PLACEHOLDER TITLE\n\nPress Enter to Play");
+	text.setString("THE GREAT MUSHROOM CHASE\n\nNOW WITH OBSERVER MODE!\n\nPress Enter to Proceed");
 }
 
 Menu::~Menu()
