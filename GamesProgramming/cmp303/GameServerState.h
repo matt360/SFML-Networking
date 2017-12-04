@@ -18,7 +18,6 @@ private:
 	//Window m_window;
 
 	// ESTABLISH CONNECTION WITH THE CLIENT
-	void checkForClient();
 	void syncClocksWithClient(const bool& debug_mode);
 
 	//std::set<unsigned short> addresses;

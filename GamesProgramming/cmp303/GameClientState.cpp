@@ -334,7 +334,6 @@ void GameClientState::sayHelloToServer(const bool& debug_mode)
 		// allow for timing latency when the client is establishing the connection
 		//clocks_synced = false;
 		if (debug_mode) std::cout << "\nCLIENT: Can't send now\n";
-		std::cout << "send_packet is true" << "\n";
 		//if (debug_mode) 
 		return;
 
@@ -384,8 +383,6 @@ void GameClientState::syncClockWithServer(const bool& debug_mode)
 		case sf::Socket::Done:
 			// Received a packet.
 			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
-			//GameClientState::ip_address = Network::ip_address;
-			//GameClientState::port = Network::port;
 			break;
 
 		case sf::Socket::NotReady:

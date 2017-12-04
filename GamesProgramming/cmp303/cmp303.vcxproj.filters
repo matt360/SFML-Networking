@@ -116,12 +116,6 @@
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkSelect.cpp">
-      <Filter>Source Files\App</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkSelectState.cpp">
-      <Filter>Source Files\App</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
@@ -161,6 +155,12 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkSelect.cpp">
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSelectState.cpp">
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
@@ -199,12 +199,6 @@
     <ClInclude Include="MenuState.h">
       <Filter>Header Files\App</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkSelectState.h">
-      <Filter>Header Files\App</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkSelect.h">
-      <Filter>Header Files\App</Filter>
-    </ClInclude>
     <ClInclude Include="Prediction.h">
       <Filter>Header Files\Network\Client\Prediction</Filter>
     </ClInclude>
@@ -240,6 +234,12 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelectState.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelect.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

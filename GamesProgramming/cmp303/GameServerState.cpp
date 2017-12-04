@@ -165,12 +165,6 @@ void GameServerState::keepSpriteWithinWindow(Sprite& sprite)
 	if (sprite.getPosition().y < 0) sprite.setVelocity(0, 15);
 }
 
-void GameServerState::checkForClient()
-{
-	if ((sf::Int32)clock.getElapsedTime().asSeconds() % 5 == 0)
-		established_connection = false;
-}
-
 // SERVER //
 void GameServerState::syncClocksWithClient(const bool& debug_mode)
 {
@@ -183,6 +177,7 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 	case sf::Socket::Partial:
 		// clear the packet if only part of the data was received
 		packet_receive.clear();
+		socket.setBlocking(false);
 		break;
 
 	case sf::Socket::Done:
@@ -206,24 +201,20 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
-		socket.setBlocking(false);
 		return;
 
 	case sf::Socket::Disconnected:
 		if (debug_mode) std::cout << "CLIENT: Disconnected\n";
-		socket.setBlocking(false);
 		return;
 
 	case sf::Socket::Error:
 		// Something went wrong.
 		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-		socket.setBlocking(false);
 		return;
 
 	default:
 		// Something went wrong.
 		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-		socket.setBlocking(false);
 		return;
 	}
 
@@ -272,31 +263,28 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 
 		case sf::Socket::Done:
 			// Received a packet.
-			new_connection = false;
 			if (debug_mode) std::cout << "\nCLIENT: Got one!\n";
+			new_connection = false;
+			socket.setBlocking(false);
 			break;
 
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
-			socket.setBlocking(false);
 			return;
 
 		case sf::Socket::Disconnected:
 			if (debug_mode) std::cout << "CLIENT: Disconnected\n";
-			socket.setBlocking(false);
 			return;
 
 		case sf::Socket::Error:
 			// Something went wrong.
 			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-			socket.setBlocking(false);
 			return;
 
 		default:
 			// Something went wrong.
 			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
-			socket.setBlocking(false);
 			return;
 		}
 	}
@@ -312,8 +300,6 @@ void GameServerState::update()
 
 	// display text
 	displayText();
-
-	//checkForClient();
 
 	// CONNECT A NEW CLIENT
 	// WITHOUT established_connection THE CLIENT WILL NOT RESPOND AND ITS SOCKET WILL RETURN NOTREADY AND THE SERVERS SOCKET WILL RETURN ERROR

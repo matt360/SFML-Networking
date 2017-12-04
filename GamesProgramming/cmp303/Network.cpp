@@ -29,11 +29,3 @@ void Network::displaySendMessage(sf::Int32 time)
 	// Data extracted successfully...
 	std::cout << "\nCLIENT: client's time: " << time;
 }
-
-//void NetworkClient::displayMessage(sf::Int32 time, const sf::IpAddress sender, const unsigned short sender_port)
-//{
-//	// Message FROM the server
-//	std::cout << "\nCLIENT: IP: " << sender;
-//	std::cout << "\nCLIENT: port: " << sender_port;
-//	std::cout << "\nCLIENT: time: " << time;
-//}
