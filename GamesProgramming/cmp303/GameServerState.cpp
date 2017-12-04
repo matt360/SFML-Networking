@@ -165,6 +165,10 @@ void GameServerState::keepSpriteWithinWindow(Sprite& sprite)
 	if (sprite.getPosition().y < 0) sprite.setVelocity(0, 15);
 }
 
+void GameServerState::checkForClient()
+{
+}
+
 // SERVER //
 void GameServerState::syncClocksWithClient(const bool& debug_mode)
 {
@@ -231,6 +235,8 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 		established_connection = hello;
 	}
 
+	// if tried to connect
+	established_connection = true;
 	/////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) MUST MATCH packet_receive in the NetworkClient //
 	/////////////////////////////////////////////////////////////////////////
@@ -296,6 +302,8 @@ void GameServerState::update()
 
 	// display text
 	displayText();
+
+	checkForClient();
 
 	// CONNECT A NEW CLIENT
 	// WITHOUT established_connection THE CLIENT WILL NOT RESPOND AND ITS SOCKET WILL RETURN NOTREADY AND THE SERVERS SOCKET WILL RETURN ERROR
