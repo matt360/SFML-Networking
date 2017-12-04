@@ -167,6 +167,8 @@ void GameServerState::keepSpriteWithinWindow(Sprite& sprite)
 
 void GameServerState::checkForClient()
 {
+	if ((sf::Int32)clock.getElapsedTime().asSeconds() % 5 == 0)
+		established_connection = false;
 }
 
 // SERVER //
@@ -204,20 +206,24 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 	case sf::Socket::NotReady:
 		// No more data to receive (yet).
 		if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+		socket.setBlocking(false);
 		return;
 
 	case sf::Socket::Disconnected:
 		if (debug_mode) std::cout << "CLIENT: Disconnected\n";
+		socket.setBlocking(false);
 		return;
 
 	case sf::Socket::Error:
 		// Something went wrong.
 		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		socket.setBlocking(false);
 		return;
 
 	default:
 		// Something went wrong.
 		if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+		socket.setBlocking(false);
 		return;
 	}
 
@@ -237,6 +243,7 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 
 	// if tried to connect
 	established_connection = true;
+
 	/////////////////////////////////////////////////////////////////////////
 	// SEND (to the client) MUST MATCH packet_receive in the NetworkClient //
 	/////////////////////////////////////////////////////////////////////////
@@ -272,24 +279,27 @@ void GameServerState::syncClocksWithClient(const bool& debug_mode)
 		case sf::Socket::NotReady:
 			// No more data to receive (yet).
 			if (debug_mode) std::cout << "\nCLIENT: No more data to receive now\n";
+			socket.setBlocking(false);
 			return;
 
 		case sf::Socket::Disconnected:
 			if (debug_mode) std::cout << "CLIENT: Disconnected\n";
+			socket.setBlocking(false);
 			return;
 
 		case sf::Socket::Error:
 			// Something went wrong.
 			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			socket.setBlocking(false);
 			return;
 
 		default:
 			// Something went wrong.
 			if (debug_mode) std::cout << "\nCLIENT: receive didn't return Done\n";
+			socket.setBlocking(false);
 			return;
 		}
 	}
-
 	/// Extract the variables contained in the packet
 }
 
@@ -303,7 +313,7 @@ void GameServerState::update()
 	// display text
 	displayText();
 
-	checkForClient();
+	//checkForClient();
 
 	// CONNECT A NEW CLIENT
 	// WITHOUT established_connection THE CLIENT WILL NOT RESPOND AND ITS SOCKET WILL RETURN NOTREADY AND THE SERVERS SOCKET WILL RETURN ERROR
