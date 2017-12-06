@@ -371,7 +371,6 @@ void GameClientState::syncClockWithServer(const bool& debug_mode)
 		///////////////////////////////////////////////////////////////////////////////
 		// SEND (What server is sending) MUST MATCH packet_send in the NetworkServer //
 		///////////////////////////////////////////////////////////////////////////////
-		// TODO where the address changes
 		sf::Packet packet_receive;
 		switch (socket.receive(packet_receive, Network::ip_address, Network::port))
 		{
@@ -437,8 +436,6 @@ void GameClientState::syncClocks(const bool& debug_mode)
 	// send message to the server...
 	if (!clocks_synced)
 	{
-		// set the lag
-		// TODO is lag good here? sf::sleep(sf::milliseconds(lag));
 		// start timing latency	
 		start_timing_latency = clock.getElapsedTime().asMilliseconds();
 		std::cout << "start_timing_latency: " << start_timing_latency << "\n";
