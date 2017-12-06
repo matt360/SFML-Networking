@@ -98,9 +98,6 @@
     <ClCompile Include="Vector.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="MusicObject.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
@@ -157,9 +154,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AudioManager.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>

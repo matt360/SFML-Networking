@@ -8,7 +8,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Map.h"
-#include "AudioManager.h"
 #include "Messages.h"
 #include "State.h"
 
@@ -20,8 +19,6 @@ public:
 
 protected:
 	unsigned short frame;
-
-	AudioManager audioMgr;
 
 	bool hasStarted;
 
