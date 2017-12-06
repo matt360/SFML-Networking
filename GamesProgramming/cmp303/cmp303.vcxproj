@@ -189,12 +189,10 @@
     <ClInclude Include="LinearPrediction.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Messages.h" />
-    <ClInclude Include="MusicObject.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="NetworkSelect.h" />
     <ClInclude Include="NetworkSelectState.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Vector.h" />
