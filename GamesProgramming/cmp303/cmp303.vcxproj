@@ -165,7 +165,6 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LinearPrediction.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="NetworkSelect.cpp" />
@@ -175,7 +174,6 @@
     <ClCompile Include="QuadraticPrediction.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="State.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +187,6 @@
     <ClInclude Include="QuadraticPrediction.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LinearPrediction.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Messages.h" />
     <ClInclude Include="MusicObject.h" />
@@ -200,7 +197,6 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="Tile.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
