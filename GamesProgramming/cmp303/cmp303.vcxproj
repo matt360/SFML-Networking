@@ -167,7 +167,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MenuState.cpp" />
-    <ClCompile Include="MusicObject.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="NetworkSelect.cpp" />
     <ClCompile Include="NetworkSelectState.cpp" />
