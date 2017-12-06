@@ -173,7 +173,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Prediction.cpp" />
     <ClCompile Include="QuadraticPrediction.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Tile.cpp" />
