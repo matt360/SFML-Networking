@@ -7,7 +7,6 @@
 #include "Input.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "AnimatedSprite.h"
 #include "Map.h"
 #include "AudioManager.h"
 #include "Messages.h"
