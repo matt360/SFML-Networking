@@ -89,9 +89,6 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="Vector.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
     <ClCompile Include="MenuState.cpp">
       <Filter>Source Files\App</Filter>
     </ClCompile>
@@ -143,9 +140,6 @@
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
