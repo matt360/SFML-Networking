@@ -9,7 +9,6 @@
 #include "LinearPrediction.h"
 #include "QuadraticPrediction.h"
 
-// TODO change the name to GameClientNetowrk
 class GameClientNetwork : public Network
 {
 public:
