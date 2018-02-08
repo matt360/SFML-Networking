@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{c91e2792-d2de-49e8-ac8a-27a6563674f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{dd1d1cee-7de0-4faa-b58c-34796517d6d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\App">
+      <UniqueIdentifier>{260cb200-9fd9-48ad-a20b-66600452bbcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\App">
+      <UniqueIdentifier>{72892e6e-bb3b-417b-aa9c-62b16dcd5583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{048a13f5-e4ed-46ba-bf3e-b3e9b38ff784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{980f0512-6b70-47c2-929d-df7aeb3587b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Client">
+      <UniqueIdentifier>{fda3499e-3c6b-4db7-b021-aabb1fec7730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Server">
+      <UniqueIdentifier>{0cae24ea-6ddd-41df-b199-28d621ae2482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Client &amp; Server">
+      <UniqueIdentifier>{4406d928-982c-4b3c-b785-2404e3462a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Client">
+      <UniqueIdentifier>{2d9f4c54-5cbf-4b41-9c5e-a5a00f85d9dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Server">
+      <UniqueIdentifier>{1e9825c0-e5ee-4e87-afba-fbdd7d92539a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Client &amp; Server">
+      <UniqueIdentifier>{ce7d6dcb-3a44-4307-a7e7-9a3df24d54d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Client\Prediction">
+      <UniqueIdentifier>{23863f21-17c2-4ddf-a244-271dc709aea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{8a73f630-7739-4587-8c80-09a8e52edc45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{125c79e0-c912-4481-9686-5d9fd0d2af5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Client">
+      <UniqueIdentifier>{612b97d5-d026-4966-a3a1-04078916caa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Server">
+      <UniqueIdentifier>{75cbd89b-d6a6-49a7-942c-ac6b9c9778a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Client &amp; Server">
+      <UniqueIdentifier>{12ce05af-c145-4fe4-bf2c-3cc985e101e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Client">
+      <UniqueIdentifier>{f57aeb47-c775-48ac-b243-11a849b76fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Server">
+      <UniqueIdentifier>{e67c4b95-6483-4a7a-91c1-6d87d7d4f58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Client &amp; Server">
+      <UniqueIdentifier>{cdc6e38a-ba88-431c-8ba5-b634cbd71d65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Client\Prediction">
+      <UniqueIdentifier>{750ecf6e-570c-4530-bcbe-57d2376def63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Client &amp; Server\Network">
+      <UniqueIdentifier>{dab59a8d-8800-4204-aa30-150293fb8fbd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearPrediction.cpp">
+      <Filter>Source Files\Game\Client\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadraticPrediction.cpp">
+      <Filter>Source Files\Game\Client\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="Prediction.cpp">
+      <Filter>Source Files\Game\Client\Prediction</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerState.cpp">
+      <Filter>Source Files\Game\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerNetwork.cpp">
+      <Filter>Source Files\Network\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientState.cpp">
+      <Filter>Source Files\Game\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClientNetwork.cpp">
+      <Filter>Source Files\Network\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files\Game\Client &amp; Server</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\Game\Client &amp; Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSelect.cpp">
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSelectState.cpp">
+      <Filter>Source Files\Network\Client &amp; Server\Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.h">
+      <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="Prediction.h">
+      <Filter>Header Files\Network\Client\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadraticPrediction.h">
+      <Filter>Header Files\Network\Client\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="LinearPrediction.h">
+      <Filter>Header Files\Network\Client\Prediction</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientState.h">
+      <Filter>Header Files\Game\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClientNetwork.h">
+      <Filter>Header Files\Network\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Messages.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files\Game\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\Game\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerState.h">
+      <Filter>Header Files\Game\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerNetwork.h">
+      <Filter>Header Files\Network\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelectState.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSelect.h">
+      <Filter>Header Files\Network\Client &amp; Server</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
