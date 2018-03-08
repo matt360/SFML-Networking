@@ -19,3 +19,4 @@ First `client` will connect automatically. If you want to connect more `client`s
 `client` input:
 
 `D` - display socket messages in the terminal.
+
